@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <color name="white">#ffffff</color>
+  <color name="white_90_percent">#e6ffffff</color>
+  <color name="white_70_percent">#b3ffffff</color>
+  <color name="white_50_percent">#80ffffff</color>
+  <color name="white_30_percent">#4dffffff</color>
+  <color name="white_12_percent">#1fffffff</color>
+
+  <color name="black">#000000</color>
+  <color name="black_87_percent">#de000000</color>
+  <color name="black_54_percent">#8a000000</color>
+  <color name="black_38_percent">#61000000</color>
+  <color name="black_12_percent">#1f000000</color>
+
+  <color name="amber_50">#fff8e1</color>
+  <color name="amber_100">#ffecb3</color>
+  <color name="amber_200">#ffe082</color>
+  <color name="amber_300">#ffd54f</color>
+  <color name="amber_500">#ffc107</color>
+  <color name="amber_700">#ffa000</color>
+  <color name="amber_800">#ff8f00</color>
+  <color name="amber_900">#ff6f00</color>
+  <color name="amber_1000">#ff4f00</color>
+
+  <color name="purple_50">#f3e5f5</color>
+  <color name="purple_100">#e1bee7</color>
+  <color name="purple_500">#9c27b0</color>
+  <color name="purple_900">#4a148c</color>
+  <color name="purple_950">#3a1184</color>
+  <color name="purple_1000">#2a0e7a</color>
+  <color name="purple_1050">#1a0b6f</color>
+  <color name="purple_1100">#120864</color>
+  <color name="purple_1150">#0a0558</color>
+  <color name="purple_1200">#03024c</color>
+
+  <color name="grey_300">#e0e0e0</color>
+  <color name="grey_500">#9e9e9e</color>
+  <color name="grey_700">#616161</color>
+  <color name="grey_900">#212121</color>
+
+  <color name="red_deep">#b00020</color>
+</resources>
