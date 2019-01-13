@@ -7,6 +7,8 @@ sealed class SkylightInfo
 /**
  * Represents a normal day, where dawn and dusk represent crossing civil twilight, and sunrise and sunset represent
  * crossing the horizon.
+ *
+ * TODO What about transition days that e.g. have a sunrise but no sunset?
  */
 data class Typical(
     val dawn: Date,

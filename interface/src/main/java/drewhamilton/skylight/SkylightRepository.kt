@@ -5,6 +5,7 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 import java.util.*
 
+// TODO Should probably be an interface?
 abstract class SkylightRepository {
 
   /**
@@ -14,6 +15,8 @@ abstract class SkylightRepository {
 
   /**
    * Gets [SkylightInfo] at the given [coordinates] for today and tomorrow.
+   *
+   * TODO Should be an extension function
    */
   fun getUpcomingSkylightInfo(coordinates: Coordinates): Flowable<SkylightInfo> =
       getSkylightInfo(coordinates, today())
@@ -21,6 +24,8 @@ abstract class SkylightRepository {
 
   /**
    * Returns whether it is light outside at the given [coordinates] at the given [dateTime].
+   *
+   * TODO Should be an extension function
    */
   fun isLight(coordinates: Coordinates, dateTime: Date): Single<Boolean> =
       getSkylightInfo(coordinates, dateTime)
