@@ -4,7 +4,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
-import drewhamilton.skylight.SkylightRepository
+import drewhamilton.skylight.AbstractSkylightRepository
 import drewhamilton.skylight.sso.BASE_URL_SUNRISE_SUNSET_ORG
 import drewhamilton.skylight.sso.SsoSkylightRepository
 import drewhamilton.skylight.sso.network.InfoClient
@@ -23,7 +23,7 @@ class SsoSkylightModule(private val httpLoggingInterceptor: HttpLoggingIntercept
 
   @Provides
   @Sso
-  fun skylightRepository(client: InfoClient): SkylightRepository = SsoSkylightRepository(client)
+  fun skylightRepository(client: InfoClient): AbstractSkylightRepository = SsoSkylightRepository(client)
 
   @Provides
   @Singleton
