@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="amsterdam_long">Amsterdam, Netherlands</string>
+    <string name="cary_long">Cary, Illinois</string>
+    <string name="findlay_long">Findlay, Ohio</string>
+    <string name="galliateLombardo_long">Galliate Lombardo, Italy</string>
+    <string name="madison_long">Madison, Wisconsin</string>
+    <string name="metz_long">Metz, France</string>
+    <string name="nashville_long">Nashville, Tennessee</string>
+    <string name="saintJoseph_long">Saint Joseph, Michigan</string>
+
+    <string name="amsterdam_short">Amsterdam</string>
+    <string name="cary_short">Cary</string>
+    <string name="findlay_short">Findlay, OH</string>
+    <string name="galliateLombardo_short">Galliate Lombardo</string>
+    <string name="madison_short">Madison</string>
+    <string name="metz_short">Metz</string>
+    <string name="nashville_short">Nashville</string>
+    <string name="saintJoseph_short">St. Joseph</string>
+</resources>
