@@ -12,7 +12,7 @@ import drewhamilton.skylight.RxSkylightRepository
 @Module(includes = [SsoSkylightModule::class])
 class UnqualifiedSsoSkylightModule {
 
-  @Provides
-  @Reusable
-  fun skylightRepository(@Sso skylightRepository: RxSkylightRepository) = skylightRepository
+    @Provides
+    @Reusable
+    fun skylightRepository(@Sso skylightRepository: RxSkylightRepository) = skylightRepository
 }
