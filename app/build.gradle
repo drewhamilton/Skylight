@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
   compileSdkVersion 28
   defaultConfig {
-    applicationId "drewhamilton.skylight.example"
+    applicationId "drewhamilton.skylight.sample"
     minSdkVersion 21
     targetSdkVersion 28
     versionCode 1
@@ -25,6 +25,7 @@ dependencies {
 
   implementation project(':interface')
   implementation project(':sso')
+  implementation project(':views')
 
   implementation 'androidx.core:core-ktx:1.0.1'
   implementation 'androidx.fragment:fragment-ktx:1.0.0'

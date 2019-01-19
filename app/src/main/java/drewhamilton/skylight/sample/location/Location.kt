@@ -2,8 +2,8 @@ package drewhamilton.skylight.sample.location
 
 import android.content.Context
 import androidx.annotation.StringRes
-import drewhamilton.skylight.R
 import drewhamilton.skylight.models.Coordinates
+import drewhamilton.skylight.sample.R
 
 data class Location(
     val longDisplayName: String,
