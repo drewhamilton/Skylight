@@ -1,13 +1,16 @@
 <resources>
 
-  <style name="AppTheme" parent="LightTheme">
+  <style name="AppTheme" parent="DarkTheme">
     <item name="colorPrimary">@color/primary</item>
     <item name="colorPrimaryDark">@color/primaryDark</item>
     <item name="colorSecondary">@color/secondary</item>
+    <item name="android:navigationBarColor">@color/primaryDark</item>
   </style>
 
   <style name="LightTheme" parent="Theme.MaterialComponents.Light.DarkActionBar" />
 
-  <style name="DarkTheme" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+  <style name="DarkTheme" parent="Theme.MaterialComponents">
+    <item name="android:windowBackground">@color/windowBackground</item>
+  </style>
 
 </resources>

@@ -23,6 +23,8 @@
       android:layout_height="0dp"
       android:layout_weight="1"
 
+      android:theme="@style/LightTheme"
+
       app:cardCornerRadius="@dimen/cornerRadius_card"
       app:cardBackgroundColor="@color/skylight_dawn"
       app:skylightEventLabelText="@string/dawn"
@@ -34,6 +36,8 @@
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_weight="1"
+
+      android:theme="@style/LightTheme"
 
       app:cardCornerRadius="@dimen/cornerRadius_card"
       app:cardBackgroundColor="@color/skylight_sunrise"
