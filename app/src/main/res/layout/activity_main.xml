@@ -15,7 +15,9 @@
   <androidx.appcompat.widget.AppCompatSpinner
       android:id="@+id/locationSelector"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
+      android:layout_height="wrap_content"
+
+      tools:listitem="@layout/item_spinner" />
 
   <drewhamilton.skylight.views.event.SkylightEventView
       android:id="@+id/dawn"

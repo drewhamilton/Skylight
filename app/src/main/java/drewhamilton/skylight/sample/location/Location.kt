@@ -9,7 +9,11 @@ data class Location(
     val longDisplayName: String,
     val shortDisplayName: String,
     val coordinates: Coordinates
-)
+) {
+    override fun toString(): String {
+        return longDisplayName
+    }
+}
 
 enum class ExampleLocation(
     @StringRes val longDisplayName: Int,

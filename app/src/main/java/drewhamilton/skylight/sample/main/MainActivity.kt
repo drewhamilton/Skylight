@@ -27,7 +27,11 @@ class MainActivity : RxActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val locationOptions = locationRepository.getLocationOptions()
+        locationSelector.adapter = LocationSpinnerAdapter(this, locationOptions)
         val location = locationRepository.getSelectedLocation()
+        locationSelector.setSelection(locationOptions.indexOf(location))
+
         skylightRepository.getSkylightInfo(location.coordinates, Date())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(Consumer { it.display() })
