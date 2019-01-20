@@ -58,8 +58,8 @@ class SkylightEventView : MaterialCardView {
     }
 }
 
-fun SkylightEventView.setTime(time: Date) = setTime(time, DateFormat.getTimeInstance(DateFormat.SHORT))
+fun SkylightEventView.setTime(time: Date?) = setTime(time, DateFormat.getTimeInstance(DateFormat.SHORT))
 
-fun SkylightEventView.setTime(dateTime: Date, format: DateFormat) {
-    timeText = format.format(dateTime)
+fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat) {
+    timeText = dateTime?.let { format.format(dateTime) } ?: ""
 }
