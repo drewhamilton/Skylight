@@ -1,3 +1,8 @@
 <resources>
-  <string name="app_name">Skylight</string>
+  <string name="app_name">Skylight demo</string>
+
+  <string name="dawn">Dawn</string>
+  <string name="sunrise">Sunrise</string>
+  <string name="sunset">Sunset</string>
+  <string name="dusk">Dusk</string>
 </resources>

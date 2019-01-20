@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="amber_50">#fff8e1</color>
+  <color name="amber_100">#ffecb3</color>
+  <color name="amber_200">#ffe082</color>
+  <color name="amber_300">#ffd54f</color>
+  <color name="amber_500">#ffc107</color>
+  <color name="amber_700">#ffa000</color>
+  <color name="amber_800">#ff8f00</color>
+  <color name="amber_900">#ff6f00</color>
+  <color name="amber_1000">#ff4f00</color>
+
+  <color name="purple_50">#f3e5f5</color>
+  <color name="purple_100">#e1bee7</color>
+  <color name="purple_500">#9c27b0</color>
+  <color name="purple_900">#4a148c</color>
+  <color name="purple_950">#3a1184</color>
+  <color name="purple_1000">#2a0e7a</color>
+  <color name="purple_1050">#1a0b6f</color>
+  <color name="purple_1100">#120864</color>
+  <color name="purple_1150">#0a0558</color>
+  <color name="purple_1200">#03024c</color>
+
+  <color name="red_700">#d32f2f</color>
+  <color name="red_800">#c62828</color>
+  <color name="red_900">#b71c1c</color>
+</resources>

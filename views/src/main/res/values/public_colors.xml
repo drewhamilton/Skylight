@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <public name="skylight_dawn" type="color" />
+  <public name="skylight_sunrise" type="color" />
+  <public name="skylight_sunset" type="color" />
+  <public name="skylight_dusk" type="color" />
+</resources>

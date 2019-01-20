@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="skylight_dawn">@color/purple_100</color>
+  <color name="skylight_sunrise">@color/amber_100</color>
+  <color name="skylight_sunset">@color/amber_900</color>
+  <color name="skylight_dusk">@color/purple_1100</color>
+</resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:clipToPadding="false"
+    android:divider="@drawable/divider_8dp"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:showDividers="middle">
+
+  <androidx.appcompat.widget.AppCompatSpinner
+      android:id="@+id/locationSelector"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+
+      android:popupBackground="?android:attr/popupBackground"
+
+      tools:listitem="@layout/item_spinner" />
+
+  <drewhamilton.skylight.views.event.SkylightEventView
+      android:id="@+id/dawn"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+
+      android:theme="@style/LightTheme"
+
+      app:cardCornerRadius="@dimen/cornerRadius_card"
+      app:cardBackgroundColor="@color/skylight_dawn"
+      app:skylightEventLabelText="@string/dawn"
+
+      tools:skylightEventTimeText="7:38 AM" />
+
+  <drewhamilton.skylight.views.event.SkylightEventView
+      android:id="@+id/sunrise"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+
+      android:theme="@style/LightTheme"
+
+      app:cardCornerRadius="@dimen/cornerRadius_card"
+      app:cardBackgroundColor="@color/skylight_sunrise"
+      app:skylightEventLabelText="@string/sunrise"
+
+      tools:skylightEventTimeText="7:38 AM" />
+
+  <drewhamilton.skylight.views.event.SkylightEventView
+      android:id="@+id/sunset"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+
+      android:theme="@style/DarkTheme"
+
+      app:cardCornerRadius="@dimen/cornerRadius_card"
+      app:cardBackgroundColor="@color/skylight_sunset"
+      app:skylightEventLabelText="@string/sunset"
+
+      tools:skylightEventTimeText="7:38 AM" />
+
+  <drewhamilton.skylight.views.event.SkylightEventView
+      android:id="@+id/dusk"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+
+      android:theme="@style/DarkTheme"
+
+      app:cardCornerRadius="@dimen/cornerRadius_card"
+      app:cardBackgroundColor="@color/skylight_dusk"
+      app:skylightEventLabelText="@string/dusk"
+
+      tools:skylightEventTimeText="7:38 AM" />
+
+</LinearLayout>
