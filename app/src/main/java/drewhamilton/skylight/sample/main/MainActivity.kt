@@ -1,6 +1,8 @@
 package drewhamilton.skylight.sample.main
 
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import drewhamilton.skylight.SkylightRepository
 import drewhamilton.skylight.models.AlwaysLight
 import drewhamilton.skylight.models.NeverDaytime
@@ -29,13 +31,18 @@ class MainActivity : RxActivity() {
 
         val locationOptions = locationRepository.getLocationOptions()
         locationSelector.adapter = LocationSpinnerAdapter(this, locationOptions)
-        val location = locationRepository.getSelectedLocation()
-        locationSelector.setSelection(locationOptions.indexOf(location))
 
-        skylightRepository.getSkylightInfo(location.coordinates, Date())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(Consumer { it.display() })
-            .disposeOnDestroyView()
+        locationSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val location = locationOptions[position]
+                skylightRepository.getSkylightInfo(location.coordinates, Date())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(Consumer { it.display() })
+                    .disposeOnDestroyView()
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        locationSelector.setSelection(0)
     }
 
     private fun initializeDependencies() {
