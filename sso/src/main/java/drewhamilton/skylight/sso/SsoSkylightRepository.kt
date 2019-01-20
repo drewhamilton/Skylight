@@ -10,11 +10,11 @@ import io.reactivex.Single
 import java.util.*
 import javax.inject.Inject
 
-class SsoSkylightRepository @Inject constructor(private val client: InfoClient) : SkylightRepository() {
+class SsoSkylightRepository @Inject constructor(private val client: InfoClient) : SkylightRepository {
 
-  override fun getSkylightInfo(coordinates: Coordinates, date: Date): Single<SkylightInfo> {
-    val params = Params(coordinates.latitude, coordinates.longitude, date)
-    return client.getInfo(params)
-        .map { it.toSkylightInfo() }
-  }
+    override fun getSkylightInfo(coordinates: Coordinates, date: Date): Single<SkylightInfo> {
+        val params = Params(coordinates.latitude, coordinates.longitude, date)
+        return client.getInfo(params)
+            .map { it.toSkylightInfo() }
+    }
 }

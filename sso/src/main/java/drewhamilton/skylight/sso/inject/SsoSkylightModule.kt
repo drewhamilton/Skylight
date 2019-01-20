@@ -21,40 +21,40 @@ import javax.inject.Singleton
 @Module
 class SsoSkylightModule(private val httpLoggingInterceptor: HttpLoggingInterceptor? = null) {
 
-  @Provides
-  @Sso
-  fun skylightRepository(client: InfoClient): SkylightRepository = SsoSkylightRepository(client)
+    @Provides
+    @Sso
+    fun skylightRepository(client: InfoClient): SkylightRepository = SsoSkylightRepository(client)
 
-  @Provides
-  @Singleton
-  fun ssoApi(@Sso ssoRetrofit: Retrofit): SsoApi = ssoRetrofit.create(SsoApi::class.java)
+    @Provides
+    @Singleton
+    fun ssoApi(@Sso ssoRetrofit: Retrofit): SsoApi = ssoRetrofit.create(SsoApi::class.java)
 
-  @Provides
-  @Singleton
-  @Sso
-  internal fun retrofit(@Sso moshi: Moshi, @Sso okHttpClient: OkHttpClient) = Retrofit.Builder()
-      .baseUrl(BASE_URL_SUNRISE_SUNSET_ORG)
-      .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-      .addConverterFactory(MoshiConverterFactory.create(moshi))
-      .client(okHttpClient)
-      .build()
+    @Provides
+    @Singleton
+    @Sso
+    internal fun retrofit(@Sso moshi: Moshi, @Sso okHttpClient: OkHttpClient) = Retrofit.Builder()
+        .baseUrl(BASE_URL_SUNRISE_SUNSET_ORG)
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .client(okHttpClient)
+        .build()
 
-  @Provides
-  @Sso
-  internal fun moshi(dateTimeAdapter: SsoDateTimeAdapter) = Moshi.Builder()
-      .add(KotlinJsonAdapterFactory())
-      .add(dateTimeAdapter)
-      .build()
+    @Provides
+    @Sso
+    internal fun moshi(dateTimeAdapter: SsoDateTimeAdapter) = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .add(dateTimeAdapter)
+        .build()
 
-  @Provides
-  @Sso
-  internal fun okHttpClient(): OkHttpClient {
-    val builder = OkHttpClient().newBuilder()
+    @Provides
+    @Sso
+    internal fun okHttpClient(): OkHttpClient {
+        val builder = OkHttpClient().newBuilder()
 
-    httpLoggingInterceptor?.let {
-      builder.addInterceptor(httpLoggingInterceptor)
+        httpLoggingInterceptor?.let {
+            builder.addInterceptor(httpLoggingInterceptor)
+        }
+
+        return builder.build()
     }
-
-    return builder.build()
-  }
 }
