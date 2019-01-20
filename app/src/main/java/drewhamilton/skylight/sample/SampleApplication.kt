@@ -2,6 +2,7 @@ package drewhamilton.skylight.sample
 
 import android.app.Application
 
+@Suppress("Unused")
 class SampleApplication : Application() {
 
     override fun onCreate() {
