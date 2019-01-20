@@ -4,7 +4,16 @@ Skylight is a Kotlin interface for determining sunrise, sunset, and other releva
 a given location.
 
 ## Download
-Skylight is not yet available for download in a compiled state.
+[ ![Download](https://api.bintray.com/packages/drewhamilton/Skylight/Skylight/images/download.svg) ](https://bintray.com/drewhamilton/Skylight)
+
+Skylight is available in JCenter.
+
+To use Skylight in your application, include the following in your app's `build.gradle`:
+```groovy
+implementation "drewhamilton.skylight:skylight:$version"
+```
+
+More modules will be made available in the future.
 
 ## Modules
 
@@ -19,6 +28,9 @@ The `:sso` module is an implementation of the interface that uses [sunrise-sunse
 publicly available [API](https://sunrise-sunset.org/api) to determine skylight information. Note that
 sunrise-sunset.org's API page says that "You may not use this API in a manner that exceeds reasonable request volume,
 constitutes excessive or abusive usage." The same requirement applies to the `:sso` module of Skylight.
+
+### `:view`
+This module provides a basic card view that can be used to display a skylight event.
 
 ## License
 ```
