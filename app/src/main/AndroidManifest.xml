@@ -4,6 +4,7 @@
     package="drewhamilton.skylight.sample">
 
   <application
+      android:name=".SampleApplication"
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
