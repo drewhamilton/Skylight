@@ -1,36 +1,39 @@
 # Skylight
 
-Skylight is a Kotlin interface for determining sunrise, sunset, and other relevant details ("Skylight information") for
-a given location.
+Skylight is an RxJava-based Kotlin interface for providing sunrise, sunset, and other relevant details ("Skylight
+information") for a given location.
 
 ## Download
 [ ![Download](https://api.bintray.com/packages/drewhamilton/Skylight/Skylight/images/download.svg) ](https://bintray.com/drewhamilton/Skylight)
 
-Skylight is available in JCenter.
+Skylight is available in JCenter. It is still in development, and the API may undergo breaking changes before version
+1.0.0.
 
-To use Skylight in your application, include the following in your app's `build.gradle`:
+To use Skylight, include any of the following in your Gradle dependencies:
 ```groovy
+// The base interface:
 implementation "drewhamilton.skylight:skylight:$version"
-```
 
-More modules will be made available in the future.
+// Android views:
+implementation "drewhamilton.skylight:skylight-views:$version"
+```
 
 ## Modules
 
 ### `:interface`
-The generic interface itself is declared here, and is designed to be completely implementation-agnostic.
+The generic interface itself, designed to be implementation-agnostic.
 
 ### `:app`
-This module will be an example app that demonstrates the use of the library. It has not yet been implemented.
+An example app that demonstrates use of the library.
 
 ### `:sso`
-The `:sso` module is an implementation of the interface that uses [sunrise-sunset.org](https://sunrise-sunset.org/)'s
+An implementation of the interface that uses [sunrise-sunset.org](https://sunrise-sunset.org/)'s
 publicly available [API](https://sunrise-sunset.org/api) to determine skylight information. Note that
 sunrise-sunset.org's API page says that "You may not use this API in a manner that exceeds reasonable request volume,
-constitutes excessive or abusive usage." The same requirement applies to the `:sso` module of Skylight.
+constitutes excessive or abusive usage." The same requirement applies to this module of Skylight.
 
 ### `:view`
-This module provides a basic card view that can be used to display a skylight event.
+This module provides a basic Android card view that can be used to display a skylight event.
 
 ## License
 ```
