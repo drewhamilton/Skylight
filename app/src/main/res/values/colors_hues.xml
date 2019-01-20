@@ -46,6 +46,7 @@
   <color name="grey_800">#424242</color>
   <color name="grey_900">#212121</color>
 
+  <color name="blueGrey_800">#37474f</color>
   <color name="blueGrey_900">#263238</color>
   <color name="blueGrey_900_dark">#000a12</color>
   <color name="blueGrey_900_light">#4f5b62</color>

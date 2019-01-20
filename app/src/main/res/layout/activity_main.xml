@@ -17,7 +17,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
 
-      android:popupBackground="?attr/colorPrimary"
+      android:popupBackground="?android:attr/popupBackground"
 
       tools:listitem="@layout/item_spinner" />
 

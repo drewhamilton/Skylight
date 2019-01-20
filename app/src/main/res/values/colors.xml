@@ -5,4 +5,5 @@
   <color name="secondary">@color/green_800</color>
 
   <color name="windowBackground">@color/blueGrey_900_light</color>
+  <color name="popupBackground">@color/blueGrey_800</color>
 </resources>
