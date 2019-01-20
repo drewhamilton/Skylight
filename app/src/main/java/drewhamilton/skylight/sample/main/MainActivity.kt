@@ -1,4 +1,4 @@
-package drewhamilton.skylight.sample
+package drewhamilton.skylight.sample.main
 
 import android.os.Bundle
 import drewhamilton.skylight.SkylightRepository
@@ -6,6 +6,8 @@ import drewhamilton.skylight.models.AlwaysLight
 import drewhamilton.skylight.models.NeverDaytime
 import drewhamilton.skylight.models.SkylightInfo
 import drewhamilton.skylight.models.Typical
+import drewhamilton.skylight.sample.AppComponent
+import drewhamilton.skylight.sample.R
 import drewhamilton.skylight.sample.location.LocationRepository
 import drewhamilton.skylight.sample.rx.ui.RxActivity
 import drewhamilton.skylight.views.event.setTime
