@@ -17,6 +17,8 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
 
+      android:popupBackground="?attr/colorPrimary"
+
       tools:listitem="@layout/item_spinner" />
 
   <drewhamilton.skylight.views.event.SkylightEventView
