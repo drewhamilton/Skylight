@@ -3,7 +3,6 @@ package drewhamilton.skylight.sso
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import drewhamilton.skylight.models.Coordinates
-import drewhamilton.skylight.sso.conversions.toSkylightInfo
 import drewhamilton.skylight.sso.network.InfoClient
 import drewhamilton.skylight.sso.network.models.Params
 import drewhamilton.skylight.sso.network.models.SunriseSunsetInfo
