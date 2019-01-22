@@ -72,9 +72,9 @@ class MainActivity : RxActivity() {
             }
         }
 
-        dawn.setTime(dawnDateTime)
-        sunrise.setTime(sunriseDateTime)
-        sunset.setTime(sunsetDateTime)
-        dusk.setTime(duskDateTime)
+        dawn.setTime(dawnDateTime, R.string.never)
+        sunrise.setTime(sunriseDateTime, R.string.never)
+        sunset.setTime(sunsetDateTime, R.string.never)
+        dusk.setTime(duskDateTime, R.string.never)
     }
 }

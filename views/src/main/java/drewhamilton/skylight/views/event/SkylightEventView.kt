@@ -23,7 +23,15 @@ class SkylightEventView : MaterialCardView {
         get() = time.text
         set(text) {
             time.text = text
-            label.visibility = if (time.text.isEmpty()) View.INVISIBLE else View.VISIBLE
+            label.visibility =
+                    if (time.text.isEmpty() && time.hint.isEmpty()) View.INVISIBLE
+                    else View.VISIBLE
+        }
+
+    private var timeHint: CharSequence?
+        get() = time.hint
+        set(hint) {
+            time.hint = hint
         }
 
     init {
@@ -58,8 +66,21 @@ class SkylightEventView : MaterialCardView {
     }
 }
 
-fun SkylightEventView.setTime(time: Date?) = setTime(time, DateFormat.getTimeInstance(DateFormat.SHORT))
+fun SkylightEventView.setTime(time: Date?) = setTime(time, "")
+
+fun SkylightEventView.setTime(time: Date?, @StringRes fallback: Int) = setTime(time, context.getString(fallback))
+
+fun SkylightEventView.setTime(time: Date?, fallback: String) =
+    setTime(time, DateFormat.getTimeInstance(DateFormat.SHORT), fallback)
 
 fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat) {
-    timeText = dateTime?.let { format.format(dateTime) } ?: ""
+    setTime(dateTime, format, "")
+}
+
+fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat, @StringRes fallback: Int) {
+    setTime(dateTime, format, context.getString(fallback))
+}
+
+fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat, fallback: String) {
+    timeText = dateTime?.let { format.format(dateTime) } ?: fallback
 }
