@@ -21,8 +21,8 @@ interface SkylightRepository {
  * @return [SkylightInfo] at the given coordinates for today and tomorrow.
  */
 fun SkylightRepository.getUpcomingSkylightInfo(coordinates: Coordinates): Flowable<SkylightInfo> =
-  getSkylightInfo(coordinates, today())
-      .mergeWith(getSkylightInfo(coordinates, tomorrow()))
+    getSkylightInfo(coordinates, today())
+        .mergeWith(getSkylightInfo(coordinates, tomorrow()))
 
 /**
  * @param coordinates The coordinates for which lightness should be determined.
@@ -31,16 +31,16 @@ fun SkylightRepository.getUpcomingSkylightInfo(coordinates: Coordinates): Flowab
  * and before dusk on the given date.
  */
 fun SkylightRepository.isLight(coordinates: Coordinates, dateTime: Date): Single<Boolean> =
-  getSkylightInfo(coordinates, dateTime)
-      .map {
-        when (it) {
-          is AlwaysDaytime -> true
-          is AlwaysLight -> true
-          is NeverLight -> false
-          is NeverDaytime -> isLight(it.dawn, it.dusk, dateTime)
-          is Typical -> isLight(it.dawn, it.dusk, dateTime)
-    }
-  }
+    getSkylightInfo(coordinates, dateTime)
+        .map {
+            when (it) {
+                is AlwaysDaytime -> true
+                is AlwaysLight -> true
+                is NeverLight -> false
+                is NeverDaytime -> isLight(it.dawn, it.dusk, dateTime)
+                is Typical -> isLight(it.dawn, it.dusk, dateTime)
+            }
+        }
 
 /**
  * @param coordinates The coordinates for which darkness should be determined.
@@ -48,7 +48,7 @@ fun SkylightRepository.isLight(coordinates: Coordinates, dateTime: Date): Single
  * @return Whether it is dark outside at the given coordinates at the given date-time, where "dark" means before dawn
  * or after dusk on the given date.
  */
-fun SkylightRepository.isDark(coordinates: Coordinates, dateTime: Date) : Single<Boolean> =
+fun SkylightRepository.isDark(coordinates: Coordinates, dateTime: Date): Single<Boolean> =
     isLight(coordinates, dateTime)
         .map { !it }
 
