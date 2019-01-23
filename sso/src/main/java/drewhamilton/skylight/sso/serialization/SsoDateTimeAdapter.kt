@@ -14,24 +14,16 @@ class SsoDateTimeAdapter @Inject constructor() {
     private val dateFormat: LimitedDateTimeFormat = SsoDateFormat()
 
     @ToJson
-    fun dateTimeToString(@SsoDateTime date: Date): String {
-        return dateTimeFormat.format(date)
-    }
+    fun dateTimeToString(@SsoDateTime date: Date) = dateTimeFormat.format(date)
 
     @FromJson
     @SsoDateTime
-    fun dateTimeFromString(dateString: String): Date {
-        return dateTimeFormat.parse(dateString)
-    }
+    fun dateTimeFromString(dateString: String) = dateTimeFormat.parse(dateString)
 
     @ToJson
-    fun dateToString(@SsoDate date: Date): String {
-        return dateFormat.format(date)
-    }
+    fun dateToString(@SsoDate date: Date) = dateFormat.format(date)
 
     @FromJson
     @SsoDate
-    fun dateFromString(dateString: String): Date {
-        return dateFormat.parse(dateString)
-    }
+    fun dateFromString(dateString: String) = dateFormat.parse(dateString)
 }

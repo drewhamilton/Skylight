@@ -43,13 +43,10 @@ class SsoNetworkModule(private val httpLoggingInterceptor: HttpLoggingIntercepto
     @Provides
     @Singleton
     @Sso
-    internal fun okHttpClient(): OkHttpClient {
-        val builder = OkHttpClient().newBuilder()
-
-        httpLoggingInterceptor?.let {
-            builder.addInterceptor(httpLoggingInterceptor)
-        }
-
-        return builder.build()
-    }
+    internal fun okHttpClient() =
+        OkHttpClient().newBuilder().apply {
+            httpLoggingInterceptor?.let {
+                addInterceptor(httpLoggingInterceptor)
+            }
+        }.build()
 }

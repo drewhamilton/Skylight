@@ -8,7 +8,9 @@ import java.util.regex.Pattern
 /**
  * Parses and prints dates matching the format: 2015-05-21T19:52:17+02:00
  */
-internal class SsoDateTimeFormat : JavaDateFormatWrapper(SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US)) {
+internal class SsoDateTimeFormat(
+    private val shouldUseZ: Boolean = false
+) : JavaDateFormatWrapper(SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US)) {
 
     override fun format(date: Date): String {
         val text = super.format(date)
@@ -20,7 +22,7 @@ internal class SsoDateTimeFormat : JavaDateFormatWrapper(SimpleDateFormat("yyyy-
         val textWithTimeZoneColon = insertTimeZoneColon()
 
         var text = textWithTimeZoneColon
-        if (textWithTimeZoneColon.contains(EXTERNAL_TIME_ZONE_UTC)) {
+        if (shouldUseZ && textWithTimeZoneColon.contains(EXTERNAL_TIME_ZONE_UTC)) {
             text = text.replace(EXTERNAL_TIME_ZONE_UTC, EXTERNAL_TIME_ZONE_Z)
         }
 
