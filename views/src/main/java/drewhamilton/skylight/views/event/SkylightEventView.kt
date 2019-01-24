@@ -13,6 +13,9 @@ import java.util.*
 
 class SkylightEventView : MaterialCardView {
 
+    private val shouldShowLabel
+        get() = !(time.text.isEmpty() && time.hint?.isEmpty() ?: true)
+
     var labelText: CharSequence
         get() = label.text
         set(text) {
@@ -23,19 +26,18 @@ class SkylightEventView : MaterialCardView {
         get() = time.text
         set(text) {
             time.text = text
-            label.visibility =
-                    if (time.text.isEmpty() && time.hint.isEmpty()) View.INVISIBLE
-                    else View.VISIBLE
+            label.visibility = if (shouldShowLabel) View.VISIBLE else View.INVISIBLE
         }
 
-    private var timeHint: CharSequence?
+    internal var timeHint: CharSequence?
         get() = time.hint
         set(hint) {
             time.hint = hint
+            label.visibility = if (shouldShowLabel) View.VISIBLE else View.INVISIBLE
         }
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.view_skylight_event, this, true)
+        LayoutInflater.from(context).inflate(R.layout.view_skylight_event, this)
     }
 
     constructor(context: Context) : super(context)
@@ -52,7 +54,7 @@ class SkylightEventView : MaterialCardView {
 
     fun setTimeText(@StringRes resId: Int) {
         time.setText(resId)
-        label.visibility = if (time.text.isEmpty()) View.INVISIBLE else View.VISIBLE
+        label.visibility = if (shouldShowLabel) View.VISIBLE else View.INVISIBLE
     }
 
     private fun initAttributeSet(attrs: AttributeSet) {
@@ -60,6 +62,7 @@ class SkylightEventView : MaterialCardView {
         try {
             label.text = styledAttributes.getString(R.styleable.SkylightEventView_skylightEventLabelText)
             time.text = styledAttributes.getString(R.styleable.SkylightEventView_skylightEventTimeText)
+            if (shouldShowLabel) label.visibility = View.VISIBLE
         } finally {
             styledAttributes.recycle()
         }
@@ -73,14 +76,17 @@ fun SkylightEventView.setTime(time: Date?, @StringRes fallback: Int) = setTime(t
 fun SkylightEventView.setTime(time: Date?, fallback: String) =
     setTime(time, DateFormat.getTimeInstance(DateFormat.SHORT), fallback)
 
-fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat) {
-    setTime(dateTime, format, "")
-}
+fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat) = setTime(dateTime, format, "")
 
-fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat, @StringRes fallback: Int) {
+fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat, @StringRes fallback: Int) =
     setTime(dateTime, format, context.getString(fallback))
-}
 
 fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat, fallback: String) {
-    timeText = dateTime?.let { format.format(dateTime) } ?: fallback
+    dateTime?.let {
+        timeText = format.format(dateTime)
+        timeHint = ""
+    } ?: run {
+        timeHint = fallback
+        timeText = ""
+    }
 }

@@ -4,7 +4,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
-import drewhamilton.skylight.sso.BASE_URL_SUNRISE_SUNSET_ORG
+import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.SsoApi
 import drewhamilton.skylight.sso.serialization.SsoDateTimeAdapter
 import io.reactivex.schedulers.Schedulers
@@ -26,7 +26,7 @@ class SsoNetworkModule(private val httpLoggingInterceptor: HttpLoggingIntercepto
     @Singleton
     @Sso
     internal fun retrofit(@Sso moshi: Moshi, @Sso okHttpClient: OkHttpClient) = Retrofit.Builder()
-        .baseUrl(BASE_URL_SUNRISE_SUNSET_ORG)
+        .baseUrl(ApiConstants.BASE_URL)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .client(okHttpClient)
@@ -43,13 +43,10 @@ class SsoNetworkModule(private val httpLoggingInterceptor: HttpLoggingIntercepto
     @Provides
     @Singleton
     @Sso
-    internal fun okHttpClient(): OkHttpClient {
-        val builder = OkHttpClient().newBuilder()
-
-        httpLoggingInterceptor?.let {
-            builder.addInterceptor(httpLoggingInterceptor)
-        }
-
-        return builder.build()
-    }
+    internal fun okHttpClient() =
+        OkHttpClient().newBuilder().apply {
+            httpLoggingInterceptor?.let {
+                addInterceptor(httpLoggingInterceptor)
+            }
+        }.build()
 }

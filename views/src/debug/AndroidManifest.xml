@@ -1,0 +1,15 @@
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="drewhamilton.skylight.views">
+
+  <application
+      android:theme="@style/Theme.AppCompat">
+
+    <!-- region test activities -->
+    <activity
+        android:name=".test.view.ViewTestActivity" />
+    <!-- endregion -->
+
+  </application>
+
+</manifest>
