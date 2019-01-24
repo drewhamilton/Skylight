@@ -28,7 +28,7 @@ class SkylightEventView : MaterialCardView {
                     else View.VISIBLE
         }
 
-    private var timeHint: CharSequence?
+    internal var timeHint: CharSequence?
         get() = time.hint
         set(hint) {
             time.hint = hint
@@ -73,14 +73,17 @@ fun SkylightEventView.setTime(time: Date?, @StringRes fallback: Int) = setTime(t
 fun SkylightEventView.setTime(time: Date?, fallback: String) =
     setTime(time, DateFormat.getTimeInstance(DateFormat.SHORT), fallback)
 
-fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat) {
-    setTime(dateTime, format, "")
-}
+fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat) = setTime(dateTime, format, "")
 
-fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat, @StringRes fallback: Int) {
+fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat, @StringRes fallback: Int) =
     setTime(dateTime, format, context.getString(fallback))
-}
 
 fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat, fallback: String) {
-    timeText = dateTime?.let { format.format(dateTime) } ?: fallback
+    dateTime?.let {
+        timeText = format.format(dateTime)
+        timeHint = ""
+    } ?: run {
+        timeHint = fallback
+        timeText = ""
+    }
 }
