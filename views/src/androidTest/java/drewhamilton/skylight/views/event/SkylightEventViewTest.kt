@@ -19,6 +19,8 @@ class SkylightEventViewTest : ViewTest<SkylightEventView>() {
     private val testTime
         get() = activity.getString(R.string.testTime)
 
+    private val testHint = "Test hint"
+
     private val withNullHint
         get() = withHint(`is`(null as String?))
 
@@ -87,12 +89,12 @@ class SkylightEventViewTest : ViewTest<SkylightEventView>() {
 
         runOnUiThread {
             view.setLabelText(R.string.testLabel)
-            assertEquals(testLabel, view.labelText)
         }
 
         onView(withId(R.id.label))
             .check(matches(withText(R.string.testLabel)))
             .check(matches(withEffectiveVisibility(Visibility.INVISIBLE)))
+        assertEquals(testLabel, view.labelText)
     }
 
     @Test
@@ -102,12 +104,91 @@ class SkylightEventViewTest : ViewTest<SkylightEventView>() {
 
         runOnUiThread {
             view.labelText = testLabel
-            assertEquals(testLabel, view.labelText)
         }
 
         onView(withId(R.id.label))
             .check(matches(withText(testLabel)))
             .check(matches(withEffectiveVisibility(Visibility.INVISIBLE)))
+        assertEquals(testLabel, view.labelText)
+    }
+    //endregion
+
+    //region setTimeText
+    @Test
+    fun setTimeText_withStringResource_setsTimeTextAndLabelVisibility() {
+        setView(SkylightEventView(activity))
+        val view = getView()
+
+        runOnUiThread {
+            view.setLabelText(R.string.testLabel)
+            view.setTimeText(R.string.testTime)
+        }
+
+        onView(withId(R.id.label)).check(matches(isDisplayed()))
+        onView(withId(R.id.time))
+            .check(matches(isDisplayed()))
+            .check(matches(withText(R.string.testTime)))
+            .check(matches(withNullHint))
+        assertEquals(testTime, view.timeText)
+    }
+
+    @Test
+    fun setTimeText_withCharSequence_setsTimeTextAndLabelVisibility() {
+        setView(SkylightEventView(activity))
+        val view = getView()
+
+        runOnUiThread {
+            view.setLabelText(R.string.testLabel)
+            view.timeText = testTime
+        }
+
+        onView(withId(R.id.label)).check(matches(isDisplayed()))
+        onView(withId(R.id.time))
+            .check(matches(isDisplayed()))
+            .check(matches(withText(testTime)))
+            .check(matches(withNullHint))
+        assertEquals(testTime, view.timeText)
+    }
+    //endregion
+
+    //region setTimeHint
+    @Test
+    fun setTimeHint_nonNull_setsTimeHintAndLabelVisibility() {
+        setView(SkylightEventView(activity))
+        val view = getView()
+
+        runOnUiThread {
+            view.setLabelText(R.string.testLabel)
+            view.timeHint = testHint
+        }
+
+        onView(withId(R.id.label)).check(matches(isDisplayed()))
+        onView(withId(R.id.time))
+            .check(matches(isDisplayed()))
+            .check(matches(withText("")))
+            .check(matches(withHint(testHint)))
+        assertEquals(testHint, view.timeHint)
+    }
+
+    @Test
+    fun setTimeHint_null_removesTimeHintAndLabelVisibility() {
+        setView(SkylightEventView(activity))
+        val view = getView()
+
+        runOnUiThread {
+            view.setLabelText(R.string.testLabel)
+            view.timeHint = testHint
+        }
+
+        onView(withId(R.id.time)).check(matches(withHint(testHint)))
+
+        runOnUiThread { view.timeHint = null }
+
+        onView(withId(R.id.label)).check(matches(withEffectiveVisibility(Visibility.INVISIBLE)))
+        onView(withId(R.id.time))
+            .check(matches(withText("")))
+            .check(matches(withNullHint))
+        assertEquals(null, view.timeHint)
     }
     //endregion
 }

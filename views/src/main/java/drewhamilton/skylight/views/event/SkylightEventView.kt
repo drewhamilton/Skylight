@@ -33,6 +33,7 @@ class SkylightEventView : MaterialCardView {
         get() = time.hint
         set(hint) {
             time.hint = hint
+            label.visibility = if (shouldShowLabel) View.VISIBLE else View.INVISIBLE
         }
 
     init {
