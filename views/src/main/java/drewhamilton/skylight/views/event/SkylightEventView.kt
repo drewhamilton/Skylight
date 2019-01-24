@@ -13,6 +13,9 @@ import java.util.*
 
 class SkylightEventView : MaterialCardView {
 
+    private val shouldShowLabel
+        get() = !(time.text.isEmpty() && time.hint?.isEmpty() ?: true)
+
     var labelText: CharSequence
         get() = label.text
         set(text) {
@@ -23,9 +26,7 @@ class SkylightEventView : MaterialCardView {
         get() = time.text
         set(text) {
             time.text = text
-            label.visibility =
-                    if (time.text.isEmpty() && time.hint.isEmpty()) View.INVISIBLE
-                    else View.VISIBLE
+            label.visibility = if (shouldShowLabel) View.VISIBLE else View.INVISIBLE
         }
 
     internal var timeHint: CharSequence?
@@ -35,7 +36,7 @@ class SkylightEventView : MaterialCardView {
         }
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.view_skylight_event, this, true)
+        LayoutInflater.from(context).inflate(R.layout.view_skylight_event, this)
     }
 
     constructor(context: Context) : super(context)
@@ -52,7 +53,7 @@ class SkylightEventView : MaterialCardView {
 
     fun setTimeText(@StringRes resId: Int) {
         time.setText(resId)
-        label.visibility = if (time.text.isEmpty()) View.INVISIBLE else View.VISIBLE
+        label.visibility = if (shouldShowLabel) View.VISIBLE else View.INVISIBLE
     }
 
     private fun initAttributeSet(attrs: AttributeSet) {
@@ -60,6 +61,7 @@ class SkylightEventView : MaterialCardView {
         try {
             label.text = styledAttributes.getString(R.styleable.SkylightEventView_skylightEventLabelText)
             time.text = styledAttributes.getString(R.styleable.SkylightEventView_skylightEventTimeText)
+            if (shouldShowLabel) label.visibility = View.VISIBLE
         } finally {
             styledAttributes.recycle()
         }
