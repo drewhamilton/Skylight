@@ -32,7 +32,7 @@ publicly available [API](https://sunrise-sunset.org/api) to determine skylight i
 sunrise-sunset.org's API page says that "You may not use this API in a manner that exceeds reasonable request volume,
 constitutes excessive or abusive usage." The same requirement applies to this module of Skylight.
 
-### `:view`
+### `:views`
 This module provides a basic Android card view that can be used to display a skylight event.
 
 ## License
