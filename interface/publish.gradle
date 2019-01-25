@@ -1,3 +1,5 @@
+apply from: '../publish.gradle'
+
 ext {
   bintrayName = 'Skylight'
   libraryName = 'Skylight'
@@ -8,57 +10,13 @@ ext {
   packageType = "jar"
 }
 
-group = publishedGroupId
-version = libraryVersion
-def javadocDestinationDir = "$buildDir/docs/javadoc"
-
 install {
-  repositories.mavenInstaller {
-    pom.project {
-      packaging packageType
-      groupId publishedGroupId
-      artifactId artifact
-
-      name libraryName
-      description libraryDescription
-      url siteUrl
-
-      licenses {
-        license {
-          name licenseName
-          url licenseUrl
-        }
-      }
-      developers {
-        developer {
-          id developerId
-          name developerName
-          email developerEmail
-        }
-      }
-      scm {
-        connection gitUrl
-        developerConnection gitUrl
-        url siteUrl
-      }
-    }
-  }
+  installModule
 }
 
 task sourcesJar(type: Jar) {
   classifier = 'sources'
   from sourceSets.main.allSource
-}
-
-task dokkaJavadoc(type: dokka.class) {
-  outputFormat = 'javadoc'
-  outputDirectory = javadocDestinationDir
-  inputs.dir 'src/main/java'
-}
-
-task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
-  classifier = 'javadoc'
-  from javadocDestinationDir
 }
 
 artifacts {
@@ -69,7 +27,6 @@ artifacts {
 bintray {
   user = personalBintrayUsername
   key = personalBintrayApiKey
-  publications = ['mavenJava']
 
   configurations = ['archives']
   pkg {

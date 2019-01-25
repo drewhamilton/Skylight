@@ -1,3 +1,6 @@
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
 ext {
   bintrayRepo = 'Skylight'
 
@@ -13,4 +16,54 @@ ext {
   licenseName = 'The Apache Software License, Version 2.0'
   licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
   allLicenses = ["Apache-2.0"]
+
+  installModule = {
+    repositories.mavenInstaller {
+      pom.project {
+        packaging packageType
+        groupId publishedGroupId
+        artifactId artifact
+
+        name libraryName
+        description libraryDescription
+        url siteUrl
+
+        licenses {
+          license {
+            name licenseName
+            url licenseUrl
+          }
+        }
+        developers {
+          developer {
+            id developerId
+            name developerName
+            email developerEmail
+          }
+        }
+        scm {
+          connection gitUrl
+          developerConnection gitUrl
+          url siteUrl
+        }
+      }
+    }
+  }
+}
+
+group = publishedGroupId
+version = libraryVersion
+
+apply plugin: 'org.jetbrains.dokka'
+def javadocDestinationDir = "$buildDir/docs/javadoc"
+
+task dokkaJavadoc(type: dokka.class) {
+  outputFormat = 'javadoc'
+  outputDirectory = javadocDestinationDir
+  inputs.dir 'src/main/java'
+}
+
+task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+  classifier = 'javadoc'
+  from javadocDestinationDir
 }
