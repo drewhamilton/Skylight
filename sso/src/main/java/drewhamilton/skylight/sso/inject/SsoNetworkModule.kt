@@ -10,7 +10,6 @@ import drewhamilton.skylight.sso.serialization.SsoDateTimeAdapter
 import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -27,7 +26,7 @@ internal object SsoNetworkModule {
     @Sso
     internal fun retrofit(
         @Sso moshi: Moshi,
-        @Sso okHttpClient: OkHttpClient,
+        okHttpClient: OkHttpClient,
         networkScheduler: Scheduler = Schedulers.io()
     ) = Retrofit.Builder()
         .baseUrl(ApiConstants.BASE_URL)
@@ -43,14 +42,4 @@ internal object SsoNetworkModule {
         .add(KotlinJsonAdapterFactory())
         .add(dateTimeAdapter)
         .build()
-
-    @JvmStatic
-    @Provides
-    @Sso
-    internal fun okHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor?) =
-        OkHttpClient().newBuilder().apply {
-            httpLoggingInterceptor?.let {
-                addInterceptor(httpLoggingInterceptor)
-            }
-        }.build()
 }
