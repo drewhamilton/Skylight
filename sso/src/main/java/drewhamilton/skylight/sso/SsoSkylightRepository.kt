@@ -10,6 +10,10 @@ import io.reactivex.Single
 import java.util.*
 import javax.inject.Inject
 
+/**
+ * An implementation of [SkylightRepository] that uses sunrise-sunset.org to determine [SkylightInfo] for the given
+ * coordinates.
+ */
 class SsoSkylightRepository @Inject constructor(private val client: InfoClient) : SkylightRepository {
 
     override fun getSkylightInfo(coordinates: Coordinates, date: Date): Single<SkylightInfo> {

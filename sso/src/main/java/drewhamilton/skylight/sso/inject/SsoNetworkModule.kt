@@ -13,17 +13,14 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Singleton
 
 @Module
-class SsoNetworkModule(private val httpLoggingInterceptor: HttpLoggingInterceptor? = null) {
+internal class SsoNetworkModule(private val httpLoggingInterceptor: HttpLoggingInterceptor? = null) {
 
     @Provides
-    @Singleton
-    fun ssoApi(@Sso ssoRetrofit: Retrofit): SsoApi = ssoRetrofit.create(SsoApi::class.java)
+    internal fun ssoApi(@Sso ssoRetrofit: Retrofit): SsoApi = ssoRetrofit.create(SsoApi::class.java)
 
     @Provides
-    @Singleton
     @Sso
     internal fun retrofit(@Sso moshi: Moshi, @Sso okHttpClient: OkHttpClient) = Retrofit.Builder()
         .baseUrl(ApiConstants.BASE_URL)
@@ -33,7 +30,6 @@ class SsoNetworkModule(private val httpLoggingInterceptor: HttpLoggingIntercepto
         .build()
 
     @Provides
-    @Singleton
     @Sso
     internal fun moshi(dateTimeAdapter: SsoDateTimeAdapter) = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
@@ -41,7 +37,6 @@ class SsoNetworkModule(private val httpLoggingInterceptor: HttpLoggingIntercepto
         .build()
 
     @Provides
-    @Singleton
     @Sso
     internal fun okHttpClient() =
         OkHttpClient().newBuilder().apply {

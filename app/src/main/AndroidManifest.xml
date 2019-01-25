@@ -13,7 +13,8 @@
       android:theme="@style/AppTheme"
       android:allowBackup="false"
       android:supportsRtl="true"
-      tools:ignore="GoogleAppIndexingWarning">
+      tools:ignore="GoogleAppIndexingWarning"
+      tools:replace="android:theme">
 
     <activity android:name=".main.MainActivity">
       <intent-filter>
