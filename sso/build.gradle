@@ -14,11 +14,11 @@ dependencies {
   api 'com.squareup.retrofit2:retrofit:2.4.0'
   implementation 'com.squareup.retrofit2:converter-moshi:2.4.0'
   implementation 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
-  implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
 
   implementation 'com.google.dagger:dagger:2.15'
   kapt 'com.google.dagger:dagger-compiler:2.15'
 
+  testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
   testImplementation 'junit:junit:4.12'
   testImplementation 'org.mockito:mockito-inline:2.18.0'
   testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'

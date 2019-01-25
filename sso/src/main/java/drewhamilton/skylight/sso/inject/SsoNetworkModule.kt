@@ -7,46 +7,39 @@ import dagger.Provides
 import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.SsoApi
 import drewhamilton.skylight.sso.serialization.SsoDateTimeAdapter
+import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Singleton
 
 @Module
-class SsoNetworkModule(private val httpLoggingInterceptor: HttpLoggingInterceptor? = null) {
+internal object SsoNetworkModule {
 
+    @JvmStatic
     @Provides
-    @Singleton
-    fun ssoApi(@Sso ssoRetrofit: Retrofit): SsoApi = ssoRetrofit.create(SsoApi::class.java)
+    internal fun ssoApi(@Sso retrofit: Retrofit): SsoApi = retrofit.create(SsoApi::class.java)
 
+    @JvmStatic
     @Provides
-    @Singleton
     @Sso
-    internal fun retrofit(@Sso moshi: Moshi, @Sso okHttpClient: OkHttpClient) = Retrofit.Builder()
+    internal fun retrofit(
+        @Sso moshi: Moshi,
+        okHttpClient: OkHttpClient,
+        networkScheduler: Scheduler = Schedulers.io()
+    ) = Retrofit.Builder()
         .baseUrl(ApiConstants.BASE_URL)
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(networkScheduler))
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .client(okHttpClient)
         .build()
 
+    @JvmStatic
     @Provides
-    @Singleton
     @Sso
     internal fun moshi(dateTimeAdapter: SsoDateTimeAdapter) = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .add(dateTimeAdapter)
         .build()
-
-    @Provides
-    @Singleton
-    @Sso
-    internal fun okHttpClient() =
-        OkHttpClient().newBuilder().apply {
-            httpLoggingInterceptor?.let {
-                addInterceptor(httpLoggingInterceptor)
-            }
-        }.build()
 }
