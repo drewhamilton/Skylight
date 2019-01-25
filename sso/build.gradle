@@ -19,6 +19,7 @@ dependencies {
   implementation 'com.google.dagger:dagger:2.15'
   kapt 'com.google.dagger:dagger-compiler:2.15'
 
+  testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
   testImplementation 'junit:junit:4.12'
   testImplementation 'org.mockito:mockito-inline:2.18.0'
   testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
