@@ -69,19 +69,17 @@ class SkylightEventView : MaterialCardView {
     }
 }
 
-fun SkylightEventView.setTime(time: Date?) = setTime(time, "")
-
-fun SkylightEventView.setTime(time: Date?, @StringRes fallback: Int) = setTime(time, context.getString(fallback))
-
-fun SkylightEventView.setTime(time: Date?, fallback: String) =
-    setTime(time, DateFormat.getTimeInstance(DateFormat.SHORT), fallback)
-
-fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat) = setTime(dateTime, format, "")
+fun SkylightEventView.setTime(time: Date?, @StringRes fallback: Int) =
+    setTime(time, fallback = context.getString(fallback))
 
 fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat, @StringRes fallback: Int) =
     setTime(dateTime, format, context.getString(fallback))
 
-fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat, fallback: String) {
+fun SkylightEventView.setTime(
+    dateTime: Date?,
+    format: DateFormat = DateFormat.getTimeInstance(DateFormat.SHORT),
+    fallback: String = ""
+) {
     dateTime?.let {
         timeText = format.format(dateTime)
         timeHint = ""

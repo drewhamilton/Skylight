@@ -69,13 +69,13 @@ class SkylightEventViewExtensionsTest {
 
     @Test
     fun `setTime(Date?, String) with non-null date sets formatted date text`() {
-        mockSkylightEventView.setTime(dummyDate, dummyFallbackString)
+        mockSkylightEventView.setTime(dummyDate, fallback = dummyFallbackString)
         verifyTimeTextSet(defaultDummyDateString)
     }
 
     @Test
     fun `setTime(Date?, String) with null date sets fallback text`() {
-        mockSkylightEventView.setTime(null, dummyFallbackString)
+        mockSkylightEventView.setTime(null, fallback = dummyFallbackString)
         verifyTimeHintSet(dummyFallbackString)
     }
 
