@@ -7,7 +7,7 @@ apply from: 'publish.gradle'
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-  api 'io.reactivex.rxjava2:rxjava:2.2.2'
+  api "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
 
   testImplementation 'junit:junit:4.12'
   testImplementation 'org.mockito:mockito-inline:2.18.0'
