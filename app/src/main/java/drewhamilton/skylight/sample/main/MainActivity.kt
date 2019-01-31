@@ -16,13 +16,18 @@ import drewhamilton.skylight.views.event.setTime
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.DateFormat
 import java.util.*
 import javax.inject.Inject
 
 class MainActivity : RxActivity() {
 
+    @Suppress("ProtectedInFinal")
     @Inject protected lateinit var locationRepository: LocationRepository
+    @Suppress("ProtectedInFinal")
     @Inject protected lateinit var skylightRepository: SkylightRepository
+
+    private val timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initializeDependencies()
@@ -37,6 +42,7 @@ class MainActivity : RxActivity() {
                 val location = locationOptions[position]
                 skylightRepository.getSkylightInfo(location.coordinates, Date())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSuccess { timeFormat.timeZone = location.timeZone }
                     .subscribe(Consumer { it.display() })
                     .disposeOnDestroyView()
             }
@@ -72,9 +78,9 @@ class MainActivity : RxActivity() {
             }
         }
 
-        dawn.setTime(dawnDateTime, R.string.never)
-        sunrise.setTime(sunriseDateTime, R.string.never)
-        sunset.setTime(sunsetDateTime, R.string.never)
-        dusk.setTime(duskDateTime, R.string.never)
+        dawn.setTime(dawnDateTime, timeFormat, R.string.never)
+        sunrise.setTime(sunriseDateTime, timeFormat, R.string.never)
+        sunset.setTime(sunsetDateTime, timeFormat, R.string.never)
+        dusk.setTime(duskDateTime, timeFormat, R.string.never)
     }
 }
