@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <dimen name="cornerRadius_card">4dp</dimen>
+  <dimen name="padding_informativeText">8dp</dimen>
 </resources>

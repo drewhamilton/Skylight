@@ -7,4 +7,7 @@
   <string name="dusk">Dusk</string>
 
   <string name="never">Never</string>
+
+  <string name="all_times_local">All times local</string>
+  <string name="version_info">Using Skylight version %s</string>
 </resources>

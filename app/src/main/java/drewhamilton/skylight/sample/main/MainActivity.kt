@@ -9,6 +9,7 @@ import drewhamilton.skylight.models.NeverDaytime
 import drewhamilton.skylight.models.SkylightInfo
 import drewhamilton.skylight.models.Typical
 import drewhamilton.skylight.sample.AppComponent
+import drewhamilton.skylight.sample.BuildConfig
 import drewhamilton.skylight.sample.R
 import drewhamilton.skylight.sample.location.LocationRepository
 import drewhamilton.skylight.sample.rx.ui.RxActivity
@@ -33,6 +34,7 @@ class MainActivity : RxActivity() {
         initializeDependencies()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        version.text = getString(R.string.version_info, BuildConfig.VERSION_NAME)
 
         val locationOptions = locationRepository.getLocationOptions()
         locationSelector.adapter = LocationSpinnerAdapter(this, locationOptions)

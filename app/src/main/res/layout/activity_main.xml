@@ -21,6 +21,16 @@
 
       tools:listitem="@layout/item_spinner" />
 
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingStart="@dimen/padding_informativeText"
+      android:paddingEnd="@dimen/padding_informativeText"
+
+      android:text="@string/all_times_local"
+      android:textAppearance="@style/TextAppearance.AppCompat.Small"
+      android:textColor="?android:attr/textColorSecondary" />
+
   <drewhamilton.skylight.views.event.SkylightEventView
       android:id="@+id/dawn"
       android:layout_width="match_parent"
@@ -76,5 +86,17 @@
       app:skylightEventLabelText="@string/dusk"
 
       tools:skylightEventTimeText="7:38 AM" />
+
+  <TextView
+      android:id="@+id/version"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/padding_informativeText"
+
+      android:gravity="end"
+      android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+      android:textColor="?android:attr/textColorHint"
+
+      tools:text="Using Skylight version 1.0.0" />
 
 </LinearLayout>
