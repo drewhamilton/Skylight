@@ -1,43 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent">
 
-    android:clipToPadding="false"
-    android:divider="@drawable/divider_8dp"
-    android:orientation="vertical"
-    android:padding="8dp"
-    android:showDividers="middle">
+  <View
+      android:id="@+id/toolbarBackground"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+
+      android:background="@color/primary"
+      android:elevation="@dimen/elevation_toolbar"
+
+      app:layout_constraintTop_toTopOf="@+id/locationSelector"
+      app:layout_constraintBottom_toBottomOf="@+id/locationSelector" />
 
   <androidx.appcompat.widget.AppCompatSpinner
       android:id="@+id/locationSelector"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="?android:attr/actionBarSize"
 
+      android:elevation="@dimen/elevation_toolbar"
       android:popupBackground="?android:attr/popupBackground"
+
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toTopOf="@+id/timeZoneInfo"
 
       tools:listitem="@layout/item_spinner" />
 
   <TextView
+      android:id="@+id/timeZoneInfo"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:paddingStart="@dimen/padding_informativeText"
-      android:paddingEnd="@dimen/padding_informativeText"
+      android:layout_marginTop="@dimen/divider_list"
+      android:layout_marginStart="@dimen/marginSides_mainText"
+      android:layout_marginEnd="@dimen/marginSides_mainText"
 
       android:text="@string/all_times_local"
       android:textAppearance="@style/TextAppearance.AppCompat.Small"
-      android:textColor="?android:attr/textColorSecondary" />
+      android:textColor="?android:attr/textColorSecondary"
+
+      app:layout_constraintTop_toBottomOf="@+id/locationSelector"
+      app:layout_constraintBottom_toTopOf="@+id/dawn" />
 
   <drewhamilton.skylight.views.event.SkylightEventView
       android:id="@+id/dawn"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_weight="1"
+      android:layout_marginTop="@dimen/divider_list"
+      android:layout_marginStart="@dimen/marginSides_mainCard"
+      android:layout_marginEnd="@dimen/marginSides_mainCard"
 
       android:theme="@style/LightTheme"
+
+      app:layout_constraintTop_toBottomOf="@+id/timeZoneInfo"
+      app:layout_constraintBottom_toTopOf="@+id/sunrise"
 
       app:cardCornerRadius="@dimen/cornerRadius_card"
       app:cardBackgroundColor="@color/skylight_dawn"
@@ -49,9 +68,14 @@
       android:id="@+id/sunrise"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_weight="1"
+      android:layout_marginTop="@dimen/divider_list"
+      android:layout_marginStart="@dimen/marginSides_mainCard"
+      android:layout_marginEnd="@dimen/marginSides_mainCard"
 
       android:theme="@style/LightTheme"
+
+      app:layout_constraintTop_toBottomOf="@+id/dawn"
+      app:layout_constraintBottom_toTopOf="@+id/sunset"
 
       app:cardCornerRadius="@dimen/cornerRadius_card"
       app:cardBackgroundColor="@color/skylight_sunrise"
@@ -63,9 +87,14 @@
       android:id="@+id/sunset"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_weight="1"
+      android:layout_marginTop="@dimen/divider_list"
+      android:layout_marginStart="@dimen/marginSides_mainCard"
+      android:layout_marginEnd="@dimen/marginSides_mainCard"
 
       android:theme="@style/DarkTheme"
+
+      app:layout_constraintTop_toBottomOf="@+id/sunrise"
+      app:layout_constraintBottom_toTopOf="@+id/dusk"
 
       app:cardCornerRadius="@dimen/cornerRadius_card"
       app:cardBackgroundColor="@color/skylight_sunset"
@@ -77,9 +106,14 @@
       android:id="@+id/dusk"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_weight="1"
+      android:layout_marginTop="@dimen/divider_list"
+      android:layout_marginStart="@dimen/marginSides_mainCard"
+      android:layout_marginEnd="@dimen/marginSides_mainCard"
 
       android:theme="@style/DarkTheme"
+
+      app:layout_constraintTop_toBottomOf="@+id/sunset"
+      app:layout_constraintBottom_toTopOf="@+id/version"
 
       app:cardCornerRadius="@dimen/cornerRadius_card"
       app:cardBackgroundColor="@color/skylight_dusk"
@@ -91,12 +125,18 @@
       android:id="@+id/version"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="@dimen/padding_informativeText"
+      android:layout_marginTop="@dimen/divider_list"
+      android:layout_marginBottom="@dimen/divider_list"
+      android:layout_marginStart="@dimen/marginSides_mainText"
+      android:layout_marginEnd="@dimen/marginSides_mainText"
 
       android:gravity="end"
-      android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+      android:textAppearance="@style/TextAppearance.AppCompat.Small"
       android:textColor="?android:attr/textColorHint"
+
+      app:layout_constraintTop_toBottomOf="@+id/dusk"
+      app:layout_constraintBottom_toBottomOf="parent"
 
       tools:text="Using Skylight version 1.0.0" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

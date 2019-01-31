@@ -7,9 +7,9 @@
     <item name="android:navigationBarColor">@color/primaryDark</item>
   </style>
 
-  <style name="LightTheme" parent="Theme.MaterialComponents.Light.DarkActionBar" />
+  <style name="LightTheme" parent="Theme.MaterialComponents.Light.NoActionBar" />
 
-  <style name="DarkTheme" parent="Theme.MaterialComponents">
+  <style name="DarkTheme" parent="Theme.MaterialComponents.NoActionBar">
     <item name="android:windowBackground">@color/windowBackground</item>
     <item name="android:popupBackground">@drawable/popup_background</item>
   </style>
