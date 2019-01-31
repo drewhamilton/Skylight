@@ -13,7 +13,8 @@ To use Skylight, include any of the following in your Gradle dependencies:
 ```groovy
 // The base interface:
 implementation "drewhamilton.skylight:skylight:$version"
-
+// sunrise-sunset.org implementation:
+implementation "drewhamilton.skylight:skylight-sso:$version"
 // Android views:
 implementation "drewhamilton.skylight:skylight-views:$version"
 ```
