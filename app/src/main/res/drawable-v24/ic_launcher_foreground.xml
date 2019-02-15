@@ -8,7 +8,7 @@
 
   <!-- Land -->
   <path
-          android:fillColor="@color/purple_1100"
+          android:fillColor="@color/skylight_launcherIcon_ground"
           android:pathData="M0,60h108v108h-108z" />
 
 </vector>
