@@ -1,17 +1,10 @@
 <resources>
 
   <style name="AppTheme" parent="DarkTheme">
-    <item name="colorPrimary">@color/primary</item>
-    <item name="colorPrimaryDark">@color/primaryDark</item>
-    <item name="colorSecondary">@color/secondary</item>
-    <item name="android:navigationBarColor">@color/primaryDark</item>
-  </style>
-
-  <style name="LightTheme" parent="Theme.MaterialComponents.Light.NoActionBar" />
-
-  <style name="DarkTheme" parent="Theme.MaterialComponents.NoActionBar">
-    <item name="android:windowBackground">@color/windowBackground</item>
     <item name="android:popupBackground">@drawable/popup_background</item>
   </style>
+
+  <style name="LightTheme" parent="SkylightLight.NoActionBar" />
+  <style name="DarkTheme" parent="SkylightDark.NoActionBar" />
 
 </resources>

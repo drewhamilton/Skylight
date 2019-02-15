@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools">
+
+  <style name="SkylightDark" parent="SkylightDarkSdk14" />
+
+  <style name="SkylightDarkSdk14" parent="Theme.MaterialComponents">
+    <item name="colorPrimary">@color/skylight_darkPurple</item>
+    <item name="colorPrimaryDark">@color/skylight_darkPurple_extraDark</item>
+    <item name="colorPrimaryVariant">@color/skylight_darkPurple_light</item>
+    <item name="colorSecondary">@color/darkTheme_secondary</item>
+    <item name="android:colorBackground">@color/darkTheme_background</item>
+
+    <item name="materialAlertDialogTheme">@style/SkylightDark.AlertDialog</item>
+    <item name="alertDialogTheme">@style/SkylightDark.AlertDialog</item>
+  </style>
+
+  <style name="SkylightDark.NoActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
+
+  <style name="SkylightLight" parent="SkylightLightSdk14" />
+
+  <style name="SkylightLightSdk14" parent="Theme.MaterialComponents.Light">
+    <item name="colorPrimary">@color/skylight_amber</item>
+    <item name="colorPrimaryDark">@color/skylight_amber_dark</item>
+    <item name="colorPrimaryVariant">@color/skylight_amber_light</item>
+    <item name="colorSecondary">@color/lightTheme_secondary</item>
+    <item name="android:colorBackground">@color/lightTheme_background</item>
+
+    <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+    <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+
+    <item name="materialAlertDialogTheme">@style/SkylightLight.AlertDialog</item>
+    <item name="alertDialogTheme">@style/SkylightLight.AlertDialog</item>
+  </style>
+
+  <style name="SkylightLight.NoActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
+
+</resources>

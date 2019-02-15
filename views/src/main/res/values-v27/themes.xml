@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="SkylightDark" parent="SkylightDarkSdk27" />
+
+  <style name="SkylightDarkSdk27" parent="SkylightDarkSdk14">
+    <item name="android:navigationBarColor">?attr/colorPrimaryDark</item>
+  </style>
+
+  <style name="SkylightLight" parent="SkylightLightSdk27" />
+
+  <style name="SkylightLightSdk27" parent="SkylightLightSdk14">
+    <item name="android:navigationBarColor">?attr/colorPrimaryDark</item>
+  </style>
+
+</resources>

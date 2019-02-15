@@ -10,4 +10,6 @@
 
   <string name="all_times_local">All times local</string>
   <string name="version_info">Using Skylight version %s</string>
+
+  <string name="good_to_know">Good to know</string>
 </resources>
