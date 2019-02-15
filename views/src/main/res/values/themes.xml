@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="SkylightDark" parent="Theme.MaterialComponents">
+  <style name="SkylightDark" parent="SkylightDarkSdk14" />
+
+  <style name="SkylightDarkSdk14" parent="Theme.MaterialComponents">
     <item name="colorPrimary">@color/skylight_darkPurple</item>
     <item name="colorPrimaryDark">@color/skylight_darkPurple_extraDark</item>
     <item name="colorPrimaryVariant">@color/skylight_darkPurple_light</item>
