@@ -5,7 +5,6 @@
   </style>
 
   <style name="LightTheme" parent="SkylightLight.NoActionBar" />
-
   <style name="DarkTheme" parent="SkylightDark.NoActionBar" />
 
 </resources>

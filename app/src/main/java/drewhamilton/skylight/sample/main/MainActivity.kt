@@ -98,7 +98,7 @@ class MainActivity : RxActivity() {
             View.OnClickListener {
                 MaterialAlertDialogBuilder(this@MainActivity)
                     .setTitle(labelText)
-                    .setMessage("$timeText ${timeZone.displayName}")
+                    .setMessage("$timeText, ${timeZone.displayName}")
                     .setPositiveButton(R.string.good_to_know) { _, _ -> }
                     .show()
             }
