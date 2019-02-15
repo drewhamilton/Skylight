@@ -3,7 +3,7 @@
     package="drewhamilton.skylight.views">
 
   <application
-      android:theme="@style/Theme.AppCompat">
+      android:theme="@style/Theme.MaterialComponents">
 
     <!-- region test activities -->
     <activity
