@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources
+    xmlns:tools="http://schemas.android.com/tools">
 
   <style name="SkylightDark" parent="SkylightDarkSdk14" />
 
@@ -16,12 +17,17 @@
     <item name="windowNoTitle">true</item>
   </style>
 
-  <style name="SkylightLight" parent="Theme.MaterialComponents.Light">
+  <style name="SkylightLight" parent="SkylightLightSdk14" />
+
+  <style name="SkylightLightSdk14" parent="Theme.MaterialComponents.Light">
     <item name="colorPrimary">@color/skylight_amber</item>
-    <item name="colorPrimaryVariant">@color/skylight_amber_light</item>
     <item name="colorPrimaryDark">@color/skylight_amber_dark</item>
+    <item name="colorPrimaryVariant">@color/skylight_amber_light</item>
     <item name="colorSecondary">@color/skylight_deepRed_extraLight</item>
     <item name="android:windowBackground">@color/skylight_amber_extraLight</item>
+
+    <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+    <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
   </style>
 
   <style name="SkylightLight.NoActionBar">
