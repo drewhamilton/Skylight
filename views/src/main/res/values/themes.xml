@@ -8,8 +8,11 @@
     <item name="colorPrimary">@color/skylight_darkPurple</item>
     <item name="colorPrimaryDark">@color/skylight_darkPurple_extraDark</item>
     <item name="colorPrimaryVariant">@color/skylight_darkPurple_light</item>
-    <item name="colorSecondary">@color/skylight_amber_dark</item>
+    <item name="colorSecondary">@color/darkTheme_secondary</item>
     <item name="android:windowBackground">@color/skylight_darkPurple_dark</item>
+
+    <item name="materialAlertDialogTheme">@style/SkylightDark.AlertDialog</item>
+    <item name="alertDialogTheme">@style/SkylightDark.AlertDialog</item>
   </style>
 
   <style name="SkylightDark.NoActionBar">
@@ -23,11 +26,14 @@
     <item name="colorPrimary">@color/skylight_amber</item>
     <item name="colorPrimaryDark">@color/skylight_amber_dark</item>
     <item name="colorPrimaryVariant">@color/skylight_amber_light</item>
-    <item name="colorSecondary">@color/skylight_deepRed_extraLight</item>
+    <item name="colorSecondary">@color/lightTheme_secondary</item>
     <item name="android:windowBackground">@color/skylight_amber_extraLight</item>
 
     <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
     <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+
+    <item name="materialAlertDialogTheme">@style/SkylightLight.AlertDialog</item>
+    <item name="alertDialogTheme">@style/SkylightLight.AlertDialog</item>
   </style>
 
   <style name="SkylightLight.NoActionBar">

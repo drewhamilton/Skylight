@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Colors that are re-used in multiple themes -->
+  <color name="darkTheme_secondary">@color/skylight_amber_dark</color>
+  <color name="lightTheme_secondary">@color/skylight_deepRed_dark</color>
+</resources>

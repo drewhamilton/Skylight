@@ -3,6 +3,7 @@ package drewhamilton.skylight.sample.main
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import drewhamilton.skylight.SkylightRepository
 import drewhamilton.skylight.models.AlwaysLight
 import drewhamilton.skylight.models.NeverDaytime
@@ -13,6 +14,7 @@ import drewhamilton.skylight.sample.BuildConfig
 import drewhamilton.skylight.sample.R
 import drewhamilton.skylight.sample.location.LocationRepository
 import drewhamilton.skylight.sample.rx.ui.RxActivity
+import drewhamilton.skylight.views.event.SkylightEventView
 import drewhamilton.skylight.views.event.setTime
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
@@ -84,5 +86,24 @@ class MainActivity : RxActivity() {
         sunrise.setTime(sunriseDateTime, timeFormat, R.string.never)
         sunset.setTime(sunsetDateTime, timeFormat, R.string.never)
         dusk.setTime(duskDateTime, timeFormat, R.string.never)
+
+        dawn.showDetailsOnClick(timeFormat.timeZone)
+        sunrise.showDetailsOnClick(timeFormat.timeZone)
+        sunset.showDetailsOnClick(timeFormat.timeZone)
+        dusk.showDetailsOnClick(timeFormat.timeZone)
+    }
+
+    private fun SkylightEventView.showDetailsOnClick(timeZone: TimeZone) {
+        val clickListener: View.OnClickListener? = if (timeText.isNotEmpty())
+            View.OnClickListener {
+                MaterialAlertDialogBuilder(this@MainActivity)
+                    .setTitle(labelText)
+                    .setMessage("$timeText ${timeZone.displayName}")
+                    .setPositiveButton(R.string.good_to_know) { _, _ -> }
+                    .show()
+            }
+        else
+            null
+        setOnClickListener(clickListener)
     }
 }
