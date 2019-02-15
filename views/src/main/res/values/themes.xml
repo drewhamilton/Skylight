@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="SkylightDark" parent="Theme.MaterialComponents">
+    <item name="colorPrimary">@color/skylight_darkPurple</item>
+    <item name="colorPrimaryDark">@color/skylight_darkPurple_extraDark</item>
+    <item name="colorPrimaryVariant">@color/skylight_darkPurple_light</item>
+    <item name="colorSecondary">@color/skylight_amber_dark</item>
+    <item name="android:windowBackground">@color/skylight_darkPurple_dark</item>
+  </style>
+
+  <style name="SkylightDark.NoActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
+
+  <style name="SkylightLight" parent="Theme.MaterialComponents.Light">
+    <item name="colorPrimary">@color/skylight_amber</item>
+    <item name="colorPrimaryVariant">@color/skylight_amber_light</item>
+    <item name="colorPrimaryDark">@color/skylight_amber_dark</item>
+    <item name="colorSecondary">@color/skylight_deepRed_extraLight</item>
+    <item name="android:windowBackground">@color/skylight_amber_extraLight</item>
+  </style>
+
+  <style name="SkylightLight.NoActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
+
+</resources>
