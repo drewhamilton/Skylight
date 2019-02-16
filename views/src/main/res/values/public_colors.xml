@@ -4,4 +4,9 @@
   <public name="skylight_sunrise" type="color" />
   <public name="skylight_sunset" type="color" />
   <public name="skylight_dusk" type="color" />
+
+  <public name="skylight_launcherIcon_sun" type="color" />
+  <public name="skylight_launcherIcon_ground" type="color" />
+  <public name="skylight_launcherIcon_upperSky" type="color" />
+  <public name="skylight_launcherIcon_lowerSky" type="color" />
 </resources>
