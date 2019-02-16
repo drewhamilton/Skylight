@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <attr name="darkThemeColorPrimary" format="color" />
+  <attr name="darkThemeColorPrimaryDark" format="color" />
+  <attr name="darkThemeColorPrimaryVariant" format="color" />
+  <attr name="darkThemeColorSecondary" format="color" />
+  <attr name="darkThemeColorSecondaryVariant" format="color" />
+  <attr name="darkThemeColorBackground" format="color" />
+
+  <attr name="lightThemeColorPrimary" format="color" />
+  <attr name="lightThemeColorPrimaryDark" format="color" />
+  <attr name="lightThemeColorPrimaryVariant" format="color" />
+  <attr name="lightThemeColorSecondary" format="color" />
+  <attr name="lightThemeColorSecondaryVariant" format="color" />
+  <attr name="lightThemeColorBackground" format="color" />
+</resources>
