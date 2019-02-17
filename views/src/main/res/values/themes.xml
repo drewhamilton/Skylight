@@ -13,6 +13,9 @@
     <item name="colorSecondaryVariant">?attr/darkThemeColorSecondaryVariant</item>
     <item name="android:colorBackground">?attr/darkThemeColorBackground</item>
 
+    <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+    <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
+
     <item name="materialAlertDialogTheme">@style/SkylightDark.AlertDialog</item>
     <item name="alertDialogTheme">@style/SkylightDark.AlertDialog</item>
   </style>
