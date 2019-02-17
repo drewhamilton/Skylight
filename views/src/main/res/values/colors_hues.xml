@@ -28,4 +28,6 @@
   <color name="skylight_darkPurple">#3a0053</color>
   <color name="skylight_darkPurple_dark">#1c002b</color>
   <color name="skylight_darkPurple_extraDark">#0c0011</color>
+
+  <color name="skylight_pink_700">#c2185b</color>
 </resources>
