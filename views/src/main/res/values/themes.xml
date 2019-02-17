@@ -13,6 +13,9 @@
     <item name="colorSecondaryVariant">?attr/darkThemeColorSecondaryVariant</item>
     <item name="android:colorBackground">?attr/darkThemeColorBackground</item>
 
+    <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+    <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
+
     <item name="materialAlertDialogTheme">@style/SkylightDark.AlertDialog</item>
     <item name="alertDialogTheme">@style/SkylightDark.AlertDialog</item>
   </style>
@@ -22,22 +25,6 @@
     <item name="windowNoTitle">true</item>
   </style>
 
-  <!-- Common attributes (make sure these are the same as SkylightLightBase theme) -->
-  <style name="SkylightDarkBase" parent="Theme.MaterialComponents">
-    <item name="darkThemeColorPrimary">@color/skylight_darkPurple</item>
-    <item name="darkThemeColorPrimaryDark">@color/skylight_darkPurple_extraDark</item>
-    <item name="darkThemeColorPrimaryVariant">@color/skylight_darkPurple_light</item>
-    <item name="darkThemeColorSecondary">@color/darkTheme_secondary</item>
-    <item name="darkThemeColorSecondaryVariant">@color/skylight_amber</item>
-    <item name="darkThemeColorBackground">@color/darkTheme_background</item>
-
-    <item name="lightThemeColorPrimary">@color/skylight_amber</item>
-    <item name="lightThemeColorPrimaryDark">@color/skylight_amber_dark</item>
-    <item name="lightThemeColorPrimaryVariant">@color/skylight_amber_light</item>
-    <item name="lightThemeColorSecondary">@color/lightTheme_secondary</item>
-    <item name="lightThemeColorSecondaryVariant">@color/skylight_deepRed_extraLight</item>
-    <item name="lightThemeColorBackground">@color/lightTheme_background</item>
-  </style>
   <!-- endregion -->
 
   <!-- region Light -->
@@ -61,23 +48,6 @@
   <style name="SkylightLight.NoActionBar">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
-  </style>
-
-  <!-- Common attributes (make sure these are the same as SkylightDarkBase theme) -->
-  <style name="SkylightLightBase" parent="Theme.MaterialComponents.Light">
-    <item name="darkThemeColorPrimary">@color/skylight_darkPurple</item>
-    <item name="darkThemeColorPrimaryDark">@color/skylight_darkPurple_extraDark</item>
-    <item name="darkThemeColorPrimaryVariant">@color/skylight_darkPurple_light</item>
-    <item name="darkThemeColorSecondary">@color/darkTheme_secondary</item>
-    <item name="darkThemeColorSecondaryVariant">@color/skylight_amber</item>
-    <item name="darkThemeColorBackground">@color/darkTheme_background</item>
-
-    <item name="lightThemeColorPrimary">@color/skylight_amber</item>
-    <item name="lightThemeColorPrimaryDark">@color/skylight_amber_dark</item>
-    <item name="lightThemeColorPrimaryVariant">@color/skylight_amber_light</item>
-    <item name="lightThemeColorSecondary">@color/lightTheme_secondary</item>
-    <item name="lightThemeColorSecondaryVariant">@color/skylight_deepRed_extraLight</item>
-    <item name="lightThemeColorBackground">@color/lightTheme_background</item>
   </style>
   <!-- endregion -->
 
