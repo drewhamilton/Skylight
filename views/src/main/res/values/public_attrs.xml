@@ -6,6 +6,7 @@
   <public name="darkThemeColorSecondary" type="attr" />
   <public name="darkThemeColorSecondaryVariant" type="attr" />
   <public name="darkThemeColorBackground" type="attr" />
+  <public name="darkThemeColorError" type="attr" />
 
   <public name="lightThemeColorPrimary" type="attr" />
   <public name="lightThemeColorPrimaryDark" type="attr" />
@@ -13,4 +14,5 @@
   <public name="lightThemeColorSecondary" type="attr" />
   <public name="lightThemeColorSecondaryVariant" type="attr" />
   <public name="lightThemeColorBackground" type="attr" />
+  <public name="lightThemeColorError" type="attr" />
 </resources>

@@ -6,6 +6,7 @@
   <attr name="darkThemeColorSecondary" format="color" />
   <attr name="darkThemeColorSecondaryVariant" format="color" />
   <attr name="darkThemeColorBackground" format="color" />
+  <attr name="darkThemeColorError" format="color" />
 
   <attr name="lightThemeColorPrimary" format="color" />
   <attr name="lightThemeColorPrimaryDark" format="color" />
@@ -13,4 +14,6 @@
   <attr name="lightThemeColorSecondary" format="color" />
   <attr name="lightThemeColorSecondaryVariant" format="color" />
   <attr name="lightThemeColorBackground" format="color" />
+  <attr name="lightThemeColorError" format="color" />
+
 </resources>

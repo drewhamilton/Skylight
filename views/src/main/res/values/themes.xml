@@ -12,6 +12,7 @@
     <item name="colorSecondary">?attr/darkThemeColorSecondary</item>
     <item name="colorSecondaryVariant">?attr/darkThemeColorSecondaryVariant</item>
     <item name="android:colorBackground">?attr/darkThemeColorBackground</item>
+    <item name="colorError">?attr/darkThemeColorError</item>
 
     <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
     <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
@@ -37,6 +38,7 @@
     <item name="colorSecondary">?attr/lightThemeColorSecondary</item>
     <item name="colorSecondaryVariant">?attr/lightThemeColorSecondaryVariant</item>
     <item name="android:colorBackground">?attr/lightThemeColorBackground</item>
+    <item name="colorError">?attr/lightThemeColorError</item>
 
     <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
     <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
