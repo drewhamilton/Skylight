@@ -2,19 +2,16 @@ package drewhamilton.skylight.views.event
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.StringRes
 import com.google.android.material.card.MaterialCardView
 import drewhamilton.skylight.views.R
+import drewhamilton.skylight.views.compat.setCompatTextAppearance
 import kotlinx.android.synthetic.main.view_skylight_event.view.*
 import java.text.DateFormat
 import java.util.*
 
 class SkylightEventView : MaterialCardView {
-
-    private val shouldShowLabel
-        get() = !(time.text.isEmpty() && time.hint?.isEmpty() ?: true)
 
     var labelText: CharSequence
         get() = label.text
@@ -36,8 +33,11 @@ class SkylightEventView : MaterialCardView {
             label.visibility = if (shouldShowLabel) View.VISIBLE else View.INVISIBLE
         }
 
+    private val shouldShowLabel
+        get() = !(time.text.isEmpty() && time.hint?.isEmpty() ?: true)
+
     init {
-        LayoutInflater.from(context).inflate(R.layout.view_skylight_event, this)
+        inflate(context, R.layout.view_skylight_event, this)
     }
 
     constructor(context: Context) : super(context)
@@ -60,8 +60,20 @@ class SkylightEventView : MaterialCardView {
     private fun initAttributeSet(attrs: AttributeSet) {
         val styledAttributes = context.obtainStyledAttributes(attrs, R.styleable.SkylightEventView)
         try {
+            val labelTextAppearance = styledAttributes.getResourceId(
+                R.styleable.SkylightEventView_skylightEventLabelTextAppearance,
+                R.style.TextAppearance_AppCompat_Caption
+            )
+            label.setCompatTextAppearance(labelTextAppearance)
             label.text = styledAttributes.getString(R.styleable.SkylightEventView_skylightEventLabelText)
+
+            val timeTextAppearance = styledAttributes.getResourceId(
+                R.styleable.SkylightEventView_skylightEventTimeTextAppearance,
+                R.style.TextAppearance_AppCompat_Display3
+            )
+            time.setCompatTextAppearance(timeTextAppearance)
             time.text = styledAttributes.getString(R.styleable.SkylightEventView_skylightEventTimeText)
+
             if (shouldShowLabel) label.visibility = View.VISIBLE
         } finally {
             styledAttributes.recycle()
