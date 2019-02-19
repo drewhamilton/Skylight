@@ -60,6 +60,14 @@ class SkylightEventView : MaterialCardView {
 
     fun setLabelText(@StringRes resId: Int) = label.setText(resId)
 
+    /**
+     * Set the text appearance for the label view.
+     * @param resId The style to apply as the label view's text appearance
+     */
+    fun setLabelTextAppearance(@StyleRes resId: Int) {
+        label.setCompatTextAppearance(resId)
+    }
+
     fun setTimeText(@StringRes resId: Int) {
         time.setText(resId)
         label.visibility = if (shouldShowLabel) View.VISIBLE else View.INVISIBLE
