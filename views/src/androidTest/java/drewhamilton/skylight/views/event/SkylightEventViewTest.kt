@@ -4,6 +4,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import drewhamilton.skylight.views.R
+import drewhamilton.skylight.views.test.CustomViewMatchers
 import drewhamilton.skylight.views.test.view.ViewTest
 import org.hamcrest.Matchers.`is`
 import org.junit.Assert.assertEquals
@@ -151,6 +152,53 @@ class SkylightEventViewTest : ViewTest<SkylightEventView>() {
     }
     //endregion
 
+    @Test
+    fun setLabelTextAppearance_appliesExpectedSize() {
+        setView(R.layout.test_skylight_event_view_no_attributes)
+        val view = getView()
+
+        runOnUiThread {
+            view.setLabelTextAppearance(android.R.style.TextAppearance_Material_Display4)
+            view.timeText = testTime
+        }
+
+        onView(withId(R.id.time))
+            .check(matches(isDisplayed()))
+            .check(matches(CustomViewMatchers.withTextSize(34.spToPx())))
+    }
+
+    @Test
+    fun setTimeTextAppearance_appliesExpectedSize() {
+        setView(R.layout.test_skylight_event_view_no_attributes)
+        val view = getView()
+
+        runOnUiThread {
+            view.setTimeTextAppearance(android.R.style.TextAppearance_Material_Display4)
+            view.timeText = testTime
+        }
+
+        onView(withId(R.id.time))
+            .check(matches(isDisplayed()))
+            .check(matches(CustomViewMatchers.withTextSize(34.spToPx())))
+    }
+
+    @Test
+    fun setTimeTextAutoSizeRange_appliesExpectedSize() {
+        setView(R.layout.test_skylight_event_view_no_attributes)
+        val view = getView()
+
+        val minSize = 12.spToPx()
+        val maxSize = 20.spToPx()
+        runOnUiThread {
+            view.setTimeTextAutoSizeRange(minSize.toInt(), maxSize.toInt(), stepGranularity = 1)
+            view.timeText = testTime
+        }
+
+        onView(withId(R.id.time))
+            .check(matches(isDisplayed()))
+            .check(matches(CustomViewMatchers.withTextSize(maxSize)))
+    }
+
     //region setTimeHint
     @Test
     fun setTimeHint_nonNull_setsTimeHintAndLabelVisibility() {
@@ -191,4 +239,8 @@ class SkylightEventViewTest : ViewTest<SkylightEventView>() {
         assertEquals(null, view.timeHint)
     }
     //endregion
+
+    private fun Int.spToPx(): Float {
+        return this * activity.resources.displayMetrics.scaledDensity
+    }
 }

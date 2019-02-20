@@ -74,8 +74,7 @@ class SkylightEventView : MaterialCardView {
     }
 
     /**
-     * Set the text appearance for the time view. Does not override the auto-sized minimum and maximum values if those
-     * have been set. TODO Determine if this is true
+     * Set the text appearance for the time view.
      * @param resId The style to apply as the time view's text appearance
      */
     fun setTimeTextAppearance(@StyleRes resId: Int) {
@@ -85,14 +84,14 @@ class SkylightEventView : MaterialCardView {
     /**
      * Set the time view to auto-size its text from [minSizePx] to [maxSizePx] based on the view size.
      */
-    fun setTimeTextAutoSizeRange(minSizePx: Int, maxSizePx: Int) {
-        if (minSizePx < 0 || maxSizePx < 0) throw IllegalArgumentException("Min or max text size cannot be negative")
-
-        val granularity = resources.getDimensionPixelSize(R.dimen.skylight_granularity_skylightEventTime)
+    fun setTimeTextAutoSizeRange(
+        minSizePx: Int, maxSizePx: Int,
+        stepGranularity: Int = resources.getDimensionPixelSize(R.dimen.skylight_granularity_skylightEventTime)
+    ) {
         time.setCompatAutoSizeTextTypeUniformWithConfiguration(
             minSizePx,
             maxSizePx,
-            granularity,
+            stepGranularity,
             TypedValue.COMPLEX_UNIT_PX
         )
     }
