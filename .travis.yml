@@ -5,7 +5,7 @@ jdk:
 
 env:
   matrix:
-    - ANDROID_TARGET=android-28  ANDROID_ABI=x86
+    - ANDROID_TARGET=android-28  ANDROID_ABI=armeabi-v7a
 
 android:
   components:
@@ -16,9 +16,18 @@ android:
 before_install:
   - mkdir "$ANDROID_HOME/licenses" || true
   - echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > "$ANDROID_HOME/licenses/android-sdk-license"
+  # Install the rest of tools (e.g., avdmanager)
+  - sdkmanager tools
+  # Install the system image
+  - sdkmanager "system-images;android-28;default;armeabi-v7a"
+  # Create and start emulator for the script. Meant to race the install task.
+  - echo no | avdmanager create avd --force -n test -k "system-images;android-28;default;armeabi-v7a"
+  - emulator -avd test -no-audio -no-window &
+
+install: ./gradlew clean assemble assembleAndroidTest --stacktrace
 
 before_script:
-  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-  - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
+
+script: ./gradlew check connectedCheck --stacktrace
