@@ -158,11 +158,12 @@ class SkylightEventViewTest : ViewTest<SkylightEventView>() {
         val view = getView()
 
         runOnUiThread {
-            view.setLabelTextAppearance(android.R.style.TextAppearance_Material_Display4)
+            view.setLabelTextAppearance(android.R.style.TextAppearance_Material_Display1)
             view.timeText = testTime
+            view.labelText = testLabel
         }
 
-        onView(withId(R.id.time))
+        onView(withId(R.id.label))
             .check(matches(isDisplayed()))
             .check(matches(CustomViewMatchers.withTextSize(34.spToPx())))
     }
@@ -173,13 +174,13 @@ class SkylightEventViewTest : ViewTest<SkylightEventView>() {
         val view = getView()
 
         runOnUiThread {
-            view.setTimeTextAppearance(android.R.style.TextAppearance_Material_Display4)
+            view.setTimeTextAppearance(android.R.style.TextAppearance_Material_Display3)
             view.timeText = testTime
         }
 
         onView(withId(R.id.time))
             .check(matches(isDisplayed()))
-            .check(matches(CustomViewMatchers.withTextSize(34.spToPx())))
+            .check(matches(CustomViewMatchers.withTextSize(56.spToPx())))
     }
 
     @Test
@@ -240,7 +241,5 @@ class SkylightEventViewTest : ViewTest<SkylightEventView>() {
     }
     //endregion
 
-    private fun Int.spToPx(): Float {
-        return this * activity.resources.displayMetrics.scaledDensity
-    }
+    private fun Int.spToPx() = this * activity.resources.displayMetrics.scaledDensity
 }
