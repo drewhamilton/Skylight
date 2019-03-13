@@ -2,6 +2,9 @@
 <resources>
   <public name="SkylightLight" type="style" />
   <public name="SkylightLight.NoActionBar" type="style" />
+
   <public name="SkylightDark" type="style" />
   <public name="SkylightDark.NoActionBar" type="style" />
+
+  <public name="Skylight.TabLayout" type="style" />
 </resources>

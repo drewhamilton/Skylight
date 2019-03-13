@@ -1,20 +1,25 @@
 package drewhamilton.skylight.views.event
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.util.AttributeSet
-import android.view.LayoutInflater
+import android.util.TypedValue
 import android.view.View
 import androidx.annotation.StringRes
+import androidx.annotation.StyleRes
 import com.google.android.material.card.MaterialCardView
 import drewhamilton.skylight.views.R
+import drewhamilton.skylight.views.compat.setCompatAutoSizeTextTypeUniformWithConfiguration
+import drewhamilton.skylight.views.compat.setCompatTextAppearance
 import kotlinx.android.synthetic.main.view_skylight_event.view.*
 import java.text.DateFormat
 import java.util.*
 
+/**
+ * A simple card view showing a single Skylight event. Typically used to display the time of
+ * the event and the label, e.g. "Sunrise" or "Sunset".
+ */
 class SkylightEventView : MaterialCardView {
-
-    private val shouldShowLabel
-        get() = !(time.text.isEmpty() && time.hint?.isEmpty() ?: true)
 
     var labelText: CharSequence
         get() = label.text
@@ -36,8 +41,11 @@ class SkylightEventView : MaterialCardView {
             label.visibility = if (shouldShowLabel) View.VISIBLE else View.INVISIBLE
         }
 
+    private val shouldShowLabel
+        get() = !(time.text.isEmpty() && time.hint?.isEmpty() ?: true)
+
     init {
-        LayoutInflater.from(context).inflate(R.layout.view_skylight_event, this)
+        inflate(context, R.layout.view_skylight_event, this)
     }
 
     constructor(context: Context) : super(context)
@@ -52,19 +60,93 @@ class SkylightEventView : MaterialCardView {
 
     fun setLabelText(@StringRes resId: Int) = label.setText(resId)
 
+    /**
+     * Set the text appearance for the label view.
+     * @param resId The style to apply as the label view's text appearance
+     */
+    fun setLabelTextAppearance(@StyleRes resId: Int) {
+        label.setCompatTextAppearance(resId)
+    }
+
     fun setTimeText(@StringRes resId: Int) {
         time.setText(resId)
         label.visibility = if (shouldShowLabel) View.VISIBLE else View.INVISIBLE
     }
 
+    /**
+     * Set the text appearance for the time view.
+     * @param resId The style to apply as the time view's text appearance
+     */
+    fun setTimeTextAppearance(@StyleRes resId: Int) {
+        time.setCompatTextAppearance(resId)
+    }
+
+    /**
+     * Set the time view to auto-size its text from [minSizePx] to [maxSizePx] based on the view size.
+     */
+    fun setTimeTextAutoSizeRange(
+        minSizePx: Int, maxSizePx: Int,
+        stepGranularity: Int = resources.getDimensionPixelSize(R.dimen.skylight_granularity_skylightEventTime)
+    ) {
+        time.setCompatAutoSizeTextTypeUniformWithConfiguration(
+            minSizePx,
+            maxSizePx,
+            stepGranularity,
+            TypedValue.COMPLEX_UNIT_PX
+        )
+    }
+
     private fun initAttributeSet(attrs: AttributeSet) {
         val styledAttributes = context.obtainStyledAttributes(attrs, R.styleable.SkylightEventView)
         try {
+            applyLabelTextAppearance(styledAttributes)
             label.text = styledAttributes.getString(R.styleable.SkylightEventView_skylightEventLabelText)
+
+            applyTimeTextAppearance(styledAttributes)
+            applyTimeTextAutoSizes(styledAttributes)
             time.text = styledAttributes.getString(R.styleable.SkylightEventView_skylightEventTimeText)
+
             if (shouldShowLabel) label.visibility = View.VISIBLE
         } finally {
             styledAttributes.recycle()
+        }
+    }
+
+    private fun applyLabelTextAppearance(styledAttributes: TypedArray) {
+        val labelTextAppearance = styledAttributes.getResourceId(
+            R.styleable.SkylightEventView_skylightEventLabelTextAppearance,
+            R.style.TextAppearance_AppCompat_Caption
+        )
+        label.setCompatTextAppearance(labelTextAppearance)
+    }
+
+    private fun applyTimeTextAppearance(styledAttributes: TypedArray) {
+        val timeTextAppearance = styledAttributes.getResourceId(
+            R.styleable.SkylightEventView_skylightEventTimeTextAppearance,
+            R.style.TextAppearance_AppCompat_Display3
+        )
+        time.setCompatTextAppearance(timeTextAppearance)
+    }
+
+    private fun applyTimeTextAutoSizes(styledAttributes: TypedArray) {
+        val unspecifiedTextSize = -1
+        val timeTextMinSize = styledAttributes.getDimensionPixelSize(
+            R.styleable.SkylightEventView_skylightEventTimeTextMinSize,
+            unspecifiedTextSize
+        )
+        val timeTextMaxSize = styledAttributes.getDimensionPixelSize(
+            R.styleable.SkylightEventView_skylightEventTimeTextMaxSize,
+            unspecifiedTextSize
+        )
+        if (!(timeTextMinSize == unspecifiedTextSize && timeTextMaxSize == unspecifiedTextSize)) {
+            when {
+                timeTextMinSize == unspecifiedTextSize ->
+                    time.setTextSize(TypedValue.COMPLEX_UNIT_PX, timeTextMaxSize.toFloat())
+                timeTextMaxSize == unspecifiedTextSize ->
+                    time.setTextSize(TypedValue.COMPLEX_UNIT_PX, timeTextMinSize.toFloat())
+                else ->
+                    setTimeTextAutoSizeRange(timeTextMinSize, timeTextMaxSize)
+            }
         }
     }
 }

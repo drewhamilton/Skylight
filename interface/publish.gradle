@@ -54,8 +54,8 @@ artifacts {
 }
 
 bintray {
-  user = personalBintrayUsername
-  key = personalBintrayApiKey
+  user = hasProperty('personalBintrayUsername') ? personalBintrayUsername : System.getenv('personalBintrayUsername')
+  key = hasProperty('personalBintrayApiKey') ? personalBintrayApiKey : System.getenv('personalBintrayApiKey')
 
   configurations = ['archives']
   pkg {

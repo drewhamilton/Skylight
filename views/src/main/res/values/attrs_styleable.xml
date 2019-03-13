@@ -2,6 +2,11 @@
 <resources>
   <declare-styleable name="SkylightEventView">
     <attr name="skylightEventLabelText" format="string" />
+    <attr name="skylightEventLabelTextAppearance" format="reference" />
+
     <attr name="skylightEventTimeText" format="string" />
+    <attr name="skylightEventTimeTextAppearance" format="reference" />
+    <attr name="skylightEventTimeTextMinSize" format="dimension" />
+    <attr name="skylightEventTimeTextMaxSize" format="dimension" />
   </declare-styleable>
 </resources>

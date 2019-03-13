@@ -20,18 +20,14 @@
 
         android:gravity="center"
         android:maxLines="1"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
 
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="12sp"
-        app:autoSizeMaxTextSize="56sp"
-
-        tools:text="7:51 AM" />
+        tools:text="7:51 AM"
+        tools:textAppearance="@style/TextAppearance.AppCompat.Display3" />
 
     <TextView
         android:id="@+id/label"

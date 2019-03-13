@@ -9,4 +9,9 @@
     <item name="colorPrimary">@color/lightTheme_secondary</item>
     <item name="android:background">@color/lightTheme_background</item>
   </style>
+
+  <style name="Skylight.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+    <item name="tabSelectedTextColor">?attr/colorSecondary</item>
+    <item name="tabIndicatorColor">?attr/colorSecondary</item>
+  </style>
 </resources>
