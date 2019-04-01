@@ -8,19 +8,19 @@ import drewhamilton.skylight.sso.network.SsoApi
 import drewhamilton.skylight.sso.serialization.SsoDate
 import drewhamilton.skylight.sso.serialization.SsoDateTime
 import drewhamilton.skylight.sso.serialization.SsoDateTimeAdapter
-import io.reactivex.Scheduler
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertSame
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.util.*
+import java.util.Date
 
 class SsoNetworkModuleTest {
 
-    private val rxJava2CallAdapterFactorySchedulerFieldName = "scheduler"
     private val moshiConverterFactoryMoshiFieldName = "moshi"
 
     @Test
@@ -34,28 +34,17 @@ class SsoNetworkModuleTest {
     }
 
     @Test
-    fun `retrofit builds retrofit instance with expected base URL, Moshi, OkHttp, and network Scheduler`() {
-        val mockScheduler = mock<Scheduler>()
+    fun `retrofit builds retrofit instance with expected base URL, Moshi, and OkHttp`() {
         val mockMoshi = mock<Moshi>()
         val mockOkHttpClient = mock<OkHttpClient>()
 
-        val retrofit = SsoNetworkModule.retrofit(mockMoshi, mockOkHttpClient, mockScheduler)
+        val retrofit = SsoNetworkModule.retrofit(mockMoshi, mockOkHttpClient)
 
         assertEquals(HttpUrl.parse(ApiConstants.BASE_URL), retrofit.baseUrl())
 
-        val callAdapterFactories = retrofit.callAdapterFactories()
-        assertTrue(callAdapterFactories.size >= 1)
-        val callAdapterFactory = callAdapterFactories[0]
-        assertTrue(callAdapterFactory is RxJava2CallAdapterFactory)
-        // Scheduler member is not publicly available so use reflection to verify it:
-        val schedulerField =
-            RxJava2CallAdapterFactory::class.java.getDeclaredField(rxJava2CallAdapterFactorySchedulerFieldName)
-        schedulerField.isAccessible = true
-        assertSame(mockScheduler, schedulerField.get(callAdapterFactory))
-
         val converterFactories = retrofit.converterFactories()
         // Retrofit includes BuiltInConverters so size is 1 more than what we set:
-        assertTrue(callAdapterFactories.size >= 2)
+        assertTrue(converterFactories.size >= 2)
         val converterFactory = converterFactories[1]
         assertTrue(converterFactory is MoshiConverterFactory)
         // Moshi member is not publicly available so use reflection to verify it:

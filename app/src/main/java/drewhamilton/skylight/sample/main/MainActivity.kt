@@ -9,6 +9,7 @@ import drewhamilton.skylight.models.AlwaysLight
 import drewhamilton.skylight.models.NeverDaytime
 import drewhamilton.skylight.models.SkylightInfo
 import drewhamilton.skylight.models.Typical
+import drewhamilton.skylight.rx.skylightInfo
 import drewhamilton.skylight.sample.AppComponent
 import drewhamilton.skylight.sample.BuildConfig
 import drewhamilton.skylight.sample.R
@@ -18,9 +19,16 @@ import drewhamilton.skylight.views.event.SkylightEventView
 import drewhamilton.skylight.views.event.setTime
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
-import kotlinx.android.synthetic.main.activity_main.*
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_main.dawn
+import kotlinx.android.synthetic.main.activity_main.dusk
+import kotlinx.android.synthetic.main.activity_main.locationSelector
+import kotlinx.android.synthetic.main.activity_main.sunrise
+import kotlinx.android.synthetic.main.activity_main.sunset
+import kotlinx.android.synthetic.main.activity_main.version
 import java.text.DateFormat
-import java.util.*
+import java.util.Date
+import java.util.TimeZone
 import javax.inject.Inject
 
 class MainActivity : RxActivity() {
@@ -44,7 +52,8 @@ class MainActivity : RxActivity() {
         locationSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val location = locationOptions[position]
-                skylightRepository.getSkylightInfo(location.coordinates, Date())
+                skylightRepository.skylightInfo(location.coordinates, Date())
+                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSuccess { timeFormat.timeZone = location.timeZone }
                     .subscribe(Consumer { it.display() })

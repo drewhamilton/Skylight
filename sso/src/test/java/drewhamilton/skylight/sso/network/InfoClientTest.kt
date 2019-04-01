@@ -6,11 +6,12 @@ import drewhamilton.skylight.sso.network.models.Params
 import drewhamilton.skylight.sso.network.models.Response
 import drewhamilton.skylight.sso.network.models.SunriseSunsetInfo
 import drewhamilton.skylight.sso.serialization.SsoDateTimeAdapter
-import io.reactivex.Single
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class InfoClientTest {
 
@@ -42,12 +43,10 @@ class InfoClientTest {
         mockApi = mock {
             on {
                 getInfo(dummyParams.lat, dummyParams.lng, dummyDateString, 0)
-            } doReturn Single.fromCallable { Response(dummySunriseSunsetInfo, "Dummy status") }
+            } doReturn Response(dummySunriseSunsetInfo, "Dummy status")
         }
 
         val infoClient = InfoClient(mockApi, mockDateTimeAdapter)
-        infoClient.getInfo(dummyParams).test()
-            .assertValueCount(1)
-            .assertValue { it == dummySunriseSunsetInfo }
+        assertEquals(dummySunriseSunsetInfo, infoClient.getInfo(dummyParams))
     }
 }

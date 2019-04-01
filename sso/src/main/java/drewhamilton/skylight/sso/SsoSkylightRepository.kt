@@ -1,13 +1,18 @@
 package drewhamilton.skylight.sso
 
 import drewhamilton.skylight.SkylightRepository
-import drewhamilton.skylight.models.*
+import drewhamilton.skylight.models.AlwaysDaytime
+import drewhamilton.skylight.models.AlwaysLight
+import drewhamilton.skylight.models.Coordinates
+import drewhamilton.skylight.models.NeverDaytime
+import drewhamilton.skylight.models.NeverLight
+import drewhamilton.skylight.models.SkylightInfo
+import drewhamilton.skylight.models.Typical
 import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.InfoClient
 import drewhamilton.skylight.sso.network.models.Params
 import drewhamilton.skylight.sso.network.models.SunriseSunsetInfo
-import io.reactivex.Single
-import java.util.*
+import java.util.Date
 import javax.inject.Inject
 
 /**
@@ -16,10 +21,9 @@ import javax.inject.Inject
  */
 class SsoSkylightRepository @Inject constructor(private val client: InfoClient) : SkylightRepository {
 
-    override fun getSkylightInfo(coordinates: Coordinates, date: Date): Single<SkylightInfo> {
+    override fun getSkylightInfo(coordinates: Coordinates, date: Date): SkylightInfo {
         val params = Params(coordinates.latitude, coordinates.longitude, date)
-        return client.getInfo(params)
-            .map { it.toSkylightInfo() }
+        return client.getInfo(params).toSkylightInfo()
     }
 }
 

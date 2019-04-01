@@ -1,7 +1,6 @@
 package drewhamilton.skylight.sso.network
 
 import drewhamilton.skylight.sso.network.models.Response
-import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -13,5 +12,5 @@ interface SsoApi {
       @Query("lng") lng: Double,
       @Query("date") date: String,
       @Query("formatted") formatted: Int
-  ): Single<Response>
+  ): Response
 }
