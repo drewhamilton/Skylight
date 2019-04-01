@@ -10,10 +10,16 @@ class InfoClient @Inject constructor(
     private val dateTimeAdapter: SsoDateTimeAdapter
 ) {
 
-  private val formatted = 0
+    private val formatted = 0
 
-  fun getInfo(params: Params): SunriseSunsetInfo {
-      val response = api.getInfo(params.lat, params.lng, dateTimeAdapter.dateToString(params.date), formatted)
-      return response.results
-  }
+    fun getInfo(params: Params): SunriseSunsetInfo {
+        val call = api.getInfo(params.lat, params.lng, dateTimeAdapter.dateToString(params.date), formatted)
+
+        val response = call.execute()
+        val responseBody = response.body()
+        if (response.isSuccessful && responseBody != null)
+            return responseBody.results
+        else
+            throw ResponseException(response.errorBody())
+    }
 }
