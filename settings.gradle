@@ -1,1 +1,1 @@
-include ':app', ':interface', ':sso', ':views'
+include ':app', ':interface', ':sso', ':views', ':rx'

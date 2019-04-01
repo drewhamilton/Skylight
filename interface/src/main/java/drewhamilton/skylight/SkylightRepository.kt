@@ -1,9 +1,13 @@
 package drewhamilton.skylight
 
-import drewhamilton.skylight.models.*
-import io.reactivex.Flowable
-import io.reactivex.Single
-import java.util.*
+import drewhamilton.skylight.models.AlwaysDaytime
+import drewhamilton.skylight.models.AlwaysLight
+import drewhamilton.skylight.models.Coordinates
+import drewhamilton.skylight.models.NeverDaytime
+import drewhamilton.skylight.models.NeverLight
+import drewhamilton.skylight.models.SkylightInfo
+import drewhamilton.skylight.models.Typical
+import java.util.Date
 
 interface SkylightRepository {
 
@@ -12,17 +16,8 @@ interface SkylightRepository {
      * @param date The date for which to return info. The time information in this parameter is ignored.
      * @return [SkylightInfo] at the given coordinates for the given date.
      */
-    fun getSkylightInfo(coordinates: Coordinates, date: Date): Single<SkylightInfo>
-
+    fun getSkylightInfo(coordinates: Coordinates, date: Date): SkylightInfo
 }
-
-/**
- * @param coordinates The coordinates to retrieve info for.
- * @return [SkylightInfo] at the given coordinates for today and tomorrow.
- */
-fun SkylightRepository.getUpcomingSkylightInfo(coordinates: Coordinates): Flowable<SkylightInfo> =
-    getSkylightInfo(coordinates, today())
-        .mergeWith(getSkylightInfo(coordinates, tomorrow()))
 
 /**
  * @param coordinates The coordinates for which lightness should be determined.
@@ -30,17 +25,16 @@ fun SkylightRepository.getUpcomingSkylightInfo(coordinates: Coordinates): Flowab
  * @return Whether it is light outside at the given coordinates at the given date-time, where "light" means after dawn
  * and before dusk on the given date.
  */
-fun SkylightRepository.isLight(coordinates: Coordinates, dateTime: Date): Single<Boolean> =
-    getSkylightInfo(coordinates, dateTime)
-        .map {
-            when (it) {
-                is AlwaysDaytime -> true
-                is AlwaysLight -> true
-                is NeverLight -> false
-                is NeverDaytime -> isLight(it.dawn, it.dusk, dateTime)
-                is Typical -> isLight(it.dawn, it.dusk, dateTime)
-            }
-        }
+fun SkylightRepository.isLight(coordinates: Coordinates, dateTime: Date): Boolean {
+    val skylightInfo = getSkylightInfo(coordinates, dateTime)
+    return when (skylightInfo) {
+        is AlwaysDaytime -> true
+        is AlwaysLight -> true
+        is NeverLight -> false
+        is NeverDaytime -> isLight(skylightInfo.dawn, skylightInfo.dusk, dateTime)
+        is Typical -> isLight(skylightInfo.dawn, skylightInfo.dusk, dateTime)
+    }
+}
 
 /**
  * @param coordinates The coordinates for which darkness should be determined.
@@ -48,16 +42,6 @@ fun SkylightRepository.isLight(coordinates: Coordinates, dateTime: Date): Single
  * @return Whether it is dark outside at the given coordinates at the given date-time, where "dark" means before dawn
  * or after dusk on the given date.
  */
-fun SkylightRepository.isDark(coordinates: Coordinates, dateTime: Date): Single<Boolean> =
-    isLight(coordinates, dateTime)
-        .map { !it }
+fun SkylightRepository.isDark(coordinates: Coordinates, dateTime: Date): Boolean = !isLight(coordinates, dateTime)
 
 private fun isLight(dawn: Date, dusk: Date, dateTime: Date) = dawn.before(dateTime) && dusk.after(dateTime)
-
-private fun today() = Date()
-
-private fun tomorrow(): Date {
-    val tomorrow = Calendar.getInstance()
-    tomorrow.add(Calendar.DATE, 1)
-    return tomorrow.time
-}
