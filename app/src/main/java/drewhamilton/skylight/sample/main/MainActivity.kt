@@ -9,7 +9,7 @@ import drewhamilton.skylight.models.AlwaysLight
 import drewhamilton.skylight.models.NeverDaytime
 import drewhamilton.skylight.models.SkylightInfo
 import drewhamilton.skylight.models.Typical
-import drewhamilton.skylight.rx.skylightInfo
+import drewhamilton.skylight.rx.getSkylightInfoSingle
 import drewhamilton.skylight.sample.AppComponent
 import drewhamilton.skylight.sample.BuildConfig
 import drewhamilton.skylight.sample.R
@@ -52,7 +52,7 @@ class MainActivity : RxActivity() {
         locationSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val location = locationOptions[position]
-                skylightRepository.skylightInfo(location.coordinates, Date())
+                skylightRepository.getSkylightInfoSingle(location.coordinates, Date())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSuccess { timeFormat.timeZone = location.timeZone }

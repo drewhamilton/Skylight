@@ -16,7 +16,7 @@ interface SkylightRepository {
      * @param date The date for which to return info. The time information in this parameter is ignored.
      * @return [SkylightInfo] at the given coordinates for the given date.
      */
-    fun getSkylightInfo(coordinates: Coordinates, date: Date): SkylightInfo
+    fun determineSkylightInfo(coordinates: Coordinates, date: Date): SkylightInfo
 }
 
 /**
@@ -26,7 +26,7 @@ interface SkylightRepository {
  * and before dusk on the given date.
  */
 fun SkylightRepository.isLight(coordinates: Coordinates, dateTime: Date): Boolean {
-    val skylightInfo = getSkylightInfo(coordinates, dateTime)
+    val skylightInfo = determineSkylightInfo(coordinates, dateTime)
     return when (skylightInfo) {
         is AlwaysDaytime -> true
         is AlwaysLight -> true

@@ -19,14 +19,14 @@ class RxSkylightRepositoryTest {
 
     private lateinit var mockSkylightRepository: SkylightRepository
 
-    //region getUpcomingSkylightInfo
+    //region getUpcomingSkylightInfoFlowable
     @Test
     fun `getUpcomingSkylightInfo emits today's and tomorrow's info and completes`() {
         val today = today()
         val tomorrow = tomorrow()
         mockSkylightRepository { dummyTypical(it) }
 
-        mockSkylightRepository.upcomingSkylightInfo(dummyCoordinates).test()
+        mockSkylightRepository.getUpcomingSkylightInfoFlowable(dummyCoordinates).test()
             .assertComplete()
             .assertValueCount(2)
             .assertValueAt(0) { it.equalsDummyForDate(today) }
@@ -36,7 +36,7 @@ class RxSkylightRepositoryTest {
 
     private fun mockSkylightRepository(returnFunction: (Date) -> SkylightInfo) {
         mockSkylightRepository = mock {
-            on { getSkylightInfo(any(), any()) } doAnswer { invocation ->
+            on { determineSkylightInfo(any(), any()) } doAnswer { invocation ->
                 returnFunction(invocation.getArgument(1))
             }
         }

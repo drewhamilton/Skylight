@@ -13,8 +13,8 @@ import java.util.Date
  * @param date The date for which to return info. The time information in this parameter is ignored.
  * @return [SkylightInfo] at the given coordinates for the given date.
  */
-fun SkylightRepository.skylightInfo(coordinates: Coordinates, date: Date) = Single.fromCallable {
-    getSkylightInfo(coordinates, date)
+fun SkylightRepository.getSkylightInfoSingle(coordinates: Coordinates, date: Date) = Single.fromCallable {
+    determineSkylightInfo(coordinates, date)
 }
 
 /**
@@ -22,9 +22,9 @@ fun SkylightRepository.skylightInfo(coordinates: Coordinates, date: Date) = Sing
  * @return A [Flowable] that will emit 2 [SkylightInfo] instances at the given coordinates: 1 for today and 1 for
  * tomorrow.
  */
-fun SkylightRepository.upcomingSkylightInfo(coordinates: Coordinates): Flowable<SkylightInfo> =
-    skylightInfo(coordinates, today())
-        .mergeWith(skylightInfo(coordinates, tomorrow()))
+fun SkylightRepository.getUpcomingSkylightInfoFlowable(coordinates: Coordinates): Flowable<SkylightInfo> =
+    getSkylightInfoSingle(coordinates, today())
+        .mergeWith(getSkylightInfoSingle(coordinates, tomorrow()))
 
 private fun today() = Date()
 

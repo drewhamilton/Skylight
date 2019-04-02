@@ -156,7 +156,7 @@ class SkylightRepositoryTest {
 
     private fun mockSkylightRepository(returnFunction: (Date) -> SkylightInfo) {
         mockSkylightRepository = mock {
-            on { getSkylightInfo(any(), any()) } doAnswer { invocation ->
+            on { determineSkylightInfo(any(), any()) } doAnswer { invocation ->
                 returnFunction(invocation.getArgument(1))
             }
         }
