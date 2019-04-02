@@ -6,7 +6,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DummyCall<T>(
+class DummyCall<T> private constructor(
     private val responseItem: T? = null,
     private val errorCode: Int = -1,
     private val responseBody: ResponseBody? = null
@@ -44,5 +44,14 @@ class DummyCall<T>(
 
     override fun request(): Request {
         throw UnsupportedOperationException()
+    }
+
+    companion object {
+        @JvmStatic
+        fun <T> success(responseItem: T) = DummyCall(responseItem)
+
+        @JvmStatic
+        fun <T> error(errorCode: Int, responseBody: ResponseBody) =
+            DummyCall<T>(errorCode = errorCode, responseBody = responseBody)
     }
 }

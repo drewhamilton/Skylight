@@ -6,8 +6,10 @@ import drewhamilton.skylight.sso.network.models.Params
 import drewhamilton.skylight.sso.network.models.Response
 import drewhamilton.skylight.sso.network.models.SunriseSunsetInfo
 import drewhamilton.skylight.sso.serialization.SsoDateTimeAdapter
+import okhttp3.ResponseBody
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import retrofit2.HttpException
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -43,10 +45,25 @@ class InfoClientTest {
         mockApi = mock {
             on {
                 getInfo(dummyParams.lat, dummyParams.lng, dummyDateString, 0)
-            } doReturn DummyCall(Response(dummySunriseSunsetInfo, "Dummy status"))
+            } doReturn DummyCall.success(Response(dummySunriseSunsetInfo, "Dummy status"))
         }
 
         val infoClient = InfoClient(mockApi, mockDateTimeAdapter)
         assertEquals(dummySunriseSunsetInfo, infoClient.getInfo(dummyParams))
+    }
+
+    @Test(expected = HttpException::class)
+    fun `getInfo throws HttpException when API result is an error`() {
+        mockDateTimeAdapter = mock {
+            on { dateToString(dummyParams.date) } doReturn dummyDateString
+        }
+        mockApi = mock {
+            on {
+                getInfo(dummyParams.lat, dummyParams.lng, dummyDateString, 0)
+            } doReturn DummyCall.error(401, ResponseBody.create(null, "Content"))
+        }
+
+        val infoClient = InfoClient(mockApi, mockDateTimeAdapter)
+        infoClient.getInfo(dummyParams)
     }
 }

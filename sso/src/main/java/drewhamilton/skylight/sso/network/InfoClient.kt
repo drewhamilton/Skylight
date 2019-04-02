@@ -3,6 +3,7 @@ package drewhamilton.skylight.sso.network
 import drewhamilton.skylight.sso.network.models.Params
 import drewhamilton.skylight.sso.network.models.SunriseSunsetInfo
 import drewhamilton.skylight.sso.serialization.SsoDateTimeAdapter
+import retrofit2.HttpException
 import javax.inject.Inject
 
 class InfoClient @Inject constructor(
@@ -20,6 +21,6 @@ class InfoClient @Inject constructor(
         if (response.isSuccessful && responseBody != null)
             return responseBody.results
         else
-            throw ResponseException(response.errorBody())
+            throw HttpException(response)
     }
 }
