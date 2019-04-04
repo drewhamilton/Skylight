@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import drewhamilton.skylight.SkylightRepository
+import drewhamilton.skylight.Skylight
 import drewhamilton.skylight.models.AlwaysLight
 import drewhamilton.skylight.models.NeverDaytime
 import drewhamilton.skylight.models.SkylightInfo
@@ -36,7 +36,7 @@ class MainActivity : RxActivity() {
     @Suppress("ProtectedInFinal")
     @Inject protected lateinit var locationRepository: LocationRepository
     @Suppress("ProtectedInFinal")
-    @Inject protected lateinit var skylightRepository: SkylightRepository
+    @Inject protected lateinit var skylight: Skylight
 
     private val timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT)
 
@@ -52,7 +52,7 @@ class MainActivity : RxActivity() {
         locationSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val location = locationOptions[position]
-                skylightRepository.getSkylightInfoSingle(location.coordinates, Date())
+                skylight.getSkylightInfoSingle(location.coordinates, Date())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSuccess { timeFormat.timeZone = location.timeZone }

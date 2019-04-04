@@ -9,7 +9,7 @@ import drewhamilton.skylight.models.SkylightInfo
 import drewhamilton.skylight.models.Typical
 import java.util.Date
 
-interface SkylightRepository {
+interface Skylight {
 
     /**
      * @param coordinates The coordinates to retrieve info for.
@@ -25,7 +25,7 @@ interface SkylightRepository {
  * @return Whether it is light outside at the given coordinates at the given date-time, where "light" means after dawn
  * and before dusk on the given date.
  */
-fun SkylightRepository.isLight(coordinates: Coordinates, dateTime: Date): Boolean {
+fun Skylight.isLight(coordinates: Coordinates, dateTime: Date): Boolean {
     val skylightInfo = determineSkylightInfo(coordinates, dateTime)
     return when (skylightInfo) {
         is AlwaysDaytime -> true
@@ -42,6 +42,6 @@ fun SkylightRepository.isLight(coordinates: Coordinates, dateTime: Date): Boolea
  * @return Whether it is dark outside at the given coordinates at the given date-time, where "dark" means before dawn
  * or after dusk on the given date.
  */
-fun SkylightRepository.isDark(coordinates: Coordinates, dateTime: Date): Boolean = !isLight(coordinates, dateTime)
+fun Skylight.isDark(coordinates: Coordinates, dateTime: Date): Boolean = !isLight(coordinates, dateTime)
 
 private fun isLight(dawn: Date, dusk: Date, dateTime: Date) = dawn.before(dateTime) && dusk.after(dateTime)

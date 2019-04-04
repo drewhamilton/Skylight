@@ -2,13 +2,13 @@ package drewhamilton.skylight.sso.inject
 
 import dagger.BindsInstance
 import dagger.Component
-import drewhamilton.skylight.SkylightRepository
+import drewhamilton.skylight.Skylight
 import okhttp3.OkHttpClient
 
 @Component(modules = [SsoSkylightModule::class])
 interface SsoSkylightComponent {
 
-    fun skylightRepository(): SkylightRepository
+    fun skylight(): Skylight
 
     @Component.Builder
     interface Builder {

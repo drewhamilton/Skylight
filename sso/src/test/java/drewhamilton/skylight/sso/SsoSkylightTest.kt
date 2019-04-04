@@ -10,7 +10,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.Date
 
-class SsoSkylightRepositoryTest {
+class SsoSkylightTest {
 
     private val dummyDawn = Date(99_999_999_910_000L)
     private val dummySunrise = Date(99_999_999_920_000L)
@@ -32,11 +32,11 @@ class SsoSkylightRepositoryTest {
         mockClient = mock {
             on { getInfo(dummyParams) } doReturn dummySunriseSunsetInfo
         }
-        val ssoSkylightRepository = SsoSkylightRepository(mockClient)
+        val ssoSkylight = SsoSkylight(mockClient)
 
         assertEquals(
             dummySunriseSunsetInfo.toSkylightInfo(),
-            ssoSkylightRepository.determineSkylightInfo(dummyCoordinates, dummyNow)
+            ssoSkylight.determineSkylightInfo(dummyCoordinates, dummyNow)
         )
     }
 }

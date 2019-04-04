@@ -3,7 +3,7 @@ package drewhamilton.skylight.rx
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.mock
-import drewhamilton.skylight.SkylightRepository
+import drewhamilton.skylight.Skylight
 import drewhamilton.skylight.models.Coordinates
 import drewhamilton.skylight.models.SkylightInfo
 import drewhamilton.skylight.models.Typical
@@ -11,22 +11,22 @@ import org.junit.Test
 import java.util.Calendar
 import java.util.Date
 
-class RxSkylightRepositoryTest {
+class RxSkylightTest {
 
     private val timeDifferenceMillis = 5000L
 
     private val dummyCoordinates = Coordinates(50.0, 60.0)
 
-    private lateinit var mockSkylightRepository: SkylightRepository
+    private lateinit var mockSkylight: Skylight
 
     //region getUpcomingSkylightInfoFlowable
     @Test
     fun `getUpcomingSkylightInfo emits today's and tomorrow's info and completes`() {
         val today = today()
         val tomorrow = tomorrow()
-        mockSkylightRepository { dummyTypical(it) }
+        mockSkylight { dummyTypical(it) }
 
-        mockSkylightRepository.getUpcomingSkylightInfoFlowable(dummyCoordinates).test()
+        mockSkylight.getUpcomingSkylightInfoFlowable(dummyCoordinates).test()
             .assertComplete()
             .assertValueCount(2)
             .assertValueAt(0) { it.equalsDummyForDate(today) }
@@ -34,8 +34,8 @@ class RxSkylightRepositoryTest {
     }
     //endregion
 
-    private fun mockSkylightRepository(returnFunction: (Date) -> SkylightInfo) {
-        mockSkylightRepository = mock {
+    private fun mockSkylight(returnFunction: (Date) -> SkylightInfo) {
+        mockSkylight = mock {
             on { determineSkylightInfo(any(), any()) } doAnswer { invocation ->
                 returnFunction(invocation.getArgument(1))
             }

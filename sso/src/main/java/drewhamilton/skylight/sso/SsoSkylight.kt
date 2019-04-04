@@ -1,6 +1,6 @@
 package drewhamilton.skylight.sso
 
-import drewhamilton.skylight.SkylightRepository
+import drewhamilton.skylight.Skylight
 import drewhamilton.skylight.models.AlwaysDaytime
 import drewhamilton.skylight.models.AlwaysLight
 import drewhamilton.skylight.models.Coordinates
@@ -16,10 +16,10 @@ import java.util.Date
 import javax.inject.Inject
 
 /**
- * An implementation of [SkylightRepository] that uses sunrise-sunset.org to determine [SkylightInfo] for the given
+ * An implementation of [Skylight] that uses sunrise-sunset.org to determine [SkylightInfo] for the given
  * coordinates.
  */
-class SsoSkylightRepository @Inject constructor(private val client: InfoClient) : SkylightRepository {
+class SsoSkylight @Inject constructor(private val client: InfoClient) : Skylight {
 
     override fun determineSkylightInfo(coordinates: Coordinates, date: Date): SkylightInfo {
         val params = Params(coordinates.latitude, coordinates.longitude, date)

@@ -1,6 +1,6 @@
 package drewhamilton.skylight.rx
 
-import drewhamilton.skylight.SkylightRepository
+import drewhamilton.skylight.Skylight
 import drewhamilton.skylight.models.Coordinates
 import drewhamilton.skylight.models.SkylightInfo
 import io.reactivex.Flowable
@@ -13,7 +13,7 @@ import java.util.Date
  * @param date The date for which to return info. The time information in this parameter is ignored.
  * @return [SkylightInfo] at the given coordinates for the given date.
  */
-fun SkylightRepository.getSkylightInfoSingle(coordinates: Coordinates, date: Date) = Single.fromCallable {
+fun Skylight.getSkylightInfoSingle(coordinates: Coordinates, date: Date) = Single.fromCallable {
     determineSkylightInfo(coordinates, date)
 }
 
@@ -22,7 +22,7 @@ fun SkylightRepository.getSkylightInfoSingle(coordinates: Coordinates, date: Dat
  * @return A [Flowable] that will emit 2 [SkylightInfo] instances at the given coordinates: 1 for today and 1 for
  * tomorrow.
  */
-fun SkylightRepository.getUpcomingSkylightInfoFlowable(coordinates: Coordinates): Flowable<SkylightInfo> =
+fun Skylight.getUpcomingSkylightInfoFlowable(coordinates: Coordinates): Flowable<SkylightInfo> =
     getSkylightInfoSingle(coordinates, today())
         .mergeWith(getSkylightInfoSingle(coordinates, tomorrow()))
 
