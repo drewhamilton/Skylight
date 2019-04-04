@@ -1,6 +1,6 @@
 package drewhamilton.skylight.models
 
-import java.util.*
+import java.util.Date
 
 sealed class SkylightInfo
 
@@ -20,10 +20,7 @@ data class Typical(
 /**
  * Represents a day that is always full light, i.e. the sun never goes below the horizon.
  */
-class AlwaysDaytime : SkylightInfo() {
-  override fun equals(other: Any?) = this === other || other is AlwaysDaytime
-  override fun hashCode() = javaClass.hashCode()
-}
+object AlwaysDaytime : SkylightInfo()
 
 /**
  * Represents a day where there is full light and twilight, but no full darkness, i.e. the sun never goes below civil
@@ -45,8 +42,5 @@ data class NeverDaytime(
 /**
  * Represents a day that is always darkness, i.e. the sun never goes above civil twilight.
  */
-class NeverLight : SkylightInfo() {
-  override fun equals(other: Any?) = this === other || other is NeverLight
-  override fun hashCode() = javaClass.hashCode()
-}
+object NeverLight : SkylightInfo()
 
