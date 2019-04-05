@@ -2,13 +2,16 @@ package drewhamilton.skylight.models
 
 import java.util.Date
 
+/**
+ * Represents the Skylight information for a single day at a single location.
+ *
+ * TODO MISSING What about transition days that e.g. have a sunrise but no sunset?
+ */
 sealed class SkylightInfo
 
 /**
  * Represents a normal day, where dawn and dusk represent crossing civil twilight, and sunrise and sunset represent
  * crossing the horizon.
- *
- * TODO MISSING What about transition days that e.g. have a sunrise but no sunset?
  */
 data class Typical(
     val dawn: Date,
