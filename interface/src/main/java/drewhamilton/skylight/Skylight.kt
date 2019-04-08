@@ -3,16 +3,16 @@ package drewhamilton.skylight
 import java.util.Date
 
 /**
- * An interface capable of providing [SkylightInfo] for a given location and date-time.
+ * An interface capable of providing [SkylightDay] for a given location and date-time.
  */
 interface Skylight {
 
     /**
      * @param coordinates The coordinates to retrieve info for.
      * @param date The date for which to return info. The time information in this parameter is ignored.
-     * @return [SkylightInfo] at the given coordinates for the given date.
+     * @return [SkylightDay] at the given coordinates for the given date.
      */
-    fun determineSkylightInfo(coordinates: Coordinates, date: Date): SkylightInfo
+    fun determineSkylightDay(coordinates: Coordinates, date: Date): SkylightDay
 }
 
 /**
@@ -22,13 +22,13 @@ interface Skylight {
  * and before dusk on the given date.
  */
 fun Skylight.isLight(coordinates: Coordinates, dateTime: Date): Boolean {
-    val skylightInfo = determineSkylightInfo(coordinates, dateTime)
-    return when (skylightInfo) {
-        is SkylightInfo.AlwaysDaytime -> true
-        is SkylightInfo.AlwaysLight -> true
-        is SkylightInfo.NeverLight -> false
-        is SkylightInfo.NeverDaytime -> isLight(skylightInfo.dawn, skylightInfo.dusk, dateTime)
-        is SkylightInfo.Typical -> isLight(skylightInfo.dawn, skylightInfo.dusk, dateTime)
+    val skylightDay = determineSkylightDay(coordinates, dateTime)
+    return when (skylightDay) {
+        is SkylightDay.AlwaysDaytime -> true
+        is SkylightDay.AlwaysLight -> true
+        is SkylightDay.NeverLight -> false
+        is SkylightDay.NeverDaytime -> isLight(skylightDay.dawn, skylightDay.dusk, dateTime)
+        is SkylightDay.Typical -> isLight(skylightDay.dawn, skylightDay.dusk, dateTime)
     }
 }
 

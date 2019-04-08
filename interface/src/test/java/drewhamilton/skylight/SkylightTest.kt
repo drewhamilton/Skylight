@@ -147,21 +147,21 @@ class SkylightTest {
     }
     //endregion
 
-    private fun mockSkylight(returnFunction: (Date) -> SkylightInfo) {
+    private fun mockSkylight(returnFunction: (Date) -> SkylightDay) {
         mockSkylight = mock {
-            on { determineSkylightInfo(any(), any()) } doAnswer { invocation ->
+            on { determineSkylightDay(any(), any()) } doAnswer { invocation ->
                 returnFunction(invocation.getArgument(1))
             }
         }
     }
 
-    private fun dummyAlwaysDaytime() = SkylightInfo.AlwaysDaytime
+    private fun dummyAlwaysDaytime() = SkylightDay.AlwaysDaytime
     private fun dummyAlwaysLight(sunrise: Date) =
-        SkylightInfo.AlwaysLight(sunrise, Date(sunrise.time + timeDifferenceMillis))
-    private fun dummyNeverLight() = SkylightInfo.NeverLight
-    private fun dummyNeverDaytime(dawn: Date) = SkylightInfo.NeverDaytime(dawn, Date(dawn.time + timeDifferenceMillis))
+        SkylightDay.AlwaysLight(sunrise, Date(sunrise.time + timeDifferenceMillis))
+    private fun dummyNeverLight() = SkylightDay.NeverLight
+    private fun dummyNeverDaytime(dawn: Date) = SkylightDay.NeverDaytime(dawn, Date(dawn.time + timeDifferenceMillis))
 
-    private fun dummyTypical(dawn: Date) = SkylightInfo.Typical(
+    private fun dummyTypical(dawn: Date) = SkylightDay.Typical(
         dawn,
         Date(dawn.time + timeDifferenceMillis),
         Date(dawn.time + 2 * timeDifferenceMillis),

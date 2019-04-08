@@ -3,9 +3,9 @@ package drewhamilton.skylight.rx
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.mock
-import drewhamilton.skylight.Skylight
 import drewhamilton.skylight.Coordinates
-import drewhamilton.skylight.SkylightInfo
+import drewhamilton.skylight.Skylight
+import drewhamilton.skylight.SkylightDay
 import org.junit.Test
 import java.util.Calendar
 import java.util.Date
@@ -18,14 +18,14 @@ class RxSkylightTest {
 
     private lateinit var mockSkylight: Skylight
 
-    //region getUpcomingSkylightInfoFlowable
+    //region getUpcomingSkylightDayFlowable
     @Test
-    fun `getUpcomingSkylightInfo emits today's and tomorrow's info and completes`() {
+    fun `getUpcomingSkylightDay emits today's and tomorrow's info and completes`() {
         val today = today()
         val tomorrow = tomorrow()
         mockSkylight { dummyTypical(it) }
 
-        mockSkylight.getUpcomingSkylightInfoFlowable(dummyCoordinates).test()
+        mockSkylight.getUpcomingSkylightDayFlowable(dummyCoordinates).test()
             .assertComplete()
             .assertValueCount(2)
             .assertValueAt(0) { it.equalsDummyForDate(today) }
@@ -33,9 +33,9 @@ class RxSkylightTest {
     }
     //endregion
 
-    private fun mockSkylight(returnFunction: (Date) -> SkylightInfo) {
+    private fun mockSkylight(returnFunction: (Date) -> SkylightDay) {
         mockSkylight = mock {
-            on { determineSkylightInfo(any(), any()) } doAnswer { invocation ->
+            on { determineSkylightDay(any(), any()) } doAnswer { invocation ->
                 returnFunction(invocation.getArgument(1))
             }
         }
@@ -49,15 +49,15 @@ class RxSkylightTest {
         return tomorrow
     }
 
-    private fun dummyTypical(dawn: Date) = SkylightInfo.Typical(
+    private fun dummyTypical(dawn: Date) = SkylightDay.Typical(
         dawn,
         Date(dawn.time + timeDifferenceMillis),
         Date(dawn.time + 2 * timeDifferenceMillis),
         Date(dawn.time + 3 * timeDifferenceMillis)
     )
 
-    private fun SkylightInfo.equalsDummyForDate(date: Calendar) =
-        this is SkylightInfo.Typical &&
+    private fun SkylightDay.equalsDummyForDate(date: Calendar) =
+        this is SkylightDay.Typical &&
                 dawn.toCalendar().isSameDay(date) &&
                 sunrise.toCalendar().isSameDay(date) &&
                 sunset.toCalendar().isSameDay(date) &&

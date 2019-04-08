@@ -7,7 +7,7 @@ import java.util.Date
  *
  * TODO MISSING What about transition days that e.g. have a sunrise but no sunset?
  */
-sealed class SkylightInfo {
+sealed class SkylightDay {
 
     /**
      * Represents a normal day, where dawn and dusk represent crossing civil twilight, and sunrise and sunset represent
@@ -18,12 +18,12 @@ sealed class SkylightInfo {
         val sunrise: Date,
         val sunset: Date,
         val dusk: Date
-    ) : SkylightInfo()
+    ) : SkylightDay()
 
     /**
      * Represents a day that is always full light, i.e. the sun never goes below the horizon.
      */
-    object AlwaysDaytime : SkylightInfo()
+    object AlwaysDaytime : SkylightDay()
 
     /**
      * Represents a day where there is full light and twilight, but no full darkness, i.e. the sun never goes below civil
@@ -32,7 +32,7 @@ sealed class SkylightInfo {
     data class AlwaysLight(
         val sunrise: Date,
         val sunset: Date
-    ) : SkylightInfo()
+    ) : SkylightDay()
 
     /**
      * Represents a day where there is darkness and twilight, but no full light, i.e. the sun never goes above the horizon.
@@ -40,12 +40,12 @@ sealed class SkylightInfo {
     data class NeverDaytime(
         val dawn: Date,
         val dusk: Date
-    ) : SkylightInfo()
+    ) : SkylightDay()
 
     /**
      * Represents a day that is always darkness, i.e. the sun never goes above civil twilight.
      */
-    object NeverLight : SkylightInfo()
+    object NeverLight : SkylightDay()
 
 }
 

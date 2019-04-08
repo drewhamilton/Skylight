@@ -5,8 +5,8 @@ import android.view.View
 import android.widget.AdapterView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import drewhamilton.skylight.Skylight
-import drewhamilton.skylight.SkylightInfo
-import drewhamilton.skylight.rx.getSkylightInfoSingle
+import drewhamilton.skylight.SkylightDay
+import drewhamilton.skylight.rx.getSkylightDaySingle
 import drewhamilton.skylight.sample.AppComponent
 import drewhamilton.skylight.sample.BuildConfig
 import drewhamilton.skylight.sample.R
@@ -49,7 +49,7 @@ class MainActivity : RxActivity() {
         locationSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val location = locationOptions[position]
-                skylight.getSkylightInfoSingle(location.coordinates, Date())
+                skylight.getSkylightDaySingle(location.coordinates, Date())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSuccess { timeFormat.timeZone = location.timeZone }
@@ -65,24 +65,24 @@ class MainActivity : RxActivity() {
         AppComponent.instance.inject(this)
     }
 
-    private fun SkylightInfo.display() {
+    private fun SkylightDay.display() {
         var dawnDateTime: Date? = null
         var sunriseDateTime: Date? = null
         var sunsetDateTime: Date? = null
         var duskDateTime: Date? = null
 
         when (this) {
-            is SkylightInfo.Typical -> {
+            is SkylightDay.Typical -> {
                 dawnDateTime = dawn
                 sunriseDateTime = sunrise
                 sunsetDateTime = sunset
                 duskDateTime = dusk
             }
-            is SkylightInfo.AlwaysLight -> {
+            is SkylightDay.AlwaysLight -> {
                 sunriseDateTime = sunrise
                 sunsetDateTime = sunset
             }
-            is SkylightInfo.NeverDaytime -> {
+            is SkylightDay.NeverDaytime -> {
                 dawnDateTime = dawn
                 duskDateTime = dusk
             }

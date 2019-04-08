@@ -28,15 +28,15 @@ class SsoSkylightTest {
     private lateinit var mockClient: InfoClient
 
     @Test
-    fun `getSkylightInfo returns converted info from client`() {
+    fun `getSkylightDay returns converted info from client`() {
         mockClient = mock {
             on { getInfo(dummyParams) } doReturn dummySunriseSunsetInfo
         }
         val ssoSkylight = SsoSkylight(mockClient)
 
         assertEquals(
-            dummySunriseSunsetInfo.toSkylightInfo(),
-            ssoSkylight.determineSkylightInfo(dummyCoordinates, dummyNow)
+            dummySunriseSunsetInfo.toSkylightDay(),
+            ssoSkylight.determineSkylightDay(dummyCoordinates, dummyNow)
         )
     }
 }
