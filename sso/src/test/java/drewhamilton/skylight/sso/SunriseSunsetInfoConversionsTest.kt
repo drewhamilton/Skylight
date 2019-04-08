@@ -1,6 +1,10 @@
 package drewhamilton.skylight.sso
 
-import drewhamilton.skylight.models.*
+import drewhamilton.skylight.AlwaysDaytime
+import drewhamilton.skylight.AlwaysLight
+import drewhamilton.skylight.NeverDaytime
+import drewhamilton.skylight.NeverLight
+import drewhamilton.skylight.Typical
 import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.models.SunriseSunsetInfo
 import org.junit.Assert.assertEquals

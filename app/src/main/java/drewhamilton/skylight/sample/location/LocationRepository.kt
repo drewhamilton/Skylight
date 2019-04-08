@@ -1,7 +1,7 @@
 package drewhamilton.skylight.sample.location
 
 import android.content.Context
-import drewhamilton.skylight.models.Coordinates
+import drewhamilton.skylight.Coordinates
 import java.util.*
 import javax.inject.Inject
 

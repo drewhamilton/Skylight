@@ -1,4 +1,4 @@
-package drewhamilton.skylight.models
+package drewhamilton.skylight
 
 import java.util.Date
 

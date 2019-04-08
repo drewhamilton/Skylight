@@ -1,8 +1,8 @@
 package drewhamilton.skylight.rx
 
 import drewhamilton.skylight.Skylight
-import drewhamilton.skylight.models.Coordinates
-import drewhamilton.skylight.models.SkylightInfo
+import drewhamilton.skylight.Coordinates
+import drewhamilton.skylight.SkylightInfo
 import io.reactivex.Flowable
 import io.reactivex.Single
 import java.util.Calendar

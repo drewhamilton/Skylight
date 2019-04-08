@@ -3,13 +3,6 @@ package drewhamilton.skylight
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.mock
-import drewhamilton.skylight.models.AlwaysDaytime
-import drewhamilton.skylight.models.AlwaysLight
-import drewhamilton.skylight.models.Coordinates
-import drewhamilton.skylight.models.NeverDaytime
-import drewhamilton.skylight.models.NeverLight
-import drewhamilton.skylight.models.SkylightInfo
-import drewhamilton.skylight.models.Typical
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test

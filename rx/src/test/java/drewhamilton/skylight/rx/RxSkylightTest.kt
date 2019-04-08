@@ -4,9 +4,9 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.mock
 import drewhamilton.skylight.Skylight
-import drewhamilton.skylight.models.Coordinates
-import drewhamilton.skylight.models.SkylightInfo
-import drewhamilton.skylight.models.Typical
+import drewhamilton.skylight.Coordinates
+import drewhamilton.skylight.SkylightInfo
+import drewhamilton.skylight.Typical
 import org.junit.Test
 import java.util.Calendar
 import java.util.Date

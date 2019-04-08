@@ -1,12 +1,5 @@
 package drewhamilton.skylight
 
-import drewhamilton.skylight.models.AlwaysDaytime
-import drewhamilton.skylight.models.AlwaysLight
-import drewhamilton.skylight.models.Coordinates
-import drewhamilton.skylight.models.NeverDaytime
-import drewhamilton.skylight.models.NeverLight
-import drewhamilton.skylight.models.SkylightInfo
-import drewhamilton.skylight.models.Typical
 import java.util.Date
 
 /**

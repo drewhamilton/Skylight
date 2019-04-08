@@ -5,10 +5,10 @@ import android.view.View
 import android.widget.AdapterView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import drewhamilton.skylight.Skylight
-import drewhamilton.skylight.models.AlwaysLight
-import drewhamilton.skylight.models.NeverDaytime
-import drewhamilton.skylight.models.SkylightInfo
-import drewhamilton.skylight.models.Typical
+import drewhamilton.skylight.AlwaysLight
+import drewhamilton.skylight.NeverDaytime
+import drewhamilton.skylight.SkylightInfo
+import drewhamilton.skylight.Typical
 import drewhamilton.skylight.rx.getSkylightInfoSingle
 import drewhamilton.skylight.sample.AppComponent
 import drewhamilton.skylight.sample.BuildConfig
