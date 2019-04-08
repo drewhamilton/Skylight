@@ -24,11 +24,11 @@ interface Skylight {
 fun Skylight.isLight(coordinates: Coordinates, dateTime: Date): Boolean {
     val skylightInfo = determineSkylightInfo(coordinates, dateTime)
     return when (skylightInfo) {
-        is AlwaysDaytime -> true
-        is AlwaysLight -> true
-        is NeverLight -> false
-        is NeverDaytime -> isLight(skylightInfo.dawn, skylightInfo.dusk, dateTime)
-        is Typical -> isLight(skylightInfo.dawn, skylightInfo.dusk, dateTime)
+        is SkylightInfo.AlwaysDaytime -> true
+        is SkylightInfo.AlwaysLight -> true
+        is SkylightInfo.NeverLight -> false
+        is SkylightInfo.NeverDaytime -> isLight(skylightInfo.dawn, skylightInfo.dusk, dateTime)
+        is SkylightInfo.Typical -> isLight(skylightInfo.dawn, skylightInfo.dusk, dateTime)
     }
 }
 

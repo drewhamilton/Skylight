@@ -1,15 +1,11 @@
 package drewhamilton.skylight.sso
 
-import drewhamilton.skylight.AlwaysDaytime
-import drewhamilton.skylight.AlwaysLight
-import drewhamilton.skylight.NeverDaytime
-import drewhamilton.skylight.NeverLight
-import drewhamilton.skylight.Typical
+import drewhamilton.skylight.SkylightInfo
 import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.models.SunriseSunsetInfo
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.util.*
+import java.util.Date
 
 class SunriseSunsetInfoConversionsTest {
 
@@ -19,7 +15,7 @@ class SunriseSunsetInfoConversionsTest {
     fun `toSkylightInfo with twilight begin NONE and sunrise NONE returns NeverLight`() {
         val input = SunriseSunsetInfo(ApiConstants.DATE_TIME_NONE, throwaway, ApiConstants.DATE_TIME_NONE, throwaway)
         val output = input.toSkylightInfo()
-        assertEquals(NeverLight(), output)
+        assertEquals(SkylightInfo.NeverLight, output)
     }
 
     @Test
@@ -31,7 +27,7 @@ class SunriseSunsetInfoConversionsTest {
             throwaway
         )
         val output = input.toSkylightInfo()
-        assertEquals(AlwaysDaytime(), output)
+        assertEquals(SkylightInfo.AlwaysDaytime, output)
     }
 
     @Test
@@ -40,7 +36,7 @@ class SunriseSunsetInfoConversionsTest {
         val sunset = Date(3)
         val input = SunriseSunsetInfo(sunrise, sunset, ApiConstants.DATE_TIME_NONE, throwaway)
         val output = input.toSkylightInfo()
-        assertEquals(AlwaysLight(sunrise, sunset), output)
+        assertEquals(SkylightInfo.AlwaysLight(sunrise, sunset), output)
     }
 
     @Test
@@ -49,7 +45,7 @@ class SunriseSunsetInfoConversionsTest {
         val dusk = Date(4)
         val input = SunriseSunsetInfo(ApiConstants.DATE_TIME_NONE, throwaway, dawn, dusk)
         val output = input.toSkylightInfo()
-        assertEquals(NeverDaytime(dawn, dusk), output)
+        assertEquals(SkylightInfo.NeverDaytime(dawn, dusk), output)
     }
 
     @Test
@@ -60,6 +56,6 @@ class SunriseSunsetInfoConversionsTest {
         val dusk = Date(4)
         val input = SunriseSunsetInfo(sunrise, sunset, dawn, dusk)
         val output = input.toSkylightInfo()
-        assertEquals(Typical(dawn, sunrise, sunset, dusk), output)
+        assertEquals(SkylightInfo.Typical(dawn, sunrise, sunset, dusk), output)
     }
 }

@@ -6,7 +6,6 @@ import com.nhaarman.mockitokotlin2.mock
 import drewhamilton.skylight.Skylight
 import drewhamilton.skylight.Coordinates
 import drewhamilton.skylight.SkylightInfo
-import drewhamilton.skylight.Typical
 import org.junit.Test
 import java.util.Calendar
 import java.util.Date
@@ -50,15 +49,15 @@ class RxSkylightTest {
         return tomorrow
     }
 
-    private fun dummyTypical(dawn: Date) = Typical(
+    private fun dummyTypical(dawn: Date) = SkylightInfo.Typical(
         dawn,
         Date(dawn.time + timeDifferenceMillis),
-        Date(dawn.time + 2*timeDifferenceMillis),
-        Date(dawn.time + 3*timeDifferenceMillis)
+        Date(dawn.time + 2 * timeDifferenceMillis),
+        Date(dawn.time + 3 * timeDifferenceMillis)
     )
 
     private fun SkylightInfo.equalsDummyForDate(date: Calendar) =
-        this is Typical &&
+        this is SkylightInfo.Typical &&
                 dawn.toCalendar().isSameDay(date) &&
                 sunrise.toCalendar().isSameDay(date) &&
                 sunset.toCalendar().isSameDay(date) &&

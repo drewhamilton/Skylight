@@ -1,13 +1,8 @@
 package drewhamilton.skylight.sso
 
-import drewhamilton.skylight.Skylight
-import drewhamilton.skylight.AlwaysDaytime
-import drewhamilton.skylight.AlwaysLight
 import drewhamilton.skylight.Coordinates
-import drewhamilton.skylight.NeverDaytime
-import drewhamilton.skylight.NeverLight
+import drewhamilton.skylight.Skylight
 import drewhamilton.skylight.SkylightInfo
-import drewhamilton.skylight.Typical
 import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.InfoClient
 import drewhamilton.skylight.sso.network.models.Params
@@ -28,10 +23,10 @@ class SsoSkylight @Inject constructor(private val client: InfoClient) : Skylight
 }
 
 internal fun SunriseSunsetInfo.toSkylightInfo(): SkylightInfo = when {
-    civil_twilight_begin == ApiConstants.DATE_TIME_NONE && sunrise == ApiConstants.DATE_TIME_NONE -> NeverLight
+    civil_twilight_begin == ApiConstants.DATE_TIME_NONE && sunrise == ApiConstants.DATE_TIME_NONE -> SkylightInfo.NeverLight
     civil_twilight_begin == ApiConstants.DATE_TIME_ALWAYS_DAY && sunrise == ApiConstants.DATE_TIME_ALWAYS_DAY ->
-        AlwaysDaytime
-    civil_twilight_begin == ApiConstants.DATE_TIME_NONE -> AlwaysLight(sunrise, sunset)
-    sunrise == ApiConstants.DATE_TIME_NONE -> NeverDaytime(civil_twilight_begin, civil_twilight_end)
-    else -> Typical(civil_twilight_begin, sunrise, sunset, civil_twilight_end)
+        SkylightInfo.AlwaysDaytime
+    civil_twilight_begin == ApiConstants.DATE_TIME_NONE -> SkylightInfo.AlwaysLight(sunrise, sunset)
+    sunrise == ApiConstants.DATE_TIME_NONE -> SkylightInfo.NeverDaytime(civil_twilight_begin, civil_twilight_end)
+    else -> SkylightInfo.Typical(civil_twilight_begin, sunrise, sunset, civil_twilight_end)
 }

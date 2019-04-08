@@ -5,10 +5,7 @@ import android.view.View
 import android.widget.AdapterView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import drewhamilton.skylight.Skylight
-import drewhamilton.skylight.AlwaysLight
-import drewhamilton.skylight.NeverDaytime
 import drewhamilton.skylight.SkylightInfo
-import drewhamilton.skylight.Typical
 import drewhamilton.skylight.rx.getSkylightInfoSingle
 import drewhamilton.skylight.sample.AppComponent
 import drewhamilton.skylight.sample.BuildConfig
@@ -75,17 +72,17 @@ class MainActivity : RxActivity() {
         var duskDateTime: Date? = null
 
         when (this) {
-            is Typical -> {
+            is SkylightInfo.Typical -> {
                 dawnDateTime = dawn
                 sunriseDateTime = sunrise
                 sunsetDateTime = sunset
                 duskDateTime = dusk
             }
-            is AlwaysLight -> {
+            is SkylightInfo.AlwaysLight -> {
                 sunriseDateTime = sunrise
                 sunsetDateTime = sunset
             }
-            is NeverDaytime -> {
+            is SkylightInfo.NeverDaytime -> {
                 dawnDateTime = dawn
                 duskDateTime = dusk
             }

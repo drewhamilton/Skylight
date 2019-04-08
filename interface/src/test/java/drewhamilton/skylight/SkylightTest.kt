@@ -155,16 +155,17 @@ class SkylightTest {
         }
     }
 
-    private fun dummyAlwaysDaytime() = AlwaysDaytime()
-    private fun dummyAlwaysLight(sunrise: Date) = AlwaysLight(sunrise, Date(sunrise.time + timeDifferenceMillis))
-    private fun dummyNeverLight() = NeverLight()
-    private fun dummyNeverDaytime(dawn: Date) = NeverDaytime(dawn, Date(dawn.time + timeDifferenceMillis))
+    private fun dummyAlwaysDaytime() = SkylightInfo.AlwaysDaytime
+    private fun dummyAlwaysLight(sunrise: Date) =
+        SkylightInfo.AlwaysLight(sunrise, Date(sunrise.time + timeDifferenceMillis))
+    private fun dummyNeverLight() = SkylightInfo.NeverLight
+    private fun dummyNeverDaytime(dawn: Date) = SkylightInfo.NeverDaytime(dawn, Date(dawn.time + timeDifferenceMillis))
 
-    private fun dummyTypical(dawn: Date) = Typical(
+    private fun dummyTypical(dawn: Date) = SkylightInfo.Typical(
         dawn,
         Date(dawn.time + timeDifferenceMillis),
-        Date(dawn.time + 2*timeDifferenceMillis),
-        Date(dawn.time + 3*timeDifferenceMillis)
+        Date(dawn.time + 2 * timeDifferenceMillis),
+        Date(dawn.time + 3 * timeDifferenceMillis)
     )
 
 }
