@@ -9,6 +9,9 @@ import drewhamilton.skylight.models.SkylightInfo
 import drewhamilton.skylight.models.Typical
 import java.util.Date
 
+/**
+ * An interface capable of providing [SkylightInfo] for a given location and date-time.
+ */
 interface Skylight {
 
     /**
