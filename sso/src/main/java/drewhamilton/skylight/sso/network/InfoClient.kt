@@ -1,9 +1,9 @@
 package drewhamilton.skylight.sso.network
 
-import drewhamilton.skylight.sso.serialization.SsoDateTimeAdapter
 import drewhamilton.skylight.sso.network.models.Params
 import drewhamilton.skylight.sso.network.models.SunriseSunsetInfo
-import io.reactivex.Single
+import drewhamilton.skylight.sso.serialization.SsoDateTimeAdapter
+import retrofit2.HttpException
 import javax.inject.Inject
 
 class InfoClient @Inject constructor(
@@ -11,10 +11,16 @@ class InfoClient @Inject constructor(
     private val dateTimeAdapter: SsoDateTimeAdapter
 ) {
 
-  private val formatted = 0
+    private val formatted = 0
 
-  fun getInfo(params: Params): Single<SunriseSunsetInfo> {
-    return api.getInfo(params.lat, params.lng, dateTimeAdapter.dateToString(params.date), formatted)
-        .map { it.results }
-  }
+    fun getInfo(params: Params): SunriseSunsetInfo {
+        val call = api.getInfo(params.lat, params.lng, dateTimeAdapter.dateToString(params.date), formatted)
+
+        val response = call.execute()
+        val responseBody = response.body()
+        if (response.isSuccessful && responseBody != null)
+            return responseBody.results
+        else
+            throw HttpException(response)
+    }
 }

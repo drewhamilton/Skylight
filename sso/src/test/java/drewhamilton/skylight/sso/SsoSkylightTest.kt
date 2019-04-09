@@ -2,15 +2,15 @@ package drewhamilton.skylight.sso
 
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
-import drewhamilton.skylight.models.Coordinates
+import drewhamilton.skylight.Coordinates
 import drewhamilton.skylight.sso.network.InfoClient
 import drewhamilton.skylight.sso.network.models.Params
 import drewhamilton.skylight.sso.network.models.SunriseSunsetInfo
-import io.reactivex.Single
+import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.util.*
+import java.util.Date
 
-class SsoSkylightRepositoryTest {
+class SsoSkylightTest {
 
     private val dummyDawn = Date(99_999_999_910_000L)
     private val dummySunrise = Date(99_999_999_920_000L)
@@ -28,14 +28,15 @@ class SsoSkylightRepositoryTest {
     private lateinit var mockClient: InfoClient
 
     @Test
-    fun `getSkylightInfo returns converted info from client`() {
+    fun `getSkylightDay returns converted info from client`() {
         mockClient = mock {
-            on { getInfo(dummyParams) } doReturn Single.fromCallable { dummySunriseSunsetInfo }
+            on { getInfo(dummyParams) } doReturn dummySunriseSunsetInfo
         }
-        val ssoSkylightRepository = SsoSkylightRepository(mockClient)
+        val ssoSkylight = SsoSkylight(mockClient)
 
-        ssoSkylightRepository.getSkylightInfo(dummyCoordinates, dummyNow).test()
-            .assertValueCount(1)
-            .assertValue { it == dummySunriseSunsetInfo.toSkylightInfo() }
+        assertEquals(
+            dummySunriseSunsetInfo.toSkylightDay(),
+            ssoSkylight.getSkylightDay(dummyCoordinates, dummyNow)
+        )
     }
 }

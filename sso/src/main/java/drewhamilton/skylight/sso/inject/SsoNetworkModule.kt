@@ -7,11 +7,8 @@ import dagger.Provides
 import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.SsoApi
 import drewhamilton.skylight.sso.serialization.SsoDateTimeAdapter
-import io.reactivex.Scheduler
-import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 @Module
@@ -26,11 +23,9 @@ internal object SsoNetworkModule {
     @Sso
     internal fun retrofit(
         @Sso moshi: Moshi,
-        okHttpClient: OkHttpClient,
-        networkScheduler: Scheduler = Schedulers.io()
+        okHttpClient: OkHttpClient
     ) = Retrofit.Builder()
         .baseUrl(ApiConstants.BASE_URL)
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(networkScheduler))
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .client(okHttpClient)
         .build()
