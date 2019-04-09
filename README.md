@@ -1,7 +1,6 @@
 # Skylight
 
-Skylight is an RxJava-based Kotlin interface for providing sunrise, sunset, and other relevant details ("Skylight
-information") for a given location.
+Skylight is a Kotlin interface for providing sunrise, sunset, and other relevant details for a given location.
 
 ## Download
 [ ![Download](https://api.bintray.com/packages/drewhamilton/Skylight/Skylight/images/download.svg) ](https://bintray.com/drewhamilton/Skylight)
@@ -13,6 +12,8 @@ To use Skylight, include any of the following in your Gradle dependencies:
 ```groovy
 // The base interface:
 implementation "drewhamilton.skylight:skylight:$version"
+// RxJava extensions:
+implementation "drewhamilton.skylight:skylight-rx:$version"
 // sunrise-sunset.org implementation:
 implementation "drewhamilton.skylight:skylight-sso:$version"
 // Android views:
