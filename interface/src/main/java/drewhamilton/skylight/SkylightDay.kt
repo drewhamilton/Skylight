@@ -26,8 +26,8 @@ sealed class SkylightDay {
     object AlwaysDaytime : SkylightDay()
 
     /**
-     * Represents a day where there is full light and twilight, but no full darkness, i.e. the sun never goes below civil
-     * twilight.
+     * Represents a day where there is full light and twilight, but no full darkness, i.e. the sun never goes below
+     * civil twilight.
      */
     data class AlwaysLight(
         val sunrise: Date,
@@ -35,7 +35,8 @@ sealed class SkylightDay {
     ) : SkylightDay()
 
     /**
-     * Represents a day where there is darkness and twilight, but no full light, i.e. the sun never goes above the horizon.
+     * Represents a day where there is darkness and twilight, but no full light, i.e. the sun never goes above the
+     * horizon.
      */
     data class NeverDaytime(
         val dawn: Date,

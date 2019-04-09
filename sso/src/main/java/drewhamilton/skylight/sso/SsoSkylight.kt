@@ -16,7 +16,7 @@ import javax.inject.Inject
  */
 class SsoSkylight @Inject constructor(private val client: InfoClient) : Skylight {
 
-    override fun determineSkylightDay(coordinates: Coordinates, date: Date): SkylightDay {
+    override fun getSkylightDay(coordinates: Coordinates, date: Date): SkylightDay {
         val params = Params(coordinates.latitude, coordinates.longitude, date)
         return client.getInfo(params).toSkylightDay()
     }

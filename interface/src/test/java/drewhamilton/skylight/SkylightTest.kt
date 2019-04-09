@@ -149,7 +149,7 @@ class SkylightTest {
 
     private fun mockSkylight(returnFunction: (Date) -> SkylightDay) {
         mockSkylight = mock {
-            on { determineSkylightDay(any(), any()) } doAnswer { invocation ->
+            on { getSkylightDay(any(), any()) } doAnswer { invocation ->
                 returnFunction(invocation.getArgument(1))
             }
         }

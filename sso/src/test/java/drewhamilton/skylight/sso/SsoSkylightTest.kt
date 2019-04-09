@@ -36,7 +36,7 @@ class SsoSkylightTest {
 
         assertEquals(
             dummySunriseSunsetInfo.toSkylightDay(),
-            ssoSkylight.determineSkylightDay(dummyCoordinates, dummyNow)
+            ssoSkylight.getSkylightDay(dummyCoordinates, dummyNow)
         )
     }
 }

@@ -14,7 +14,7 @@ import java.util.Date
  * @return [SkylightDay] at the given coordinates for the given date.
  */
 fun Skylight.getSkylightDaySingle(coordinates: Coordinates, date: Date) = Single.fromCallable {
-    determineSkylightDay(coordinates, date)
+    getSkylightDay(coordinates, date)
 }
 
 /**
@@ -22,7 +22,7 @@ fun Skylight.getSkylightDaySingle(coordinates: Coordinates, date: Date) = Single
  * @return A [Flowable] that will emit 2 [SkylightDay] instances at the given coordinates: 1 for today and 1 for
  * tomorrow.
  */
-fun Skylight.getUpcomingSkylightDayFlowable(coordinates: Coordinates): Flowable<SkylightDay> =
+fun Skylight.getUpcomingSkylightDays(coordinates: Coordinates): Flowable<SkylightDay> =
     getSkylightDaySingle(coordinates, today())
         .mergeWith(getSkylightDaySingle(coordinates, tomorrow()))
 
