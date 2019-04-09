@@ -21,11 +21,11 @@ implementation "drewhamilton.skylight:skylight-views:$version"
 
 ## Modules
 
-### `:interface`
+### `:skylight`
 The generic interface itself, designed to be implementation-agnostic.
 
-### `:app`
-A demo app that demonstrates use of the library.
+### `:rx`
+RxJava extensions for the Skylight interface.
 
 ### `:sso`
 An implementation of the interface that uses [sunrise-sunset.org](https://sunrise-sunset.org/)'s
@@ -34,7 +34,10 @@ sunrise-sunset.org's API page says that "You may not use this API in a manner th
 constitutes excessive or abusive usage." The same requirement applies to this module of Skylight.
 
 ### `:views`
-This Android module provides Skylight themes and a basic card view that can be used to display a skylight event.
+For Android: Skylight themes and a basic card view that can be used to display a skylight event.
+
+### `:app`
+A demo app that demonstrates use of the library.
 
 ## License
 ```
