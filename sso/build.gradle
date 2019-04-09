@@ -7,7 +7,7 @@ apply from: 'publish.gradle'
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-  api project(":interface")
+  api project(':skylight')
 
   implementation 'com.squareup.moshi:moshi:1.8.0'
   implementation 'com.squareup.moshi:moshi-kotlin:1.8.0'
