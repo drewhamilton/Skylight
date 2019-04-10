@@ -10,10 +10,13 @@ dependencies {
 
   api project(':skylight')
 
-  implementation 'com.squareup.moshi:moshi:1.8.0'
-  implementation 'com.squareup.moshi:moshi-kotlin:1.8.0'
-  implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-  implementation 'com.squareup.retrofit2:converter-moshi:2.5.0'
+  def moshiVersion = '1.8.0'
+  implementation "com.squareup.moshi:moshi:$moshiVersion"
+  implementation "com.squareup.moshi:moshi-kotlin:$moshiVersion"
+
+  def retrofitVersion = '2.5.0'
+  implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+  implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
 
   implementation "com.google.dagger:dagger:$daggerVersion"
   kapt "com.google.dagger:dagger-compiler:$daggerVersion"
