@@ -2,15 +2,17 @@ package drewhamilton.skylight.sso.dates
 
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 import java.util.regex.Pattern
 
 /**
  * Parses and prints dates matching the format: 2015-05-21T19:52:17+02:00
  */
 internal class SsoDateTimeFormat(
-    private val shouldUseZ: Boolean = false
-) : JavaDateFormatWrapper(SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US)) {
+    private val shouldFormatWithZ: Boolean = false
+) : JavaDateFormatWrapper(SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US), TimeZone.getTimeZone("UTC")) {
 
     override fun format(date: Date): String {
         val text = super.format(date)
@@ -22,7 +24,7 @@ internal class SsoDateTimeFormat(
         val textWithTimeZoneColon = insertTimeZoneColon()
 
         var text = textWithTimeZoneColon
-        if (shouldUseZ && textWithTimeZoneColon.contains(EXTERNAL_TIME_ZONE_UTC)) {
+        if (shouldFormatWithZ && textWithTimeZoneColon.contains(EXTERNAL_TIME_ZONE_UTC)) {
             text = text.replace(EXTERNAL_TIME_ZONE_UTC, EXTERNAL_TIME_ZONE_Z)
         }
 
