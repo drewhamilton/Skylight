@@ -1,6 +1,5 @@
 package drewhamilton.skylight.sso.network
 
-import drewhamilton.skylight.sso.network.models.Response
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

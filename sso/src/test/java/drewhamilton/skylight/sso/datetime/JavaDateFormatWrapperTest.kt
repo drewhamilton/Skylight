@@ -1,11 +1,16 @@
-package drewhamilton.skylight.sso.dates
+package drewhamilton.skylight.sso.datetime
 
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import java.text.DateFormat
-import java.util.*
+import java.util.Date
+import java.util.TimeZone
 
 class JavaDateFormatWrapperTest {
 
@@ -29,7 +34,8 @@ class JavaDateFormatWrapperTest {
     @Test
     fun `init with explicit time zone sets that time zone`() {
         val testTimeZone = TimeZone.getTimeZone("EST")
-        javaDateFormatWrapper = JavaDateFormatWrapper(mockJavaDateFormat, testTimeZone)
+        javaDateFormatWrapper =
+            JavaDateFormatWrapper(mockJavaDateFormat, testTimeZone)
         verify(mockJavaDateFormat).timeZone = testTimeZone
         verifyNoMoreInteractions(mockJavaDateFormat)
     }

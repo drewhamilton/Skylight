@@ -1,7 +1,5 @@
-package drewhamilton.skylight.sso.serialization
+package drewhamilton.skylight.sso.network
 
-import drewhamilton.skylight.sso.dates.SsoDateFormat
-import drewhamilton.skylight.sso.dates.SsoDateTimeFormat
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

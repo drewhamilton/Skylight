@@ -1,8 +1,5 @@
 package drewhamilton.skylight.sso.network
 
-import drewhamilton.skylight.sso.network.models.Params
-import drewhamilton.skylight.sso.network.models.SunriseSunsetInfo
-import drewhamilton.skylight.sso.serialization.SsoDateTimeAdapter
 import retrofit2.HttpException
 import javax.inject.Inject
 

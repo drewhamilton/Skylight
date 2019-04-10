@@ -4,8 +4,8 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import drewhamilton.skylight.Coordinates
 import drewhamilton.skylight.sso.network.InfoClient
-import drewhamilton.skylight.sso.network.models.Params
-import drewhamilton.skylight.sso.network.models.SunriseSunsetInfo
+import drewhamilton.skylight.sso.network.Params
+import drewhamilton.skylight.sso.network.SunriseSunsetInfo
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.Date
@@ -23,7 +23,8 @@ class SsoSkylightTest {
     private val dummyCoordinates = Coordinates(dummyLatitude, dummyLongitude)
     private val dummyParams = Params(dummyLatitude, dummyLongitude, dummyNow)
 
-    private val dummySunriseSunsetInfo = SunriseSunsetInfo(dummyDawn, dummySunrise, dummySunset, dummyDusk)
+    private val dummySunriseSunsetInfo =
+        SunriseSunsetInfo(dummyDawn, dummySunrise, dummySunset, dummyDusk)
 
     private lateinit var mockClient: InfoClient
 

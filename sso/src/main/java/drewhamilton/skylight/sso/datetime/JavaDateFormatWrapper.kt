@@ -1,4 +1,4 @@
-package drewhamilton.skylight.sso.dates
+package drewhamilton.skylight.sso.datetime
 
 import java.text.DateFormat
 import java.util.Date

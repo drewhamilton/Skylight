@@ -1,5 +1,5 @@
-package drewhamilton.skylight.sso.network.models
+package drewhamilton.skylight.sso.network
 
-import java.util.*
+import java.util.Date
 
 data class Params(val lat: Double, val lng: Double, val date: Date)

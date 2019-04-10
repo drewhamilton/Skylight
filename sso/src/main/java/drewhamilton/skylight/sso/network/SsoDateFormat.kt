@@ -1,7 +1,8 @@
-package drewhamilton.skylight.sso.dates
+package drewhamilton.skylight.sso.network
 
+import drewhamilton.skylight.sso.datetime.JavaDateFormatWrapper
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 /**
  * Parses and prints dates matching the format: 2015-05-21

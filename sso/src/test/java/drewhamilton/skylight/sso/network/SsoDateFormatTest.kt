@@ -1,10 +1,12 @@
-package drewhamilton.skylight.sso.dates
+package drewhamilton.skylight.sso.network
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 class SsoDateFormatTest {
 

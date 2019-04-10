@@ -5,9 +5,9 @@ import com.nhaarman.mockitokotlin2.mock
 import com.squareup.moshi.Moshi
 import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.SsoApi
-import drewhamilton.skylight.sso.serialization.SsoDate
-import drewhamilton.skylight.sso.serialization.SsoDateTime
-import drewhamilton.skylight.sso.serialization.SsoDateTimeAdapter
+import drewhamilton.skylight.sso.network.SsoDate
+import drewhamilton.skylight.sso.network.SsoDateTime
+import drewhamilton.skylight.sso.network.SsoDateTimeAdapter
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import org.junit.Assert.assertEquals

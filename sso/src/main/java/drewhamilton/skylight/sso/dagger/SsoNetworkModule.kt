@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.Provides
 import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.SsoApi
-import drewhamilton.skylight.sso.serialization.SsoDateTimeAdapter
+import drewhamilton.skylight.sso.network.SsoDateTimeAdapter
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
