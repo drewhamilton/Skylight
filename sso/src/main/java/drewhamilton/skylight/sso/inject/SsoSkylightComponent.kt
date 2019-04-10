@@ -5,6 +5,9 @@ import dagger.Component
 import drewhamilton.skylight.sso.SsoSkylight
 import okhttp3.OkHttpClient
 
+/**
+ * A Dagger component providing an instance of [SsoSkylight].
+ */
 @Component(modules = [SsoSkylightModule::class])
 interface SsoSkylightComponent {
 
