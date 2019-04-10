@@ -3,6 +3,7 @@ package drewhamilton.skylight.sso.datetime
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import org.junit.Assert.assertEquals
@@ -41,16 +42,15 @@ class JavaDateFormatWrapperTest {
     }
 
     @Test
-    fun `init without time zone sets default time zone`() {
+    fun `init without time zone sets no time zone`() {
         javaDateFormatWrapper = JavaDateFormatWrapper(mockJavaDateFormat)
-        verify(mockJavaDateFormat).timeZone = defaultTimeZone
+        verify(mockJavaDateFormat, never()).timeZone = any()
         verifyNoMoreInteractions(mockJavaDateFormat)
     }
 
     @Test
     fun `format forwards to javaDateFormat`() {
         javaDateFormatWrapper = JavaDateFormatWrapper(mockJavaDateFormat)
-        verify(mockJavaDateFormat).timeZone = any()
 
         assertEquals(dummyString, javaDateFormatWrapper.format(dummyDate))
         verify(mockJavaDateFormat).format(dummyDate)
@@ -60,7 +60,6 @@ class JavaDateFormatWrapperTest {
     @Test
     fun `parse forwards to javaDateFormat`() {
         javaDateFormatWrapper = JavaDateFormatWrapper(mockJavaDateFormat)
-        verify(mockJavaDateFormat).timeZone = any()
 
         assertEquals(dummyDate, javaDateFormatWrapper.parse(dummyString))
         verify(mockJavaDateFormat).parse(dummyString)
