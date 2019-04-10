@@ -41,12 +41,7 @@ class InfoClientTest {
         mockApi = mock {
             on {
                 getInfo(dummyParams.lat, dummyParams.lng, dummyDateString, 0)
-            } doReturn DummyCall.success(
-                Response(
-                    dummySunriseSunsetInfo,
-                    "Dummy status"
-                )
-            )
+            } doReturn DummyCall.success(Response(dummySunriseSunsetInfo, "Dummy status"))
         }
 
         val infoClient = InfoClient(mockApi, mockDateTimeAdapter)

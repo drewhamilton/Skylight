@@ -23,8 +23,7 @@ class SsoSkylightTest {
     private val dummyCoordinates = Coordinates(dummyLatitude, dummyLongitude)
     private val dummyParams = Params(dummyLatitude, dummyLongitude, dummyNow)
 
-    private val dummySunriseSunsetInfo =
-        SunriseSunsetInfo(dummyDawn, dummySunrise, dummySunset, dummyDusk)
+    private val dummySunriseSunsetInfo = SunriseSunsetInfo(dummyDawn, dummySunrise, dummySunset, dummyDusk)
 
     private lateinit var mockClient: InfoClient
 

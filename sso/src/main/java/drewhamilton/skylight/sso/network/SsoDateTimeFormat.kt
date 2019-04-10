@@ -26,10 +26,7 @@ internal class SsoDateTimeFormat(
 
         var text = textWithTimeZoneColon
         if (shouldFormatWithZ && textWithTimeZoneColon.contains(EXTERNAL_TIME_ZONE_UTC)) {
-            text = text.replace(
-                EXTERNAL_TIME_ZONE_UTC,
-                EXTERNAL_TIME_ZONE_Z
-            )
+            text = text.replace(EXTERNAL_TIME_ZONE_UTC, EXTERNAL_TIME_ZONE_Z)
         }
 
         // Ends with e.g. "+02:00" for most time zones, or "Z" for UTC:

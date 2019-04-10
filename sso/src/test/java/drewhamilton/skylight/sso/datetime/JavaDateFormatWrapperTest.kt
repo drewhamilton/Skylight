@@ -33,8 +33,7 @@ class JavaDateFormatWrapperTest {
     @Test
     fun `init with explicit time zone sets that time zone`() {
         val testTimeZone = TimeZone.getTimeZone("EST")
-        javaDateFormatWrapper =
-            JavaDateFormatWrapper(mockJavaDateFormat, testTimeZone)
+        javaDateFormatWrapper = JavaDateFormatWrapper(mockJavaDateFormat, testTimeZone)
         verify(mockJavaDateFormat).timeZone = testTimeZone
         verifyNoMoreInteractions(mockJavaDateFormat)
     }

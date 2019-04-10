@@ -8,10 +8,8 @@ import javax.inject.Inject
 
 class SsoDateTimeAdapter @Inject constructor() {
 
-    private val dateTimeFormat: LimitedDateTimeFormat =
-        SsoDateTimeFormat()
-    private val dateFormat: LimitedDateTimeFormat =
-        SsoDateFormat()
+    private val dateTimeFormat: LimitedDateTimeFormat = SsoDateTimeFormat()
+    private val dateFormat: LimitedDateTimeFormat = SsoDateFormat()
 
     @ToJson
     fun dateTimeToString(@SsoDateTime date: Date) = dateTimeFormat.format(date)
