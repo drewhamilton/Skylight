@@ -15,8 +15,6 @@ import java.util.TimeZone
 
 class JavaDateFormatWrapperTest {
 
-    private val defaultTimeZone = TimeZone.getTimeZone("UTC")
-
     private val dummyDate = Date(-9876L)
     private val dummyString = "Dummy string"
 
