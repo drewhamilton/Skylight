@@ -1,4 +1,4 @@
-package drewhamilton.skylight.sso.inject
+package drewhamilton.skylight.sso.dagger
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

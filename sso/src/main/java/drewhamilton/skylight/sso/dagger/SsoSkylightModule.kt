@@ -1,4 +1,4 @@
-package drewhamilton.skylight.sso.inject
+package drewhamilton.skylight.sso.dagger
 
 import dagger.Module
 import dagger.Provides

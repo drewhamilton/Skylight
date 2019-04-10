@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import drewhamilton.skylight.Skylight
-import drewhamilton.skylight.sso.inject.SsoSkylightComponent
+import drewhamilton.skylight.sso.dagger.SsoSkylightComponent
 
 @Module
 object SkylightModule {

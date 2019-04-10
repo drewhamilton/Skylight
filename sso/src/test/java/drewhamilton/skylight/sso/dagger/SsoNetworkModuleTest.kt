@@ -1,4 +1,4 @@
-package drewhamilton.skylight.sso.inject
+package drewhamilton.skylight.sso.dagger
 
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
