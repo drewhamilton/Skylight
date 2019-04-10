@@ -2,7 +2,7 @@ package drewhamilton.skylight.sso
 
 import drewhamilton.skylight.SkylightDay
 import drewhamilton.skylight.sso.network.ApiConstants
-import drewhamilton.skylight.sso.network.SunriseSunsetInfo
+import drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.Date
@@ -13,7 +13,12 @@ class SunriseSunsetInfoConversionsTest {
 
     @Test
     fun `toSkylightDay with twilight begin NONE and sunrise NONE returns NeverLight`() {
-        val input = SunriseSunsetInfo(ApiConstants.DATE_TIME_NONE, throwaway, ApiConstants.DATE_TIME_NONE, throwaway)
+        val input = SunriseSunsetInfo(
+            ApiConstants.DATE_TIME_NONE,
+            throwaway,
+            ApiConstants.DATE_TIME_NONE,
+            throwaway
+        )
         val output = input.toSkylightDay()
         assertEquals(SkylightDay.NeverLight, output)
     }
@@ -34,7 +39,12 @@ class SunriseSunsetInfoConversionsTest {
     fun `toSkylightDay with only twilight begin NONE returns AlwaysLight`() {
         val sunrise = Date(2)
         val sunset = Date(3)
-        val input = SunriseSunsetInfo(sunrise, sunset, ApiConstants.DATE_TIME_NONE, throwaway)
+        val input = SunriseSunsetInfo(
+            sunrise,
+            sunset,
+            ApiConstants.DATE_TIME_NONE,
+            throwaway
+        )
         val output = input.toSkylightDay()
         assertEquals(SkylightDay.AlwaysLight(sunrise, sunset), output)
     }
@@ -43,7 +53,12 @@ class SunriseSunsetInfoConversionsTest {
     fun `toSkylightDay with only sunrise NONE returns NeverDaytime`() {
         val dawn = Date(1)
         val dusk = Date(4)
-        val input = SunriseSunsetInfo(ApiConstants.DATE_TIME_NONE, throwaway, dawn, dusk)
+        val input = SunriseSunsetInfo(
+            ApiConstants.DATE_TIME_NONE,
+            throwaway,
+            dawn,
+            dusk
+        )
         val output = input.toSkylightDay()
         assertEquals(SkylightDay.NeverDaytime(dawn, dusk), output)
     }

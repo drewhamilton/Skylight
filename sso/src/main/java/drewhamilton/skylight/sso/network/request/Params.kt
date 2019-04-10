@@ -1,4 +1,4 @@
-package drewhamilton.skylight.sso.network
+package drewhamilton.skylight.sso.network.request
 
 import java.util.Date
 

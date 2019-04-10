@@ -1,5 +1,7 @@
 package drewhamilton.skylight.sso.network
 
+import drewhamilton.skylight.sso.network.request.Params
+import drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
 import retrofit2.HttpException
 import javax.inject.Inject
 

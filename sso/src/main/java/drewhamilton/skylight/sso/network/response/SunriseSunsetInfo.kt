@@ -1,5 +1,6 @@
-package drewhamilton.skylight.sso.network
+package drewhamilton.skylight.sso.network.response
 
+import drewhamilton.skylight.sso.network.SsoDateTime
 import java.util.Date
 
 data class SunriseSunsetInfo(
