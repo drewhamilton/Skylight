@@ -30,4 +30,5 @@ ext {
   libraryVersion = '0.5.0'
 
   rxJavaVersion = '2.2.8'
+  daggerVersion = '2.22.1'
 }
