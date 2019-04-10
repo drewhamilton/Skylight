@@ -2,7 +2,6 @@ package drewhamilton.skylight.sso.inject
 
 import dagger.Module
 import dagger.Provides
-import drewhamilton.skylight.Skylight
 import drewhamilton.skylight.sso.SsoSkylight
 import drewhamilton.skylight.sso.network.InfoClient
 
@@ -11,5 +10,5 @@ internal object SsoSkylightModule {
 
     @JvmStatic
     @Provides
-    fun skylight(client: InfoClient): Skylight = SsoSkylight(client)
+    fun skylight(client: InfoClient) = SsoSkylight(client)
 }
