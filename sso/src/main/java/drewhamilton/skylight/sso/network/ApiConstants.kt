@@ -1,7 +1,5 @@
 package drewhamilton.skylight.sso.network
 
-import drewhamilton.skylight.sso.dates.SsoDateTimeFormat
-
 internal object ApiConstants {
 
     internal const val BASE_URL = "https://api.sunrise-sunset.org/"

@@ -2,10 +2,9 @@ package drewhamilton.skylight.sso.network
 
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
-import drewhamilton.skylight.sso.network.models.Params
-import drewhamilton.skylight.sso.network.models.Response
-import drewhamilton.skylight.sso.network.models.SunriseSunsetInfo
-import drewhamilton.skylight.sso.serialization.SsoDateTimeAdapter
+import drewhamilton.skylight.sso.network.request.Params
+import drewhamilton.skylight.sso.network.response.Response
+import drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
 import okhttp3.ResponseBody
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -45,7 +44,12 @@ class InfoClientTest {
         mockApi = mock {
             on {
                 getInfo(dummyParams.lat, dummyParams.lng, dummyDateString, 0)
-            } doReturn DummyCall.success(Response(dummySunriseSunsetInfo, "Dummy status"))
+            } doReturn DummyCall.success(
+                Response(
+                    dummySunriseSunsetInfo,
+                    "Dummy status"
+                )
+            )
         }
 
         val infoClient = InfoClient(mockApi, mockDateTimeAdapter)

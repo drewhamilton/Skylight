@@ -1,11 +1,9 @@
-package drewhamilton.skylight.sso.serialization
+package drewhamilton.skylight.sso.network
 
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson
-import drewhamilton.skylight.sso.dates.LimitedDateTimeFormat
-import drewhamilton.skylight.sso.dates.SsoDateFormat
-import drewhamilton.skylight.sso.dates.SsoDateTimeFormat
-import java.util.*
+import drewhamilton.skylight.sso.datetime.LimitedDateTimeFormat
+import java.util.Date
 import javax.inject.Inject
 
 class SsoDateTimeAdapter @Inject constructor() {

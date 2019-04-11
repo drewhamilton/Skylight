@@ -1,7 +1,7 @@
-package drewhamilton.skylight.sso.network.models
+package drewhamilton.skylight.sso.network.response
 
-import drewhamilton.skylight.sso.serialization.SsoDateTime
-import java.util.*
+import drewhamilton.skylight.sso.network.SsoDateTime
+import java.util.Date
 
 data class SunriseSunsetInfo(
     @SsoDateTime val sunrise: Date,

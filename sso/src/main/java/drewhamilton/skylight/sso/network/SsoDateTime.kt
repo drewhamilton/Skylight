@@ -1,4 +1,4 @@
-package drewhamilton.skylight.sso.serialization
+package drewhamilton.skylight.sso.network
 
 import com.squareup.moshi.JsonQualifier
 

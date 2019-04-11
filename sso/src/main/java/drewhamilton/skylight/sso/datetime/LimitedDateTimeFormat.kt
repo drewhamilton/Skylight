@@ -1,6 +1,6 @@
-package drewhamilton.skylight.sso.dates
+package drewhamilton.skylight.sso.datetime
 
-import java.util.*
+import java.util.Date
 
 /**
  * A limited alternative to [java.text.DateFormat]. Allows for simple implementations without having to cover all
@@ -8,7 +8,7 @@ import java.util.*
  */
 internal interface LimitedDateTimeFormat {
 
-  fun format(date: Date): String
+    fun format(date: Date): String
 
-  fun parse(text: String): Date
+    fun parse(text: String): Date
 }

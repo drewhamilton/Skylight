@@ -1,16 +1,19 @@
-package drewhamilton.skylight.sso.dates
+package drewhamilton.skylight.sso.network
 
+import drewhamilton.skylight.sso.datetime.JavaDateFormatWrapper
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 import java.util.regex.Pattern
 
 /**
  * Parses and prints dates matching the format: 2015-05-21T19:52:17+02:00
  */
 internal class SsoDateTimeFormat(
-    private val shouldUseZ: Boolean = false
-) : JavaDateFormatWrapper(SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US)) {
+    private val shouldFormatWithZ: Boolean = false
+) : JavaDateFormatWrapper(SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US), TimeZone.getTimeZone("UTC")) {
 
     override fun format(date: Date): String {
         val text = super.format(date)
@@ -22,7 +25,7 @@ internal class SsoDateTimeFormat(
         val textWithTimeZoneColon = insertTimeZoneColon()
 
         var text = textWithTimeZoneColon
-        if (shouldUseZ && textWithTimeZoneColon.contains(EXTERNAL_TIME_ZONE_UTC)) {
+        if (shouldFormatWithZ && textWithTimeZoneColon.contains(EXTERNAL_TIME_ZONE_UTC)) {
             text = text.replace(EXTERNAL_TIME_ZONE_UTC, EXTERNAL_TIME_ZONE_Z)
         }
 
@@ -32,7 +35,9 @@ internal class SsoDateTimeFormat(
 
     private fun String.insertTimeZoneColon(): String {
         val internalTimeZone = extractPattern(Pattern.compile(PATTERN_INTERNAL_TIME_ZONE))
-        val indexOfTimeZoneColon = EXTERNAL_TIME_ZONE_UTC.indexOf(COLON)
+        val indexOfTimeZoneColon = EXTERNAL_TIME_ZONE_UTC.indexOf(
+            COLON
+        )
         val externalTimeZone = internalTimeZone.insert(COLON.toString(), indexOfTimeZoneColon)
         return replace(internalTimeZone, externalTimeZone)
     }
@@ -47,7 +52,10 @@ internal class SsoDateTimeFormat(
 
     private fun String.formatTimeZoneForInternalParsing() =
         if (contains(EXTERNAL_TIME_ZONE_Z))
-            replace(EXTERNAL_TIME_ZONE_Z, INTERNAL_TIME_ZONE_UTC)
+            replace(
+                EXTERNAL_TIME_ZONE_Z,
+                INTERNAL_TIME_ZONE_UTC
+            )
         else
             removeTimeZoneColon()
 

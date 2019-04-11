@@ -1,6 +1,5 @@
 package drewhamilton.skylight.sso.network
 
-import drewhamilton.skylight.sso.dates.SsoDateTimeFormat
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

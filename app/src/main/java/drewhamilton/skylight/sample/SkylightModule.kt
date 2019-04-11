@@ -3,7 +3,8 @@ package drewhamilton.skylight.sample
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
-import drewhamilton.skylight.sso.inject.SsoSkylightComponent
+import drewhamilton.skylight.Skylight
+import drewhamilton.skylight.sso.dagger.SsoSkylightComponent
 
 @Module
 object SkylightModule {
@@ -11,5 +12,5 @@ object SkylightModule {
     @JvmStatic
     @Provides
     @Reusable
-    fun skylight() = SsoSkylightComponent.default().skylight()
+    fun skylight(): Skylight = SsoSkylightComponent.default().skylight()
 }

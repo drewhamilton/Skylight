@@ -5,8 +5,8 @@ import drewhamilton.skylight.Skylight
 import drewhamilton.skylight.SkylightDay
 import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.InfoClient
-import drewhamilton.skylight.sso.network.models.Params
-import drewhamilton.skylight.sso.network.models.SunriseSunsetInfo
+import drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
+import drewhamilton.skylight.sso.network.request.Params
 import java.util.Date
 import javax.inject.Inject
 

@@ -1,17 +1,16 @@
-package drewhamilton.skylight.sso.dates
+package drewhamilton.skylight.sso.datetime
 
 import java.text.DateFormat
-import java.util.*
+import java.util.Date
+import java.util.TimeZone
 
 internal open class JavaDateFormatWrapper(
     private val javaDateFormat: DateFormat,
-    timeZone: TimeZone
+    timeZone: TimeZone? = null
 ) : LimitedDateTimeFormat {
 
-    constructor(javaDateFormat: DateFormat) : this(javaDateFormat, TimeZone.getTimeZone("UTC"))
-
     init {
-        javaDateFormat.timeZone = timeZone
+        if (timeZone != null) javaDateFormat.timeZone = timeZone
     }
 
     override fun format(date: Date) = javaDateFormat.format(date)!!
