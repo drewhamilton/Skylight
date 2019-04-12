@@ -6,6 +6,7 @@ import javax.inject.Inject
 /**
  * A convenient [Skylight] wrapper for a single date.
  * TODO: Determine if @Inject internal constructor works with Dagger in another module
+ * TODO: Investigate assisted injection
  */
 class SkylightForDate @Inject internal constructor(
     private val skylight: Skylight,
