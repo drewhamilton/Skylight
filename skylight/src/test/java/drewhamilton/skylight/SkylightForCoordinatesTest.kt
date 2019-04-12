@@ -21,7 +21,7 @@ class SkylightForCoordinatesTest {
     @Before
     fun setUp() {
         mockSkylight = mock()
-        skylightForCoordinates = SkylightForCoordinates(mockSkylight, testCoordinates)
+        skylightForCoordinates = mockSkylight.forCoordinates(testCoordinates)
     }
 
     @Test
@@ -35,8 +35,6 @@ class SkylightForCoordinatesTest {
 
     @Test
     fun `isLight forwards to Skylight isLight`() {
-        skylightForCoordinates = SkylightForCoordinates(mockSkylight, testCoordinates)
-
         val testInputDate = Date(29385723847)
         val testCoordinates = Coordinates(1.23, 45.6)
         for (kClass in SkylightDay::class.sealedSubclasses) {
@@ -50,8 +48,6 @@ class SkylightForCoordinatesTest {
 
     @Test
     fun `isDark forwards to Skylight isDark`() {
-        skylightForCoordinates = SkylightForCoordinates(mockSkylight, testCoordinates)
-
         val testInputDate = Date(239487)
         val testCoordinates = Coordinates(12.3, 4.56)
         for (kClass in SkylightDay::class.sealedSubclasses) {

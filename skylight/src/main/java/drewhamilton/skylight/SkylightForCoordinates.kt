@@ -5,8 +5,9 @@ import javax.inject.Inject
 
 /**
  * A convenient [Skylight] wrapper for a single location.
+ * TODO: Determine if @Inject internal constructor works with Dagger in another module
  */
-class SkylightForCoordinates @Inject constructor(
+class SkylightForCoordinates @Inject internal constructor(
     internal val skylight: Skylight,
     val coordinates: Coordinates
 ) {
@@ -16,6 +17,13 @@ class SkylightForCoordinates @Inject constructor(
      */
     fun getSkylightDay(date: Date) = skylight.getSkylightDay(coordinates, date)
 }
+
+/**
+ * Create a [Skylight] wrapper for a constant set of [Coordinates]
+ * @param coordinates The coordinates for which the resulting wrapper will retrieve Skylight info.
+ * @return a [SkylightForCoordinates] wrapping the given [Skylight] and [Coordinates]
+ */
+fun Skylight.forCoordinates(coordinates: Coordinates) = SkylightForCoordinates(this, coordinates)
 
 /**
  * @param dateTime The date-time at which to check for lightness.

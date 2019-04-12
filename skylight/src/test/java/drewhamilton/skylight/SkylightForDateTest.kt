@@ -17,7 +17,7 @@ class SkylightForDateTest {
     @Before
     fun setUp() {
         mockSkylight = mock()
-        skylightForDate = SkylightForDate(mockSkylight, testDate)
+        skylightForDate = mockSkylight.forDate(testDate)
     }
 
     @Test
