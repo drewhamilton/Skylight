@@ -12,10 +12,13 @@ To use Skylight, include any of the following in your Gradle dependencies:
 ```groovy
 // The base interface:
 implementation "drewhamilton.skylight:skylight:$version"
-// RxJava extensions:
+// RxJava extensions for any Skylight implementation:
 implementation "drewhamilton.skylight:skylight-rx:$version"
 // sunrise-sunset.org implementation:
 implementation "drewhamilton.skylight:skylight-sso:$version"
+// Dummy implementation:
+implementation "drewhamilton.skylight:skylight-dummy:$version"
+
 // Android views:
 implementation "drewhamilton.skylight:skylight-views:$version"
 ```
@@ -33,6 +36,9 @@ An implementation of the interface that uses [sunrise-sunset.org](https://sunris
 publicly available [API](https://sunrise-sunset.org/api) to determine skylight information. Note that
 sunrise-sunset.org's API page says that "You may not use this API in a manner that exceeds reasonable request volume,
 constitutes excessive or abusive usage." The same requirement applies to this module of Skylight.
+
+### `:dummy`
+An implementation that just returns the same set of skylight information regardless of coordinate and date inputs.
 
 ### `:views`
 For Android: Skylight themes and a basic card view that can be used to display a skylight event.
