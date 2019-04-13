@@ -26,9 +26,9 @@ fun Skylight.getUpcomingSkylightDays(coordinates: Coordinates): Flowable<Skyligh
     getSkylightDaySingle(coordinates, today())
         .mergeWith(getSkylightDaySingle(coordinates, tomorrow()))
 
-private fun today() = Date()
+internal fun today() = Date()
 
-private fun tomorrow(): Date {
+internal fun tomorrow(): Date {
     val tomorrow = Calendar.getInstance()
     tomorrow.add(Calendar.DATE, 1)
     return tomorrow.time
