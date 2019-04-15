@@ -13,8 +13,7 @@ interface DummySkylightComponent {
 
     fun skylight(): DummySkylight
 
-    @Component.Factory
-    interface Factory {
+    @Component.Factory interface Factory {
         fun create(@BindsInstance dummySkylightDay: SkylightDay): DummySkylightComponent
     }
 
