@@ -8,7 +8,7 @@ import okhttp3.OkHttpClient
 /**
  * A Dagger component providing an instance of [SsoSkylight].
  */
-@Component(modules = [SsoSkylightModule::class])
+@Component(modules = [SsoNetworkModule::class])
 interface SsoSkylightComponent {
 
     fun skylight(): SsoSkylight
@@ -19,6 +19,7 @@ interface SsoSkylightComponent {
     }
 
     companion object {
+        @JvmOverloads
         fun create(okHttpClient: OkHttpClient = OkHttpClient()) =
             DaggerSsoSkylightComponent.factory().create(okHttpClient)
     }

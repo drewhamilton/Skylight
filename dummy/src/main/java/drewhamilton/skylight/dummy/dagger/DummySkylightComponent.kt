@@ -6,9 +6,9 @@ import drewhamilton.skylight.SkylightDay
 import drewhamilton.skylight.dummy.DummySkylight
 
 /**
- * A Dagger component providing an instance of [SsoSkylight].
+ * A Dagger component providing an instance of [DummySkylight].
  */
-@Component(modules = [DummySkylightModule::class])
+@Component
 interface DummySkylightComponent {
 
     fun skylight(): DummySkylight
