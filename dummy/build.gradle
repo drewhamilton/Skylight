@@ -7,6 +7,9 @@ dependencies {
 
     api project(':skylight')
 
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+
     testImplementation 'junit:junit:4.12'
 }
 
