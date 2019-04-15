@@ -13,16 +13,13 @@ interface SsoSkylightComponent {
 
     fun skylight(): SsoSkylight
 
-    @Component.Builder
-    interface Builder {
-        @BindsInstance fun okHttpClient(okHttpClient: OkHttpClient = OkHttpClient()): Builder
-        fun build(): SsoSkylightComponent
+    @Component.Factory
+    interface Factory {
+        fun create(@BindsInstance okHttpClient: OkHttpClient): SsoSkylightComponent
     }
 
     companion object {
-        fun builder(): Builder = DaggerSsoSkylightComponent.builder()
-            .okHttpClient()
-
-        fun default() = builder().build()
+        fun create(okHttpClient: OkHttpClient = OkHttpClient()) =
+            DaggerSsoSkylightComponent.factory().create(okHttpClient)
     }
 }

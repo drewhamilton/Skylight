@@ -12,5 +12,5 @@ object SkylightModule {
     @JvmStatic
     @Provides
     @Reusable
-    fun skylight(): Skylight = SsoSkylightComponent.default().skylight()
+    fun skylight(): Skylight = SsoSkylightComponent.create().skylight()
 }
