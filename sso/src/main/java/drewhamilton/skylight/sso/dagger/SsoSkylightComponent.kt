@@ -18,7 +18,11 @@ interface SsoSkylightComponent {
     }
 
     companion object {
-        @JvmOverloads fun create(okHttpClient: OkHttpClient = OkHttpClient()) =
+
+        // TODO WORKAROUND: Avoid requiring consumers to import the OkHttpClient dependency
+        fun create() = create(OkHttpClient())
+
+        fun create(okHttpClient: OkHttpClient = OkHttpClient()) =
             DaggerSsoSkylightComponent.factory().create(okHttpClient)
     }
 }
