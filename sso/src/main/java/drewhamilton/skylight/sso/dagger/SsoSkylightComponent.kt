@@ -19,7 +19,11 @@ interface SsoSkylightComponent {
 
     companion object {
 
-        // TODO WORKAROUND: Avoid requiring consumers to import the OkHttpClient dependency
+        /*
+         * TODO WORKAROUND: The second function forces consumers to include the OkHttp dependency, even when relying
+         *  on the default parameters, even when @JvmOverloads is applied. This method allows consumers to not import
+         *  OkHttp if they don't want to.
+         */
         fun create() = create(OkHttpClient())
 
         fun create(okHttpClient: OkHttpClient = OkHttpClient()) =
