@@ -29,6 +29,6 @@ class DummySkylightTest {
 
     @Test
     fun `skylightDay property equals value from constructor`() {
-        assertEquals(testSkylightDay, dummySkylight.skylightDay)
+        assertEquals(testSkylightDay, dummySkylight.getSkylightDay())
     }
 }
