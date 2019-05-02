@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.annotation.StringRes
 import drewhamilton.skylight.Coordinates
 import drewhamilton.skylight.sample.R
-import java.util.*
+import java.util.TimeZone
 
 data class Location(
     val longDisplayName: String,
@@ -21,14 +21,13 @@ enum class ExampleLocation(
     val timeZone: TimeZone,
     val coordinates: Coordinates
 ) {
-    AMSTERDAM(R.string.amsterdam_long, TimeZone.getTimeZone("Europe/Amsterdam"), Coordinates(52.3680, 4.9036)),
-    CARY(R.string.cary_long, TimeZone.getTimeZone("America/Chicago"), Coordinates(42.2132, -88.2477)),
-    FINDLAY(R.string.findlay_long, TimeZone.getTimeZone("America/New_York"), Coordinates(41.0442, -83.6499)),
-    GALLIATE_LOMBARDO(R.string.galliateLombardo_long, TimeZone.getTimeZone("Europe/Rome"), Coordinates(45.7887, 8.7706)),
-    MADISON(R.string.madison_long, TimeZone.getTimeZone("America/Chicago"), Coordinates(43.0731, -89.4012)),
-    METZ(R.string.metz_long, TimeZone.getTimeZone("Europe/Paris"), Coordinates(49.1193, 6.1757)),
-    NASHVILLE(R.string.nashville_long, TimeZone.getTimeZone("America/Chicago"), Coordinates(36.1627, -86.7816)),
-    SAINT_JOSEPH(R.string.saintJoseph_long, TimeZone.getTimeZone("America/Detroit"), Coordinates(42.0939, -86.4895))
+    AMSTERDAM(R.string.amsterdam, TimeZone.getTimeZone("Europe/Amsterdam"), Coordinates(52.3680, 4.9036)),
+    BANGKOK(R.string.bangkok, TimeZone.getTimeZone("Asia/Bangkok"), Coordinates(13.7563, 100.5018)),
+    HONOLULU(R.string.honolulu, TimeZone.getTimeZone("Pacific/Honolulu"), Coordinates(21.3069, 157.8583)),
+    ISTANBUL(R.string.istanbul, TimeZone.getTimeZone("Europe/Istanbul"), Coordinates(41.0082, 28.9784)),
+    LIMA(R.string.lima, TimeZone.getTimeZone("America/Lima"), Coordinates(-12.0464, -77.0428)),
+    MARRAKESH(R.string.marrakesh, TimeZone.getTimeZone("Africa/Casablanca"), Coordinates(31.6295, -7.9811)),
+    NASHVILLE(R.string.nashville, TimeZone.getTimeZone("America/Chicago"), Coordinates(36.1627, -86.7816)),
 }
 
 fun ExampleLocation.toLocation(context: Context) =
