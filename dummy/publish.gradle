@@ -1,11 +1,11 @@
 apply from: '../publish.gradle'
 
 ext {
-  bintrayName = 'Skylight-sso'
-  libraryName = 'Skylight: sunrise-sunset.org'
-  artifact = 'skylight-sso'
+  bintrayName = 'Skylight-dummy'
+  libraryName = 'Dummy Skylight'
+  artifact = 'skylight-dummy'
 
-  libraryDescription = 'A Skylight implementation that uses sunrise-sunset.org to retrieve Skylight information.'
+  libraryDescription = 'A dummy implementation of Skylight that always returns the same SkylightDay'
 
   packageType = "jar"
 }

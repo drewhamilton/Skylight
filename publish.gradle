@@ -38,6 +38,6 @@ task dokkaJavadoc(type: dokka.class) {
 }
 
 task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
-  classifier = 'javadoc'
+  archiveClassifier = 'javadoc'
   from javadocDestinationDir
 }
