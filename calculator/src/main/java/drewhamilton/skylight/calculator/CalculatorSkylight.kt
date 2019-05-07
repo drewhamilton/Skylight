@@ -20,7 +20,7 @@ class CalculatorSkylight @Inject constructor() : Skylight {
     // This is the same altitude TwilightCalculator uses for civil twilight:
     private val altitudeRadiansCivilTwilight = -0.104719755f
 
-    // Approximately equal to 0 - {diameter of sun}
+    // Approximately equal to -{diameter of sun}
     private val altitudeRadiansHorizon = -0.01f
 
     /**

@@ -3,7 +3,6 @@ package drewhamilton.skylight.calculator
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 import java.util.TimeZone
 
 /**
@@ -34,7 +33,7 @@ internal object TestDateTimes {
   }
 
   private fun buildDateTimeString(date: String, time: String) =
-      String.format(Locale.US, DATE_TIME_FORMAT_STRING, date, time)
+      String.format(DATE_TIME_FORMAT_STRING, date, time)
 }
 
 internal fun String.asDate(): Date = TestDateTimes.FORMAT.parse(this)
