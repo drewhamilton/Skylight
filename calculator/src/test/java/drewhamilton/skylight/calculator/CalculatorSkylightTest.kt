@@ -40,10 +40,10 @@ class CalculatorSkylightTest {
     amsterdam_2019january6(TestDateTimes.JANUARY_6_2019_LATE.asDate())
   }
 
-  private fun amsterdam_2019january6(dateTime: Date) {
+  private fun amsterdam_2019january6(inputDateTime: Date) {
     val result = skylight.getSkylightDay(
         TestCoordinates.AMSTERDAM,
-        dateTime
+        inputDateTime
     )
     assertTrue(result is SkylightDay.Typical)
     result as SkylightDay.Typical

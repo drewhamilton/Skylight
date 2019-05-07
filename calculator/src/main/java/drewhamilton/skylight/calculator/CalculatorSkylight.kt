@@ -58,8 +58,8 @@ class CalculatorSkylight @Inject constructor() : Skylight {
         val cosHourAngleHorizon = calculateCosineHourAngle(altitudeRadiansHorizon, latitudeRadians, solarDec)
 
         return when {
-            isAlwaysNight(cosHourAngleTwilight) -> return SkylightDay.NeverLight
-            isAlwaysDay(cosHourAngleHorizon) -> return SkylightDay.AlwaysDaytime
+            isAlwaysNight(cosHourAngleTwilight) -> SkylightDay.NeverLight
+            isAlwaysDay(cosHourAngleHorizon) -> SkylightDay.AlwaysDaytime
             else -> {
                 val hourAngleTwilight = (Math.acos(cosHourAngleTwilight) / (2 * Math.PI)).toFloat()
                 val dawn = calculateMorningEventUnixTime(solarTransitJ2000, hourAngleTwilight)
