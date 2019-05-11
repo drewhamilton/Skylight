@@ -19,13 +19,13 @@ import drewhamilton.skylight.views.event.setTime
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_main.dawn
-import kotlinx.android.synthetic.main.activity_main.dusk
-import kotlinx.android.synthetic.main.activity_main.locationSelector
-import kotlinx.android.synthetic.main.activity_main.sunrise
-import kotlinx.android.synthetic.main.activity_main.sunset
-import kotlinx.android.synthetic.main.activity_main.toolbar
-import kotlinx.android.synthetic.main.activity_main.version
+import kotlinx.android.synthetic.main.main_destination.dawn
+import kotlinx.android.synthetic.main.main_destination.dusk
+import kotlinx.android.synthetic.main.main_destination.locationSelector
+import kotlinx.android.synthetic.main.main_destination.sunrise
+import kotlinx.android.synthetic.main.main_destination.sunset
+import kotlinx.android.synthetic.main.main_destination.toolbar
+import kotlinx.android.synthetic.main.main_destination.version
 import java.text.DateFormat
 import java.util.Date
 import java.util.TimeZone
@@ -43,7 +43,7 @@ class MainActivity : RxActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         initializeDependencies()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.main_destination)
         version.text = getString(R.string.version_info, BuildConfig.VERSION_NAME)
 
         initializeLocationOptions()
