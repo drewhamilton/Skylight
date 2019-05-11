@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <com.google.android.material.appbar.MaterialToolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+
+      app:navigationIcon="@drawable/ic_close_24dp"
+      app:title="@string/settings" />
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+
+      android:paddingStart="@dimen/marginSides_mainText"
+      android:paddingEnd="@dimen/marginSides_mainText"
+      android:text="Source"
+
+      style="@style/TextAppearance.AppCompat.Subhead" />
+
+  <com.google.android.material.radiobutton.MaterialRadioButton
+      android:id="@+id/networkButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+
+      android:text="Network (sunrise-sunset.org)"
+
+      tools:checked="true" />
+
+  <com.google.android.material.radiobutton.MaterialRadioButton
+      android:id="@+id/localButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+
+      android:text="Local (calculator)" />
+
+  <com.google.android.material.radiobutton.MaterialRadioButton
+      android:id="@+id/dummyButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+
+      android:text="Dummy" />
+
+</RadioGroup>

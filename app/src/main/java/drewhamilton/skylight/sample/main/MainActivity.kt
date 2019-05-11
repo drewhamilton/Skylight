@@ -1,5 +1,6 @@
 package drewhamilton.skylight.sample.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -12,6 +13,7 @@ import drewhamilton.skylight.sample.BuildConfig
 import drewhamilton.skylight.sample.R
 import drewhamilton.skylight.sample.location.LocationRepository
 import drewhamilton.skylight.sample.rx.ui.RxActivity
+import drewhamilton.skylight.sample.settings.SettingsActivity
 import drewhamilton.skylight.views.event.SkylightEventView
 import drewhamilton.skylight.views.event.setTime
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_main.dusk
 import kotlinx.android.synthetic.main.activity_main.locationSelector
 import kotlinx.android.synthetic.main.activity_main.sunrise
 import kotlinx.android.synthetic.main.activity_main.sunset
+import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlinx.android.synthetic.main.activity_main.version
 import java.text.DateFormat
 import java.util.Date
@@ -43,6 +46,15 @@ class MainActivity : RxActivity() {
         setContentView(R.layout.activity_main)
         version.text = getString(R.string.version_info, BuildConfig.VERSION_NAME)
 
+        initializeLocationOptions()
+        initializeMenu()
+    }
+
+    private fun initializeDependencies() {
+        AppComponent.instance.inject(this)
+    }
+
+    private fun initializeLocationOptions() {
         val locationOptions = locationRepository.getLocationOptions()
         locationSelector.adapter = LocationSpinnerAdapter(this, locationOptions)
 
@@ -59,10 +71,6 @@ class MainActivity : RxActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
         locationSelector.setSelection(0)
-    }
-
-    private fun initializeDependencies() {
-        AppComponent.instance.inject(this)
     }
 
     private fun SkylightDay.display() {
@@ -111,5 +119,13 @@ class MainActivity : RxActivity() {
         else
             null
         setOnClickListener(clickListener)
+    }
+
+    private fun initializeMenu() {
+        val settingsItem = toolbar.menu.findItem(R.id.settings)
+        settingsItem.setOnMenuItemClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+            true
+        }
     }
 }
