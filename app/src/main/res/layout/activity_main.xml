@@ -3,32 +3,36 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-  <View
-      android:id="@+id/toolbarBackground"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-
-      android:background="?attr/colorPrimary"
-      android:elevation="@dimen/elevation_toolbar"
-
-      app:layout_constraintTop_toTopOf="@+id/locationSelector"
-      app:layout_constraintBottom_toBottomOf="@+id/locationSelector" />
-
-  <androidx.appcompat.widget.AppCompatSpinner
-      android:id="@+id/locationSelector"
-      android:layout_width="match_parent"
+  <com.google.android.material.appbar.MaterialToolbar
+      android:id="@+id/toolbar"
+      android:layout_width="0dp"
       android:layout_height="?android:attr/actionBarSize"
 
-      android:elevation="@dimen/elevation_toolbar"
-      android:popupBackground="?android:attr/popupBackground"
+      android:theme="@style/AppTheme"
 
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toTopOf="@+id/timeZoneInfo"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
 
-      tools:listitem="@layout/item_spinner" />
+      app:menu="@menu/home"
+
+      style="@style/Widget.MaterialComponents.Toolbar.Primary">
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/locationSelector"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:popupBackground="?android:attr/popupBackground"
+
+        tools:listitem="@layout/item_spinner" />
+
+  </com.google.android.material.appbar.MaterialToolbar>
 
   <TextView
       android:id="@+id/timeZoneInfo"
@@ -42,7 +46,7 @@
       android:textAppearance="@style/TextAppearance.AppCompat.Small"
       android:textColor="?android:attr/textColorSecondary"
 
-      app:layout_constraintTop_toBottomOf="@+id/locationSelector"
+      app:layout_constraintTop_toBottomOf="@+id/toolbar"
       app:layout_constraintBottom_toTopOf="@+id/dawn" />
 
   <drewhamilton.skylight.views.event.SkylightEventView
