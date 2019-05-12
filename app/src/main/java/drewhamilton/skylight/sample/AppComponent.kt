@@ -5,6 +5,7 @@ import dagger.BindsInstance
 import dagger.Component
 import drewhamilton.skylight.dummy.dagger.DummySkylightComponent
 import drewhamilton.skylight.sample.main.MainActivity
+import drewhamilton.skylight.sample.settings.SettingsActivity
 import drewhamilton.skylight.sso.dagger.SsoSkylightComponent
 import javax.inject.Singleton
 
@@ -16,6 +17,7 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(mainActivity: MainActivity)
+    fun inject(settingsActivity: SettingsActivity)
 
     @Component.Factory interface Factory {
         fun create(

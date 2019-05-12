@@ -35,6 +35,7 @@ class MainActivity : RxActivity() {
 
     @Suppress("ProtectedInFinal")
     @Inject protected lateinit var locationRepository: LocationRepository
+
     @Suppress("ProtectedInFinal")
     @Inject protected lateinit var skylight: Skylight
 
