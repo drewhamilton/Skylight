@@ -11,6 +11,7 @@ import drewhamilton.skylight.rx.getSkylightDaySingle
 import drewhamilton.skylight.sample.AppComponent
 import drewhamilton.skylight.sample.BuildConfig
 import drewhamilton.skylight.sample.R
+import drewhamilton.skylight.sample.location.Location
 import drewhamilton.skylight.sample.location.LocationRepository
 import drewhamilton.skylight.sample.rx.ui.RxActivity
 import drewhamilton.skylight.sample.settings.SettingsActivity
@@ -42,17 +43,22 @@ class MainActivity : RxActivity() {
     private val timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        initializeDependencies()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_destination)
         version.text = getString(R.string.version_info, BuildConfig.VERSION_NAME)
-
-        initializeLocationOptions()
         initializeMenu()
+
+        AppComponent.instance.inject(this)
+        initializeLocationOptions()
     }
 
-    private fun initializeDependencies() {
+    override fun onResume() {
+        super.onResume()
+        // Inject again in onResume because settings activity may change what is injected:
         AppComponent.instance.inject(this)
+
+        // Re-display selected item in case something has changed:
+        (locationSelector.selectedItem as Location).display()
     }
 
     private fun initializeLocationOptions() {
@@ -60,18 +66,21 @@ class MainActivity : RxActivity() {
         locationSelector.adapter = LocationSpinnerAdapter(this, locationOptions)
 
         locationSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val location = locationOptions[position]
-                skylight.getSkylightDaySingle(location.coordinates, Date())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSuccess { timeFormat.timeZone = location.timeZone }
-                    .subscribe(Consumer { it.display() })
-                    .disposeOnDestroyView()
-            }
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) =
+                locationOptions[position].display()
+
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
         locationSelector.setSelection(0)
+    }
+
+    private fun Location.display() {
+        skylight.getSkylightDaySingle(coordinates, Date())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSuccess { timeFormat.timeZone = timeZone }
+            .subscribe(Consumer { it.display() })
+            .disposeOnDestroyView()
     }
 
     private fun SkylightDay.display() {
