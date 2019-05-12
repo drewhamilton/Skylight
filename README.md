@@ -12,12 +12,15 @@ To use Skylight, include any of the following in your Gradle dependencies:
 ```groovy
 // The base interface:
 implementation "drewhamilton.skylight:skylight:$version"
-// RxJava extensions for any Skylight implementation:
-implementation "drewhamilton.skylight:skylight-rx:$version"
 // sunrise-sunset.org implementation:
 implementation "drewhamilton.skylight:skylight-sso:$version"
+// Calculator implementation:
+implementation "drewhamilton.skylight:skylight-calculator:$version"
 // Dummy implementation:
 implementation "drewhamilton.skylight:skylight-dummy:$version"
+
+// RxJava extensions for any Skylight implementation:
+implementation "drewhamilton.skylight:skylight-rx:$version"
 
 // Android views:
 implementation "drewhamilton.skylight:skylight-views:$version"
@@ -28,17 +31,21 @@ implementation "drewhamilton.skylight:skylight-views:$version"
 ### `:skylight`
 The generic interface itself, designed to be implementation-agnostic.
 
-### `:rx`
-RxJava extensions for the Skylight interface.
-
 ### `:sso`
-An implementation of the interface that uses [sunrise-sunset.org](https://sunrise-sunset.org/)'s
-publicly available [API](https://sunrise-sunset.org/api) to determine skylight information. Note that
-sunrise-sunset.org's API page says that "You may not use this API in a manner that exceeds reasonable request volume,
-constitutes excessive or abusive usage." The same requirement applies to this module of Skylight.
+An implementation that uses [sunrise-sunset.org](https://sunrise-sunset.org/)'s publicly available
+[API](https://sunrise-sunset.org/api) to determine skylight information. Note that sunrise-sunset.org's API page says
+"You may not use this API in a manner that exceeds reasonable request volume, constitutes excessive or abusive usage."
+The same requirement applies to this module of Skylight.
+
+### `:calculator`
+An implementation that calculates skylight information locally, using fancy math adapted from AndroidX's (internal)
+`TwilightCalculator` class. Much faster than the network implementation.
 
 ### `:dummy`
 An implementation that just returns the same set of skylight information regardless of coordinate and date inputs.
+
+### `:rx`
+RxJava extensions for the Skylight interface.
 
 ### `:views`
 For Android: Skylight themes and a basic card view that can be used to display a skylight event.

@@ -1,6 +1,9 @@
 package drewhamilton.skylight.sample
 
 import android.app.Application
+import drewhamilton.skylight.SkylightDay
+import drewhamilton.skylight.dummy.dagger.DummySkylightComponent
+import drewhamilton.skylight.sso.dagger.SsoSkylightComponent
 
 @Suppress("Unused")
 class SampleApplication : Application() {
@@ -8,8 +11,10 @@ class SampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        AppComponent.instance = DaggerAppComponent.builder()
-            .applicationModule(ApplicationModule(this))
-            .build()
+        AppComponent.create(
+            this,
+            SsoSkylightComponent.create(),
+            DummySkylightComponent.create(SkylightDay.NeverLight)
+        )
     }
 }

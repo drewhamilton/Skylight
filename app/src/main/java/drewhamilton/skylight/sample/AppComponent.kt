@@ -1,7 +1,12 @@
 package drewhamilton.skylight.sample
 
+import android.app.Application
+import dagger.BindsInstance
 import dagger.Component
+import drewhamilton.skylight.dummy.dagger.DummySkylightComponent
 import drewhamilton.skylight.sample.main.MainActivity
+import drewhamilton.skylight.sample.settings.SettingsActivity
+import drewhamilton.skylight.sso.dagger.SsoSkylightComponent
 import javax.inject.Singleton
 
 @Singleton
@@ -12,8 +17,28 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(mainActivity: MainActivity)
+    fun inject(settingsActivity: SettingsActivity)
+
+    @Component.Factory interface Factory {
+        fun create(
+            @BindsInstance application: Application,
+            @BindsInstance ssoSkylightComponent: SsoSkylightComponent,
+            @BindsInstance dummySkylightComponent: DummySkylightComponent
+        ): AppComponent
+    }
 
     companion object {
-        lateinit var instance: AppComponent
+        val instance get() = _instance
+
+        @Suppress("ObjectPropertyName")
+        private lateinit var _instance: AppComponent
+
+        fun create(
+            application: Application,
+            ssoSkylightComponent: SsoSkylightComponent,
+            dummySkylightComponent: DummySkylightComponent
+        ) {
+            _instance = DaggerAppComponent.factory().create(application, ssoSkylightComponent, dummySkylightComponent)
+        }
     }
 }

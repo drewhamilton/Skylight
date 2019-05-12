@@ -1,1 +1,1 @@
-include ':app', ':skylight', ':sso', ':views', ':rx', ':dummy'
+include ':app', ':skylight', ':sso', ':views', ':rx', ':dummy', ':calculator'
