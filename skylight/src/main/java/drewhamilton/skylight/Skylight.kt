@@ -1,5 +1,7 @@
 package drewhamilton.skylight
 
+import drewhamilton.skylight.backport.backport
+import java.time.LocalDate
 import java.util.Date
 
 /**
@@ -12,7 +14,13 @@ interface Skylight {
      * @param date The date for which to return info. The time information in this parameter is ignored.
      * @return [SkylightDay] at the given coordinates for the given date.
      */
+    @Deprecated("Replaced by LocalDate-accepting overloads")
     fun getSkylightDay(coordinates: Coordinates, date: Date): SkylightDay
+
+    fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay =
+        getSkylightDay(coordinates, date.backport())
+
+    fun getSkylightDay(coordinates: Coordinates, date: org.threeten.bp.LocalDate): SkylightDay
 }
 
 /**
@@ -22,8 +30,7 @@ interface Skylight {
  * and before dusk on the given date.
  */
 fun Skylight.isLight(coordinates: Coordinates, dateTime: Date): Boolean {
-    val skylightDay = getSkylightDay(coordinates, dateTime)
-    return when (skylightDay) {
+    return when (val skylightDay = getSkylightDay(coordinates, dateTime)) {
         is SkylightDay.AlwaysDaytime -> true
         is SkylightDay.AlwaysLight -> true
         is SkylightDay.NeverLight -> false
