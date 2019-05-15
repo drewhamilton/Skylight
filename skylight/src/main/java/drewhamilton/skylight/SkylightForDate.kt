@@ -10,7 +10,7 @@ import javax.inject.Inject
  */
 class SkylightForDate @Inject internal constructor(
     private val skylight: Skylight,
-    val date: Date
+    @Deprecated("Replace with LocalDate") val date: Date
 ) {
     /**
      * @param coordinates The coordinates for which to return info.
@@ -24,4 +24,5 @@ class SkylightForDate @Inject internal constructor(
  * @param date The date for which the resulting wrapper will retrieve Skylight info.
  * @return a [SkylightForDate] wrapping the given [Skylight] and [Date]
  */
+@Deprecated("Replace with LocalDate-accepting initializer")
 fun Skylight.forDate(date: Date) = SkylightForDate(this, date)

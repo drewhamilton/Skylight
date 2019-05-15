@@ -1,5 +1,7 @@
 package drewhamilton.skylight
 
+import java.time.LocalDate
+import java.time.ZonedDateTime
 import java.util.Date
 import javax.inject.Inject
 
@@ -16,7 +18,14 @@ class SkylightForCoordinates @Inject internal constructor(
      * @param date The date for which to return info. The time information in this parameter is ignored.
      * @return [SkylightDay] at this object's coordinates for the given date.
      */
+    @Deprecated("Replaced by LocalDate-accepting overload")
     fun getSkylightDay(date: Date) = skylight.getSkylightDay(coordinates, date)
+
+    /**
+     * @param date The date for which to return info.
+     * @return [SkylightDay] at this object's coordinates for the given date.
+     */
+    fun getSkylightDay(date: LocalDate) = skylight.getSkylightDay(coordinates, date)
 }
 
 /**
@@ -31,11 +40,27 @@ fun Skylight.forCoordinates(coordinates: Coordinates) = SkylightForCoordinates(t
  * @return Whether it is light outside at the [SkylightForCoordinates]'s coordinates at the given date-time, where
  * "light" means after dawn and before dusk on the given date.
  */
+@Deprecated("Replaced by ZonedDateTime-accepting overload")
 fun SkylightForCoordinates.isLight(dateTime: Date) = skylight.isLight(coordinates, dateTime)
+
+/**
+ * @param dateTime The date-time at which to check for lightness.
+ * @return Whether it is light outside at the [SkylightForCoordinates]'s coordinates at the given date-time, where
+ * "light" means after dawn and before dusk on the given date.
+ */
+fun SkylightForCoordinates.isLight(dateTime: ZonedDateTime) = skylight.isLight(coordinates, dateTime)
 
 /**
  * @param dateTime The date-time at which to check for darkness.
  * @return Whether it is dark outside at the [SkylightForCoordinates]'s coordinates at the given date-time, where "dark"
  * means before dawn or after dusk on the given date.
  */
+@Deprecated("Replaced by ZonedDateTime-accepting overload")
 fun SkylightForCoordinates.isDark(dateTime: Date) = skylight.isDark(coordinates, dateTime)
+
+/**
+ * @param dateTime The date-time at which to check for darkness.
+ * @return Whether it is dark outside at the [SkylightForCoordinates]'s coordinates at the given date-time, where "dark"
+ * means before dawn or after dusk on the given date.
+ */
+fun SkylightForCoordinates.isDark(dateTime: ZonedDateTime) = skylight.isDark(coordinates, dateTime)
