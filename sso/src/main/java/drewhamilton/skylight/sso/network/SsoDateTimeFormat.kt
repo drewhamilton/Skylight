@@ -3,6 +3,7 @@ package drewhamilton.skylight.sso.network
 import drewhamilton.skylight.sso.datetime.JavaDateFormatWrapper
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
@@ -79,7 +80,9 @@ internal class SsoDateTimeFormat(
         }
     }
 
-    private companion object {
+    internal companion object {
+        fun get(): DateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+
         private const val COLON = ':'
 
         private const val PATTERN_EXTERNAL_TIME_ZONE_FULL = "[+-][0-9]{2}:[0-9]{2}"

@@ -4,6 +4,7 @@ import java.text.DateFormat
 import java.util.Date
 import java.util.TimeZone
 
+@Deprecated("Unneeded with java.time")
 internal open class JavaDateFormatWrapper(
     private val javaDateFormat: DateFormat,
     timeZone: TimeZone? = null
