@@ -1,6 +1,5 @@
 package drewhamilton.skylight
 
-import drewhamilton.skylight.backport.backport
 import java.time.LocalDate
 import java.util.Date
 
@@ -17,10 +16,10 @@ interface Skylight {
     @Deprecated("Replaced by LocalDate-accepting overloads")
     fun getSkylightDay(coordinates: Coordinates, date: Date): SkylightDay
 
-    fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay =
-        getSkylightDay(coordinates, date.backport())
+    fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay //=
+//        getSkylightDay(coordinates, date.backport())
 
-    fun getSkylightDay(coordinates: Coordinates, date: org.threeten.bp.LocalDate): SkylightDay
+//    fun getSkylightDay(coordinates: Coordinates, date: org.threeten.bp.LocalDate): SkylightDay
 }
 
 /**
