@@ -38,7 +38,7 @@ class SkylightForCoordinatesTest {
         val testInputDate = Date(29385723847)
         val testCoordinates = Coordinates(1.23, 45.6)
         for (kClass in SkylightDay::class.sealedSubclasses) {
-            whenever(mockSkylight.getSkylightDay(any(), any())).thenReturn(kClass.instantiate(Date(234234)))
+            whenever(mockSkylight.getSkylightDay(any(), any<Date>())).thenReturn(kClass.instantiate(Date(234234)))
             assertEquals(
                 mockSkylight.isLight(testCoordinates, testInputDate),
                 skylightForCoordinates.isLight(testInputDate)
@@ -51,7 +51,7 @@ class SkylightForCoordinatesTest {
         val testInputDate = Date(239487)
         val testCoordinates = Coordinates(12.3, 4.56)
         for (kClass in SkylightDay::class.sealedSubclasses) {
-            whenever(mockSkylight.getSkylightDay(any(), any())).thenReturn(kClass.instantiate(Date(9823743)))
+            whenever(mockSkylight.getSkylightDay(any(), any<Date>())).thenReturn(kClass.instantiate(Date(9823743)))
             assertEquals(
                 mockSkylight.isDark(testCoordinates, testInputDate),
                 skylightForCoordinates.isDark(testInputDate)
