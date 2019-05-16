@@ -17,7 +17,7 @@ interface Skylight {
      * @return [SkylightDay] at the given coordinates for the given date.
      */
     @Deprecated("Replaced by LocalDate-accepting overload")
-    fun getSkylightDay(coordinates: Coordinates, date: Date): SkylightDay
+    fun getSkylightDay(coordinates: Coordinates, date: Date): SkylightDay = SkylightDay.NeverLight
 
     /**
      * @param coordinates The coordinates to retrieve info for.

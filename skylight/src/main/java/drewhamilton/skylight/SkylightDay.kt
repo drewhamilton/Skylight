@@ -7,6 +7,7 @@ import java.util.Date
  *
  * TODO MISSING What about transition days that e.g. have a sunrise but no sunset?
  */
+@Deprecated("Replaced by NewSkylightDay")
 sealed class SkylightDay {
 
     /**

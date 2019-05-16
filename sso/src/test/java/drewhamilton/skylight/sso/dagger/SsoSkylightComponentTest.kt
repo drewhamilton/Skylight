@@ -12,7 +12,8 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNotSame
 import org.junit.Before
 import org.junit.Test
-import java.util.Date
+import java.time.LocalDate
+import java.time.Month
 
 class SsoSkylightComponentTest {
 
@@ -39,7 +40,7 @@ class SsoSkylightComponentTest {
         mockWebServer!!.start()
 
         val testCoordinates = Coordinates(12.3, 45.6)
-        val testDate = Date(2174127846)
+        val testDate = LocalDate.of(1970, Month.JANUARY, 26)
 
         val fakeNetworkInterceptor = FakeInterceptor()
         val testOkHttpClient = OkHttpClient.Builder()

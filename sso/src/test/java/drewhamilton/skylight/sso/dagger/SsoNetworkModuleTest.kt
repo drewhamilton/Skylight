@@ -17,7 +17,8 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.util.Date
+import java.time.LocalDate
+import java.time.ZonedDateTime
 
 class SsoNetworkModuleTest {
 
@@ -62,7 +63,7 @@ class SsoNetworkModuleTest {
 
         val moshi = SsoNetworkModule.moshi(ssoDateTimeAdapter)
 
-        assertNotNull(moshi.adapter<Date>(Date::class.java, SsoDate::class.java))
-        assertNotNull(moshi.adapter<Date>(Date::class.java, SsoDateTime::class.java))
+        assertNotNull(moshi.adapter<LocalDate>(LocalDate::class.java, SsoDate::class.java))
+        assertNotNull(moshi.adapter<ZonedDateTime>(ZonedDateTime::class.java, SsoDateTime::class.java))
     }
 }

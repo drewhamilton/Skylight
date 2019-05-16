@@ -1,15 +1,19 @@
 package drewhamilton.skylight.sso
 
-import drewhamilton.skylight.SkylightDay
+import drewhamilton.skylight.NewSkylightDay
 import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.util.Date
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
 
 class SunriseSunsetInfoConversionsTest {
 
-    private val throwaway = Date(0)
+    private val date = LocalDate.ofEpochDay(0)
+    private val throwaway = ZonedDateTime.ofInstant(Instant.EPOCH, ZoneOffset.UTC)
 
     @Test
     fun `toSkylightDay with twilight begin NONE and sunrise NONE returns NeverLight`() {
@@ -19,8 +23,8 @@ class SunriseSunsetInfoConversionsTest {
             ApiConstants.DATE_TIME_NONE,
             throwaway
         )
-        val output = input.toSkylightDay()
-        assertEquals(SkylightDay.NeverLight, output)
+        val output = input.toSkylightDay(date)
+        assertEquals(NewSkylightDay.NeverLight(date), output)
     }
 
     @Test
@@ -31,46 +35,42 @@ class SunriseSunsetInfoConversionsTest {
             ApiConstants.DATE_TIME_ALWAYS_DAY,
             throwaway
         )
-        val output = input.toSkylightDay()
-        assertEquals(SkylightDay.AlwaysDaytime, output)
+        val output = input.toSkylightDay(date)
+        assertEquals(NewSkylightDay.AlwaysDaytime(date), output)
     }
 
     @Test
     fun `toSkylightDay with only twilight begin NONE returns AlwaysLight`() {
-        val sunrise = Date(2)
-        val sunset = Date(3)
-        val input = SunriseSunsetInfo(
-            sunrise,
-            sunset,
-            ApiConstants.DATE_TIME_NONE,
-            throwaway
-        )
-        val output = input.toSkylightDay()
-        assertEquals(SkylightDay.AlwaysLight(sunrise, sunset), output)
+        val sunrise = ZonedDateTime.ofInstant(Instant.ofEpochMilli(2), ZoneOffset.UTC)
+        val sunset = ZonedDateTime.ofInstant(Instant.ofEpochMilli(3), ZoneOffset.UTC)
+        val input = SunriseSunsetInfo(sunrise, sunset, ApiConstants.DATE_TIME_NONE, throwaway)
+        val output = input.toSkylightDay(date)
+        assertEquals(NewSkylightDay.AlwaysLight(date, sunrise.toOffsetTime(), sunset.toOffsetTime()), output)
     }
 
     @Test
     fun `toSkylightDay with only sunrise NONE returns NeverDaytime`() {
-        val dawn = Date(1)
-        val dusk = Date(4)
-        val input = SunriseSunsetInfo(
-            ApiConstants.DATE_TIME_NONE,
-            throwaway,
-            dawn,
-            dusk
-        )
-        val output = input.toSkylightDay()
-        assertEquals(SkylightDay.NeverDaytime(dawn, dusk), output)
+        val dawn = ZonedDateTime.ofInstant(Instant.ofEpochMilli(1), ZoneOffset.UTC)
+        val dusk = ZonedDateTime.ofInstant(Instant.ofEpochMilli(4), ZoneOffset.UTC)
+        val input = SunriseSunsetInfo(ApiConstants.DATE_TIME_NONE, throwaway, dawn, dusk)
+        val output = input.toSkylightDay(date)
+        assertEquals(NewSkylightDay.NeverDaytime(date, dawn.toOffsetTime(), dusk.toOffsetTime()), output)
     }
 
     @Test
     fun `toSkylightDay with no special inputs returns Typical`() {
-        val dawn = Date(1)
-        val sunrise = Date(2)
-        val sunset = Date(3)
-        val dusk = Date(4)
+        val dawn = ZonedDateTime.ofInstant(Instant.ofEpochMilli(1), ZoneOffset.UTC)
+        val sunrise = ZonedDateTime.ofInstant(Instant.ofEpochMilli(2), ZoneOffset.UTC)
+        val sunset = ZonedDateTime.ofInstant(Instant.ofEpochMilli(3), ZoneOffset.UTC)
+        val dusk = ZonedDateTime.ofInstant(Instant.ofEpochMilli(4), ZoneOffset.UTC)
         val input = SunriseSunsetInfo(sunrise, sunset, dawn, dusk)
-        val output = input.toSkylightDay()
-        assertEquals(SkylightDay.Typical(dawn, sunrise, sunset, dusk), output)
+        val output = input.toSkylightDay(date)
+        assertEquals(NewSkylightDay.Typical(
+            date,
+            dawn.toOffsetTime(),
+            sunrise.toOffsetTime(),
+            sunset.toOffsetTime(),
+            dusk.toOffsetTime()
+        ), output)
     }
 }
