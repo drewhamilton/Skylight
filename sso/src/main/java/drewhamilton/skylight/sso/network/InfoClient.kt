@@ -5,6 +5,7 @@ import drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
 import retrofit2.HttpException
 import javax.inject.Inject
 
+@Deprecated("Will soon be merged with with SsoSkylight")
 class InfoClient @Inject constructor(
     private val api: SsoApi,
     private val dateTimeAdapter: SsoDateTimeAdapter
