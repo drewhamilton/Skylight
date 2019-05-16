@@ -2,6 +2,7 @@ package drewhamilton.skylight.sso.network
 
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
+import drewhamilton.skylight.sso.network.request.NewParams
 import drewhamilton.skylight.sso.network.request.Params
 import drewhamilton.skylight.sso.network.response.NewSunriseSunsetInfo
 import drewhamilton.skylight.sso.network.response.Response
@@ -13,8 +14,7 @@ import retrofit2.HttpException
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
+import java.time.LocalDate
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.util.Date
@@ -24,13 +24,19 @@ class InfoClientTest {
 
     private val testDateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
 
-    private val dummyParams = Params(76.5, 43.2, Date(754727L))
-    private val dummyDateString = testDateFormat.format(dummyParams.date)
+    private val testDateString = "2019-05-16"
+    private val testParams = NewParams(76.5, 43.2, LocalDate.parse(testDateString))
+    private val dummyParams = Params(76.5, 43.2, testDateFormat.parse(testDateString))
 
     private val dummyCivilTwilightBegin = Date(888_888_810_000L)
     private val dummySunrise = Date(888_888_820_000L)
     private val dummySunset = Date(888_888_830_000L)
     private val dummyCivilTwilightEnd = Date(888_888_840_000L)
+
+    private val testCivilTwilightBegin = ZonedDateTime.ofInstant(Instant.ofEpochMilli(888_888_810_000L), ZoneOffset.UTC)
+    private val testSunrise = ZonedDateTime.ofInstant(Instant.ofEpochMilli(888_888_820_000L), ZoneOffset.UTC)
+    private val testSunset = ZonedDateTime.ofInstant(Instant.ofEpochMilli(888_888_830_000L), ZoneOffset.UTC)
+    private val testCivilTwilightEnd = ZonedDateTime.ofInstant(Instant.ofEpochMilli(888_888_840_000L), ZoneOffset.UTC)
 
     private val dummySunriseSunsetInfo = SunriseSunsetInfo(
         dummySunrise,
@@ -39,11 +45,11 @@ class InfoClientTest {
         dummyCivilTwilightEnd
     )
 
-    private val dummyNewSunriseSunsetInfo = NewSunriseSunsetInfo(
-        dummySunrise.toZonedDateTime(ZoneOffset.UTC),
-        dummySunset.toZonedDateTime(ZoneOffset.UTC),
-        dummyCivilTwilightBegin.toZonedDateTime(ZoneOffset.UTC),
-        dummyCivilTwilightEnd.toZonedDateTime(ZoneOffset.UTC)
+    private val testSunriseSunsetInfo = NewSunriseSunsetInfo(
+        testSunrise,
+        testSunset,
+        testCivilTwilightBegin,
+        testCivilTwilightEnd
     )
 
     private lateinit var mockApi: SsoApi
@@ -52,18 +58,47 @@ class InfoClientTest {
     @Test
     fun `getInfo emits API result`() {
         mockDateTimeAdapter = mock {
-            on { dateToString(dummyParams.date.toLocalDate(ZoneOffset.UTC)) } doReturn dummyDateString
-            on { dateToString(dummyParams.date) } doReturn dummyDateString
-            on { newDateFromString(dummyDateString) } doReturn dummyParams.date.toLocalDate(ZoneOffset.UTC)
+            on { dateToString(testParams.date) } doReturn testDateString
         }
         mockApi = mock {
             on {
-                getInfo(dummyParams.lat, dummyParams.lng, dummyDateString, 0)
+                getInfo(testParams.lat, testParams.lng, testDateString, 0)
             } doReturn DummyCall.success(
-                Response(
-                    dummyNewSunriseSunsetInfo,
-                    "Dummy status"
-                )
+                Response(testSunriseSunsetInfo, "Dummy status")
+            )
+        }
+
+        val infoClient = InfoClient(mockApi, mockDateTimeAdapter)
+        assertEquals(testSunriseSunsetInfo, infoClient.getInfo(testParams))
+    }
+
+    @Test(expected = HttpException::class)
+    fun `getInfo throws HttpException when API result is an error`() {
+        mockDateTimeAdapter = mock {
+            on { dateToString(testParams.date) } doReturn testDateString
+        }
+        mockApi = mock {
+            on {
+                getInfo(testParams.lat, testParams.lng, testDateString, 0)
+            } doReturn DummyCall.error(401, ResponseBody.create(null, "Content"))
+        }
+
+        val infoClient = InfoClient(mockApi, mockDateTimeAdapter)
+        infoClient.getInfo(testParams)
+    }
+
+    @Test
+    fun `old getInfo emits API result`() {
+        mockDateTimeAdapter = mock {
+            on { dateToString(testParams.date) } doReturn testDateString
+            on { dateToString(dummyParams.date) } doReturn testDateString
+            on { newDateFromString(testDateString) } doReturn testParams.date
+        }
+        mockApi = mock {
+            on {
+                getInfo(dummyParams.lat, dummyParams.lng, testDateString, 0)
+            } doReturn DummyCall.success(
+                Response(testSunriseSunsetInfo, "Dummy status")
             )
         }
 
@@ -72,24 +107,19 @@ class InfoClientTest {
     }
 
     @Test(expected = HttpException::class)
-    fun `getInfo throws HttpException when API result is an error`() {
+    fun `old getInfo throws HttpException when API result is an error`() {
         mockDateTimeAdapter = mock {
-            on { dateToString(dummyParams.date.toLocalDate(ZoneOffset.UTC)) } doReturn dummyDateString
-            on { dateToString(dummyParams.date) } doReturn dummyDateString
-            on { newDateFromString(dummyDateString) } doReturn dummyParams.date.toLocalDate(ZoneOffset.UTC)
+            on { dateToString(testParams.date) } doReturn testDateString
+            on { dateToString(dummyParams.date) } doReturn testDateString
+            on { newDateFromString(testDateString) } doReturn testParams.date
         }
         mockApi = mock {
             on {
-                getInfo(dummyParams.lat, dummyParams.lng, dummyDateString, 0)
+                getInfo(dummyParams.lat, dummyParams.lng, testDateString, 0)
             } doReturn DummyCall.error(401, ResponseBody.create(null, "Content"))
         }
 
         val infoClient = InfoClient(mockApi, mockDateTimeAdapter)
         infoClient.getInfo(dummyParams)
     }
-
-    private fun Date.toZonedDateTime(zoneId: ZoneId) = ZonedDateTime.ofInstant(Instant.ofEpochMilli(time), zoneId)
-
-    private fun Date.toLocalDate(zoneId: ZoneId) =
-        LocalDateTime.ofInstant(Instant.ofEpochMilli(time), zoneId).toLocalDate()
 }

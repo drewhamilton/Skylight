@@ -1,5 +1,5 @@
 package drewhamilton.skylight.sso.network.request
 
-import java.util.Date
+import java.time.LocalDate
 
-data class Params(val lat: Double, val lng: Double, val date: Date)
+data class NewParams(val lat: Double, val lng: Double, val date: LocalDate)
