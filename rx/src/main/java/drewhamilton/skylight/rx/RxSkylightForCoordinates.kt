@@ -1,3 +1,4 @@
+@file:Suppress("NewApi")
 package drewhamilton.skylight.rx
 
 import drewhamilton.skylight.NewSkylightDay
