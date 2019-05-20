@@ -35,7 +35,7 @@ class RxSkylightTest {
     fun `getUpcomingSkylightDays emits today's and tomorrow's info and completes`() {
         mockSkylight { date, dawn -> dummyTypical(date, dawn) }
 
-        mockSkylight.getUpcomingNewSkylightDays(dummyCoordinates).test()
+        mockSkylight.getUpcomingSkylightDays(dummyCoordinates).test()
             .assertComplete()
             .assertValueCount(2)
             .assertValueAt(0) { it == dummyTypical(LocalDate.now(), testDawn) }

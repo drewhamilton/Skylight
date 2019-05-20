@@ -22,7 +22,7 @@ class RxSkylightForDateTest {
     fun `getSkylightDaySingle emits info and completes`() {
         mockSkylight { dummyTypical(LocalDate.now(), testDawn) }
 
-        mockSkylightForDate.getNewSkylightDaySingle(dummyCoordinates).test()
+        mockSkylightForDate.getSkylightDaySingle(dummyCoordinates).test()
             .assertComplete()
             .assertValueCount(1)
             .assertValueAt(0) { it == dummyTypical(LocalDate.now(), testDawn) }
