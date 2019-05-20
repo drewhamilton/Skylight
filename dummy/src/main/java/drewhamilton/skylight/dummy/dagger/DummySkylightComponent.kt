@@ -2,7 +2,7 @@ package drewhamilton.skylight.dummy.dagger
 
 import dagger.BindsInstance
 import dagger.Component
-import drewhamilton.skylight.NewSkylightDay
+import drewhamilton.skylight.SkylightDay
 import drewhamilton.skylight.dummy.DummySkylight
 
 /**
@@ -14,11 +14,11 @@ interface DummySkylightComponent {
     fun skylight(): DummySkylight
 
     @Component.Factory interface Factory {
-        fun create(@BindsInstance dummySkylightDay: NewSkylightDay): DummySkylightComponent
+        fun create(@BindsInstance dummySkylightDay: SkylightDay): DummySkylightComponent
     }
 
     companion object {
-        fun create(dummySkylightDay: NewSkylightDay): DummySkylightComponent =
+        fun create(dummySkylightDay: SkylightDay): DummySkylightComponent =
             DaggerDummySkylightComponent.factory().create(dummySkylightDay)
     }
 }

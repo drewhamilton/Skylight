@@ -1,7 +1,7 @@
 package drewhamilton.skylight.calculator
 
 import drewhamilton.skylight.Coordinates
-import drewhamilton.skylight.NewSkylightDay
+import drewhamilton.skylight.SkylightDay
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -18,8 +18,8 @@ class CalculatorSkylightTest {
     @Test
     fun `Amsterdam on January 6, 2019 is typical`() {
         val result = skylight.getSkylightDay(AMSTERDAM, JANUARY_6_2019)
-        assertTrue(result is NewSkylightDay.Typical)
-        result as NewSkylightDay.Typical
+        assertTrue(result is SkylightDay.Typical)
+        result as SkylightDay.Typical
         assertEquals(1546758590702.asEpochMilliToExpectedOffsetTime(), result.dawn)
         assertEquals(1546761159554.asEpochMilliToExpectedOffsetTime(), result.sunrise)
         assertEquals(1546789298271.asEpochMilliToExpectedOffsetTime(), result.sunset)
@@ -31,7 +31,7 @@ class CalculatorSkylightTest {
     @Test
     fun `Svalbard on January 6, 2019 is never light`() {
         val result = skylight.getSkylightDay(SVALBARD, JANUARY_6_2019)
-        assertEquals(NewSkylightDay.NeverLight(JANUARY_6_2019), result)
+        assertEquals(SkylightDay.NeverLight(JANUARY_6_2019), result)
     }
     //endregion
 

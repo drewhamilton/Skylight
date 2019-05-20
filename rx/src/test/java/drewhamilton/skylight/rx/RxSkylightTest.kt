@@ -4,7 +4,7 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.mock
 import drewhamilton.skylight.Coordinates
-import drewhamilton.skylight.NewSkylightDay
+import drewhamilton.skylight.SkylightDay
 import drewhamilton.skylight.Skylight
 import org.junit.Test
 import java.time.LocalDate
@@ -43,7 +43,7 @@ class RxSkylightTest {
     }
     //endregion
 
-    private fun mockSkylight(returnFunction: (LocalDate, OffsetTime) -> NewSkylightDay) {
+    private fun mockSkylight(returnFunction: (LocalDate, OffsetTime) -> SkylightDay) {
         mockSkylight = mock {
             on { getSkylightDay(any(), any<LocalDate>()) } doAnswer { invocation ->
                 returnFunction(invocation.getArgument(1), testDawn)

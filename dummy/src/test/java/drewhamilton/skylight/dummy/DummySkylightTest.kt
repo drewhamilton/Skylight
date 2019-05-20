@@ -1,7 +1,7 @@
 package drewhamilton.skylight.dummy
 
 import drewhamilton.skylight.Coordinates
-import drewhamilton.skylight.NewSkylightDay
+import drewhamilton.skylight.SkylightDay
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -11,7 +11,7 @@ import java.time.ZoneOffset
 
 class DummySkylightTest {
 
-    private val testSkylightDay = NewSkylightDay.Typical(
+    private val testSkylightDay = SkylightDay.Typical(
         LocalDate.ofEpochDay(1),
         OffsetTime.of(1, 0, 0, 0, ZoneOffset.UTC),
         OffsetTime.of(2, 0, 0, 0, ZoneOffset.UTC),

@@ -8,7 +8,7 @@ import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import org.junit.Before
 import org.junit.Test
 import java.text.DateFormat
-import java.util.*
+import java.util.Date
 
 class SkylightEventViewExtensionsTest {
 
@@ -49,7 +49,7 @@ class SkylightEventViewExtensionsTest {
 
     @Test
     fun `setTime(Date?) with null date sets empty text`() {
-        mockSkylightEventView.setTime(null)
+        mockSkylightEventView.setTime(null as Date?)
         verifyTimeHintSet("")
     }
 
@@ -62,7 +62,7 @@ class SkylightEventViewExtensionsTest {
 
     @Test
     fun `setTime(Date?, Int) with null date sets fallback text from resource`() {
-        mockSkylightEventView.setTime(null, dummyFallbackStringRes)
+        mockSkylightEventView.setTime(null as Date?, dummyFallbackStringRes)
         verify(mockSkylightEventView).context
         verifyTimeHintSet(dummyFallbackString)
     }
@@ -75,7 +75,7 @@ class SkylightEventViewExtensionsTest {
 
     @Test
     fun `setTime(Date?, String) with null date sets fallback text`() {
-        mockSkylightEventView.setTime(null, fallback = dummyFallbackString)
+        mockSkylightEventView.setTime(null as Date?, fallback = dummyFallbackString)
         verifyTimeHintSet(dummyFallbackString)
     }
 

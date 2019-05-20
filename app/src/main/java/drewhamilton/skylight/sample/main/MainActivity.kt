@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import drewhamilton.skylight.NewSkylightDay
+import drewhamilton.skylight.SkylightDay
 import drewhamilton.skylight.Skylight
 import drewhamilton.skylight.rx.getSkylightDaySingle
 import drewhamilton.skylight.sample.AppComponent
@@ -31,8 +31,6 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.OffsetTime
 import java.time.ZoneId
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 import java.time.format.TextStyle
 import java.util.Locale
 import javax.inject.Inject
@@ -85,24 +83,24 @@ class MainActivity : RxActivity() {
             .disposeOnDestroyView()
     }
 
-    private fun NewSkylightDay.display(timeZone: ZoneId) {
+    private fun SkylightDay.display(timeZone: ZoneId) {
         var dawnDateTime: OffsetTime? = null
         var sunriseDateTime: OffsetTime? = null
         var sunsetDateTime: OffsetTime? = null
         var duskDateTime: OffsetTime? = null
 
         when (this) {
-            is NewSkylightDay.Typical -> {
+            is SkylightDay.Typical -> {
                 dawnDateTime = dawn.inTimeZone(timeZone)
                 sunriseDateTime = sunrise.inTimeZone(timeZone)
                 sunsetDateTime = sunset.inTimeZone(timeZone)
                 duskDateTime = dusk.inTimeZone(timeZone)
             }
-            is NewSkylightDay.AlwaysLight -> {
+            is SkylightDay.AlwaysLight -> {
                 sunriseDateTime = sunrise.inTimeZone(timeZone)
                 sunsetDateTime = sunset.inTimeZone(timeZone)
             }
-            is NewSkylightDay.NeverDaytime -> {
+            is SkylightDay.NeverDaytime -> {
                 dawnDateTime = dawn.inTimeZone(timeZone)
                 duskDateTime = dusk.inTimeZone(timeZone)
             }

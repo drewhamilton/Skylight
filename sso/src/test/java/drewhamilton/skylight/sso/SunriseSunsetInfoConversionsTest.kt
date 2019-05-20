@@ -1,6 +1,6 @@
 package drewhamilton.skylight.sso
 
-import drewhamilton.skylight.NewSkylightDay
+import drewhamilton.skylight.SkylightDay
 import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
 import org.junit.Assert.assertEquals
@@ -24,7 +24,7 @@ class SunriseSunsetInfoConversionsTest {
             throwaway
         )
         val output = input.toSkylightDay(date)
-        assertEquals(NewSkylightDay.NeverLight(date), output)
+        assertEquals(SkylightDay.NeverLight(date), output)
     }
 
     @Test
@@ -36,7 +36,7 @@ class SunriseSunsetInfoConversionsTest {
             throwaway
         )
         val output = input.toSkylightDay(date)
-        assertEquals(NewSkylightDay.AlwaysDaytime(date), output)
+        assertEquals(SkylightDay.AlwaysDaytime(date), output)
     }
 
     @Test
@@ -45,7 +45,7 @@ class SunriseSunsetInfoConversionsTest {
         val sunset = ZonedDateTime.ofInstant(Instant.ofEpochMilli(3), ZoneOffset.UTC)
         val input = SunriseSunsetInfo(sunrise, sunset, ApiConstants.DATE_TIME_NONE, throwaway)
         val output = input.toSkylightDay(date)
-        assertEquals(NewSkylightDay.AlwaysLight(date, sunrise.toOffsetTime(), sunset.toOffsetTime()), output)
+        assertEquals(SkylightDay.AlwaysLight(date, sunrise.toOffsetTime(), sunset.toOffsetTime()), output)
     }
 
     @Test
@@ -54,7 +54,7 @@ class SunriseSunsetInfoConversionsTest {
         val dusk = ZonedDateTime.ofInstant(Instant.ofEpochMilli(4), ZoneOffset.UTC)
         val input = SunriseSunsetInfo(ApiConstants.DATE_TIME_NONE, throwaway, dawn, dusk)
         val output = input.toSkylightDay(date)
-        assertEquals(NewSkylightDay.NeverDaytime(date, dawn.toOffsetTime(), dusk.toOffsetTime()), output)
+        assertEquals(SkylightDay.NeverDaytime(date, dawn.toOffsetTime(), dusk.toOffsetTime()), output)
     }
 
     @Test
@@ -65,7 +65,7 @@ class SunriseSunsetInfoConversionsTest {
         val dusk = ZonedDateTime.ofInstant(Instant.ofEpochMilli(4), ZoneOffset.UTC)
         val input = SunriseSunsetInfo(sunrise, sunset, dawn, dusk)
         val output = input.toSkylightDay(date)
-        assertEquals(NewSkylightDay.Typical(
+        assertEquals(SkylightDay.Typical(
             date,
             dawn.toOffsetTime(),
             sunrise.toOffsetTime(),

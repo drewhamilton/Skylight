@@ -2,7 +2,7 @@ package drewhamilton.skylight.calculator
 
 import dagger.Reusable
 import drewhamilton.skylight.Coordinates
-import drewhamilton.skylight.NewSkylightDay
+import drewhamilton.skylight.SkylightDay
 import drewhamilton.skylight.Skylight
 import java.time.Instant
 import java.time.LocalDate
@@ -28,7 +28,7 @@ class CalculatorSkylight @Inject constructor() : Skylight {
     private val altitudeRadiansHorizon = -0.01f
 
     /**
-     * Calculates the [NewSkylightDay] based on the given coordinates and date
+     * Calculates the [SkylightDay] based on the given coordinates and date
      *
      * @param coordinates locations for which to calculate info.
      * @param date date for which to calculate info.
@@ -36,7 +36,7 @@ class CalculatorSkylight @Inject constructor() : Skylight {
     override fun getSkylightDay(coordinates: Coordinates, date: LocalDate) =
         calculateSkylightInfo(date, coordinates.latitude, coordinates.longitude)
 
-    private fun calculateSkylightInfo(date: LocalDate, latitude: Double, longitude: Double): NewSkylightDay {
+    private fun calculateSkylightInfo(date: LocalDate, latitude: Double, longitude: Double): SkylightDay {
         val epochMillis = date.toNoonUtcEpochMilli()
         val daysSince2000 = (epochMillis - UNIX_NOON_UTC_2000).toFloat() / DAY_IN_MILLIS
 
@@ -62,8 +62,8 @@ class CalculatorSkylight @Inject constructor() : Skylight {
         val cosHourAngleHorizon = calculateCosineHourAngle(altitudeRadiansHorizon, latitudeRadians, solarDec)
 
         return when {
-            isAlwaysNight(cosHourAngleTwilight) -> NewSkylightDay.NeverLight(date)
-            isAlwaysDay(cosHourAngleHorizon) -> NewSkylightDay.AlwaysDaytime(date)
+            isAlwaysNight(cosHourAngleTwilight) -> SkylightDay.NeverLight(date)
+            isAlwaysDay(cosHourAngleHorizon) -> SkylightDay.AlwaysDaytime(date)
             else -> {
                 val hourAngleTwilight = (Math.acos(cosHourAngleTwilight) / (2 * Math.PI)).toFloat()
                 val dawn = calculateMorningEventUnixTime(solarTransitJ2000, hourAngleTwilight)
@@ -75,19 +75,19 @@ class CalculatorSkylight @Inject constructor() : Skylight {
 
                 when {
                     isAlwaysDay(cosHourAngleTwilight) ->
-                        NewSkylightDay.AlwaysLight(
+                        SkylightDay.AlwaysLight(
                             date,
                             sunrise.asEpochMilliToUtcOffsetTime(),
                             sunset.asEpochMilliToUtcOffsetTime()
                         )
                     isAlwaysNight(cosHourAngleHorizon) ->
-                        NewSkylightDay.NeverDaytime(
+                        SkylightDay.NeverDaytime(
                             date,
                             dawn.asEpochMilliToUtcOffsetTime(),
                             dusk.asEpochMilliToUtcOffsetTime()
                         )
                     else ->
-                        NewSkylightDay.Typical(
+                        SkylightDay.Typical(
                             date,
                             dawn.asEpochMilliToUtcOffsetTime(),
                             sunrise.asEpochMilliToUtcOffsetTime(),

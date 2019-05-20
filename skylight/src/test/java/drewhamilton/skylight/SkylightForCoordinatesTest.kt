@@ -43,7 +43,7 @@ class SkylightForCoordinatesTest {
         val testDate = LocalDate.of(2019, Month.MAY, 20)
         val testInputDateTime = ZonedDateTime.of(testDate, testTime.toLocalTime(), testTime.offset)
         val testCoordinates = Coordinates(1.23, 45.6)
-        for (kClass in NewSkylightDay::class.sealedSubclasses) {
+        for (kClass in SkylightDay::class.sealedSubclasses) {
             whenever(mockSkylight.getSkylightDay(any(), any<LocalDate>())).thenReturn(kClass.instantiate(testDate))
             assertEquals(
                 mockSkylight.isLight(testCoordinates, testInputDateTime),
@@ -57,7 +57,7 @@ class SkylightForCoordinatesTest {
         val testDate = LocalDate.of(2019, Month.MAY, 20)
         val testInputDateTime = ZonedDateTime.of(testDate, testTime.toLocalTime(), testTime.offset)
         val testCoordinates = Coordinates(12.3, 4.56)
-        for (kClass in NewSkylightDay::class.sealedSubclasses) {
+        for (kClass in SkylightDay::class.sealedSubclasses) {
             whenever(mockSkylight.getSkylightDay(any(), any<LocalDate>())).thenReturn(kClass.instantiate(testDate))
             assertEquals(
                 mockSkylight.isDark(testCoordinates, testInputDateTime),
@@ -66,12 +66,12 @@ class SkylightForCoordinatesTest {
         }
     }
 
-    private fun KClass<out NewSkylightDay>.instantiate(date: LocalDate) = when(this) {
-        NewSkylightDay.Typical::class -> NewSkylightDay.Typical(date, testTime, testTime, testTime, testTime)
-        NewSkylightDay.AlwaysDaytime::class -> NewSkylightDay.AlwaysDaytime(date)
-        NewSkylightDay.AlwaysLight::class -> NewSkylightDay.AlwaysLight(date, testTime, testTime)
-        NewSkylightDay.NeverDaytime::class -> NewSkylightDay.NeverDaytime(date, testTime, testTime)
-        NewSkylightDay.NeverLight::class -> NewSkylightDay.NeverLight(date)
-        else -> throw IllegalArgumentException("Unknown ${NewSkylightDay::class} subtype: $this")
+    private fun KClass<out SkylightDay>.instantiate(date: LocalDate) = when(this) {
+        SkylightDay.Typical::class -> SkylightDay.Typical(date, testTime, testTime, testTime, testTime)
+        SkylightDay.AlwaysDaytime::class -> SkylightDay.AlwaysDaytime(date)
+        SkylightDay.AlwaysLight::class -> SkylightDay.AlwaysLight(date, testTime, testTime)
+        SkylightDay.NeverDaytime::class -> SkylightDay.NeverDaytime(date, testTime, testTime)
+        SkylightDay.NeverLight::class -> SkylightDay.NeverLight(date)
+        else -> throw IllegalArgumentException("Unknown ${SkylightDay::class} subtype: $this")
     }
 }

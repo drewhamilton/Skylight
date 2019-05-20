@@ -1,12 +1,12 @@
 package drewhamilton.skylight.rx
 
-import drewhamilton.skylight.NewSkylightDay
+import drewhamilton.skylight.SkylightDay
 import java.time.LocalDate
 import java.time.OffsetTime
 
 private const val timeDifferenceSeconds = 5L
 
-internal fun dummyTypical(date: LocalDate, dawn: OffsetTime) = NewSkylightDay.Typical(
+internal fun dummyTypical(date: LocalDate, dawn: OffsetTime) = SkylightDay.Typical(
     date,
     dawn,
     dawn.plusSeconds(timeDifferenceSeconds),
@@ -14,5 +14,5 @@ internal fun dummyTypical(date: LocalDate, dawn: OffsetTime) = NewSkylightDay.Ty
     dawn.plusSeconds(3 * timeDifferenceSeconds)
 )
 
-internal fun NewSkylightDay.equalsDummyForDate(date: LocalDate) =
-    this is NewSkylightDay.Typical && this.date == date
+internal fun SkylightDay.equalsDummyForDate(date: LocalDate) =
+    this is SkylightDay.Typical && this.date == date

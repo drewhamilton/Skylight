@@ -3,7 +3,7 @@ package drewhamilton.skylight.rx
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.mock
 import drewhamilton.skylight.Coordinates
-import drewhamilton.skylight.NewSkylightDay
+import drewhamilton.skylight.SkylightDay
 import drewhamilton.skylight.SkylightForDate
 import org.junit.Test
 import java.time.LocalDate
@@ -29,9 +29,9 @@ class RxSkylightForDateTest {
     }
     //endregion
 
-    private fun mockSkylight(returnFunction: () -> NewSkylightDay) {
+    private fun mockSkylight(returnFunction: () -> SkylightDay) {
         mockSkylightForDate = mock {
-            on { getNewSkylightDay(dummyCoordinates) } doAnswer { returnFunction() }
+            on { getSkylightDay(dummyCoordinates) } doAnswer { returnFunction() }
         }
     }
 

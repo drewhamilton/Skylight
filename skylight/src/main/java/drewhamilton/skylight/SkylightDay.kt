@@ -1,38 +1,44 @@
 package drewhamilton.skylight
 
-import java.util.Date
+import java.time.LocalDate
+import java.time.OffsetTime
 
 /**
  * Represents the Skylight information for a single day at a single location.
  *
  * TODO MISSING What about transition days that e.g. have a sunrise but no sunset?
  */
-@Deprecated("Replaced by NewSkylightDay")
 sealed class SkylightDay {
+
+    abstract val date: LocalDate
 
     /**
      * Represents a normal day, where dawn and dusk represent crossing civil twilight, and sunrise and sunset represent
      * crossing the horizon.
      */
     data class Typical(
-        val dawn: Date,
-        val sunrise: Date,
-        val sunset: Date,
-        val dusk: Date
+        override val date: LocalDate,
+        val dawn: OffsetTime,
+        val sunrise: OffsetTime,
+        val sunset: OffsetTime,
+        val dusk: OffsetTime
     ) : SkylightDay()
 
     /**
      * Represents a day that is always full light, i.e. the sun never goes below the horizon.
      */
-    object AlwaysDaytime : SkylightDay()
+    data class AlwaysDaytime(
+        override val date: LocalDate
+    ) : SkylightDay()
 
     /**
      * Represents a day where there is full light and twilight, but no full darkness, i.e. the sun never goes below
      * civil twilight.
      */
     data class AlwaysLight(
-        val sunrise: Date,
-        val sunset: Date
+        override val date: LocalDate,
+        val sunrise: OffsetTime,
+        val sunset: OffsetTime
     ) : SkylightDay()
 
     /**
@@ -40,14 +46,17 @@ sealed class SkylightDay {
      * horizon.
      */
     data class NeverDaytime(
-        val dawn: Date,
-        val dusk: Date
+        override val date: LocalDate,
+        val dawn: OffsetTime,
+        val dusk: OffsetTime
     ) : SkylightDay()
 
     /**
      * Represents a day that is always darkness, i.e. the sun never goes above civil twilight.
      */
-    object NeverLight : SkylightDay()
+    data class NeverLight(
+        override val date: LocalDate
+    ) : SkylightDay()
 
 }
 
