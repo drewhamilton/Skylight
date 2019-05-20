@@ -28,6 +28,9 @@ android {
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+  // TODO: Should this be api or compileOnly? If api, should it be ThreeTenABP instead?
+  api 'org.threeten:threetenbp:1.4.0:no-tzdb'
+
   implementation 'androidx.appcompat:appcompat:1.0.2'
   implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
 
