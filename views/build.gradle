@@ -34,7 +34,7 @@ dependencies {
   implementation 'com.google.android.material:material:1.1.0-alpha06'
 
   testImplementation 'junit:junit:4.12'
-  testImplementation 'org.mockito:mockito-inline:2.23.0'
+  testImplementation 'org.mockito:mockito-inline:2.27.0'
   testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
 
   androidTestImplementation 'androidx.test:runner:1.1.1'
