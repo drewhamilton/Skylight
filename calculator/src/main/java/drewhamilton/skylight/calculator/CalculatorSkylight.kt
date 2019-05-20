@@ -2,9 +2,12 @@ package drewhamilton.skylight.calculator
 
 import dagger.Reusable
 import drewhamilton.skylight.Coordinates
+import drewhamilton.skylight.NewSkylightDay
 import drewhamilton.skylight.Skylight
-import drewhamilton.skylight.SkylightDay
-import java.util.Date
+import java.time.Instant
+import java.time.LocalDate
+import java.time.OffsetTime
+import java.time.ZoneOffset
 import javax.inject.Inject
 
 /**
@@ -24,17 +27,17 @@ class CalculatorSkylight @Inject constructor() : Skylight {
     private val altitudeRadiansHorizon = -0.01f
 
     /**
-     * Calculates the [SkylightDay] based on the given coordinates and date
+     * Calculates the [NewSkylightDay] based on the given coordinates and date
      *
      * @param coordinates locations for which to calculate info.
      * @param date date for which to calculate info.
      */
-    override fun getSkylightDay(coordinates: Coordinates, date: Date): SkylightDay =
+    override fun getSkylightDay(coordinates: Coordinates, date: LocalDate) =
         calculateSkylightInfo(date, coordinates.latitude, coordinates.longitude)
 
-    private fun calculateSkylightInfo(date: Date, latitude: Double, longitude: Double): SkylightDay {
-        val time = date.time
-        val daysSince2000 = (time - UNIX_NOON_UTC_2000).toFloat() / DAY_IN_MILLIS
+    private fun calculateSkylightInfo(date: LocalDate, latitude: Double, longitude: Double): NewSkylightDay {
+        val epochMillis = date.toNoonUtcEpochMilli()
+        val daysSince2000 = (epochMillis - UNIX_NOON_UTC_2000).toFloat() / DAY_IN_MILLIS
 
         val meanAnomaly = calculateMeanAnomaly(daysSince2000)
         val trueAnomaly = calculateTrueAnomaly(meanAnomaly)
@@ -58,8 +61,8 @@ class CalculatorSkylight @Inject constructor() : Skylight {
         val cosHourAngleHorizon = calculateCosineHourAngle(altitudeRadiansHorizon, latitudeRadians, solarDec)
 
         return when {
-            isAlwaysNight(cosHourAngleTwilight) -> SkylightDay.NeverLight
-            isAlwaysDay(cosHourAngleHorizon) -> SkylightDay.AlwaysDaytime
+            isAlwaysNight(cosHourAngleTwilight) -> NewSkylightDay.NeverLight(date)
+            isAlwaysDay(cosHourAngleHorizon) -> NewSkylightDay.AlwaysDaytime(date)
             else -> {
                 val hourAngleTwilight = (Math.acos(cosHourAngleTwilight) / (2 * Math.PI)).toFloat()
                 val dawn = calculateMorningEventUnixTime(solarTransitJ2000, hourAngleTwilight)
@@ -70,14 +73,33 @@ class CalculatorSkylight @Inject constructor() : Skylight {
                 val sunset = calculateEveningEventUnixTime(solarTransitJ2000, hourAngleHorizon)
 
                 when {
-                    isAlwaysDay(cosHourAngleTwilight) -> SkylightDay.AlwaysLight(Date(sunrise), Date(sunset))
-                    isAlwaysNight(cosHourAngleHorizon) -> SkylightDay.NeverDaytime(Date(dawn), Date(dusk))
-                    else -> SkylightDay.Typical(Date(dawn), Date(sunrise), Date(sunset), Date(dusk))
+                    isAlwaysDay(cosHourAngleTwilight) ->
+                        NewSkylightDay.AlwaysLight(
+                            date,
+                            sunrise.asEpochMilliToUtcOffsetTime(),
+                            sunset.asEpochMilliToUtcOffsetTime()
+                        )
+                    isAlwaysNight(cosHourAngleHorizon) ->
+                        NewSkylightDay.NeverDaytime(
+                            date,
+                            dawn.asEpochMilliToUtcOffsetTime(),
+                            dusk.asEpochMilliToUtcOffsetTime()
+                        )
+                    else ->
+                        NewSkylightDay.Typical(
+                            date,
+                            dawn.asEpochMilliToUtcOffsetTime(),
+                            sunrise.asEpochMilliToUtcOffsetTime(),
+                            sunset.asEpochMilliToUtcOffsetTime(),
+                            dusk.asEpochMilliToUtcOffsetTime()
+                        )
                 }
             }
         }
-
     }
+
+    private val noonUtc get() = OffsetTime.of(12, 0, 0, 0, ZoneOffset.UTC)
+    private fun LocalDate.toNoonUtcEpochMilli() = atTime(noonUtc).toInstant().toEpochMilli()
 
     private fun calculateMeanAnomaly(daysSince2000: Float) = 6.240059968f + daysSince2000 * 0.01720197f
 
@@ -100,6 +122,8 @@ class CalculatorSkylight @Inject constructor() : Skylight {
 
     private fun calculateEveningEventUnixTime(solarTransitJ2000: Double, hourAngle: Float) =
         calculateMorningEventUnixTime(solarTransitJ2000, -hourAngle)
+
+    private fun Long.asEpochMilliToUtcOffsetTime() = OffsetTime.ofInstant(Instant.ofEpochMilli(this), ZoneOffset.UTC)
 
     private companion object {
         private const val DEGREES_TO_RADIANS = (Math.PI / 180.0f).toFloat()
