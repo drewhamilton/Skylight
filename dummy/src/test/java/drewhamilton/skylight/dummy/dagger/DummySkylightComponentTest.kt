@@ -1,12 +1,13 @@
 package drewhamilton.skylight.dummy.dagger
 
-import drewhamilton.skylight.SkylightDay
+import drewhamilton.skylight.NewSkylightDay
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import java.time.LocalDate
 
 class DummySkylightComponentTest {
 
-    private val testSkylightDay: SkylightDay = SkylightDay.NeverLight
+    private val testSkylightDay = NewSkylightDay.NeverLight(LocalDate.ofEpochDay(4))
 
     @Test
     fun `create returns DummySkylightComponent with dummySkylightDay`() {
