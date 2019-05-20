@@ -2,11 +2,9 @@ package drewhamilton.skylight.views.event
 
 import android.content.Context
 import android.content.res.TypedArray
-import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
 import com.google.android.material.card.MaterialCardView
@@ -15,11 +13,6 @@ import drewhamilton.skylight.views.compat.setCompatAutoSizeTextTypeUniformWithCo
 import drewhamilton.skylight.views.compat.setCompatTextAppearance
 import kotlinx.android.synthetic.main.view_skylight_event.view.label
 import kotlinx.android.synthetic.main.view_skylight_event.view.time
-import java.text.DateFormat
-import java.time.OffsetTime
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
-import java.util.Date
 
 /**
  * A simple card view showing a single Skylight event. Typically used to display the time of
@@ -156,50 +149,3 @@ class SkylightEventView : MaterialCardView {
         }
     }
 }
-
-//region Legacy Date extensions
-fun SkylightEventView.setTime(time: Date?, @StringRes fallback: Int) =
-    setTime(time, fallback = context.getString(fallback))
-
-fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat, @StringRes fallback: Int) =
-    setTime(dateTime, format, context.getString(fallback))
-
-fun SkylightEventView.setTime(
-    dateTime: Date?,
-    format: DateFormat = DateFormat.getTimeInstance(DateFormat.SHORT),
-    fallback: String = ""
-) {
-    if (dateTime == null) {
-        timeHint = fallback
-        timeText = ""
-    } else {
-        timeText = format.format(dateTime)
-        timeHint = ""
-    }
-}
-//endregion
-
-//region java.time extensions
-@RequiresApi(Build.VERSION_CODES.O)
-fun SkylightEventView.setTime(time: OffsetTime?, @StringRes fallback: Int) =
-    setTime(time, fallback = context.getString(fallback))
-
-@RequiresApi(Build.VERSION_CODES.O)
-fun SkylightEventView.setTime(time: OffsetTime?, formatter: DateTimeFormatter, @StringRes fallback: Int) =
-    setTime(time, formatter, context.getString(fallback))
-
-@RequiresApi(Build.VERSION_CODES.O)
-fun SkylightEventView.setTime(
-    time: OffsetTime?,
-    formatter: DateTimeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT),
-    fallback: String = ""
-) {
-    if (time == null) {
-        timeHint = fallback
-        timeText = ""
-    } else {
-        timeText = formatter.format(time)
-        timeHint = ""
-    }
-}
-//endregion
