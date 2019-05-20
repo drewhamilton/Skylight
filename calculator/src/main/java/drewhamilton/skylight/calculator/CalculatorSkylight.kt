@@ -17,6 +17,7 @@ import javax.inject.Inject
  * depending on the exact input time. This difference has been noted to range up to almost 1 minute, but has not been
  * tested extensively. Handle the returned calculation accordingly
  */
+@Suppress("NewApi")
 @Reusable
 class CalculatorSkylight @Inject constructor() : Skylight {
 
@@ -127,7 +128,7 @@ class CalculatorSkylight @Inject constructor() : Skylight {
 
     private companion object {
         private const val DEGREES_TO_RADIANS = (Math.PI / 180.0f).toFloat()
-        private const val DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
+        private const val DAY_IN_MILLIS = 1000 * 60 * 60 * 24
 
         // Java time on Jan 1, 2000 12:00 UTC.
         private const val UNIX_NOON_UTC_2000 = 946728000000L
