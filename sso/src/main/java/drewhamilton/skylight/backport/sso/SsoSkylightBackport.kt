@@ -1,28 +1,29 @@
-package drewhamilton.skylight.sso
+package drewhamilton.skylight.backport.sso
 
-import drewhamilton.skylight.Coordinates
-import drewhamilton.skylight.Skylight
-import drewhamilton.skylight.SkylightDay
+import drewhamilton.skylight.backport.Coordinates
+import drewhamilton.skylight.backport.SkylightBackport
+import drewhamilton.skylight.backport.SkylightDayBackport
+import drewhamilton.skylight.backport.sso.network.toSsoDateString
+import drewhamilton.skylight.backport.sso.network.toZonedDateTimeBackport
 import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.SsoApi
 import drewhamilton.skylight.sso.network.request.Params
 import drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
-import drewhamilton.skylight.sso.network.toSsoDateString
-import drewhamilton.skylight.sso.network.toZonedDateTime
+import org.threeten.bp.LocalDate
 import retrofit2.HttpException
-import java.time.LocalDate
 import javax.inject.Inject
 
 /**
- * An implementation of [Skylight] that uses sunrise-sunset.org to determine a [SkylightDay] for the given location
- * and date.
+ * An implementation of [SkylightBackport] that uses sunrise-sunset.org to determine a [SkylightDayBackport] for the
+ * given location and date.
  */
-@Suppress("NewApi")
-class SsoSkylight @Inject constructor(private val api: SsoApi) : Skylight {
+class SsoSkylightBackport @Inject constructor(
+    private val api: SsoApi
+) : SkylightBackport {
 
-    override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay {
+    override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDayBackport {
         val params = Params(coordinates.latitude, coordinates.longitude, date.toSsoDateString())
-        return getInfoResults(params).toSkylightDay(date)
+        return getInfoResults(params).toSkylightDayBackport(date)
     }
 
     private fun getInfoResults(params: Params): SunriseSunsetInfo {
@@ -38,26 +39,26 @@ class SsoSkylight @Inject constructor(private val api: SsoApi) : Skylight {
 }
 
 // TODO: Make this private and test it via the public method
-internal fun SunriseSunsetInfo.toSkylightDay(date: LocalDate): SkylightDay {
+internal fun SunriseSunsetInfo.toSkylightDayBackport(date: LocalDate): SkylightDayBackport {
     return when {
         civil_twilight_begin == ApiConstants.DATE_TIME_NONE && sunrise == ApiConstants.DATE_TIME_NONE ->
-            SkylightDay.NeverLight(date)
+            SkylightDayBackport.NeverLight(date)
         civil_twilight_begin == ApiConstants.DATE_TIME_ALWAYS_DAY && sunrise == ApiConstants.DATE_TIME_ALWAYS_DAY ->
-            SkylightDay.AlwaysDaytime(date)
+            SkylightDayBackport.AlwaysDaytime(date)
         civil_twilight_begin == ApiConstants.DATE_TIME_NONE ->
-            SkylightDay.AlwaysLight(
+            SkylightDayBackport.AlwaysLight(
                 date,
                 sunrise.asDateTimeToOffsetTime(),
                 sunset.asDateTimeToOffsetTime()
             )
         sunrise == ApiConstants.DATE_TIME_NONE ->
-            SkylightDay.NeverDaytime(
+            SkylightDayBackport.NeverDaytime(
                 date,
                 civil_twilight_begin.asDateTimeToOffsetTime(),
                 civil_twilight_end.asDateTimeToOffsetTime()
             )
         else ->
-            SkylightDay.Typical(
+            SkylightDayBackport.Typical(
                 date,
                 civil_twilight_begin.asDateTimeToOffsetTime(),
                 sunrise.asDateTimeToOffsetTime(),
@@ -67,7 +68,6 @@ internal fun SunriseSunsetInfo.toSkylightDay(date: LocalDate): SkylightDay {
     }
 }
 
-@Suppress("NewApi")
-private fun String.asDateTimeToOffsetTime() = toZonedDateTime()
+private fun String.asDateTimeToOffsetTime() = toZonedDateTimeBackport()
     .toOffsetDateTime()
     .toOffsetTime()

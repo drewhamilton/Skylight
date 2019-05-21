@@ -1,8 +1,8 @@
-package drewhamilton.skylight.sso
+package drewhamilton.skylight.backport.sso
 
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
-import drewhamilton.skylight.Coordinates
+import drewhamilton.skylight.backport.Coordinates
 import drewhamilton.skylight.sso.network.DummyCall
 import drewhamilton.skylight.sso.network.SsoApi
 import drewhamilton.skylight.sso.network.request.Params
@@ -11,12 +11,12 @@ import drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
 import okhttp3.ResponseBody
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.threeten.bp.LocalDate
+import org.threeten.bp.Month
+import org.threeten.bp.format.DateTimeFormatter
 import retrofit2.HttpException
-import java.time.LocalDate
-import java.time.Month
-import java.time.format.DateTimeFormatter
 
-class SsoSkylightTest {
+class SsoSkylightBackportTest {
 
     private val testDawn = "1999-08-21T08:30:40+00:00"
     private val testSunrise = "1999-08-21T09:30:40+00:00"
@@ -47,9 +47,9 @@ class SsoSkylightTest {
             } doReturn DummyCall.success(Response(testSunriseSunsetInfo, "Dummy status"))
         }
 
-        val ssoSkylight = SsoSkylight(mockApi)
+        val ssoSkylight = SsoSkylightBackport(mockApi)
         assertEquals(
-            testSunriseSunsetInfo.toSkylightDay(testDate),
+            testSunriseSunsetInfo.toSkylightDayBackport(testDate),
             ssoSkylight.getSkylightDay(testCoordinates, testDate)
         )
     }
@@ -62,7 +62,7 @@ class SsoSkylightTest {
             } doReturn DummyCall.error(401, ResponseBody.create(null, "Content"))
         }
 
-        val ssoSkylight = SsoSkylight(mockApi)
+        val ssoSkylight = SsoSkylightBackport(mockApi)
         ssoSkylight.getSkylightDay(testCoordinates, testDate)
     }
 }

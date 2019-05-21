@@ -1,6 +1,6 @@
-package drewhamilton.skylight.sso.dagger
+package drewhamilton.skylight.backport.sso.dagger
 
-import drewhamilton.skylight.Coordinates
+import drewhamilton.skylight.backport.Coordinates
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -11,10 +11,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNotSame
 import org.junit.Test
-import java.time.LocalDate
-import java.time.Month
+import org.threeten.bp.LocalDate
+import org.threeten.bp.Month
 
-class SsoSkylightComponentTest {
+class SsoSkylightBackportComponentTest {
 
     private var mockWebServer: MockWebServer? = null
 
@@ -25,7 +25,7 @@ class SsoSkylightComponentTest {
 
     @Test
     fun `create without OkHttpClient compiles and runs`() {
-        val component = SsoSkylightComponent.create()
+        val component = SsoSkylightBackportComponent.create()
         assertNotSame(component.skylight(), component.skylight())
     }
 
@@ -42,7 +42,7 @@ class SsoSkylightComponentTest {
             .addNetworkInterceptor(fakeNetworkInterceptor)
             .build()
 
-        val component = SsoSkylightComponent.create(testOkHttpClient)
+        val component = SsoSkylightBackportComponent.create(testOkHttpClient)
         val skylight = component.skylight()
         skylight.getSkylightDay(testCoordinates, testDate)
 

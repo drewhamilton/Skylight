@@ -18,14 +18,19 @@ dependencies {
   implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
   implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
 
+  // Backport interface is compileOnly so consumers who don't need it don't have it. Consumers who do need it can
+  // declare it manually.
+  compileOnly project(':backport')
+
   implementation "com.google.dagger:dagger:$daggerVersion"
   kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
-  testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
   testImplementation 'junit:junit:4.12'
+  testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
   testImplementation 'com.squareup.okhttp3:mockwebserver:3.14.1'
   testImplementation 'org.mockito:mockito-inline:2.27.0'
   testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
+  testImplementation project(':backport')
 }
 
 sourceCompatibility = "1.8"
