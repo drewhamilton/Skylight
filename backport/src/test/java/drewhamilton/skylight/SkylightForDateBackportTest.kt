@@ -3,17 +3,21 @@ package drewhamilton.skylight
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
+import drewhamilton.skylight.backport.Coordinates
+import drewhamilton.skylight.backport.SkylightBackport
+import drewhamilton.skylight.backport.SkylightForDateBackport
+import drewhamilton.skylight.backport.forDate
 import org.junit.Before
 import org.junit.Test
-import java.time.LocalDate
-import java.time.Month
+import org.threeten.bp.LocalDate
+import org.threeten.bp.Month
 
-class SkylightForDateTest {
+class SkylightForDateBackportTest {
 
-    private lateinit var mockSkylight: Skylight
+    private lateinit var mockSkylight: SkylightBackport
     private val testDate = LocalDate.of(2019, Month.MAY, 20)
 
-    private lateinit var skylightForDate: SkylightForDate
+    private lateinit var skylightForDate: SkylightForDateBackport
 
     @Before
     fun setUp() {

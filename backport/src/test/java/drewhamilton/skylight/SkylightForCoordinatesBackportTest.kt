@@ -5,23 +5,30 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
+import drewhamilton.skylight.backport.Coordinates
+import drewhamilton.skylight.backport.SkylightBackport
+import drewhamilton.skylight.backport.SkylightDayBackport
+import drewhamilton.skylight.backport.SkylightForCoordinatesBackport
+import drewhamilton.skylight.backport.forCoordinates
+import drewhamilton.skylight.backport.isDark
+import drewhamilton.skylight.backport.isLight
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import java.time.LocalDate
-import java.time.Month
-import java.time.OffsetTime
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
+import org.threeten.bp.LocalDate
+import org.threeten.bp.Month
+import org.threeten.bp.OffsetTime
+import org.threeten.bp.ZoneOffset
+import org.threeten.bp.ZonedDateTime
 import kotlin.reflect.KClass
 
-class SkylightForCoordinatesTest {
+class SkylightForCoordinatesBackportTest {
 
-    private lateinit var mockSkylight: Skylight
+    private lateinit var mockSkylight: SkylightBackport
     private val testCoordinates = Coordinates(98.7, 6.54)
     private val testTime = OffsetTime.of(15, 0, 0, 0, ZoneOffset.UTC)
 
-    private lateinit var skylightForCoordinates: SkylightForCoordinates
+    private lateinit var skylightForCoordinates: SkylightForCoordinatesBackport
 
     @Before
     fun setUp() {
@@ -43,8 +50,8 @@ class SkylightForCoordinatesTest {
         val testDate = LocalDate.of(2019, Month.MAY, 20)
         val testInputDateTime = ZonedDateTime.of(testDate, testTime.toLocalTime(), testTime.offset)
         val testCoordinates = Coordinates(1.23, 45.6)
-        for (kClass in SkylightDay::class.sealedSubclasses) {
-            whenever(mockSkylight.getSkylightDay(any(), any<LocalDate>())).thenReturn(kClass.instantiate(testDate))
+        for (kClass in SkylightDayBackport::class.sealedSubclasses) {
+            whenever(mockSkylight.getSkylightDay(any(), any())).thenReturn(kClass.instantiate(testDate))
             assertEquals(
                 mockSkylight.isLight(testCoordinates, testInputDateTime),
                 skylightForCoordinates.isLight(testInputDateTime)
@@ -57,8 +64,8 @@ class SkylightForCoordinatesTest {
         val testDate = LocalDate.of(2019, Month.MAY, 20)
         val testInputDateTime = ZonedDateTime.of(testDate, testTime.toLocalTime(), testTime.offset)
         val testCoordinates = Coordinates(12.3, 4.56)
-        for (kClass in SkylightDay::class.sealedSubclasses) {
-            whenever(mockSkylight.getSkylightDay(any(), any<LocalDate>())).thenReturn(kClass.instantiate(testDate))
+        for (kClass in SkylightDayBackport::class.sealedSubclasses) {
+            whenever(mockSkylight.getSkylightDay(any(), any())).thenReturn(kClass.instantiate(testDate))
             assertEquals(
                 mockSkylight.isDark(testCoordinates, testInputDateTime),
                 skylightForCoordinates.isDark(testInputDateTime)
@@ -66,12 +73,12 @@ class SkylightForCoordinatesTest {
         }
     }
 
-    private fun KClass<out SkylightDay>.instantiate(date: LocalDate) = when(this) {
-        SkylightDay.Typical::class -> SkylightDay.Typical(date, testTime, testTime, testTime, testTime)
-        SkylightDay.AlwaysDaytime::class -> SkylightDay.AlwaysDaytime(date)
-        SkylightDay.AlwaysLight::class -> SkylightDay.AlwaysLight(date, testTime, testTime)
-        SkylightDay.NeverDaytime::class -> SkylightDay.NeverDaytime(date, testTime, testTime)
-        SkylightDay.NeverLight::class -> SkylightDay.NeverLight(date)
-        else -> throw IllegalArgumentException("Unknown ${SkylightDay::class} subtype: $this")
+    private fun KClass<out SkylightDayBackport>.instantiate(date: LocalDate) = when(this) {
+        SkylightDayBackport.Typical::class -> SkylightDayBackport.Typical(date, testTime, testTime, testTime, testTime)
+        SkylightDayBackport.AlwaysDaytime::class -> SkylightDayBackport.AlwaysDaytime(date)
+        SkylightDayBackport.AlwaysLight::class -> SkylightDayBackport.AlwaysLight(date, testTime, testTime)
+        SkylightDayBackport.NeverDaytime::class -> SkylightDayBackport.NeverDaytime(date, testTime, testTime)
+        SkylightDayBackport.NeverLight::class -> SkylightDayBackport.NeverLight(date)
+        else -> throw IllegalArgumentException("Unknown ${SkylightDayBackport::class} subtype: $this")
     }
 }

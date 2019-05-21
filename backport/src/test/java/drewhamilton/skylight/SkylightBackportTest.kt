@@ -3,16 +3,21 @@ package drewhamilton.skylight
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
+import drewhamilton.skylight.backport.Coordinates
+import drewhamilton.skylight.backport.SkylightBackport
+import drewhamilton.skylight.backport.SkylightDayBackport
+import drewhamilton.skylight.backport.isDark
+import drewhamilton.skylight.backport.isLight
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.LocalDate
-import java.time.Month
-import java.time.OffsetTime
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
+import org.threeten.bp.LocalDate
+import org.threeten.bp.Month
+import org.threeten.bp.OffsetTime
+import org.threeten.bp.ZoneOffset
+import org.threeten.bp.ZonedDateTime
 
-class SkylightTest {
+class SkylightBackportTest {
 
     private val testCoordinates = Coordinates(50.0, 60.0)
     private val testDate = LocalDate.of(2019, Month.MAY, 15)
@@ -25,13 +30,13 @@ class SkylightTest {
     private val betweenDawnAndDusk = ZonedDateTime.of(testDate, testSunrise.plusHours(2).toLocalTime(), ZoneOffset.UTC)
     private val afterDusk = ZonedDateTime.of(testDate, testDusk.plusHours(2).toLocalTime(), ZoneOffset.UTC)
 
-    private val testAlwaysDaytime = SkylightDay.AlwaysDaytime(testDate)
-    private val testAlwaysLight = SkylightDay.AlwaysLight(testDate, testSunrise, testSunset)
-    private val testNeverLight = SkylightDay.NeverLight(testDate)
-    private val testNeverDaytime = SkylightDay.NeverDaytime(testDate, testDawn, testDusk)
-    private val testTypical = SkylightDay.Typical(testDate, testDawn, testSunrise, testSunset, testDusk)
+    private val testAlwaysDaytime = SkylightDayBackport.AlwaysDaytime(testDate)
+    private val testAlwaysLight = SkylightDayBackport.AlwaysLight(testDate, testSunrise, testSunset)
+    private val testNeverLight = SkylightDayBackport.NeverLight(testDate)
+    private val testNeverDaytime = SkylightDayBackport.NeverDaytime(testDate, testDawn, testDusk)
+    private val testTypical = SkylightDayBackport.Typical(testDate, testDawn, testSunrise, testSunset, testDusk)
 
-    private lateinit var mockSkylight: Skylight
+    private lateinit var mockSkylight: SkylightBackport
 
     //region isLight
     @Test
@@ -175,9 +180,9 @@ class SkylightTest {
     }
     //endregion
 
-    private fun mockSkylight(skylightDay: SkylightDay) {
+    private fun mockSkylight(skylightDay: SkylightDayBackport) {
         mockSkylight = mock {
-            on { getSkylightDay(any(), any<LocalDate>()) } doReturn skylightDay
+            on { getSkylightDay(any(), any()) } doReturn skylightDay
         }
     }
 }
