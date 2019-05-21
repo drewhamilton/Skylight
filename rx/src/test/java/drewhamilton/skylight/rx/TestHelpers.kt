@@ -13,6 +13,3 @@ internal fun dummyTypical(date: LocalDate, dawn: OffsetTime) = SkylightDay.Typic
     dawn.plusSeconds(2 * timeDifferenceSeconds),
     dawn.plusSeconds(3 * timeDifferenceSeconds)
 )
-
-internal fun SkylightDay.equalsDummyForDate(date: LocalDate) =
-    this is SkylightDay.Typical && this.date == date
