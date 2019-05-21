@@ -5,15 +5,14 @@ import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.time.Instant
 import java.time.LocalDate
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
+import java.time.OffsetTime
 
 class SunriseSunsetInfoConversionsTest {
 
-    private val date = LocalDate.ofEpochDay(0)
-    private val throwaway = ZonedDateTime.ofInstant(Instant.EPOCH, ZoneOffset.UTC)
+    private val dateString = "2011-04-12"
+    private val date = LocalDate.parse(dateString)
+    private val throwaway = ""
 
     @Test
     fun `toSkylightDay with twilight begin NONE and sunrise NONE returns NeverLight`() {
@@ -41,36 +40,63 @@ class SunriseSunsetInfoConversionsTest {
 
     @Test
     fun `toSkylightDay with only twilight begin NONE returns AlwaysLight`() {
-        val sunrise = ZonedDateTime.ofInstant(Instant.ofEpochMilli(2), ZoneOffset.UTC)
-        val sunset = ZonedDateTime.ofInstant(Instant.ofEpochMilli(3), ZoneOffset.UTC)
+        val sunriseTimeString = "07:01:23+00:00"
+        val sunrise = dateTimeString(sunriseTimeString)
+        val sunsetTimeString = "18:54:32+00:00"
+        val sunset = dateTimeString(sunsetTimeString)
+
         val input = SunriseSunsetInfo(sunrise, sunset, ApiConstants.DATE_TIME_NONE, throwaway)
         val output = input.toSkylightDay(date)
-        assertEquals(SkylightDay.AlwaysLight(date, sunrise.toOffsetTime(), sunset.toOffsetTime()), output)
+
+        val expected = SkylightDay.AlwaysLight(
+            date,
+            OffsetTime.parse(sunriseTimeString),
+            OffsetTime.parse(sunsetTimeString)
+        )
+        assertEquals(expected, output)
     }
 
     @Test
     fun `toSkylightDay with only sunrise NONE returns NeverDaytime`() {
-        val dawn = ZonedDateTime.ofInstant(Instant.ofEpochMilli(1), ZoneOffset.UTC)
-        val dusk = ZonedDateTime.ofInstant(Instant.ofEpochMilli(4), ZoneOffset.UTC)
+        val dawnTimeString = "06:01:23+00:00"
+        val dawn = dateTimeString(dawnTimeString)
+        val duskTimeString = "18:54:32+00:00"
+        val dusk = dateTimeString(duskTimeString)
+
         val input = SunriseSunsetInfo(ApiConstants.DATE_TIME_NONE, throwaway, dawn, dusk)
         val output = input.toSkylightDay(date)
-        assertEquals(SkylightDay.NeverDaytime(date, dawn.toOffsetTime(), dusk.toOffsetTime()), output)
+
+        val expected = SkylightDay.NeverDaytime(
+            date,
+            OffsetTime.parse(dawnTimeString),
+            OffsetTime.parse(duskTimeString)
+        )
+        assertEquals(expected, output)
     }
 
     @Test
     fun `toSkylightDay with no special inputs returns Typical`() {
-        val dawn = ZonedDateTime.ofInstant(Instant.ofEpochMilli(1), ZoneOffset.UTC)
-        val sunrise = ZonedDateTime.ofInstant(Instant.ofEpochMilli(2), ZoneOffset.UTC)
-        val sunset = ZonedDateTime.ofInstant(Instant.ofEpochMilli(3), ZoneOffset.UTC)
-        val dusk = ZonedDateTime.ofInstant(Instant.ofEpochMilli(4), ZoneOffset.UTC)
+        val dawnTimeString = "06:01:23+00:00"
+        val dawn = dateTimeString(dawnTimeString)
+        val sunriseTimeString = "07:01:23+00:00"
+        val sunrise = dateTimeString(sunriseTimeString)
+        val sunsetTimeString = "18:54:32+00:00"
+        val sunset = dateTimeString(sunsetTimeString)
+        val duskTimeString = "18:54:32+00:00"
+        val dusk = dateTimeString(duskTimeString)
+
         val input = SunriseSunsetInfo(sunrise, sunset, dawn, dusk)
         val output = input.toSkylightDay(date)
-        assertEquals(SkylightDay.Typical(
+
+        val expected = SkylightDay.Typical(
             date,
-            dawn.toOffsetTime(),
-            sunrise.toOffsetTime(),
-            sunset.toOffsetTime(),
-            dusk.toOffsetTime()
-        ), output)
+            OffsetTime.parse(dawnTimeString),
+            OffsetTime.parse(sunriseTimeString),
+            OffsetTime.parse(sunsetTimeString),
+            OffsetTime.parse(duskTimeString)
+        )
+        assertEquals(expected, output)
     }
+
+    private fun dateTimeString(timeString: String) = "${dateString}T$timeString"
 }

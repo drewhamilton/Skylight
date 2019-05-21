@@ -5,20 +5,14 @@ import com.nhaarman.mockitokotlin2.mock
 import com.squareup.moshi.Moshi
 import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.SsoApi
-import drewhamilton.skylight.sso.network.SsoDate
-import drewhamilton.skylight.sso.network.SsoDateTime
-import drewhamilton.skylight.sso.network.SsoDateTimeAdapter
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.time.LocalDate
-import java.time.ZonedDateTime
 
 class SsoNetworkModuleTest {
 
@@ -55,15 +49,5 @@ class SsoNetworkModuleTest {
         assertSame(mockMoshi, moshiField.get(converterFactory))
 
         assertSame(mockOkHttpClient, retrofit.callFactory())
-    }
-
-    @Test
-    fun `moshi includes SsoDateTimeAdapter`() {
-        val ssoDateTimeAdapter = SsoDateTimeAdapter()
-
-        val moshi = SsoNetworkModule.moshi(ssoDateTimeAdapter)
-
-        assertNotNull(moshi.adapter<LocalDate>(LocalDate::class.java, SsoDate::class.java))
-        assertNotNull(moshi.adapter<ZonedDateTime>(ZonedDateTime::class.java, SsoDateTime::class.java))
     }
 }

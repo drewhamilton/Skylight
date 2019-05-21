@@ -3,44 +3,63 @@ package drewhamilton.skylight.sso
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import drewhamilton.skylight.Coordinates
-import drewhamilton.skylight.sso.network.InfoClient
+import drewhamilton.skylight.sso.network.DummyCall
+import drewhamilton.skylight.sso.network.SsoApi
 import drewhamilton.skylight.sso.network.request.Params
+import drewhamilton.skylight.sso.network.response.Response
 import drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
+import okhttp3.ResponseBody
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.time.Instant
+import retrofit2.HttpException
 import java.time.LocalDate
 import java.time.Month
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 class SsoSkylightTest {
 
-    private val testDawn = ZonedDateTime.ofInstant(Instant.ofEpochMilli(99_999_999_910_000L), ZoneOffset.UTC)
-    private val testSunrise = ZonedDateTime.ofInstant(Instant.ofEpochMilli(99_999_999_920_000L), ZoneOffset.UTC)
-    private val testSunset = ZonedDateTime.ofInstant(Instant.ofEpochMilli(99_999_999_930_000L), ZoneOffset.UTC)
-    private val testDusk = ZonedDateTime.ofInstant(Instant.ofEpochMilli(99_999_999_940_000L), ZoneOffset.UTC)
+    private val testDawn = "1999-08-21T08:30:40+00:00"
+    private val testSunrise = "1999-08-21T09:30:40+00:00"
+    private val testSunset = "1999-08-21T20:30:40+00:00"
+    private val testDusk = "1999-08-21T21:30:40+00:00"
 
     private val testLatitude = 12.3
     private val testLongitude = 45.6
-    private val testToday = LocalDate.of(2019, Month.MAY, 16)
+    private val testDate = LocalDate.of(1999, Month.AUGUST, 21)
+    private val testDateString = testDate.format(DateTimeFormatter.ISO_LOCAL_DATE)
     private val testCoordinates = Coordinates(testLatitude, testLongitude)
-    private val testParams = Params(testLatitude, testLongitude, testToday)
+    private val testParams = Params(testLatitude, testLongitude, testDateString)
 
-    private val testSunriseSunsetInfo = SunriseSunsetInfo(testDawn, testSunrise, testSunset, testDusk)
+    private val testSunriseSunsetInfo = SunriseSunsetInfo(
+        testSunrise,
+        testSunset,
+        this.testDawn,
+        this.testDusk
+    )
 
-    private lateinit var mockClient: InfoClient
+    private lateinit var mockApi: SsoApi
 
     @Test
-    fun `getSkylightDay returns converted info from client`() {
-        mockClient = mock {
-            on { getInfo(testParams) } doReturn testSunriseSunsetInfo
+    fun `getInfo emits API result`() {
+        mockApi = mock {
+            on {
+                getInfo(testParams.lat, testParams.lng, testDateString, 0)
+            } doReturn DummyCall.success(Response(testSunriseSunsetInfo, "Dummy status"))
         }
-        val ssoSkylight = SsoSkylight(mockClient)
 
-        assertEquals(
-            testSunriseSunsetInfo.toSkylightDay(testToday),
-            ssoSkylight.getSkylightDay(testCoordinates, testToday)
-        )
+        val ssoSkylight = SsoSkylight(mockApi)
+        assertEquals(testSunriseSunsetInfo, ssoSkylight.getSkylightDay(testCoordinates, testDate))
+    }
+
+    @Test(expected = HttpException::class)
+    fun `getInfo throws HttpException when API result is an error`() {
+        mockApi = mock {
+            on {
+                getInfo(testParams.lat, testParams.lng, testDateString, 0)
+            } doReturn DummyCall.error(401, ResponseBody.create(null, "Content"))
+        }
+
+        val ssoSkylight = SsoSkylight(mockApi)
+        ssoSkylight.getSkylightDay(testCoordinates, testDate)
     }
 }

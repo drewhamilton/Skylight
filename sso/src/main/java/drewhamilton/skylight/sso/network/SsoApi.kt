@@ -11,7 +11,7 @@ interface SsoApi {
     fun getInfo(
         @Query("lat") lat: Double,
         @Query("lng") lng: Double,
-        @Query("date") date: String,
-        @Query("formatted") formatted: Int
+        @Query("date") @SsoDate date: String,
+        @Query("formatted") formatted: Int = 0
     ): Call<Response>
 }
