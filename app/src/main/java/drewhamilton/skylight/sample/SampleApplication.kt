@@ -1,21 +1,23 @@
 package drewhamilton.skylight.sample
 
-import android.app.Application
-import drewhamilton.skylight.SkylightDay
-import drewhamilton.skylight.dummy.dagger.DummySkylightComponent
-import drewhamilton.skylight.sso.dagger.SsoSkylightComponent
-import java.time.LocalDate
+import androidx.multidex.MultiDexApplication
+import com.jakewharton.threetenabp.AndroidThreeTen
+import drewhamilton.skylight.backport.SkylightDayBackport
+import drewhamilton.skylight.backport.dummy.dagger.DummySkylightBackportComponent
+import drewhamilton.skylight.backport.sso.dagger.SsoSkylightBackportComponent
+import org.threeten.bp.LocalDate
 
 @Suppress("Unused")
-class SampleApplication : Application() {
+class SampleApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        AndroidThreeTen.init(this, "TZDB-2019a.dat")
 
         AppComponent.create(
             this,
-            SsoSkylightComponent.create(),
-            DummySkylightComponent.create(SkylightDay.NeverLight(LocalDate.now()))
+            SsoSkylightBackportComponent.create(),
+            DummySkylightBackportComponent.create(SkylightDayBackport.NeverLight(LocalDate.now()))
         )
     }
 }

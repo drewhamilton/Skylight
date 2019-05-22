@@ -10,6 +10,7 @@ android {
     applicationId "drewhamilton.skylight.sample"
     minSdkVersion 16
     targetSdkVersion 28
+    multiDexEnabled true
     versionCode 1
     versionName libraryVersion
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -37,18 +38,20 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-  implementation project(':skylight')
+  implementation project(':backport')
+  implementation 'com.jakewharton.threetenabp:threetenabp:1.2.0'
+
   implementation project(':sso')
-  implementation project(':dummy')
   implementation project(':calculator')
+  implementation project(':dummy')
   implementation project(':rx')
-  implementation project(':views')
 
   implementation 'androidx.core:core-ktx:1.0.2'
   implementation 'androidx.fragment:fragment-ktx:1.0.0'
   implementation 'androidx.appcompat:appcompat:1.0.2'
   implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
 
+  implementation project(':views')
   implementation 'com.google.android.material:material:1.1.0-alpha06'
 
   implementation 'drewhamilton.rxpreferences:rxpreferences:1.0.0-beta2'
@@ -59,6 +62,7 @@ dependencies {
   kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
   implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+  implementation 'androidx.multidex:multidex:2.0.1'
 
   testImplementation 'junit:junit:4.12'
 

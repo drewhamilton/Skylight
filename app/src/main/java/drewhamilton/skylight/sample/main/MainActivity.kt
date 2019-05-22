@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import drewhamilton.skylight.SkylightDay
-import drewhamilton.skylight.Skylight
-import drewhamilton.skylight.rx.getSkylightDaySingle
+import drewhamilton.skylight.backport.SkylightBackport
+import drewhamilton.skylight.backport.SkylightDayBackport
+import drewhamilton.skylight.backport.rx.getSkylightDaySingle
 import drewhamilton.skylight.sample.AppComponent
 import drewhamilton.skylight.sample.BuildConfig
 import drewhamilton.skylight.sample.R
@@ -27,11 +27,11 @@ import kotlinx.android.synthetic.main.main_destination.sunrise
 import kotlinx.android.synthetic.main.main_destination.sunset
 import kotlinx.android.synthetic.main.main_destination.toolbar
 import kotlinx.android.synthetic.main.main_destination.version
-import java.time.Instant
-import java.time.LocalDate
-import java.time.OffsetTime
-import java.time.ZoneId
-import java.time.format.TextStyle
+import org.threeten.bp.Instant
+import org.threeten.bp.LocalDate
+import org.threeten.bp.OffsetTime
+import org.threeten.bp.ZoneId
+import org.threeten.bp.format.TextStyle
 import java.util.Locale
 import javax.inject.Inject
 
@@ -41,7 +41,7 @@ class MainActivity : RxActivity() {
     @Inject protected lateinit var locationRepository: LocationRepository
 
     @Suppress("ProtectedInFinal")
-    @Inject protected lateinit var skylight: Skylight
+    @Inject protected lateinit var skylight: SkylightBackport
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,24 +83,24 @@ class MainActivity : RxActivity() {
             .disposeOnDestroyView()
     }
 
-    private fun SkylightDay.display(timeZone: ZoneId) {
+    private fun SkylightDayBackport.display(timeZone: ZoneId) {
         var dawnDateTime: OffsetTime? = null
         var sunriseDateTime: OffsetTime? = null
         var sunsetDateTime: OffsetTime? = null
         var duskDateTime: OffsetTime? = null
 
         when (this) {
-            is SkylightDay.Typical -> {
+            is SkylightDayBackport.Typical -> {
                 dawnDateTime = dawn.inTimeZone(timeZone)
                 sunriseDateTime = sunrise.inTimeZone(timeZone)
                 sunsetDateTime = sunset.inTimeZone(timeZone)
                 duskDateTime = dusk.inTimeZone(timeZone)
             }
-            is SkylightDay.AlwaysLight -> {
+            is SkylightDayBackport.AlwaysLight -> {
                 sunriseDateTime = sunrise.inTimeZone(timeZone)
                 sunsetDateTime = sunset.inTimeZone(timeZone)
             }
-            is SkylightDay.NeverDaytime -> {
+            is SkylightDayBackport.NeverDaytime -> {
                 dawnDateTime = dawn.inTimeZone(timeZone)
                 duskDateTime = dusk.inTimeZone(timeZone)
             }
