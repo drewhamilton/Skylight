@@ -1,7 +1,6 @@
 package drewhamilton.skylight
 
 import java.time.LocalDate
-import java.util.Date
 import javax.inject.Inject
 
 /**
@@ -22,8 +21,8 @@ class SkylightForDate @Inject internal constructor(
 }
 
 /**
- * Create a [Skylight] wrapper for a constant [Date]
+ * Create a [Skylight] wrapper for a constant [LocalDate]
  * @param date The date for which the resulting wrapper will retrieve Skylight info.
- * @return a [SkylightForDate] wrapping the given [Skylight] and [Date]
+ * @return a [SkylightForDate] wrapping the given [Skylight] and [LocalDate]
  */
 fun Skylight.forDate(date: LocalDate) = SkylightForDate(this, date)

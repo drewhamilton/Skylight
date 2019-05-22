@@ -5,7 +5,6 @@ import androidx.annotation.StringRes
 import drewhamilton.skylight.Coordinates
 import drewhamilton.skylight.sample.R
 import java.time.ZoneId
-import java.util.TimeZone
 
 data class Location(
     val longDisplayName: String,
