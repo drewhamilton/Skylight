@@ -3,13 +3,13 @@ package drewhamilton.skylight.sample
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
-import drewhamilton.skylight.Skylight
-import drewhamilton.skylight.calculator.CalculatorSkylight
-import drewhamilton.skylight.dummy.DummySkylight
-import drewhamilton.skylight.dummy.dagger.DummySkylightComponent
+import drewhamilton.skylight.backport.SkylightBackport
+import drewhamilton.skylight.backport.calculator.CalculatorSkylightBackport
+import drewhamilton.skylight.backport.dummy.DummySkylightBackport
+import drewhamilton.skylight.backport.dummy.dagger.DummySkylightBackportComponent
+import drewhamilton.skylight.backport.sso.SsoSkylightBackport
+import drewhamilton.skylight.backport.sso.dagger.SsoSkylightBackportComponent
 import drewhamilton.skylight.sample.source.SkylightRepository
-import drewhamilton.skylight.sso.SsoSkylight
-import drewhamilton.skylight.sso.dagger.SsoSkylightComponent
 
 @Module
 object SkylightModule {
@@ -17,21 +17,21 @@ object SkylightModule {
     @JvmStatic
     @Provides
     @Reusable
-    fun ssoSkylight(ssoSkylightComponent: SsoSkylightComponent) = ssoSkylightComponent.skylight()
+    fun ssoSkylight(ssoSkylightComponent: SsoSkylightBackportComponent) = ssoSkylightComponent.skylight()
 
     @JvmStatic
     @Provides
     @Reusable
-    fun dummySkylight(dummySkylightComponent: DummySkylightComponent) = dummySkylightComponent.skylight()
+    fun dummySkylight(dummySkylightComponent: DummySkylightBackportComponent) = dummySkylightComponent.skylight()
 
     @JvmStatic
     @Provides
     fun skylight(
         skylightRepository: SkylightRepository,
-        ssoSkylight: SsoSkylight,
-        calculatorSkylight: CalculatorSkylight,
-        dummySkylight: DummySkylight
-    ): Skylight = when (skylightRepository.getSelectedSkylightType().blockingGet()!!) {
+        ssoSkylight: SsoSkylightBackport,
+        calculatorSkylight: CalculatorSkylightBackport,
+        dummySkylight: DummySkylightBackport
+    ): SkylightBackport = when (skylightRepository.getSelectedSkylightType().blockingGet()!!) {
         SkylightRepository.SkylightType.SSO -> ssoSkylight
         SkylightRepository.SkylightType.CALCULATOR -> calculatorSkylight
         SkylightRepository.SkylightType.DUMMY -> dummySkylight

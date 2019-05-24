@@ -1,21 +1,15 @@
 package drewhamilton.skylight.rx
 
 import drewhamilton.skylight.SkylightDay
-import java.util.Calendar
-import java.util.Date
+import java.time.LocalDate
+import java.time.OffsetTime
 
-private const val timeDifferenceMillis = 5000L
+private const val timeDifferenceSeconds = 5L
 
-internal fun dummyTypical(dawn: Date) = SkylightDay.Typical(
+internal fun dummyTypical(date: LocalDate, dawn: OffsetTime) = SkylightDay.Typical(
+    date,
     dawn,
-    Date(dawn.time + timeDifferenceMillis),
-    Date(dawn.time + 2 * timeDifferenceMillis),
-    Date(dawn.time + 3 * timeDifferenceMillis)
+    dawn.plusSeconds(timeDifferenceSeconds),
+    dawn.plusSeconds(2 * timeDifferenceSeconds),
+    dawn.plusSeconds(3 * timeDifferenceSeconds)
 )
-
-internal fun SkylightDay.equalsDummyForDate(date: Calendar) =
-    this is SkylightDay.Typical
-            && dawn.toCalendar().isSameDay(date)
-            && sunrise.toCalendar().isSameDay(date)
-            && sunset.toCalendar().isSameDay(date)
-            && dusk.toCalendar().isSameDay(date)

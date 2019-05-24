@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import drewhamilton.skylight.Skylight
-import drewhamilton.skylight.SkylightDay
-import drewhamilton.skylight.rx.getSkylightDaySingle
+import drewhamilton.skylight.backport.SkylightBackport
+import drewhamilton.skylight.backport.SkylightDayBackport
+import drewhamilton.skylight.backport.rx.getSkylightDaySingle
 import drewhamilton.skylight.sample.AppComponent
 import drewhamilton.skylight.sample.BuildConfig
 import drewhamilton.skylight.sample.R
@@ -27,9 +27,12 @@ import kotlinx.android.synthetic.main.main_destination.sunrise
 import kotlinx.android.synthetic.main.main_destination.sunset
 import kotlinx.android.synthetic.main.main_destination.toolbar
 import kotlinx.android.synthetic.main.main_destination.version
-import java.text.DateFormat
-import java.util.Date
-import java.util.TimeZone
+import org.threeten.bp.Instant
+import org.threeten.bp.LocalDate
+import org.threeten.bp.OffsetTime
+import org.threeten.bp.ZoneId
+import org.threeten.bp.format.TextStyle
+import java.util.Locale
 import javax.inject.Inject
 
 class MainActivity : RxActivity() {
@@ -38,9 +41,7 @@ class MainActivity : RxActivity() {
     @Inject protected lateinit var locationRepository: LocationRepository
 
     @Suppress("ProtectedInFinal")
-    @Inject protected lateinit var skylight: Skylight
-
-    private val timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT)
+    @Inject protected lateinit var skylight: SkylightBackport
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,54 +76,58 @@ class MainActivity : RxActivity() {
     }
 
     private fun Location.display() {
-        skylight.getSkylightDaySingle(coordinates, Date())
+        skylight.getSkylightDaySingle(coordinates, LocalDate.now())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSuccess { timeFormat.timeZone = timeZone }
-            .subscribe(Consumer { it.display() })
+            .subscribe(Consumer { it.display(timeZone) })
             .disposeOnDestroyView()
     }
 
-    private fun SkylightDay.display() {
-        var dawnDateTime: Date? = null
-        var sunriseDateTime: Date? = null
-        var sunsetDateTime: Date? = null
-        var duskDateTime: Date? = null
+    private fun SkylightDayBackport.display(timeZone: ZoneId) {
+        var dawnDateTime: OffsetTime? = null
+        var sunriseDateTime: OffsetTime? = null
+        var sunsetDateTime: OffsetTime? = null
+        var duskDateTime: OffsetTime? = null
 
         when (this) {
-            is SkylightDay.Typical -> {
-                dawnDateTime = dawn
-                sunriseDateTime = sunrise
-                sunsetDateTime = sunset
-                duskDateTime = dusk
+            is SkylightDayBackport.Typical -> {
+                dawnDateTime = dawn.inTimeZone(timeZone)
+                sunriseDateTime = sunrise.inTimeZone(timeZone)
+                sunsetDateTime = sunset.inTimeZone(timeZone)
+                duskDateTime = dusk.inTimeZone(timeZone)
             }
-            is SkylightDay.AlwaysLight -> {
-                sunriseDateTime = sunrise
-                sunsetDateTime = sunset
+            is SkylightDayBackport.AlwaysLight -> {
+                sunriseDateTime = sunrise.inTimeZone(timeZone)
+                sunsetDateTime = sunset.inTimeZone(timeZone)
             }
-            is SkylightDay.NeverDaytime -> {
-                dawnDateTime = dawn
-                duskDateTime = dusk
+            is SkylightDayBackport.NeverDaytime -> {
+                dawnDateTime = dawn.inTimeZone(timeZone)
+                duskDateTime = dusk.inTimeZone(timeZone)
             }
         }
 
-        dawn.setTime(dawnDateTime, timeFormat, R.string.never)
-        sunrise.setTime(sunriseDateTime, timeFormat, R.string.never)
-        sunset.setTime(sunsetDateTime, timeFormat, R.string.never)
-        dusk.setTime(duskDateTime, timeFormat, R.string.never)
+        dawn.setTime(dawnDateTime, R.string.never)
+        sunrise.setTime(sunriseDateTime, R.string.never)
+        sunset.setTime(sunsetDateTime, R.string.never)
+        dusk.setTime(duskDateTime, R.string.never)
 
-        dawn.showDetailsOnClick(timeFormat.timeZone)
-        sunrise.showDetailsOnClick(timeFormat.timeZone)
-        sunset.showDetailsOnClick(timeFormat.timeZone)
-        dusk.showDetailsOnClick(timeFormat.timeZone)
+        dawn.showDetailsOnClick(timeZone)
+        sunrise.showDetailsOnClick(timeZone)
+        sunset.showDetailsOnClick(timeZone)
+        dusk.showDetailsOnClick(timeZone)
     }
 
-    private fun SkylightEventView.showDetailsOnClick(timeZone: TimeZone) {
+    private fun OffsetTime.inTimeZone(timeZone: ZoneId): OffsetTime {
+        val offset = timeZone.rules.getOffset(Instant.now())
+        return withOffsetSameInstant(offset)
+    }
+
+    private fun SkylightEventView.showDetailsOnClick(timeZone: ZoneId) {
         val clickListener: View.OnClickListener? = if (timeText.isNotEmpty())
             View.OnClickListener {
                 MaterialAlertDialogBuilder(this@MainActivity)
                     .setTitle(labelText)
-                    .setMessage("$timeText, ${timeZone.displayName}")
+                    .setMessage("$timeText, ${timeZone.getDisplayName(TextStyle.FULL, Locale.getDefault())}")
                     .setPositiveButton(R.string.good_to_know) { _, _ -> }
                     .show()
             }

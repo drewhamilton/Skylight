@@ -1,6 +1,6 @@
 package drewhamilton.skylight
 
-import java.util.Date
+import java.time.LocalDate
 import javax.inject.Inject
 
 /**
@@ -8,9 +8,10 @@ import javax.inject.Inject
  * TODO: Determine if @Inject internal constructor works with Dagger in another module
  * TODO: Investigate assisted injection
  */
+@Suppress("NewApi")
 class SkylightForDate @Inject internal constructor(
     private val skylight: Skylight,
-    val date: Date
+    val date: LocalDate
 ) {
     /**
      * @param coordinates The coordinates for which to return info.
@@ -20,8 +21,8 @@ class SkylightForDate @Inject internal constructor(
 }
 
 /**
- * Create a [Skylight] wrapper for a constant [Date]
+ * Create a [Skylight] wrapper for a constant [LocalDate]
  * @param date The date for which the resulting wrapper will retrieve Skylight info.
- * @return a [SkylightForDate] wrapping the given [Skylight] and [Date]
+ * @return a [SkylightForDate] wrapping the given [Skylight] and [LocalDate]
  */
-fun Skylight.forDate(date: Date) = SkylightForDate(this, date)
+fun Skylight.forDate(date: LocalDate) = SkylightForDate(this, date)

@@ -11,9 +11,8 @@ import com.google.android.material.card.MaterialCardView
 import drewhamilton.skylight.views.R
 import drewhamilton.skylight.views.compat.setCompatAutoSizeTextTypeUniformWithConfiguration
 import drewhamilton.skylight.views.compat.setCompatTextAppearance
-import kotlinx.android.synthetic.main.view_skylight_event.view.*
-import java.text.DateFormat
-import java.util.*
+import kotlinx.android.synthetic.main.view_skylight_event.view.label
+import kotlinx.android.synthetic.main.view_skylight_event.view.time
 
 /**
  * A simple card view showing a single Skylight event. Typically used to display the time of
@@ -148,25 +147,5 @@ class SkylightEventView : MaterialCardView {
                     setTimeTextAutoSizeRange(timeTextMinSize, timeTextMaxSize)
             }
         }
-    }
-}
-
-fun SkylightEventView.setTime(time: Date?, @StringRes fallback: Int) =
-    setTime(time, fallback = context.getString(fallback))
-
-fun SkylightEventView.setTime(dateTime: Date?, format: DateFormat, @StringRes fallback: Int) =
-    setTime(dateTime, format, context.getString(fallback))
-
-fun SkylightEventView.setTime(
-    dateTime: Date?,
-    format: DateFormat = DateFormat.getTimeInstance(DateFormat.SHORT),
-    fallback: String = ""
-) {
-    dateTime?.let {
-        timeText = format.format(dateTime)
-        timeHint = ""
-    } ?: run {
-        timeHint = fallback
-        timeText = ""
     }
 }

@@ -6,22 +6,26 @@ import drewhamilton.skylight.Coordinates
 import drewhamilton.skylight.SkylightDay
 import drewhamilton.skylight.SkylightForDate
 import org.junit.Test
+import java.time.LocalDate
+import java.time.OffsetTime
+import java.time.ZoneOffset
 
 class RxSkylightForDateTest {
 
     private val dummyCoordinates = Coordinates(70.0, 80.0)
+    private val testDawn = OffsetTime.of(8, 0, 0, 0, ZoneOffset.UTC)
 
     private lateinit var mockSkylightForDate: SkylightForDate
 
     //region getSkylightDaySingle
     @Test
     fun `getSkylightDaySingle emits info and completes`() {
-        mockSkylight { dummyTypical(today()) }
+        mockSkylight { dummyTypical(LocalDate.now(), testDawn) }
 
         mockSkylightForDate.getSkylightDaySingle(dummyCoordinates).test()
             .assertComplete()
             .assertValueCount(1)
-            .assertValueAt(0) { it.equalsDummyForDate(todayCalendar()) }
+            .assertValueAt(0) { it == dummyTypical(LocalDate.now(), testDawn) }
     }
     //endregion
 

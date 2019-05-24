@@ -6,45 +6,47 @@ import com.nhaarman.mockitokotlin2.mock
 import drewhamilton.skylight.SkylightDay
 import drewhamilton.skylight.SkylightForCoordinates
 import org.junit.Test
-import java.util.Date
+import java.time.LocalDate
+import java.time.OffsetTime
+import java.time.ZoneOffset
 
 class RxSkylightForCoordinatesTest {
+
+    private val testDawn = OffsetTime.of(12, 0, 0, 0, ZoneOffset.UTC)
 
     private lateinit var mockSkylightForCoordinates: SkylightForCoordinates
 
     //region getSkylightDaySingle
     @Test
     fun `getSkylightDaySingle emits info and completes`() {
-        mockSkylight { dummyTypical(it) }
+        mockSkylight { date, dawn -> dummyTypical(date, dawn) }
 
-        mockSkylightForCoordinates.getSkylightDaySingle(today()).test()
+        mockSkylightForCoordinates.getSkylightDaySingle(LocalDate.now()).test()
             .assertComplete()
             .assertValueCount(1)
-            .assertValueAt(0) { it.equalsDummyForDate(todayCalendar()) }
+            .assertValueAt(0) { it == dummyTypical(LocalDate.now(), testDawn) }
     }
     //endregion
 
     //region getUpcomingSkylightDays
     @Test
     fun `getUpcomingSkylightDays emits today's and tomorrow's info and completes`() {
-        val today = todayCalendar()
-        val tomorrow = tomorrowCalendar()
-        mockSkylight { dummyTypical(it) }
+        mockSkylight { date, dawn -> dummyTypical(date, dawn) }
 
         mockSkylightForCoordinates.getUpcomingSkylightDays().test()
             .assertComplete()
             .assertValueCount(2)
-            .assertValueAt(0) { it.equalsDummyForDate(today) }
-            .assertValueAt(1) { it.equalsDummyForDate(tomorrow) }
+            .assertValueAt(0) { it == dummyTypical(LocalDate.now(), testDawn) }
+            .assertValueAt(1) { it == dummyTypical(LocalDate.now().plusDays(1), testDawn) }
     }
     //endregion
 
-    private fun mockSkylight(returnFunction: (Date) -> SkylightDay) {
+    private fun mockSkylight(returnFunction: (LocalDate, OffsetTime) -> SkylightDay) {
         mockSkylightForCoordinates = mock {
-            on { getSkylightDay(any()) } doAnswer { invocation ->
-                returnFunction(invocation.getArgument(0))
+            on { getSkylightDay(any<LocalDate>()) } doAnswer { invocation ->
+                val date: LocalDate = invocation.getArgument(0)
+                returnFunction(date, testDawn)
             }
         }
     }
-
 }

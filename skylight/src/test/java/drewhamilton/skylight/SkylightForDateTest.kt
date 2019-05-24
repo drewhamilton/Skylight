@@ -5,12 +5,13 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import org.junit.Before
 import org.junit.Test
-import java.util.Date
+import java.time.LocalDate
+import java.time.Month
 
 class SkylightForDateTest {
 
     private lateinit var mockSkylight: Skylight
-    private val testDate = Date(12387)
+    private val testDate = LocalDate.of(2019, Month.MAY, 20)
 
     private lateinit var skylightForDate: SkylightForDate
 

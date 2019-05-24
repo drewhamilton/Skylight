@@ -1,9 +1,9 @@
 package drewhamilton.skylight.dummy
 
 import drewhamilton.skylight.Coordinates
-import drewhamilton.skylight.Skylight
 import drewhamilton.skylight.SkylightDay
-import java.util.Date
+import drewhamilton.skylight.Skylight
+import java.time.LocalDate
 import javax.inject.Inject
 
 /**
@@ -13,12 +13,7 @@ class DummySkylight @Inject constructor(
     private val dummySkylightDay: SkylightDay
 ) : Skylight {
 
-    /**
-     * @param coordinates ignored.
-     * @param date ignored.
-     * @return the dummy [SkylightDay] passed to the constructor.
-     */
-    override fun getSkylightDay(coordinates: Coordinates, date: Date) = dummySkylightDay
+    override fun getSkylightDay(coordinates: Coordinates, date: LocalDate) = dummySkylightDay
 
     /**
      * A convenience overload of [getSkylightDay] with ignored parameters removed.

@@ -6,7 +6,6 @@ import dagger.Module
 import dagger.Provides
 import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.SsoApi
-import drewhamilton.skylight.sso.network.SsoDateTimeAdapter
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -33,8 +32,7 @@ internal object SsoNetworkModule {
     @JvmStatic
     @Provides
     @Sso
-    internal fun moshi(dateTimeAdapter: SsoDateTimeAdapter) = Moshi.Builder()
+    internal fun moshi() = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
-        .add(dateTimeAdapter)
         .build()
 }
