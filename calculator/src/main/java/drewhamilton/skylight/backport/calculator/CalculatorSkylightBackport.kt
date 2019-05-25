@@ -1,7 +1,7 @@
 package drewhamilton.skylight.backport.calculator
 
 import dagger.Reusable
-import drewhamilton.skylight.backport.Coordinates
+import drewhamilton.skylight.backport.CoordinatesBackport
 import drewhamilton.skylight.backport.SkylightBackport
 import drewhamilton.skylight.backport.SkylightDayBackport
 import drewhamilton.skylight.calculator.EpochMilliSkylightDay
@@ -28,7 +28,7 @@ class CalculatorSkylightBackport @Inject constructor() : SkylightBackport {
      * @param coordinates locations for which to calculate info.
      * @param date date for which to calculate info.
      */
-    override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDayBackport {
+    override fun getSkylightDay(coordinates: CoordinatesBackport, date: LocalDate): SkylightDayBackport {
         val epochMillis = date.toNoonUtcEpochMillis()
         return calculateSkylightInfo(epochMillis, coordinates.latitude, coordinates.longitude)
             .toSkylightDay(date)

@@ -3,7 +3,7 @@ package drewhamilton.skylight
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
-import drewhamilton.skylight.backport.Coordinates
+import drewhamilton.skylight.backport.CoordinatesBackport
 import drewhamilton.skylight.backport.SkylightBackport
 import drewhamilton.skylight.backport.SkylightDayBackport
 import drewhamilton.skylight.backport.isDark
@@ -19,7 +19,7 @@ import org.threeten.bp.ZonedDateTime
 
 class SkylightBackportTest {
 
-    private val testCoordinates = Coordinates(50.0, 60.0)
+    private val testCoordinates = CoordinatesBackport(50.0, 60.0)
     private val testDate = LocalDate.of(2019, Month.MAY, 15)
     private val testDawn = OffsetTime.of(8, 0, 0, 0, ZoneOffset.UTC)
     private val testSunrise = OffsetTime.of(10, 0, 0, 0, ZoneOffset.UTC)

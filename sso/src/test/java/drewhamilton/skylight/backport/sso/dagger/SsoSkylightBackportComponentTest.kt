@@ -1,6 +1,6 @@
 package drewhamilton.skylight.backport.sso.dagger
 
-import drewhamilton.skylight.backport.Coordinates
+import drewhamilton.skylight.backport.CoordinatesBackport
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -34,7 +34,7 @@ class SsoSkylightBackportComponentTest {
         mockWebServer = MockWebServer()
         mockWebServer!!.start()
 
-        val testCoordinates = Coordinates(12.3, 45.6)
+        val testCoordinates = CoordinatesBackport(12.3, 45.6)
         val testDate = LocalDate.of(1970, Month.JANUARY, 26)
 
         val fakeNetworkInterceptor = FakeInterceptor()

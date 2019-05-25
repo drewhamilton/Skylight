@@ -3,7 +3,7 @@ package drewhamilton.skylight.backport.rx
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.mock
-import drewhamilton.skylight.backport.Coordinates
+import drewhamilton.skylight.backport.CoordinatesBackport
 import drewhamilton.skylight.backport.SkylightBackport
 import drewhamilton.skylight.backport.SkylightDayBackport
 import org.junit.Test
@@ -13,7 +13,7 @@ import org.threeten.bp.ZoneOffset
 
 class RxSkylightBackportTest {
 
-    private val dummyCoordinates = Coordinates(50.0, 60.0)
+    private val dummyCoordinates = CoordinatesBackport(50.0, 60.0)
     private val testDawn = OffsetTime.of(12, 0, 0, 0, ZoneOffset.UTC)
 
     private lateinit var mockSkylight: SkylightBackport

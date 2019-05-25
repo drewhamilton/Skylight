@@ -5,7 +5,7 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
-import drewhamilton.skylight.backport.Coordinates
+import drewhamilton.skylight.backport.CoordinatesBackport
 import drewhamilton.skylight.backport.SkylightBackport
 import drewhamilton.skylight.backport.SkylightDayBackport
 import drewhamilton.skylight.backport.SkylightForCoordinatesBackport
@@ -25,7 +25,7 @@ import kotlin.reflect.KClass
 class SkylightForCoordinatesBackportTest {
 
     private lateinit var mockSkylight: SkylightBackport
-    private val testCoordinates = Coordinates(98.7, 6.54)
+    private val testCoordinates = CoordinatesBackport(98.7, 6.54)
     private val testTime = OffsetTime.of(15, 0, 0, 0, ZoneOffset.UTC)
 
     private lateinit var skylightForCoordinates: SkylightForCoordinatesBackport
@@ -49,7 +49,7 @@ class SkylightForCoordinatesBackportTest {
     fun `isLight forwards to Skylight isLight`() {
         val testDate = LocalDate.of(2019, Month.MAY, 20)
         val testInputDateTime = ZonedDateTime.of(testDate, testTime.toLocalTime(), testTime.offset)
-        val testCoordinates = Coordinates(1.23, 45.6)
+        val testCoordinates = CoordinatesBackport(1.23, 45.6)
         for (kClass in SkylightDayBackport::class.sealedSubclasses) {
             whenever(mockSkylight.getSkylightDay(any(), any())).thenReturn(kClass.instantiate(testDate))
             assertEquals(
@@ -63,7 +63,7 @@ class SkylightForCoordinatesBackportTest {
     fun `isDark forwards to Skylight isDark`() {
         val testDate = LocalDate.of(2019, Month.MAY, 20)
         val testInputDateTime = ZonedDateTime.of(testDate, testTime.toLocalTime(), testTime.offset)
-        val testCoordinates = Coordinates(12.3, 4.56)
+        val testCoordinates = CoordinatesBackport(12.3, 4.56)
         for (kClass in SkylightDayBackport::class.sealedSubclasses) {
             whenever(mockSkylight.getSkylightDay(any(), any())).thenReturn(kClass.instantiate(testDate))
             assertEquals(

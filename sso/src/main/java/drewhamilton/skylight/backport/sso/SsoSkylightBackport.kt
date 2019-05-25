@@ -1,6 +1,6 @@
 package drewhamilton.skylight.backport.sso
 
-import drewhamilton.skylight.backport.Coordinates
+import drewhamilton.skylight.backport.CoordinatesBackport
 import drewhamilton.skylight.backport.SkylightBackport
 import drewhamilton.skylight.backport.SkylightDayBackport
 import drewhamilton.skylight.backport.sso.network.toSsoDateString
@@ -21,7 +21,7 @@ class SsoSkylightBackport @Inject constructor(
     private val api: SsoApi
 ) : SkylightBackport {
 
-    override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDayBackport {
+    override fun getSkylightDay(coordinates: CoordinatesBackport, date: LocalDate): SkylightDayBackport {
         val params = Params(coordinates.latitude, coordinates.longitude, date.toSsoDateString())
         return getInfoResults(params).toSkylightDayBackport(date)
     }

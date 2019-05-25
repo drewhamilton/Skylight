@@ -1,6 +1,6 @@
 package drewhamilton.skylight.backport.calculator
 
-import drewhamilton.skylight.backport.Coordinates
+import drewhamilton.skylight.backport.CoordinatesBackport
 import drewhamilton.skylight.backport.SkylightDayBackport
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -39,8 +39,8 @@ class CalculatorSkylightBackportTest {
         OffsetTime.ofInstant(Instant.ofEpochMilli(this), ZoneOffset.UTC)
 
     companion object {
-        val AMSTERDAM = Coordinates(52.3680, 4.9036)
-        val SVALBARD = Coordinates(77.8750, 20.9752)
+        val AMSTERDAM = CoordinatesBackport(52.3680, 4.9036)
+        val SVALBARD = CoordinatesBackport(77.8750, 20.9752)
 
         val JANUARY_6_2019: LocalDate = LocalDate.parse("2019-01-06")
     }

@@ -1,6 +1,6 @@
 package drewhamilton.skylight.backport.rx
 
-import drewhamilton.skylight.backport.Coordinates
+import drewhamilton.skylight.backport.CoordinatesBackport
 import drewhamilton.skylight.backport.SkylightBackport
 import drewhamilton.skylight.backport.SkylightDayBackport
 import io.reactivex.Flowable
@@ -12,7 +12,7 @@ import org.threeten.bp.LocalDate
  * @param date The date for which to return info. The time information in this parameter is ignored.
  * @return [SkylightDayBackport] at the given coordinates for the given date.
  */
-fun SkylightBackport.getSkylightDaySingle(coordinates: Coordinates, date: LocalDate) = Single.fromCallable {
+fun SkylightBackport.getSkylightDaySingle(coordinates: CoordinatesBackport, date: LocalDate) = Single.fromCallable {
     getSkylightDay(coordinates, date)
 }
 
@@ -21,6 +21,6 @@ fun SkylightBackport.getSkylightDaySingle(coordinates: Coordinates, date: LocalD
  * @return A [Flowable] that will emit 2 [SkylightDayBackport] instances at the given coordinates: 1 for today and 1 for
  * tomorrow.
  */
-fun SkylightBackport.getUpcomingSkylightDays(coordinates: Coordinates): Flowable<SkylightDayBackport> =
+fun SkylightBackport.getUpcomingSkylightDays(coordinates: CoordinatesBackport): Flowable<SkylightDayBackport> =
     getSkylightDaySingle(coordinates, LocalDate.now())
         .mergeWith(getSkylightDaySingle(coordinates, LocalDate.now().plusDays(1)))
