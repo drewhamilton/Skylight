@@ -33,7 +33,7 @@ Using Skylight with Java 6 and 7 requires a backport, as the primary Skylight in
 the backports, which replace `java.time` types with [ThreeTenBP](https://www.threeten.org/threetenbp/), add "backport"
 to the group ID:
 ```groovy
-// The base interface, using the java.time library:
+// The base interface, using the ThreeTenBP library:
 implementation "drewhamilton.skylight.backport:skylight:$version"
 
 // sunrise-sunset.org implementation:
