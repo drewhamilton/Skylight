@@ -1,8 +1,8 @@
 package drewhamilton.skylight.backport.dummy
 
-import drewhamilton.skylight.backport.CoordinatesBackport
+import drewhamilton.skylight.backport.Coordinates
 import drewhamilton.skylight.backport.SkylightBackport
-import drewhamilton.skylight.backport.SkylightDayBackport
+import drewhamilton.skylight.backport.SkylightDay
 import org.threeten.bp.LocalDate
 import javax.inject.Inject
 
@@ -10,14 +10,14 @@ import javax.inject.Inject
  * A [SkylightBackport] implementation that ignores passed parameters, and instead returns specific set values.
  */
 class DummySkylightBackport @Inject constructor(
-    private val dummySkylightDay: SkylightDayBackport
+    private val dummySkylightDay: SkylightDay
 ) : SkylightBackport {
 
-    override fun getSkylightDay(coordinates: CoordinatesBackport, date: LocalDate) = dummySkylightDay
+    override fun getSkylightDay(coordinates: Coordinates, date: LocalDate) = dummySkylightDay
 
     /**
      * A convenience overload of [getSkylightDay] with ignored parameters removed.
-     * @return the dummy [SkylightDayBackport] passed to the constructor.
+     * @return the dummy [SkylightDay] passed to the constructor.
      */
     fun getSkylightDay() = dummySkylightDay
 }

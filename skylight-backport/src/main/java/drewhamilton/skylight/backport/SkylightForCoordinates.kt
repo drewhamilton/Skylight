@@ -11,21 +11,21 @@ import javax.inject.Inject
  */
 class SkylightForCoordinatesBackport @Inject internal constructor(
     internal val skylight: SkylightBackport,
-    val coordinates: CoordinatesBackport
+    val coordinates: Coordinates
 ) {
     /**
      * @param date The date for which to return info.
-     * @return [SkylightDayBackport] at this object's coordinates for the given date.
+     * @return [SkylightDay] at this object's coordinates for the given date.
      */
     fun getSkylightDay(date: LocalDate) = skylight.getSkylightDay(coordinates, date)
 }
 
 /**
- * Create a [SkylightBackport] wrapper for a constant set of [CoordinatesBackport]
+ * Create a [SkylightBackport] wrapper for a constant set of [Coordinates]
  * @param coordinates The coordinates for which the resulting wrapper will retrieve Skylight info.
- * @return a [SkylightForCoordinatesBackport] wrapping the given [SkylightBackport] and [CoordinatesBackport]
+ * @return a [SkylightForCoordinatesBackport] wrapping the given [SkylightBackport] and [Coordinates]
  */
-fun SkylightBackport.forCoordinates(coordinates: CoordinatesBackport) = SkylightForCoordinatesBackport(this, coordinates)
+fun SkylightBackport.forCoordinates(coordinates: Coordinates) = SkylightForCoordinatesBackport(this, coordinates)
 
 /**
  * @param dateTime The date-time at which to check for lightness.

@@ -1,6 +1,6 @@
 package drewhamilton.skylight.backport.sso
 
-import drewhamilton.skylight.backport.SkylightDayBackport
+import drewhamilton.skylight.backport.SkylightDay
 import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
 import org.junit.Assert.assertEquals
@@ -23,7 +23,7 @@ class SunriseSunsetInfoConversionBackportsTest {
             throwaway
         )
         val output = input.toSkylightDayBackport(date)
-        assertEquals(SkylightDayBackport.NeverLight(date), output)
+        assertEquals(SkylightDay.NeverLight(date), output)
     }
 
     @Test
@@ -35,7 +35,7 @@ class SunriseSunsetInfoConversionBackportsTest {
             throwaway
         )
         val output = input.toSkylightDayBackport(date)
-        assertEquals(SkylightDayBackport.AlwaysDaytime(date), output)
+        assertEquals(SkylightDay.AlwaysDaytime(date), output)
     }
 
     @Test
@@ -48,7 +48,7 @@ class SunriseSunsetInfoConversionBackportsTest {
         val input = SunriseSunsetInfo(sunrise, sunset, ApiConstants.DATE_TIME_NONE, throwaway)
         val output = input.toSkylightDayBackport(date)
 
-        val expected = SkylightDayBackport.AlwaysLight(
+        val expected = SkylightDay.AlwaysLight(
             date,
             OffsetTime.parse(sunriseTimeString),
             OffsetTime.parse(sunsetTimeString)
@@ -66,7 +66,7 @@ class SunriseSunsetInfoConversionBackportsTest {
         val input = SunriseSunsetInfo(ApiConstants.DATE_TIME_NONE, throwaway, dawn, dusk)
         val output = input.toSkylightDayBackport(date)
 
-        val expected = SkylightDayBackport.NeverDaytime(
+        val expected = SkylightDay.NeverDaytime(
             date,
             OffsetTime.parse(dawnTimeString),
             OffsetTime.parse(duskTimeString)
@@ -88,7 +88,7 @@ class SunriseSunsetInfoConversionBackportsTest {
         val input = SunriseSunsetInfo(sunrise, sunset, dawn, dusk)
         val output = input.toSkylightDayBackport(date)
 
-        val expected = SkylightDayBackport.Typical(
+        val expected = SkylightDay.Typical(
             date,
             OffsetTime.parse(dawnTimeString),
             OffsetTime.parse(sunriseTimeString),

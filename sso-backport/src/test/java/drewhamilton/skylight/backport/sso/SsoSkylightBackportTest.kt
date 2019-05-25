@@ -1,7 +1,7 @@
 package drewhamilton.skylight.backport.sso
 
 import com.nhaarman.mockitokotlin2.mock
-import drewhamilton.skylight.backport.CoordinatesBackport
+import drewhamilton.skylight.backport.Coordinates
 import drewhamilton.skylight.backport.sso.network.DummyCall
 import drewhamilton.skylight.sso.network.SsoApi
 import drewhamilton.skylight.sso.network.request.Params
@@ -26,7 +26,7 @@ class SsoSkylightBackportTest {
     private val testLongitude = 45.6
     private val testDate = LocalDate.of(1999, Month.AUGUST, 21)
     private val testDateString = testDate.format(DateTimeFormatter.ISO_LOCAL_DATE)
-    private val testCoordinates = CoordinatesBackport(testLatitude, testLongitude)
+    private val testCoordinates = Coordinates(testLatitude, testLongitude)
     private val testParams = Params(testLatitude, testLongitude, testDateString)
 
     private val testSunriseSunsetInfo = SunriseSunsetInfo(

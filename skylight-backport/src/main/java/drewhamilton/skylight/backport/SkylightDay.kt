@@ -8,7 +8,7 @@ import org.threeten.bp.OffsetTime
  *
  * TODO MISSING What about transition days that e.g. have a sunrise but no sunset?
  */
-sealed class SkylightDayBackport {
+sealed class SkylightDay {
 
     abstract val date: LocalDate
 
@@ -22,14 +22,14 @@ sealed class SkylightDayBackport {
         val sunrise: OffsetTime,
         val sunset: OffsetTime,
         val dusk: OffsetTime
-    ) : SkylightDayBackport()
+    ) : SkylightDay()
 
     /**
      * Represents a day that is always full light, i.e. the sun never goes below the horizon.
      */
     data class AlwaysDaytime(
         override val date: LocalDate
-    ) : SkylightDayBackport()
+    ) : SkylightDay()
 
     /**
      * Represents a day where there is full light and twilight, but no full darkness, i.e. the sun never goes below
@@ -39,7 +39,7 @@ sealed class SkylightDayBackport {
         override val date: LocalDate,
         val sunrise: OffsetTime,
         val sunset: OffsetTime
-    ) : SkylightDayBackport()
+    ) : SkylightDay()
 
     /**
      * Represents a day where there is darkness and twilight, but no full light, i.e. the sun never goes above the
@@ -49,14 +49,14 @@ sealed class SkylightDayBackport {
         override val date: LocalDate,
         val dawn: OffsetTime,
         val dusk: OffsetTime
-    ) : SkylightDayBackport()
+    ) : SkylightDay()
 
     /**
      * Represents a day that is always darkness, i.e. the sun never goes above civil twilight.
      */
     data class NeverLight(
         override val date: LocalDate
-    ) : SkylightDayBackport()
+    ) : SkylightDay()
 
 }
 

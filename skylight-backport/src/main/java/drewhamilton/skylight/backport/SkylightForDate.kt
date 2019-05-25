@@ -14,9 +14,9 @@ class SkylightForDateBackport @Inject internal constructor(
 ) {
     /**
      * @param coordinates The coordinates for which to return info.
-     * @return [SkylightDayBackport] on this object's date at the given coordinates.
+     * @return [SkylightDay] on this object's date at the given coordinates.
      */
-    fun getSkylightDay(coordinates: CoordinatesBackport) = skylight.getSkylightDay(coordinates, date)
+    fun getSkylightDay(coordinates: Coordinates) = skylight.getSkylightDay(coordinates, date)
 }
 
 /**

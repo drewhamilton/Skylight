@@ -1,7 +1,7 @@
 package drewhamilton.skylight.backport.calculator
 
-import drewhamilton.skylight.backport.CoordinatesBackport
-import drewhamilton.skylight.backport.SkylightDayBackport
+import drewhamilton.skylight.backport.Coordinates
+import drewhamilton.skylight.backport.SkylightDay
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -18,8 +18,8 @@ class CalculatorSkylightBackportTest {
     @Test
     fun `Amsterdam on January 6, 2019 is typical`() {
         val result = skylight.getSkylightDay(AMSTERDAM, JANUARY_6_2019)
-        assertTrue(result is SkylightDayBackport.Typical)
-        result as SkylightDayBackport.Typical
+        assertTrue(result is SkylightDay.Typical)
+        result as SkylightDay.Typical
         assertEquals(1546758590702.asEpochMilliToExpectedOffsetTime(), result.dawn)
         assertEquals(1546761159554.asEpochMilliToExpectedOffsetTime(), result.sunrise)
         assertEquals(1546789298271.asEpochMilliToExpectedOffsetTime(), result.sunset)
@@ -31,7 +31,7 @@ class CalculatorSkylightBackportTest {
     @Test
     fun `Svalbard on January 6, 2019 is never light`() {
         val result = skylight.getSkylightDay(SVALBARD, JANUARY_6_2019)
-        assertEquals(SkylightDayBackport.NeverLight(JANUARY_6_2019), result)
+        assertEquals(SkylightDay.NeverLight(JANUARY_6_2019), result)
     }
     //endregion
 
@@ -39,8 +39,8 @@ class CalculatorSkylightBackportTest {
         OffsetTime.ofInstant(Instant.ofEpochMilli(this), ZoneOffset.UTC)
 
     companion object {
-        val AMSTERDAM = CoordinatesBackport(52.3680, 4.9036)
-        val SVALBARD = CoordinatesBackport(77.8750, 20.9752)
+        val AMSTERDAM = Coordinates(52.3680, 4.9036)
+        val SVALBARD = Coordinates(77.8750, 20.9752)
 
         val JANUARY_6_2019: LocalDate = LocalDate.parse("2019-01-06")
     }

@@ -3,7 +3,7 @@ package drewhamilton.skylight
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
-import drewhamilton.skylight.backport.CoordinatesBackport
+import drewhamilton.skylight.backport.Coordinates
 import drewhamilton.skylight.backport.SkylightBackport
 import drewhamilton.skylight.backport.SkylightForDateBackport
 import drewhamilton.skylight.backport.forDate
@@ -27,7 +27,7 @@ class SkylightForDateBackportTest {
 
     @Test
     fun `getSkylightDay passes coordinates and date to Skylight`() {
-        val testCoordinates = CoordinatesBackport(98.76, 54.321)
+        val testCoordinates = Coordinates(98.76, 54.321)
         skylightForDate.getSkylightDay(testCoordinates)
 
         verify(mockSkylight).getSkylightDay(testCoordinates, testDate)

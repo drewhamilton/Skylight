@@ -1,12 +1,12 @@
 package drewhamilton.skylight.backport.rx
 
-import drewhamilton.skylight.backport.SkylightDayBackport
+import drewhamilton.skylight.backport.SkylightDay
 import org.threeten.bp.LocalDate
 import org.threeten.bp.OffsetTime
 
 private const val timeDifferenceSeconds = 5L
 
-internal fun dummyTypical(date: LocalDate, dawn: OffsetTime) = SkylightDayBackport.Typical(
+internal fun dummyTypical(date: LocalDate, dawn: OffsetTime) = SkylightDay.Typical(
     date,
     dawn,
     dawn.plusSeconds(timeDifferenceSeconds),

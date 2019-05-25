@@ -3,7 +3,7 @@ package drewhamilton.skylight.backport.rx
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.mock
-import drewhamilton.skylight.backport.SkylightDayBackport
+import drewhamilton.skylight.backport.SkylightDay
 import drewhamilton.skylight.backport.SkylightForCoordinatesBackport
 import org.junit.Test
 import org.threeten.bp.LocalDate
@@ -41,7 +41,7 @@ class RxSkylightForCoordinatesBackportTest {
     }
     //endregion
 
-    private fun mockSkylight(returnFunction: (LocalDate, OffsetTime) -> SkylightDayBackport) {
+    private fun mockSkylight(returnFunction: (LocalDate, OffsetTime) -> SkylightDay) {
         mockSkylightForCoordinates = mock {
             on { getSkylightDay(any<LocalDate>()) } doAnswer { invocation ->
                 val date: LocalDate = invocation.getArgument(0)

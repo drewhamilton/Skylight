@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.AdapterView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import drewhamilton.skylight.backport.SkylightBackport
-import drewhamilton.skylight.backport.SkylightDayBackport
+import drewhamilton.skylight.backport.SkylightDay
 import drewhamilton.skylight.backport.rx.getSkylightDaySingle
 import drewhamilton.skylight.sample.AppComponent
 import drewhamilton.skylight.sample.BuildConfig
@@ -83,24 +83,24 @@ class MainActivity : RxActivity() {
             .disposeOnDestroyView()
     }
 
-    private fun SkylightDayBackport.display(timeZone: ZoneId) {
+    private fun SkylightDay.display(timeZone: ZoneId) {
         var dawnDateTime: OffsetTime? = null
         var sunriseDateTime: OffsetTime? = null
         var sunsetDateTime: OffsetTime? = null
         var duskDateTime: OffsetTime? = null
 
         when (this) {
-            is SkylightDayBackport.Typical -> {
+            is SkylightDay.Typical -> {
                 dawnDateTime = dawn.inTimeZone(timeZone)
                 sunriseDateTime = sunrise.inTimeZone(timeZone)
                 sunsetDateTime = sunset.inTimeZone(timeZone)
                 duskDateTime = dusk.inTimeZone(timeZone)
             }
-            is SkylightDayBackport.AlwaysLight -> {
+            is SkylightDay.AlwaysLight -> {
                 sunriseDateTime = sunrise.inTimeZone(timeZone)
                 sunsetDateTime = sunset.inTimeZone(timeZone)
             }
-            is SkylightDayBackport.NeverDaytime -> {
+            is SkylightDay.NeverDaytime -> {
                 dawnDateTime = dawn.inTimeZone(timeZone)
                 duskDateTime = dusk.inTimeZone(timeZone)
             }

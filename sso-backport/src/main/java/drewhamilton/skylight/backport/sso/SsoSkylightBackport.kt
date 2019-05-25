@@ -1,8 +1,8 @@
 package drewhamilton.skylight.backport.sso
 
-import drewhamilton.skylight.backport.CoordinatesBackport
+import drewhamilton.skylight.backport.Coordinates
 import drewhamilton.skylight.backport.SkylightBackport
-import drewhamilton.skylight.backport.SkylightDayBackport
+import drewhamilton.skylight.backport.SkylightDay
 import drewhamilton.skylight.backport.sso.network.toSsoDateString
 import drewhamilton.skylight.backport.sso.network.toZonedDateTimeBackport
 import drewhamilton.skylight.sso.network.ApiConstants
@@ -14,14 +14,14 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 /**
- * An implementation of [SkylightBackport] that uses sunrise-sunset.org to determine a [SkylightDayBackport] for the
+ * An implementation of [SkylightBackport] that uses sunrise-sunset.org to determine a [SkylightDay] for the
  * given location and date.
  */
 class SsoSkylightBackport @Inject constructor(
     private val api: SsoApi
 ) : SkylightBackport {
 
-    override fun getSkylightDay(coordinates: CoordinatesBackport, date: LocalDate): SkylightDayBackport {
+    override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay {
         val params = Params(coordinates.latitude, coordinates.longitude, date.toSsoDateString())
         return getInfoResults(params).toSkylightDayBackport(date)
     }
@@ -39,7 +39,7 @@ class SsoSkylightBackport @Inject constructor(
 }
 
 // TODO: Make this private and test it via the public method
-internal fun SunriseSunsetInfo.toSkylightDayBackport(date: LocalDate): SkylightDayBackport {
+internal fun SunriseSunsetInfo.toSkylightDayBackport(date: LocalDate): SkylightDay {
     return when {
         civil_twilight_begin == ApiConstants.DATE_TIME_NONE && sunrise == ApiConstants.DATE_TIME_NONE ->
             SkylightDayBackport.NeverLight(date)

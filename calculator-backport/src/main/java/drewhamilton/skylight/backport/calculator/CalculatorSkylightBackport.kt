@@ -1,9 +1,9 @@
 package drewhamilton.skylight.backport.calculator
 
 import dagger.Reusable
-import drewhamilton.skylight.backport.CoordinatesBackport
+import drewhamilton.skylight.backport.Coordinates
 import drewhamilton.skylight.backport.SkylightBackport
-import drewhamilton.skylight.backport.SkylightDayBackport
+import drewhamilton.skylight.backport.SkylightDay
 import drewhamilton.skylight.calculator.EpochMilliSkylightDay
 import drewhamilton.skylight.calculator.calculateSkylightInfo
 import org.threeten.bp.Instant
@@ -23,12 +23,12 @@ import javax.inject.Inject
 class CalculatorSkylightBackport @Inject constructor() : SkylightBackport {
 
     /**
-     * Calculates the [SkylightDayBackport] based on the given coordinates and date
+     * Calculates the [SkylightDay] based on the given coordinates and date
      *
      * @param coordinates locations for which to calculate info.
      * @param date date for which to calculate info.
      */
-    override fun getSkylightDay(coordinates: CoordinatesBackport, date: LocalDate): SkylightDayBackport {
+    override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay {
         val epochMillis = date.toNoonUtcEpochMillis()
         return calculateSkylightInfo(
             epochMillis,
@@ -43,27 +43,27 @@ class CalculatorSkylightBackport @Inject constructor() : SkylightBackport {
 
     private fun EpochMilliSkylightDay.toSkylightDay(date: LocalDate) = when (this) {
         is EpochMilliSkylightDay.Typical ->
-            SkylightDayBackport.Typical(
+            SkylightDay.Typical(
                 date,
                 dawn.asEpochMilliToUtcOffsetTime(),
                 sunrise.asEpochMilliToUtcOffsetTime(),
                 sunset.asEpochMilliToUtcOffsetTime(),
                 dusk.asEpochMilliToUtcOffsetTime()
             )
-        is EpochMilliSkylightDay.AlwaysDaytime -> SkylightDayBackport.AlwaysDaytime(date)
+        is EpochMilliSkylightDay.AlwaysDaytime -> SkylightDay.AlwaysDaytime(date)
         is EpochMilliSkylightDay.AlwaysLight ->
-            SkylightDayBackport.AlwaysLight(
+            SkylightDay.AlwaysLight(
                 date,
                 sunrise.asEpochMilliToUtcOffsetTime(),
                 sunset.asEpochMilliToUtcOffsetTime()
             )
         is EpochMilliSkylightDay.NeverDaytime ->
-            SkylightDayBackport.NeverDaytime(
+            SkylightDay.NeverDaytime(
                 date,
                 dawn.asEpochMilliToUtcOffsetTime(),
                 dusk.asEpochMilliToUtcOffsetTime()
             )
-        is EpochMilliSkylightDay.NeverLight -> SkylightDayBackport.NeverLight(date)
+        is EpochMilliSkylightDay.NeverLight -> SkylightDay.NeverLight(date)
     }
 
     private fun Long.asEpochMilliToUtcOffsetTime() = OffsetTime.ofInstant(Instant.ofEpochMilli(this), ZoneOffset.UTC)
