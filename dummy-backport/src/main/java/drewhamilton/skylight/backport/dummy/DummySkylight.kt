@@ -9,7 +9,7 @@ import javax.inject.Inject
 /**
  * A [SkylightBackport] implementation that ignores passed parameters, and instead returns specific set values.
  */
-class DummySkylightBackport @Inject constructor(
+class DummySkylight @Inject constructor(
     private val dummySkylightDay: SkylightDay
 ) : SkylightBackport {
 

@@ -9,7 +9,7 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.OffsetTime
 import org.threeten.bp.ZoneOffset
 
-class DummySkylightBackportTest {
+class DummySkylightTest {
 
     private val testSkylightDay = SkylightDay.Typical(
         LocalDate.ofEpochDay(1),
@@ -19,11 +19,11 @@ class DummySkylightBackportTest {
         OffsetTime.of(4, 0, 0, 0, ZoneOffset.UTC)
     )
 
-    private lateinit var dummySkylight: DummySkylightBackport
+    private lateinit var dummySkylight: DummySkylight
 
     @Before
     fun setUp() {
-        dummySkylight = DummySkylightBackport(testSkylightDay)
+        dummySkylight = DummySkylight(testSkylightDay)
     }
 
     @Test

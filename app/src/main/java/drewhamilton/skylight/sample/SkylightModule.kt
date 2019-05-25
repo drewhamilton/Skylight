@@ -5,8 +5,8 @@ import dagger.Provides
 import dagger.Reusable
 import drewhamilton.skylight.backport.SkylightBackport
 import drewhamilton.skylight.backport.calculator.CalculatorSkylight
-import drewhamilton.skylight.backport.dummy.DummySkylightBackport
-import drewhamilton.skylight.backport.dummy.dagger.DummySkylightBackportComponent
+import drewhamilton.skylight.backport.dummy.DummySkylight
+import drewhamilton.skylight.backport.dummy.dagger.DummySkylightComponent
 import drewhamilton.skylight.backport.sso.SsoSkylightBackport
 import drewhamilton.skylight.backport.sso.dagger.SsoSkylightBackportComponent
 import drewhamilton.skylight.sample.source.SkylightRepository
@@ -22,7 +22,7 @@ object SkylightModule {
     @JvmStatic
     @Provides
     @Reusable
-    fun dummySkylight(dummySkylightComponent: DummySkylightBackportComponent) = dummySkylightComponent.skylight()
+    fun dummySkylight(dummySkylightComponent: DummySkylightComponent) = dummySkylightComponent.skylight()
 
     @JvmStatic
     @Provides
@@ -30,7 +30,7 @@ object SkylightModule {
         skylightRepository: SkylightRepository,
         ssoSkylight: SsoSkylightBackport,
         calculatorSkylight: CalculatorSkylight,
-        dummySkylight: DummySkylightBackport
+        dummySkylight: DummySkylight
     ): SkylightBackport = when (skylightRepository.getSelectedSkylightType().blockingGet()!!) {
         SkylightRepository.SkylightType.SSO -> ssoSkylight
         SkylightRepository.SkylightType.CALCULATOR -> calculatorSkylight

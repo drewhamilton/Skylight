@@ -3,7 +3,7 @@ package drewhamilton.skylight.sample
 import androidx.multidex.MultiDexApplication
 import com.jakewharton.threetenabp.AndroidThreeTen
 import drewhamilton.skylight.backport.SkylightDay
-import drewhamilton.skylight.backport.dummy.dagger.DummySkylightBackportComponent
+import drewhamilton.skylight.backport.dummy.dagger.DummySkylightComponent
 import drewhamilton.skylight.backport.sso.dagger.SsoSkylightBackportComponent
 import org.threeten.bp.LocalDate
 
@@ -17,7 +17,7 @@ class SampleApplication : MultiDexApplication() {
         AppComponent.create(
             this,
             SsoSkylightBackportComponent.create(),
-            DummySkylightBackportComponent.create(SkylightDay.NeverLight(LocalDate.now()))
+            DummySkylightComponent.create(SkylightDay.NeverLight(LocalDate.now()))
         )
     }
 }
