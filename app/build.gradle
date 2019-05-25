@@ -38,7 +38,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-  implementation project(':backport')
+  implementation project(':skylight-backport')
   implementation 'com.jakewharton.threetenabp:threetenabp:1.2.0'
 
   implementation project(':sso')

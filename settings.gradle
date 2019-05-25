@@ -1,4 +1,4 @@
-include ':skylight', ':backport'
+include ':skylight', ':skylight-backport'
 include ':sso', ':calculator', ':dummy'
 include ':rx'
 include ':views'
