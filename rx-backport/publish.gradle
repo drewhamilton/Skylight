@@ -16,7 +16,7 @@ install {
   repositories.mavenInstaller {
     pom.project {
       packaging packageType
-      groupId publishedGroupId
+      groupId publishedBackportGroupId
       artifactId artifact
 
       name libraryName

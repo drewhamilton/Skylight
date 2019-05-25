@@ -27,7 +27,7 @@ task clean(type: Delete) {
 }
 
 ext {
-  libraryVersion = '0.7.0'
+  libraryVersion = '0.8.2'
 
   rxJavaVersion = '2.2.8'
   daggerVersion = '2.22.1'

@@ -3,9 +3,9 @@
 Skylight is a Kotlin interface for providing sunrise, sunset, and other relevant details for a given location and date.
 
 **Heads up!** Pre-release versions up to 0.7.x used the legacy `java.util.Date` type in both parameters and return
-values. Starting from 0.8.0, context-appropriate `java.time` types are used, with a separate "backport" interface using
+values. Starting from 0.8.x, context-appropriate `java.time` types are used, with a separate "backport" interface using
 [ThreeTenBP](https://www.threeten.org/threetenbp/) types for Android and other Java 6 consumers. In either case, moving
-from 0.7.x to 0.8.0 is a significant breaking change.
+from 0.7.x to 0.8.x is a significant breaking change.
 
 ## Download
 [ ![Download](https://api.bintray.com/packages/drewhamilton/Skylight/Skylight/images/download.svg) ](https://bintray.com/drewhamilton/Skylight)
