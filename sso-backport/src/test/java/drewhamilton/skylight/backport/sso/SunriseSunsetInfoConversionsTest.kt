@@ -22,7 +22,7 @@ class SunriseSunsetInfoConversionsTest {
             ApiConstants.DATE_TIME_NONE,
             throwaway
         )
-        val output = input.toSkylightDayBackport(date)
+        val output = input.toSkylightDay(date)
         assertEquals(SkylightDay.NeverLight(date), output)
     }
 
@@ -34,7 +34,7 @@ class SunriseSunsetInfoConversionsTest {
             ApiConstants.DATE_TIME_ALWAYS_DAY,
             throwaway
         )
-        val output = input.toSkylightDayBackport(date)
+        val output = input.toSkylightDay(date)
         assertEquals(SkylightDay.AlwaysDaytime(date), output)
     }
 
@@ -46,7 +46,7 @@ class SunriseSunsetInfoConversionsTest {
         val sunset = dateTimeString(sunsetTimeString)
 
         val input = SunriseSunsetInfo(sunrise, sunset, ApiConstants.DATE_TIME_NONE, throwaway)
-        val output = input.toSkylightDayBackport(date)
+        val output = input.toSkylightDay(date)
 
         val expected = SkylightDay.AlwaysLight(
             date,
@@ -64,7 +64,7 @@ class SunriseSunsetInfoConversionsTest {
         val dusk = dateTimeString(duskTimeString)
 
         val input = SunriseSunsetInfo(ApiConstants.DATE_TIME_NONE, throwaway, dawn, dusk)
-        val output = input.toSkylightDayBackport(date)
+        val output = input.toSkylightDay(date)
 
         val expected = SkylightDay.NeverDaytime(
             date,
@@ -86,7 +86,7 @@ class SunriseSunsetInfoConversionsTest {
         val dusk = dateTimeString(duskTimeString)
 
         val input = SunriseSunsetInfo(sunrise, sunset, dawn, dusk)
-        val output = input.toSkylightDayBackport(date)
+        val output = input.toSkylightDay(date)
 
         val expected = SkylightDay.Typical(
             date,

@@ -2,7 +2,7 @@ package drewhamilton.skylight.backport.calculator
 
 import dagger.Reusable
 import drewhamilton.skylight.backport.Coordinates
-import drewhamilton.skylight.backport.SkylightBackport
+import drewhamilton.skylight.backport.Skylight
 import drewhamilton.skylight.backport.SkylightDay
 import drewhamilton.skylight.calculator.EpochMilliSkylightDay
 import drewhamilton.skylight.calculator.calculateSkylightInfo
@@ -20,7 +20,7 @@ import javax.inject.Inject
  * tested extensively. Handle the returned calculation accordingly
  */
 @Reusable
-class CalculatorSkylight @Inject constructor() : SkylightBackport {
+class CalculatorSkylight @Inject constructor() : Skylight {
 
     /**
      * Calculates the [SkylightDay] based on the given coordinates and date

@@ -4,7 +4,7 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import drewhamilton.skylight.backport.Coordinates
-import drewhamilton.skylight.backport.SkylightBackport
+import drewhamilton.skylight.backport.Skylight
 import drewhamilton.skylight.backport.SkylightDay
 import drewhamilton.skylight.backport.isDark
 import drewhamilton.skylight.backport.isLight
@@ -36,7 +36,7 @@ class SkylightTest {
     private val testNeverDaytime = SkylightDay.NeverDaytime(testDate, testDawn, testDusk)
     private val testTypical = SkylightDay.Typical(testDate, testDawn, testSunrise, testSunset, testDusk)
 
-    private lateinit var mockSkylight: SkylightBackport
+    private lateinit var mockSkylight: Skylight
 
     //region isLight
     @Test

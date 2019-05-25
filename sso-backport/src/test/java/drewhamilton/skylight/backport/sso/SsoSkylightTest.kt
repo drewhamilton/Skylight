@@ -46,9 +46,9 @@ class SsoSkylightTest {
             } doReturn DummyCall.success(Response(testSunriseSunsetInfo, "Dummy status"))
         }
 
-        val ssoSkylight = SsoSkylightBackport(mockApi)
+        val ssoSkylight = SsoSkylight(mockApi)
         assertEquals(
-            testSunriseSunsetInfo.toSkylightDayBackport(testDate),
+            testSunriseSunsetInfo.toSkylightDay(testDate),
             ssoSkylight.getSkylightDay(testCoordinates, testDate)
         )
     }
@@ -61,7 +61,7 @@ class SsoSkylightTest {
             } doReturn DummyCall.error(401, ResponseBody.create(null, "Content"))
         }
 
-        val ssoSkylight = SsoSkylightBackport(mockApi)
+        val ssoSkylight = SsoSkylight(mockApi)
         ssoSkylight.getSkylightDay(testCoordinates, testDate)
     }
 }

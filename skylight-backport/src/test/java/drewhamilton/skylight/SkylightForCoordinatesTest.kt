@@ -6,9 +6,9 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import drewhamilton.skylight.backport.Coordinates
-import drewhamilton.skylight.backport.SkylightBackport
+import drewhamilton.skylight.backport.Skylight
 import drewhamilton.skylight.backport.SkylightDay
-import drewhamilton.skylight.backport.SkylightForCoordinatesBackport
+import drewhamilton.skylight.backport.SkylightForCoordinates
 import drewhamilton.skylight.backport.forCoordinates
 import drewhamilton.skylight.backport.isDark
 import drewhamilton.skylight.backport.isLight
@@ -24,11 +24,11 @@ import kotlin.reflect.KClass
 
 class SkylightForCoordinatesTest {
 
-    private lateinit var mockSkylight: SkylightBackport
+    private lateinit var mockSkylight: Skylight
     private val testCoordinates = Coordinates(98.7, 6.54)
     private val testTime = OffsetTime.of(15, 0, 0, 0, ZoneOffset.UTC)
 
-    private lateinit var skylightForCoordinates: SkylightForCoordinatesBackport
+    private lateinit var skylightForCoordinates: SkylightForCoordinates
 
     @Before
     fun setUp() {

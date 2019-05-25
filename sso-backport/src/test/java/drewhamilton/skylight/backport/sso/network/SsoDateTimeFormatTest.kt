@@ -16,19 +16,19 @@ class SsoDateTimeFormatTest {
 
     @Test
     fun `parse with UTC time zone returns date from UTC string`() {
-        assertEquals(testDateTime, testDateTimeStringUtc.toZonedDateTimeBackport())
+        assertEquals(testDateTime, testDateTimeStringUtc.toZonedDateTime())
     }
 
     @Test
     fun `parse with CEST time zone returns date from CEST string`() {
         assertEquals(
             testDateTime.withZoneSameInstant(ZoneOffset.ofHours(2)),
-            testDateTimeStringCest.toZonedDateTimeBackport()
+            testDateTimeStringCest.toZonedDateTime()
         )
     }
 
     @Test(expected = DateTimeParseException::class)
     fun `parse without time zone colon throws DateTimeParseException`() {
-        "2017-03-31T07:48:23+0200".toZonedDateTimeBackport()
+        "2017-03-31T07:48:23+0200".toZonedDateTime()
     }
 }

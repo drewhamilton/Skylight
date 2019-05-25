@@ -3,11 +3,11 @@ package drewhamilton.skylight.sample
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
-import drewhamilton.skylight.backport.SkylightBackport
+import drewhamilton.skylight.backport.Skylight
 import drewhamilton.skylight.backport.calculator.CalculatorSkylight
 import drewhamilton.skylight.backport.dummy.DummySkylight
 import drewhamilton.skylight.backport.dummy.dagger.DummySkylightComponent
-import drewhamilton.skylight.backport.sso.SsoSkylightBackport
+import drewhamilton.skylight.backport.sso.SsoSkylight
 import drewhamilton.skylight.backport.sso.dagger.SsoSkylightComponent
 import drewhamilton.skylight.sample.source.SkylightRepository
 
@@ -28,10 +28,10 @@ object SkylightModule {
     @Provides
     fun skylight(
         skylightRepository: SkylightRepository,
-        ssoSkylight: SsoSkylightBackport,
+        ssoSkylight: SsoSkylight,
         calculatorSkylight: CalculatorSkylight,
         dummySkylight: DummySkylight
-    ): SkylightBackport = when (skylightRepository.getSelectedSkylightType().blockingGet()!!) {
+    ): Skylight = when (skylightRepository.getSelectedSkylightType().blockingGet()!!) {
         SkylightRepository.SkylightType.SSO -> ssoSkylight
         SkylightRepository.SkylightType.CALCULATOR -> calculatorSkylight
         SkylightRepository.SkylightType.DUMMY -> dummySkylight

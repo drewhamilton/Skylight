@@ -7,7 +7,7 @@ import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.DateTimeFormatterBuilder
 import org.threeten.bp.format.ResolverStyle
 
-internal fun @receiver:SsoDateTime String.toZonedDateTimeBackport() = ZonedDateTime.parse(this, DATE_TIME_FORMATTER)
+internal fun @receiver:SsoDateTime String.toZonedDateTime() = ZonedDateTime.parse(this, DATE_TIME_FORMATTER)
 
 private val DATE_TIME_FORMATTER: DateTimeFormatter by lazy {
     DateTimeFormatterBuilder()

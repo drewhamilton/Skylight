@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import drewhamilton.skylight.backport.SkylightBackport
+import drewhamilton.skylight.backport.Skylight
 import drewhamilton.skylight.backport.SkylightDay
 import drewhamilton.skylight.backport.rx.getSkylightDaySingle
 import drewhamilton.skylight.sample.AppComponent
@@ -41,7 +41,7 @@ class MainActivity : RxActivity() {
     @Inject protected lateinit var locationRepository: LocationRepository
 
     @Suppress("ProtectedInFinal")
-    @Inject protected lateinit var skylight: SkylightBackport
+    @Inject protected lateinit var skylight: Skylight
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

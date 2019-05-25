@@ -4,12 +4,12 @@ import org.threeten.bp.LocalDate
 import javax.inject.Inject
 
 /**
- * A convenient [SkylightBackport] wrapper for a single date.
+ * A convenient [Skylight] wrapper for a single date.
  * TODO: Determine if @Inject internal constructor works with Dagger in another module
  * TODO: Investigate assisted injection
  */
-class SkylightForDateBackport @Inject internal constructor(
-    private val skylight: SkylightBackport,
+class SkylightForDate @Inject internal constructor(
+    private val skylight: Skylight,
     val date: LocalDate
 ) {
     /**
@@ -20,8 +20,8 @@ class SkylightForDateBackport @Inject internal constructor(
 }
 
 /**
- * Create a [SkylightBackport] wrapper for a constant [LocalDate]
+ * Create a [Skylight] wrapper for a constant [LocalDate]
  * @param date The date for which the resulting wrapper will retrieve Skylight info.
- * @return a [SkylightForDateBackport] wrapping the given [SkylightBackport] and [LocalDate]
+ * @return a [SkylightForDate] wrapping the given [Skylight] and [LocalDate]
  */
-fun SkylightBackport.forDate(date: LocalDate) = SkylightForDateBackport(this, date)
+fun Skylight.forDate(date: LocalDate) = SkylightForDate(this, date)

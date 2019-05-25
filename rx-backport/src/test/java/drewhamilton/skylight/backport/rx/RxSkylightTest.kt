@@ -4,7 +4,7 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.mock
 import drewhamilton.skylight.backport.Coordinates
-import drewhamilton.skylight.backport.SkylightBackport
+import drewhamilton.skylight.backport.Skylight
 import drewhamilton.skylight.backport.SkylightDay
 import org.junit.Test
 import org.threeten.bp.LocalDate
@@ -16,7 +16,7 @@ class RxSkylightTest {
     private val dummyCoordinates = Coordinates(50.0, 60.0)
     private val testDawn = OffsetTime.of(12, 0, 0, 0, ZoneOffset.UTC)
 
-    private lateinit var mockSkylight: SkylightBackport
+    private lateinit var mockSkylight: Skylight
 
     //region getSkylightDaySingle
     @Test

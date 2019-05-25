@@ -19,6 +19,6 @@ interface DummySkylightComponent {
 
     companion object {
         fun create(dummySkylightDay: SkylightDay): DummySkylightComponent =
-            DaggerDummySkylightBackportComponent.factory().create(dummySkylightDay)
+            DaggerDummySkylightComponent.factory().create(dummySkylightDay)
     }
 }

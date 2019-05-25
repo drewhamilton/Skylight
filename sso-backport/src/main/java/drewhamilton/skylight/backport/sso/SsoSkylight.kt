@@ -1,10 +1,10 @@
 package drewhamilton.skylight.backport.sso
 
 import drewhamilton.skylight.backport.Coordinates
-import drewhamilton.skylight.backport.SkylightBackport
+import drewhamilton.skylight.backport.Skylight
 import drewhamilton.skylight.backport.SkylightDay
 import drewhamilton.skylight.backport.sso.network.toSsoDateString
-import drewhamilton.skylight.backport.sso.network.toZonedDateTimeBackport
+import drewhamilton.skylight.backport.sso.network.toZonedDateTime
 import drewhamilton.skylight.sso.network.ApiConstants
 import drewhamilton.skylight.sso.network.SsoApi
 import drewhamilton.skylight.sso.network.request.Params
@@ -14,16 +14,16 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 /**
- * An implementation of [SkylightBackport] that uses sunrise-sunset.org to determine a [SkylightDay] for the
- * given location and date.
+ * An implementation of [Skylight] that uses sunrise-sunset.org to determine a [SkylightDay] for the given location and
+ * date.
  */
-class SsoSkylightBackport @Inject constructor(
+class SsoSkylight @Inject constructor(
     private val api: SsoApi
-) : SkylightBackport {
+) : Skylight {
 
     override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay {
         val params = Params(coordinates.latitude, coordinates.longitude, date.toSsoDateString())
-        return getInfoResults(params).toSkylightDayBackport(date)
+        return getInfoResults(params).toSkylightDay(date)
     }
 
     private fun getInfoResults(params: Params): SunriseSunsetInfo {
@@ -39,26 +39,26 @@ class SsoSkylightBackport @Inject constructor(
 }
 
 // TODO: Make this private and test it via the public method
-internal fun SunriseSunsetInfo.toSkylightDayBackport(date: LocalDate): SkylightDay {
+internal fun SunriseSunsetInfo.toSkylightDay(date: LocalDate): SkylightDay {
     return when {
         civil_twilight_begin == ApiConstants.DATE_TIME_NONE && sunrise == ApiConstants.DATE_TIME_NONE ->
-            SkylightDayBackport.NeverLight(date)
+            SkylightDay.NeverLight(date)
         civil_twilight_begin == ApiConstants.DATE_TIME_ALWAYS_DAY && sunrise == ApiConstants.DATE_TIME_ALWAYS_DAY ->
-            SkylightDayBackport.AlwaysDaytime(date)
+            SkylightDay.AlwaysDaytime(date)
         civil_twilight_begin == ApiConstants.DATE_TIME_NONE ->
-            SkylightDayBackport.AlwaysLight(
+            SkylightDay.AlwaysLight(
                 date,
                 sunrise.asDateTimeToOffsetTime(),
                 sunset.asDateTimeToOffsetTime()
             )
         sunrise == ApiConstants.DATE_TIME_NONE ->
-            SkylightDayBackport.NeverDaytime(
+            SkylightDay.NeverDaytime(
                 date,
                 civil_twilight_begin.asDateTimeToOffsetTime(),
                 civil_twilight_end.asDateTimeToOffsetTime()
             )
         else ->
-            SkylightDayBackport.Typical(
+            SkylightDay.Typical(
                 date,
                 civil_twilight_begin.asDateTimeToOffsetTime(),
                 sunrise.asDateTimeToOffsetTime(),
@@ -68,6 +68,6 @@ internal fun SunriseSunsetInfo.toSkylightDayBackport(date: LocalDate): SkylightD
     }
 }
 
-private fun String.asDateTimeToOffsetTime() = toZonedDateTimeBackport()
+private fun String.asDateTimeToOffsetTime() = toZonedDateTime()
     .toOffsetDateTime()
     .toOffsetTime()

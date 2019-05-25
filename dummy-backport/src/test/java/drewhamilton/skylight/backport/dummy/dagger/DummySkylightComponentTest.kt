@@ -10,9 +10,9 @@ class DummySkylightComponentTest {
     private val testSkylightDay = SkylightDay.NeverLight(LocalDate.ofEpochDay(4))
 
     @Test
-    fun `create returns DummySkylightBackportComponent with dummySkylightDay`() {
-        val dummySkylightBackportComponent = DummySkylightComponent.create(testSkylightDay)
-        val skylight = dummySkylightBackportComponent.skylight()
+    fun `create returns DummySkylightComponent with dummySkylightDay`() {
+        val dummySkylightComponent = DummySkylightComponent.create(testSkylightDay)
+        val skylight = dummySkylightComponent.skylight()
 
         assertEquals(testSkylightDay, skylight.getSkylightDay())
     }
