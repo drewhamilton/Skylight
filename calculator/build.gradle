@@ -11,13 +11,13 @@ dependencies {
 
     // Backport interface is compileOnly so consumers who don't need it don't have it. Consumers who do need it can
     // declare it manually.
-    compileOnly project(':skylight-backport')
+    compileOnly project(':skylight:backport')
 
     implementation "com.google.dagger:dagger:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
     testImplementation 'junit:junit:4.12'
-    testImplementation project(':skylight-backport')
+    testImplementation project(':skylight:backport')
 }
 
 sourceCompatibility = "1.8"
