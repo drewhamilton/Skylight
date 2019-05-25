@@ -1,16 +1,16 @@
 apply from: '../publish.gradle'
 
 ext {
-  bintrayName = 'Skylight-views'
-  libraryName = 'Skylight views'
-  artifact = 'skylight-views'
+  bintrayName = 'SkylightBackport-rx'
+  libraryName = 'RxSkylight'
+  artifact = 'skylight-rx'
 
-  libraryDescription = 'Custom Android views that may be useful in displaying Skylight information.'
+  libraryDescription = 'Java 6-compatible RxJava extensions for Skylight'
 
-  packageType = "aar"
+  packageType = "jar"
 }
 
-group = publishedGroupId
+group = publishedBackportGroupId
 
 install {
   repositories.mavenInstaller {
@@ -47,7 +47,7 @@ install {
 
 task sourcesJar(type: Jar) {
   archiveClassifier = 'sources'
-  from android.sourceSets.main.java.srcDirs
+  from sourceSets.main.allSource
 }
 
 artifacts {

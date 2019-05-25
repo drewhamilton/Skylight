@@ -5,6 +5,7 @@ ext {
   bintrayRepo = 'Skylight'
 
   publishedGroupId = 'drewhamilton.skylight'
+  publishedBackportGroupId = 'drewhamilton.skylight.backport'
 
   siteUrl = 'https://github.com/drewhamilton/skylight'
   gitUrl = 'https://github.com/drewhamilton/skylight'
@@ -25,7 +26,6 @@ ext {
       System.getenv('personalBintrayApiKey')
 }
 
-group = publishedGroupId
 version = libraryVersion
 
 apply plugin: 'org.jetbrains.dokka'
