@@ -6,7 +6,7 @@ import drewhamilton.skylight.Coordinates
 import drewhamilton.skylight.sso.network.DummyCall
 import drewhamilton.skylight.sso.network.SsoApi
 import drewhamilton.skylight.sso.network.request.Params
-import drewhamilton.skylight.sso.network.response.Response
+import drewhamilton.skylight.sso.network.response.SsoInfoResponse
 import drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
 import okhttp3.ResponseBody
 import org.junit.Assert.assertEquals
@@ -44,7 +44,7 @@ class SsoSkylightTest {
         mockApi = mock {
             on {
                 getInfo(testParams.lat, testParams.lng, testDateString, 0)
-            } doReturn DummyCall.success(Response(testSunriseSunsetInfo, "Dummy status"))
+            } doReturn DummyCall.success(SsoInfoResponse(testSunriseSunsetInfo, "Dummy status"))
         }
 
         val ssoSkylight = SsoSkylight(mockApi)

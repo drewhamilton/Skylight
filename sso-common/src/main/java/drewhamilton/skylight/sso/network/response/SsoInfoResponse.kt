@@ -1,6 +1,6 @@
 package drewhamilton.skylight.sso.network.response
 
-data class Response(
+data class SsoInfoResponse(
     val results: SunriseSunsetInfo,
     val status: String
 )
