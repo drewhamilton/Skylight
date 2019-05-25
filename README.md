@@ -29,7 +29,6 @@ implementation "drewhamilton.skylight:skylight-dummy:$version"
 implementation "drewhamilton.skylight:skylight-rx:$version"
 ```
 
-
 Using Skylight with Java 6 and 7 requires a backport, as the primary Skylight interface uses `java.time` types. To use
 the backports, which replace `java.time` types with [ThreeTenBP](https://www.threeten.org/threetenbp/), add "backport"
 to the group ID:
@@ -49,7 +48,6 @@ implementation "drewhamilton.skylight.backport:skylight-rx:$version"
 ```
 **Note:** It is not recommended and in some cases impossible to use both Skylight and backported Skylight in a single
 app or library.
-
 
 To use Skylight Views for Android, include this:
 ```groovy
