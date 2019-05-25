@@ -12,7 +12,7 @@ import org.junit.Test
 import org.threeten.bp.LocalDate
 import org.threeten.bp.Month
 
-class SkylightForDateBackportTest {
+class SkylightForDateTest {
 
     private lateinit var mockSkylight: SkylightBackport
     private val testDate = LocalDate.of(2019, Month.MAY, 20)

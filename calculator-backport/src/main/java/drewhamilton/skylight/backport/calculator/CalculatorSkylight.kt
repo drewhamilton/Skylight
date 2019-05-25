@@ -20,7 +20,7 @@ import javax.inject.Inject
  * tested extensively. Handle the returned calculation accordingly
  */
 @Reusable
-class CalculatorSkylightBackport @Inject constructor() : SkylightBackport {
+class CalculatorSkylight @Inject constructor() : SkylightBackport {
 
     /**
      * Calculates the [SkylightDay] based on the given coordinates and date

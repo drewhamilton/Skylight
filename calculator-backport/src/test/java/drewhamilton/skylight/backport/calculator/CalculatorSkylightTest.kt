@@ -10,9 +10,9 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.OffsetTime
 import org.threeten.bp.ZoneOffset
 
-class CalculatorSkylightBackportTest {
+class CalculatorSkylightTest {
 
-    private val skylight = CalculatorSkylightBackport()
+    private val skylight = CalculatorSkylight()
 
     //region Amsterdam on January 6, 2019
     @Test

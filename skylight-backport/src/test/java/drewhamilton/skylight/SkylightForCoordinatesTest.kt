@@ -22,7 +22,7 @@ import org.threeten.bp.ZoneOffset
 import org.threeten.bp.ZonedDateTime
 import kotlin.reflect.KClass
 
-class SkylightForCoordinatesBackportTest {
+class SkylightForCoordinatesTest {
 
     private lateinit var mockSkylight: SkylightBackport
     private val testCoordinates = Coordinates(98.7, 6.54)

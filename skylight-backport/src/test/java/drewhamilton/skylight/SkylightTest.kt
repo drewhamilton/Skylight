@@ -17,7 +17,7 @@ import org.threeten.bp.OffsetTime
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.ZonedDateTime
 
-class SkylightBackportTest {
+class SkylightTest {
 
     private val testCoordinates = Coordinates(50.0, 60.0)
     private val testDate = LocalDate.of(2019, Month.MAY, 15)
