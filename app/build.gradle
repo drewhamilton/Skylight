@@ -43,7 +43,7 @@ dependencies {
 
   implementation project(':sso')
   implementation project(':calculator')
-  implementation project(':dummy')
+  implementation project(':dummy-backport')
   implementation project(':rx')
 
   implementation 'androidx.core:core-ktx:1.0.2'

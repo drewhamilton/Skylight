@@ -1,5 +1,7 @@
 include ':skylight', ':skylight-backport'
-include ':sso', ':calculator', ':dummy'
+include ':sso'
+include ':calculator'
+include ':dummy', ':dummy-backport'
 include ':rx'
 include ':views'
 include ':app'
