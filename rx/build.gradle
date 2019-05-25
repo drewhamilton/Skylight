@@ -11,15 +11,9 @@ dependencies {
 
   api "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
 
-  // Backport interface is compileOnly so consumers who don't need it don't have it. Consumers who do need it can
-  // declare it manually.
-  compileOnly project(':backport')
-
   testImplementation 'junit:junit:4.12'
   testImplementation 'org.mockito:mockito-inline:2.27.0'
   testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
-  testImplementation project(':backport')
-  testImplementation 'org.threeten:threetenbp:1.4.0'
 }
 
 sourceCompatibility = "1.8"

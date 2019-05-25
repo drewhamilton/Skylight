@@ -4,12 +4,16 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Skylight.iml" filepath="$PROJECT_DIR$/Skylight.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/backport/backport.iml" filepath="$PROJECT_DIR$/backport/backport.iml" />
       <module fileurl="file://$PROJECT_DIR$/calculator/calculator.iml" filepath="$PROJECT_DIR$/calculator/calculator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/calculator-backport/calculator-backport.iml" filepath="$PROJECT_DIR$/calculator-backport/calculator-backport.iml" />
       <module fileurl="file://$PROJECT_DIR$/dummy/dummy.iml" filepath="$PROJECT_DIR$/dummy/dummy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dummy-backport/dummy-backport.iml" filepath="$PROJECT_DIR$/dummy-backport/dummy-backport.iml" />
       <module fileurl="file://$PROJECT_DIR$/rx/rx.iml" filepath="$PROJECT_DIR$/rx/rx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rx-backport/rx-backport.iml" filepath="$PROJECT_DIR$/rx-backport/rx-backport.iml" />
       <module fileurl="file://$PROJECT_DIR$/skylight/skylight.iml" filepath="$PROJECT_DIR$/skylight/skylight.iml" />
+      <module fileurl="file://$PROJECT_DIR$/skylight-backport/skylight-backport.iml" filepath="$PROJECT_DIR$/skylight-backport/skylight-backport.iml" />
       <module fileurl="file://$PROJECT_DIR$/sso/sso.iml" filepath="$PROJECT_DIR$/sso/sso.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sso-backport/sso-backport.iml" filepath="$PROJECT_DIR$/sso-backport/sso-backport.iml" />
       <module fileurl="file://$PROJECT_DIR$/views/views.iml" filepath="$PROJECT_DIR$/views/views.iml" />
     </modules>
   </component>

@@ -3,8 +3,8 @@ package drewhamilton.skylight.sample
 import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
-import drewhamilton.skylight.backport.dummy.dagger.DummySkylightBackportComponent
-import drewhamilton.skylight.backport.sso.dagger.SsoSkylightBackportComponent
+import drewhamilton.skylight.backport.dummy.dagger.DummySkylightComponent
+import drewhamilton.skylight.backport.sso.dagger.SsoSkylightComponent
 import drewhamilton.skylight.sample.main.MainActivity
 import drewhamilton.skylight.sample.settings.SettingsActivity
 import javax.inject.Singleton
@@ -22,8 +22,8 @@ interface AppComponent {
     @Component.Factory interface Factory {
         fun create(
             @BindsInstance application: Application,
-            @BindsInstance ssoSkylightComponent: SsoSkylightBackportComponent,
-            @BindsInstance dummySkylightComponent: DummySkylightBackportComponent
+            @BindsInstance ssoSkylightComponent: SsoSkylightComponent,
+            @BindsInstance dummySkylightComponent: DummySkylightComponent
         ): AppComponent
     }
 
@@ -35,8 +35,8 @@ interface AppComponent {
 
         fun create(
             application: Application,
-            ssoSkylightComponent: SsoSkylightBackportComponent,
-            dummySkylightComponent: DummySkylightBackportComponent
+            ssoSkylightComponent: SsoSkylightComponent,
+            dummySkylightComponent: DummySkylightComponent
         ) {
             _instance = DaggerAppComponent.factory().create(application, ssoSkylightComponent, dummySkylightComponent)
         }

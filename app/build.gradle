@@ -38,13 +38,13 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-  implementation project(':backport')
   implementation 'com.jakewharton.threetenabp:threetenabp:1.2.0'
 
-  implementation project(':sso')
-  implementation project(':calculator')
-  implementation project(':dummy')
-  implementation project(':rx')
+  implementation project(':skylight-backport')
+  implementation project(':sso-backport')
+  implementation project(':calculator-backport')
+  implementation project(':dummy-backport')
+  implementation project(':rx-backport')
 
   implementation 'androidx.core:core-ktx:1.0.2'
   implementation 'androidx.fragment:fragment-ktx:1.0.0'

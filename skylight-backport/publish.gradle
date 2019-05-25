@@ -1,0 +1,78 @@
+apply from: '../publish.gradle'
+
+ext {
+  bintrayName = 'SkylightBackport'
+  libraryName = 'Skylight'
+  artifact = 'skylight'
+
+  libraryDescription = 'An Java 6-compatible interface for determining sunrise, sunset, and related info for a given location.'
+
+  packageType = "jar"
+}
+
+group = publishedBackportGroupId
+
+install {
+  repositories.mavenInstaller {
+    pom.project {
+      packaging packageType
+      groupId publishedGroupId
+      artifactId artifact
+
+      name libraryName
+      description libraryDescription
+      url siteUrl
+
+      licenses {
+        license {
+          name licenseName
+          url licenseUrl
+        }
+      }
+      developers {
+        developer {
+          id developerId
+          name developerName
+          email developerEmail
+        }
+      }
+      scm {
+        connection gitUrl
+        developerConnection gitUrl
+        url siteUrl
+      }
+    }
+  }
+}
+
+task sourcesJar(type: Jar) {
+  archiveClassifier = 'sources'
+  from sourceSets.main.allSource
+}
+
+artifacts {
+  archives javadocJar
+  archives sourcesJar
+}
+
+bintray {
+  user = bintrayUser
+  key = bintrayKey
+
+  configurations = ['archives']
+  pkg {
+    repo = bintrayRepo
+    name = bintrayName
+    desc = libraryDescription
+    websiteUrl = siteUrl
+    vcsUrl = gitUrl
+    licenses = allLicenses
+    dryRun = false
+    publish = true
+    override = false
+    publicDownloadNumbers = true
+    version {
+      desc = libraryDescription
+    }
+  }
+}

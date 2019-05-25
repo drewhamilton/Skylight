@@ -10,6 +10,8 @@ ext {
   packageType = "aar"
 }
 
+group = publishedGroupId
+
 install {
   repositories.mavenInstaller {
     pom.project {

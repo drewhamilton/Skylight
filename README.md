@@ -10,8 +10,8 @@ from 0.7.x to 0.8.0 is a significant breaking change.
 ## Download
 [ ![Download](https://api.bintray.com/packages/drewhamilton/Skylight/Skylight/images/download.svg) ](https://bintray.com/drewhamilton/Skylight)
 
-Skylight is available in JCenter. It is still in development, and the API may undergo breaking changes before version
-1.0.0.
+Skylight is available in JCenter. It is still in pre-release development, and the API may undergo breaking changes
+before version 1.0.0.
 
 To use Skylight, include any of the following in your Gradle dependencies:
 ```groovy
@@ -27,46 +27,33 @@ implementation "drewhamilton.skylight:skylight-dummy:$version"
 
 // RxJava extensions:
 implementation "drewhamilton.skylight:skylight-rx:$version"
+```
 
+Using Skylight with Java 6 and 7 requires a backport, as the primary Skylight interface uses `java.time` types. To use
+the backports, which replace `java.time` types with [ThreeTenBP](https://www.threeten.org/threetenbp/), add "backport"
+to the group ID:
+```groovy
+// The base interface, using the ThreeTenBP library:
+implementation "drewhamilton.skylight.backport:skylight:$version"
+
+// sunrise-sunset.org implementation:
+implementation "drewhamilton.skylight.backport:skylight-sso:$version"
+// Calculator implementation:
+implementation "drewhamilton.skylight.backport:skylight-calculator:$version"
+// Dummy implementation:
+implementation "drewhamilton.skylight.backport:skylight-dummy:$version"
+
+// RxJava extensions:
+implementation "drewhamilton.skylight.backport:skylight-rx:$version"
+```
+**Note:** It is not recommended and in some cases impossible to use both Skylight and backported Skylight in a single
+app or library.
+
+To use Skylight Views for Android, include this:
+```groovy
 // Android views and themes:
 implementation "drewhamilton.skylight:skylight-views:$version"
 ```
-
-## Modules
-
-### `:skylight`
-The generic interface itself, designed to be implementation-agnostic.
-
-### `:backport`
-A copy of the interface that uses [ThreeTenBP](https://www.threeten.org/threetenbp/) types instead of Java 8's
-`java.time` package, for compatibility down to Java 6.
-
-Note that the `no-tzdb` configuration is provided as a compile- and run-time dependency. Android applications should
-explicitly include and initialize [ThreeTenABP](https://github.com/JakeWharton/ThreeTenABP) to get timezone information
-at runtime. Non-Android applications should explicitly include the full version of ThreeTenBP as a dependency in order
-to get timezone information.
-
-### `:sso`
-An implementation that uses [sunrise-sunset.org](https://sunrise-sunset.org/)'s publicly available
-[API](https://sunrise-sunset.org/api) to determine skylight information. Note that sunrise-sunset.org's API page says
-"You may not use this API in a manner that exceeds reasonable request volume, constitutes excessive or abusive usage."
-The same requirement applies to this module of Skylight.
-
-### `:calculator`
-An implementation that calculates skylight information locally, using fancy math adapted from AndroidX's (internal)
-`TwilightCalculator` class. Much faster than the network implementation.
-
-### `:dummy`
-An implementation that just returns the same set of skylight information regardless of coordinate and date inputs.
-
-### `:rx`
-RxJava extensions for the Skylight interface.
-
-### `:views`
-For Android: Skylight themes and a basic card view that can be used to display a skylight event.
-
-### `:app`
-A sample app that demonstrates use of the library.
 
 ## License
 ```
