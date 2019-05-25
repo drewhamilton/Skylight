@@ -8,7 +8,7 @@ import org.junit.Test
 import org.threeten.bp.LocalDate
 import org.threeten.bp.OffsetTime
 
-class SunriseSunsetInfoConversionBackportsTest {
+class SunriseSunsetInfoConversionsTest {
 
     private val dateString = "2011-04-12"
     private val date = LocalDate.parse(dateString)

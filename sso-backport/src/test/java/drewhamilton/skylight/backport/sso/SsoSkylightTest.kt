@@ -15,7 +15,7 @@ import org.threeten.bp.Month
 import org.threeten.bp.format.DateTimeFormatter
 import retrofit2.HttpException
 
-class SsoSkylightBackportTest {
+class SsoSkylightTest {
 
     private val testDawn = "1999-08-21T08:30:40+00:00"
     private val testSunrise = "1999-08-21T09:30:40+00:00"

@@ -8,7 +8,7 @@ import drewhamilton.skylight.backport.calculator.CalculatorSkylight
 import drewhamilton.skylight.backport.dummy.DummySkylight
 import drewhamilton.skylight.backport.dummy.dagger.DummySkylightComponent
 import drewhamilton.skylight.backport.sso.SsoSkylightBackport
-import drewhamilton.skylight.backport.sso.dagger.SsoSkylightBackportComponent
+import drewhamilton.skylight.backport.sso.dagger.SsoSkylightComponent
 import drewhamilton.skylight.sample.source.SkylightRepository
 
 @Module
@@ -17,7 +17,7 @@ object SkylightModule {
     @JvmStatic
     @Provides
     @Reusable
-    fun ssoSkylight(ssoSkylightComponent: SsoSkylightBackportComponent) = ssoSkylightComponent.skylight()
+    fun ssoSkylight(ssoSkylightComponent: SsoSkylightComponent) = ssoSkylightComponent.skylight()
 
     @JvmStatic
     @Provides

@@ -6,7 +6,7 @@ import org.threeten.bp.ZoneOffset
 import org.threeten.bp.ZonedDateTime
 import org.threeten.bp.format.DateTimeParseException
 
-class SsoDateTimeBackportTest {
+class SsoDateTimeFormatTest {
 
     // 1999 Dec. 31 11:59:59.000pm UTC:
     private val testDateTime = ZonedDateTime.of(1999, 12, 31, 23, 59, 59, 0, ZoneOffset.UTC)

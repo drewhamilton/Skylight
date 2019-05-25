@@ -10,12 +10,12 @@ import okhttp3.OkHttpClient
  * A Dagger component providing an instance of [SsoSkylightBackport].
  */
 @Component(modules = [SsoNetworkModule::class])
-interface SsoSkylightBackportComponent {
+interface SsoSkylightComponent {
 
     fun skylight(): SsoSkylightBackport
 
     @Component.Factory interface Factory {
-        fun create(@BindsInstance okHttpClient: OkHttpClient): SsoSkylightBackportComponent
+        fun create(@BindsInstance okHttpClient: OkHttpClient): SsoSkylightComponent
     }
 
     companion object {

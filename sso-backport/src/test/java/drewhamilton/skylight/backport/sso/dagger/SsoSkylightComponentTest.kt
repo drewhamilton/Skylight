@@ -14,7 +14,7 @@ import org.junit.Test
 import org.threeten.bp.LocalDate
 import org.threeten.bp.Month
 
-class SsoSkylightBackportComponentTest {
+class SsoSkylightComponentTest {
 
     private var mockWebServer: MockWebServer? = null
 
@@ -25,7 +25,7 @@ class SsoSkylightBackportComponentTest {
 
     @Test
     fun `create without OkHttpClient compiles and runs`() {
-        val component = SsoSkylightBackportComponent.create()
+        val component = SsoSkylightComponent.create()
         assertNotSame(component.skylight(), component.skylight())
     }
 
@@ -42,7 +42,7 @@ class SsoSkylightBackportComponentTest {
             .addNetworkInterceptor(fakeNetworkInterceptor)
             .build()
 
-        val component = SsoSkylightBackportComponent.create(testOkHttpClient)
+        val component = SsoSkylightComponent.create(testOkHttpClient)
         val skylight = component.skylight()
         skylight.getSkylightDay(testCoordinates, testDate)
 
