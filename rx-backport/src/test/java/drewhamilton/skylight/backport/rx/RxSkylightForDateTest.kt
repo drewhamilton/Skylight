@@ -10,7 +10,7 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.OffsetTime
 import org.threeten.bp.ZoneOffset
 
-class RxSkylightForDateBackportTest {
+class RxSkylightForDateTest {
 
     private val dummyCoordinates = Coordinates(70.0, 80.0)
     private val testDawn = OffsetTime.of(8, 0, 0, 0, ZoneOffset.UTC)
