@@ -30,7 +30,11 @@ class CalculatorSkylightBackport @Inject constructor() : SkylightBackport {
      */
     override fun getSkylightDay(coordinates: CoordinatesBackport, date: LocalDate): SkylightDayBackport {
         val epochMillis = date.toNoonUtcEpochMillis()
-        return calculateSkylightInfo(epochMillis, coordinates.latitude, coordinates.longitude)
+        return calculateSkylightInfo(
+            epochMillis,
+            coordinates.latitude,
+            coordinates.longitude
+        )
             .toSkylightDay(date)
     }
 

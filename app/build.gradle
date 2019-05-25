@@ -42,7 +42,7 @@ dependencies {
   implementation 'com.jakewharton.threetenabp:threetenabp:1.2.0'
 
   implementation project(':sso')
-  implementation project(':calculator')
+  implementation project(':calculator-backport')
   implementation project(':dummy-backport')
   implementation project(':rx')
 
