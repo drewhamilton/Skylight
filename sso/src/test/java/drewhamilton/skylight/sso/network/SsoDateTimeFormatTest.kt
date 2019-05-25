@@ -6,7 +6,7 @@ import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.format.DateTimeParseException
 
-class SsoDateTimeTest {
+class SsoDateTimeFormatTest {
 
     // 1999 Dec. 31 11:59:59.000pm UTC:
     private val testDateTime = ZonedDateTime.of(1999, 12, 31, 23, 59, 59, 0, ZoneOffset.UTC)

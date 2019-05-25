@@ -4,6 +4,8 @@ apply plugin: 'kotlin-kapt'
 
 apply from: 'publish.gradle'
 
+sourceSets.main.java.srcDirs += '../sso-common/src/main/java'
+
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"

@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDate
 
-class SsoDateTest {
+class SsoDateFormatTest {
 
     private val testDateString = "2016-01-23"
     private val testDate = LocalDate.parse(testDateString)
