@@ -5,15 +5,15 @@ apply plugin: 'kotlin-kapt'
 //apply from: 'publish.gradle'
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    api project(':skylight-backport')
+  api project(':skylight-backport')
 
-    implementation "com.google.dagger:dagger:$daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+  implementation "com.google.dagger:dagger:$daggerVersion"
+  kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
-    testImplementation 'junit:junit:4.12'
-    testImplementation project(':skylight-backport')
+  testImplementation 'junit:junit:4.12'
+  testImplementation project(':skylight-backport')
 }
 
 sourceCompatibility = "1.8"

@@ -12,6 +12,7 @@
       <module fileurl="file://$PROJECT_DIR$/skylight/skylight.iml" filepath="$PROJECT_DIR$/skylight/skylight.iml" />
       <module fileurl="file://$PROJECT_DIR$/skylight-backport/skylight-backport.iml" filepath="$PROJECT_DIR$/skylight-backport/skylight-backport.iml" />
       <module fileurl="file://$PROJECT_DIR$/sso/sso.iml" filepath="$PROJECT_DIR$/sso/sso.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sso-backport/sso-backport.iml" filepath="$PROJECT_DIR$/sso-backport/sso-backport.iml" />
       <module fileurl="file://$PROJECT_DIR$/views/views.iml" filepath="$PROJECT_DIR$/views/views.iml" />
     </modules>
   </component>

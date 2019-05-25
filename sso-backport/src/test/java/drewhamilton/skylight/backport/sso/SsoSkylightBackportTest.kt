@@ -1,9 +1,8 @@
 package drewhamilton.skylight.backport.sso
 
-import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import drewhamilton.skylight.backport.CoordinatesBackport
-import drewhamilton.skylight.sso.network.DummyCall
+import drewhamilton.skylight.backport.sso.network.DummyCall
 import drewhamilton.skylight.sso.network.SsoApi
 import drewhamilton.skylight.sso.network.request.Params
 import drewhamilton.skylight.sso.network.response.Response

@@ -7,14 +7,14 @@ apply from: 'publish.gradle'
 sourceSets.main.java.srcDirs += '../calculator-common/src/main/java'
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    api project(':skylight')
+  api project(':skylight')
 
-    implementation "com.google.dagger:dagger:$daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+  implementation "com.google.dagger:dagger:$daggerVersion"
+  kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
-    testImplementation 'junit:junit:4.12'
+  testImplementation 'junit:junit:4.12'
 }
 
 sourceCompatibility = "1.8"
