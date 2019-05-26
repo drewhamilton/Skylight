@@ -7,8 +7,8 @@ ext {
   publishedGroupId = 'drewhamilton.skylight'
   publishedBackportGroupId = 'drewhamilton.skylight.backport'
 
-  siteUrl = 'https://github.com/drewhamilton/skylight'
-  gitUrl = 'https://github.com/drewhamilton/skylight'
+  siteUrl = 'https://github.com/drewhamilton/Skylight'
+  gitUrl = 'https://github.com/drewhamilton/Skylight'
 
   developerId = 'drewhamilton'
   developerName = 'Drew Hamilton'

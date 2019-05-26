@@ -3,7 +3,7 @@ apply from: '../publish.gradle'
 ext {
   bintrayName = 'SkylightBackport-calculator'
   libraryName = 'Calculator Skylight'
-  artifact = 'skylight-calculator'
+  artifact = 'skylight-backport-calculator'
 
   libraryDescription = 'A Java 6-compatible implementation of Skylight that calculates skylight information locally'
 
