@@ -7,13 +7,14 @@ import java.time.LocalDate
 
 class DummySkylightComponentTest {
 
-    private val testSkylightDay = SkylightDay.NeverLight(LocalDate.ofEpochDay(4))
+    private val testDate = LocalDate.ofEpochDay(4)
+    private val testSkylightDay = SkylightDay.NeverLight(testDate)
 
     @Test
     fun `create returns DummySkylightComponent with dummySkylightDay`() {
         val dummySkylightComponent = DummySkylightComponent.create(testSkylightDay)
         val skylight = dummySkylightComponent.skylight()
 
-        assertEquals(testSkylightDay, skylight.getSkylightDay())
+        assertEquals(testSkylightDay, skylight.getSkylightDay(testDate))
     }
 }
