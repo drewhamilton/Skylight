@@ -26,12 +26,6 @@ class DummySkylight @Inject constructor(
      */
     fun getSkylightDay(date: LocalDate) = dummySkylightDay.copy(date)
 
-    /**
-     * Get the dummy [SkylightDay] passed to the constructor.
-     */
-    @Deprecated("The date parameter is no longer ignored, so this overload is unwanted.")
-    fun getSkylightDay() = dummySkylightDay
-
     private fun SkylightDay.copy(date: LocalDate = this.date): SkylightDay {
         return when (this) {
             is SkylightDay.Typical -> copy(date = date)
