@@ -31,20 +31,20 @@ implementation "drewhamilton.skylight:skylight-rx:$version"
 
 Using Skylight with Java 6 and 7 requires a backport, as the primary Skylight interface uses `java.time` types. To use
 the backports, which replace `java.time` types with [ThreeTenBP](https://www.threeten.org/threetenbp/), add "backport"
-to the group ID:
+to the group ID and to the artifact name:
 ```groovy
 // The base interface, using the ThreeTenBP library:
-implementation "drewhamilton.skylight.backport:skylight:$version"
+implementation "drewhamilton.skylight.backport:skylight-backport:$version"
 
 // sunrise-sunset.org implementation:
-implementation "drewhamilton.skylight.backport:skylight-sso:$version"
+implementation "drewhamilton.skylight.backport:skylight-backport-sso:$version"
 // Calculator implementation:
-implementation "drewhamilton.skylight.backport:skylight-calculator:$version"
+implementation "drewhamilton.skylight.backport:skylight-backport-calculator:$version"
 // Dummy implementation:
-implementation "drewhamilton.skylight.backport:skylight-dummy:$version"
+implementation "drewhamilton.skylight.backport:skylight-backport-dummy:$version"
 
 // RxJava extensions:
-implementation "drewhamilton.skylight.backport:skylight-rx:$version"
+implementation "drewhamilton.skylight.backport:skylight-backport-rx:$version"
 ```
 **Note:** It is not recommended and in some cases impossible to use both Skylight and backported Skylight in a single
 app or library.
