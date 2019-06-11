@@ -12,10 +12,11 @@ import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 
-class ThreeTenBpExtensionsTest {
+class ThreeTenBpExtensionsTest : AlteredTimeZoneTest() {
 
     private val dummyTime = OffsetTime.of(23, 45, 56, 789, ZoneOffset.UTC)
-    private val dummyTimeString = "Dummy date string"
+    private val dummyTimeString = "Dummy time string"
+    private val dummyZoneOffset = ZoneOffset.of("+02:00")
 
     private val defaultDateFormat = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
     private val defaultDummyTimeString = defaultDateFormat.format(dummyTime)
@@ -26,13 +27,13 @@ class ThreeTenBpExtensionsTest {
     private lateinit var mockDateTimeFormatter: DateTimeFormatter
 
     private lateinit var mockSkylightEventView: SkylightEventView
-
     private lateinit var mockContext: Context
 
     @Before
-    fun setUp() {
+    fun setUpMocks() {
         mockDateTimeFormatter = mock {
             on { format(dummyTime) } doReturn dummyTimeString
+            on { format(dummyTime.withOffsetSameInstant(dummyZoneOffset)) } doReturn dummyTimeString
         }
 
         mockContext = mock {
@@ -44,78 +45,92 @@ class ThreeTenBpExtensionsTest {
     }
 
     @Test
-    fun `setTime(Date?) with non-null date sets formatted date text`() {
+    fun `setTime(OffsetTime?) with non-null date sets formatted date text`() {
         mockSkylightEventView.setTime(dummyTime)
         verifyTimeTextSet(defaultDummyTimeString)
     }
 
     @Test
-    fun `setTime(Date?) with null date sets empty text`() {
+    fun `setTime(OffsetTime?) with null date sets empty text`() {
         mockSkylightEventView.setTime(null as OffsetTime?)
         verifyTimeHintSet("")
     }
 
     @Test
-    fun `setTime(Date?, Int) with non-null date sets formatted date text`() {
+    fun `setTime(OffsetTime?, Int) with non-null date sets formatted date text`() {
         mockSkylightEventView.setTime(dummyTime, dummyFallbackStringRes)
         verify(mockSkylightEventView).context
         verifyTimeTextSet(defaultDummyTimeString)
     }
 
     @Test
-    fun `setTime(Date?, Int) with null date sets fallback text from resource`() {
+    fun `setTime(OffsetTime?, Int) with null date sets fallback text from resource`() {
         mockSkylightEventView.setTime(null as OffsetTime?, dummyFallbackStringRes)
         verify(mockSkylightEventView).context
         verifyTimeHintSet(dummyFallbackString)
     }
 
     @Test
-    fun `setTime(Date?, String) with non-null date sets formatted date text`() {
+    fun `setTime(OffsetTime?, String) with non-null date sets formatted date text`() {
         mockSkylightEventView.setTime(dummyTime, fallback = dummyFallbackString)
         verifyTimeTextSet(defaultDummyTimeString)
     }
 
     @Test
-    fun `setTime(Date?, String) with null date sets fallback text`() {
+    fun `setTime(OffsetTime?, String) with null date sets fallback text`() {
         mockSkylightEventView.setTime(null as OffsetTime?, fallback = dummyFallbackString)
         verifyTimeHintSet(dummyFallbackString)
     }
 
     @Test
-    fun `setTime(Date?, DateFormat) with non-null date sets formatted date text`() {
+    fun `setTime(OffsetTime?, DateTimeFormatter) with non-null date sets formatted date text`() {
         mockSkylightEventView.setTime(dummyTime, mockDateTimeFormatter)
         verifyTimeTextSet(dummyTimeString)
     }
 
     @Test
-    fun `setTime(Date?, DateFormat) with null date sets empty text`() {
+    fun `setTime(OffsetTime?, DateTimeFormatter) with null date sets empty text`() {
         mockSkylightEventView.setTime(null, mockDateTimeFormatter)
         verifyTimeHintSet("")
     }
 
     @Test
-    fun `setTime(Date?, DateFormat, Int) with non-null date sets formatted date text`() {
+    fun `setTime(OffsetTime?, DateTimeFormatter, Int) with non-null date sets formatted date text`() {
         mockSkylightEventView.setTime(dummyTime, mockDateTimeFormatter, dummyFallbackStringRes)
         verify(mockSkylightEventView).context
         verifyTimeTextSet(dummyTimeString)
     }
 
     @Test
-    fun `setTime(Date?, DateFormat, Int) with null date sets fallback text from resource`() {
+    fun `setTime(OffsetTime?, DateTimeFormatter, Int) with null date sets fallback text from resource`() {
         mockSkylightEventView.setTime(null, mockDateTimeFormatter, dummyFallbackStringRes)
         verify(mockSkylightEventView).context
         verifyTimeHintSet(dummyFallbackString)
     }
 
     @Test
-    fun `setTime(Date?, DateFormat, String) with non-null date sets formatted date text`() {
-        mockSkylightEventView.setTime(dummyTime, mockDateTimeFormatter, dummyFallbackString)
+    fun `setTime(OffsetTime?, DateTimeFormatter, ZoneOffset, Int) with non-null date sets formatted date text`() {
+        mockSkylightEventView.setTime(dummyTime, mockDateTimeFormatter, dummyZoneOffset, dummyFallbackStringRes)
+        verify(mockSkylightEventView).context
         verifyTimeTextSet(dummyTimeString)
     }
 
     @Test
-    fun `setTime(Date?, DateFormat, String) with null date sets fallback text`() {
-        mockSkylightEventView.setTime(null, mockDateTimeFormatter, dummyFallbackString)
+    fun `setTime(OffsetTime?, DateTimeFormatter, ZoneOffset, Int) with null date sets fallback text from resource`() {
+        mockSkylightEventView.setTime(null, mockDateTimeFormatter, dummyZoneOffset, dummyFallbackStringRes)
+        verify(mockSkylightEventView).context
+        verifyTimeHintSet(dummyFallbackString)
+    }
+
+    @Test
+    fun `setTime(OffsetTime?, DateTimeFormatter, String) with non-null date sets formatted date text`() {
+        mockSkylightEventView.setTime(dummyTime, mockDateTimeFormatter, fallback = dummyFallbackString)
+        verifyTimeTextSet(dummyTimeString)
+    }
+
+    @Test
+    fun `setTime(OffsetTime?, DateTimeFormatter, String) with null date sets fallback text`() {
+        mockSkylightEventView.setTime(null, mockDateTimeFormatter, fallback = dummyFallbackString)
         verifyTimeHintSet(dummyFallbackString)
     }
 
