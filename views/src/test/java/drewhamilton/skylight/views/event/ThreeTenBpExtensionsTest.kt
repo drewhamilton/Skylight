@@ -12,10 +12,11 @@ import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 
-class ThreeTenBpExtensionsTest {
+class ThreeTenBpExtensionsTest : AlteredTimeZoneTest() {
 
     private val dummyTime = OffsetTime.of(23, 45, 56, 789, ZoneOffset.UTC)
     private val dummyTimeString = "Dummy time string"
+    private val dummyZoneOffset = ZoneOffset.of("+02:00")
 
     private val defaultDateFormat = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
     private val defaultDummyTimeString = defaultDateFormat.format(dummyTime)
@@ -32,6 +33,7 @@ class ThreeTenBpExtensionsTest {
     fun setUpMocks() {
         mockDateTimeFormatter = mock {
             on { format(dummyTime) } doReturn dummyTimeString
+            on { format(dummyTime.withOffsetSameInstant(dummyZoneOffset)) } doReturn dummyTimeString
         }
 
         mockContext = mock {
@@ -102,6 +104,20 @@ class ThreeTenBpExtensionsTest {
     @Test
     fun `setTime(OffsetTime?, DateTimeFormatter, Int) with null date sets fallback text from resource`() {
         mockSkylightEventView.setTime(null, mockDateTimeFormatter, dummyFallbackStringRes)
+        verify(mockSkylightEventView).context
+        verifyTimeHintSet(dummyFallbackString)
+    }
+
+    @Test
+    fun `setTime(OffsetTime?, DateTimeFormatter, ZoneOffset, Int) with non-null date sets formatted date text`() {
+        mockSkylightEventView.setTime(dummyTime, mockDateTimeFormatter, dummyZoneOffset, dummyFallbackStringRes)
+        verify(mockSkylightEventView).context
+        verifyTimeTextSet(dummyTimeString)
+    }
+
+    @Test
+    fun `setTime(OffsetTime?, DateTimeFormatter, ZoneOffset, Int) with null date sets fallback text from resource`() {
+        mockSkylightEventView.setTime(null, mockDateTimeFormatter, dummyZoneOffset, dummyFallbackStringRes)
         verify(mockSkylightEventView).context
         verifyTimeHintSet(dummyFallbackString)
     }
