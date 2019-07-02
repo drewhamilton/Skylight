@@ -1,146 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
 
-  <com.google.android.material.appbar.MaterialToolbar
-      android:id="@+id/toolbar"
-      android:layout_width="0dp"
-      android:layout_height="?android:attr/actionBarSize"
-
-      android:theme="@style/AppTheme"
-
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toTopOf="@+id/timeZoneInfo"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-
-      app:menu="@menu/home"
-
-      style="@style/Widget.MaterialComponents.Toolbar.Primary">
-
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/locationSelector"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        android:popupBackground="?android:attr/popupBackground"
-
-        tools:listitem="@layout/item_spinner" />
-
-  </com.google.android.material.appbar.MaterialToolbar>
+    android:orientation="vertical"
+    android:padding="8dp">
 
   <TextView
-      android:id="@+id/timeZoneInfo"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/divider_list"
-      android:layout_marginStart="@dimen/marginSides_mainText"
-      android:layout_marginEnd="@dimen/marginSides_mainText"
 
-      android:text="@string/all_times_local"
-      android:textAppearance="@style/TextAppearance.AppCompat.Small"
-      android:textColor="?android:attr/textColorHint"
-
-      app:layout_constraintTop_toBottomOf="@+id/toolbar"
-      app:layout_constraintBottom_toTopOf="@+id/dawn" />
-
-  <drewhamilton.skylight.android.views.event.SkylightEventView
-      android:id="@+id/dawn"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_marginTop="@dimen/divider_list"
-      android:layout_marginStart="@dimen/marginSides_mainCard"
-      android:layout_marginEnd="@dimen/marginSides_mainCard"
-
-      android:theme="@style/LightTheme"
-
-      app:layout_constraintTop_toBottomOf="@+id/timeZoneInfo"
-      app:layout_constraintBottom_toTopOf="@+id/sunrise"
-
-      app:cardCornerRadius="@dimen/cornerRadius_card"
-      app:cardBackgroundColor="@color/skylight_dawn"
-      app:skylightEventLabelText="@string/dawn"
-
-      tools:skylightEventTimeText="7:38 AM" />
-
-  <drewhamilton.skylight.android.views.event.SkylightEventView
-      android:id="@+id/sunrise"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_marginTop="@dimen/divider_list"
-      android:layout_marginStart="@dimen/marginSides_mainCard"
-      android:layout_marginEnd="@dimen/marginSides_mainCard"
-
-      android:theme="@style/LightTheme"
-
-      app:layout_constraintTop_toBottomOf="@+id/dawn"
-      app:layout_constraintBottom_toTopOf="@+id/sunset"
-
-      app:cardCornerRadius="@dimen/cornerRadius_card"
-      app:cardBackgroundColor="@color/skylight_sunrise"
-      app:skylightEventLabelText="@string/sunrise"
-
-      tools:skylightEventTimeText="7:38 AM" />
-
-  <drewhamilton.skylight.android.views.event.SkylightEventView
-      android:id="@+id/sunset"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_marginTop="@dimen/divider_list"
-      android:layout_marginStart="@dimen/marginSides_mainCard"
-      android:layout_marginEnd="@dimen/marginSides_mainCard"
-
-      android:theme="@style/DarkTheme"
-
-      app:layout_constraintTop_toBottomOf="@+id/sunrise"
-      app:layout_constraintBottom_toTopOf="@+id/dusk"
-
-      app:cardCornerRadius="@dimen/cornerRadius_card"
-      app:cardBackgroundColor="@color/skylight_sunset"
-      app:skylightEventLabelText="@string/sunset"
-
-      tools:skylightEventTimeText="7:38 AM" />
-
-  <drewhamilton.skylight.android.views.event.SkylightEventView
-      android:id="@+id/dusk"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_marginTop="@dimen/divider_list"
-      android:layout_marginStart="@dimen/marginSides_mainCard"
-      android:layout_marginEnd="@dimen/marginSides_mainCard"
-
-      android:theme="@style/DarkTheme"
-
-      app:layout_constraintTop_toBottomOf="@+id/sunset"
-      app:layout_constraintBottom_toTopOf="@+id/version"
-
-      app:cardCornerRadius="@dimen/cornerRadius_card"
-      app:cardBackgroundColor="@color/skylight_dusk"
-      app:skylightEventLabelText="@string/dusk"
-
-      tools:skylightEventTimeText="7:38 AM" />
-
-  <TextView
-      android:id="@+id/version"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/divider_list"
-      android:layout_marginBottom="@dimen/divider_list"
-      android:layout_marginStart="@dimen/marginSides_mainText"
-      android:layout_marginEnd="@dimen/marginSides_mainText"
-
-      android:gravity="end"
-      android:textAppearance="@style/TextAppearance.AppCompat.Small"
+      android:text="@string/skylight_android_moved"
       android:textColor="?android:attr/textColorSecondary"
+      android:textSize="20sp" />
 
-      app:layout_constraintTop_toBottomOf="@+id/dusk"
-      app:layout_constraintBottom_toBottomOf="parent"
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
 
-      tools:text="Skylight 1.0.0" />
+      android:text="@string/skylight_android_sample_link"
+      android:textColor="?android:attr/textColorPrimary"
+      android:textIsSelectable="true"
+      android:textSize="24sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
