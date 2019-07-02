@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <dimen name="skylight_defaultTextSize_min_skylightEventTime">12sp</dimen>
-  <dimen name="skylight_defaultTextSize_max_skylightEventTime">56sp</dimen>
-  <dimen name="skylight_granularity_skylightEventTime">1sp</dimen>
-</resources>

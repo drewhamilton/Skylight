@@ -14,7 +14,6 @@
       <module fileurl="file://$PROJECT_DIR$/skylight-backport/skylight-backport.iml" filepath="$PROJECT_DIR$/skylight-backport/skylight-backport.iml" group="Skylight/skylight-backport" />
       <module fileurl="file://$PROJECT_DIR$/sso/sso.iml" filepath="$PROJECT_DIR$/sso/sso.iml" group="Skylight/sso" />
       <module fileurl="file://$PROJECT_DIR$/sso-backport/sso-backport.iml" filepath="$PROJECT_DIR$/sso-backport/sso-backport.iml" group="Skylight/sso-backport" />
-      <module fileurl="file://$PROJECT_DIR$/views/views.iml" filepath="$PROJECT_DIR$/views/views.iml" group="Skylight/views" />
     </modules>
   </component>
 </project>
