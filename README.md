@@ -1,14 +1,10 @@
 # Skylight
+[![Build status](https://travis-ci.org/drewhamilton/Skylight.svg?branch=master)](https://travis-ci.org/drewhamilton/Skylight)
 
-Skylight is a Kotlin interface for providing sunrise, sunset, and other relevant details for a given location and date.
-
-**Heads up!** Pre-release versions up to 0.7.x used the legacy `java.util.Date` type in both parameters and return
-values. Starting from 0.8.x, context-appropriate `java.time` types are used, with a separate "backport" interface using
-[ThreeTenBP](https://www.threeten.org/threetenbp/) types for Android and other Java 6 consumers. In either case, moving
-from 0.7.x to 0.8.x or higher is a significant breaking change.
+Skylight is a Kotlin interface for providing sunrise, sunset, and similar details for a given location and date.
 
 ## Download
-[ ![Download](https://api.bintray.com/packages/drewhamilton/Skylight/Skylight/images/download.svg) ](https://bintray.com/drewhamilton/Skylight)
+[![Download](https://api.bintray.com/packages/drewhamilton/Skylight/Skylight/images/download.svg)](https://bintray.com/drewhamilton/Skylight)
 
 Skylight is available in JCenter. It is still in pre-release development, and the API may undergo breaking changes
 before version 1.0.0.
@@ -29,9 +25,9 @@ implementation "drewhamilton.skylight:skylight-dummy:$version"
 implementation "drewhamilton.skylight:skylight-rx:$version"
 ```
 
-Using Skylight with Java 6 and 7 requires a backport, as the primary Skylight interface uses `java.time` types. To use
-the backports, which replace `java.time` types with [ThreeTenBP](https://www.threeten.org/threetenbp/), add "backport"
-to the group ID and to the artifact name:
+Using Skylight with Java 6 and 7 (and Android minSdk < 26) requires a backport, as the primary Skylight interface uses
+`java.time` types. To use the backports, which replace `java.time` types with
+[ThreeTenBP](https://www.threeten.org/threetenbp/), add "backport" to the group ID and to the artifact name:
 ```groovy
 // The base interface, using the ThreeTenBP library:
 implementation "drewhamilton.skylight.backport:skylight-backport:$version"
@@ -46,14 +42,12 @@ implementation "drewhamilton.skylight.backport:skylight-backport-dummy:$version"
 // RxJava extensions:
 implementation "drewhamilton.skylight.backport:skylight-backport-rx:$version"
 ```
+
 **Note:** It is not recommended and in some cases impossible to use both Skylight and backported Skylight in a single
 app or library.
 
-To use Skylight Views for Android, include this:
-```groovy
-// Android views and themes:
-implementation "drewhamilton.skylight:skylight-views:$version"
-```
+If you are using Skylight on Android, also see [Skylight Android](https://github.com/drewhamilton/SkylightAndroid) for a
+few added features.
 
 ## License
 ```
