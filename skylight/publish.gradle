@@ -3,7 +3,6 @@ apply from: '../publish.gradle'
 ext {
   bintrayName = 'Skylight'
   libraryName = 'Skylight'
-  artifact = 'skylight'
 
   libraryDescription = 'An interface for determining sunrise, sunset, and related info for a given location.'
 

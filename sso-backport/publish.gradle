@@ -3,7 +3,6 @@ apply from: '../publish.gradle'
 ext {
   bintrayName = 'SkylightBackport-sso'
   libraryName = 'Skylight: sunrise-sunset.org'
-  artifact = 'skylight-backport-sso'
 
   libraryDescription = 'A Java 6-compatible Skylight implementation that uses sunrise-sunset.org to retrieve Skylight information.'
 

@@ -3,7 +3,6 @@ apply from: '../publish.gradle'
 ext {
   bintrayName = 'Skylight-dummy'
   libraryName = 'Dummy Skylight'
-  artifact = 'skylight-dummy'
 
   libraryDescription = 'A dummy implementation of Skylight that always returns the same SkylightDay'
 
