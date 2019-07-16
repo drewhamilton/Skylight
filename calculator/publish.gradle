@@ -3,7 +3,6 @@ apply from: '../publish.gradle'
 ext {
   bintrayName = 'Skylight-calculator'
   libraryName = 'Calculator Skylight'
-  artifact = 'skylight-calculator'
 
   libraryDescription = 'An implementation of Skylight that calculates skylight information locally'
 

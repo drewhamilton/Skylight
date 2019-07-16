@@ -3,7 +3,6 @@ apply from: '../publish.gradle'
 ext {
   bintrayName = 'Skylight-rx'
   libraryName = 'RxSkylight'
-  artifact = 'skylight-rx'
 
   libraryDescription = 'RxJava extensions for Skylight'
 
