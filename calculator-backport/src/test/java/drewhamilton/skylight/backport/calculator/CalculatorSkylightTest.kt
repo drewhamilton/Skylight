@@ -50,18 +50,17 @@ class CalculatorSkylightTest {
         assertEquals(OffsetTime.of(10, 35, 14, 739_000_000, ZoneOffset.UTC), result.sunrise)
         assertEquals(OffsetTime.of(1, 8, 52, 914_000_000, ZoneOffset.UTC), result.sunset)
         assertEquals(OffsetTime.of(1, 41, 43, 544_000_000, ZoneOffset.UTC), result.dusk)
-        assertTrue(skylight.isLight(
-            INDIANAPOLIS,
-            ZonedDateTime.of(JULY_20_2019, LocalTime.NOON, ZoneId.of("America/New_York"))
-        ))
     }
 
     @Test
     fun `Indianapolis on July 20, 2019 is light at noon`() {
-        assertTrue(skylight.isLight(
-            INDIANAPOLIS,
-            ZonedDateTime.of(JULY_20_2019, LocalTime.NOON, ZoneId.of("America/New_York"))
-        ))
+        assertTrue(
+            "Expected it to be light in Indianapolis at noon.",
+            skylight.isLight(
+                INDIANAPOLIS,
+                ZonedDateTime.of(JULY_20_2019, LocalTime.NOON, ZoneId.of("America/New_York"))
+            )
+        )
     }
     //endregion
 
