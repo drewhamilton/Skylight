@@ -25,8 +25,16 @@ fun Skylight.isLight(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean
         is SkylightDay.AlwaysDaytime -> true
         is SkylightDay.AlwaysLight -> true
         is SkylightDay.NeverLight -> false
-        is SkylightDay.NeverDaytime -> isLight(skylightDay.dawn, skylightDay.dusk, dateTime.toOffsetDateTime().toOffsetTime())
-        is SkylightDay.Typical -> isLight(skylightDay.dawn, skylightDay.dusk, dateTime.toOffsetDateTime().toOffsetTime())
+        is SkylightDay.NeverDaytime -> isLight(
+            skylightDay.dawn.withOffsetSameInstant(dateTime.offset),
+            skylightDay.dusk.withOffsetSameInstant(dateTime.offset),
+            dateTime.toOffsetDateTime().toOffsetTime()
+        )
+        is SkylightDay.Typical -> isLight(
+            skylightDay.dawn.withOffsetSameInstant(dateTime.offset),
+            skylightDay.dusk.withOffsetSameInstant(dateTime.offset),
+            dateTime.toOffsetDateTime().toOffsetTime()
+        )
     }
 }
 
