@@ -4,6 +4,7 @@ import drewhamilton.skylight.backport.Coordinates
 import drewhamilton.skylight.backport.Skylight
 import drewhamilton.skylight.backport.SkylightDay
 import org.threeten.bp.LocalDate
+import org.threeten.bp.ZonedDateTime
 import javax.inject.Inject
 
 /**
@@ -11,7 +12,6 @@ import javax.inject.Inject
  * [SkylightDay] for the given date parameter.
  */
 class DummySkylight @Inject constructor(
-    // TODO: Make this public?
     private val dummySkylightDay: SkylightDay
 ) : Skylight {
 
@@ -26,13 +26,40 @@ class DummySkylight @Inject constructor(
      */
     fun getSkylightDay(date: LocalDate) = dummySkylightDay.copy(date)
 
-    private fun SkylightDay.copy(date: LocalDate = this.date): SkylightDay {
+    private fun SkylightDay.copy(date: LocalDate): SkylightDay {
         return when (this) {
-            is SkylightDay.Typical -> copy(date = date)
+            is SkylightDay.Typical -> {
+                val daysToAdd = dawn.toLocalDate().daysUntil(date)
+                copy(
+                    dawn = dawn.addDays(daysToAdd),
+                    sunrise = sunrise.addDays(daysToAdd),
+                    sunset = sunset.addDays(daysToAdd),
+                    dusk = dusk.addDays(daysToAdd)
+                )
+            }
             is SkylightDay.AlwaysDaytime -> copy(date = date)
-            is SkylightDay.AlwaysLight -> copy(date = date)
-            is SkylightDay.NeverDaytime -> copy(date = date)
+            is SkylightDay.AlwaysLight -> {
+                val daysToAdd = sunrise.toLocalDate().daysUntil(date)
+                copy(
+                    sunrise = sunrise.addDays(daysToAdd),
+                    sunset = sunset.addDays(daysToAdd)
+                )
+            }
+            is SkylightDay.NeverDaytime -> {
+                val daysToAdd = dawn.toLocalDate().daysUntil(date)
+                copy(
+                    dawn = dawn.addDays(daysToAdd),
+                    dusk = dusk.addDays(daysToAdd)
+                )
+            }
             is SkylightDay.NeverLight -> copy(date = date)
         }
+    }
+
+    private fun LocalDate.daysUntil(date: LocalDate) = this.until(date).days
+
+    private fun ZonedDateTime.addDays(days: Int): ZonedDateTime {
+        val date = toLocalDate().plusDays(days.toLong())
+        return ZonedDateTime.of(date, toLocalTime(), this.zone)
     }
 }
