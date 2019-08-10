@@ -30,11 +30,8 @@ class CalculatorSkylight @Inject constructor() : Skylight {
      */
     override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay {
         val epochMillis = date.toNoonUtcEpochMillis()
-        return calculateSkylightInfo(
-            epochMillis,
-            coordinates.latitude,
-            coordinates.longitude
-        ).toSkylightDay(date)
+        return calculateSkylightInfo(epochMillis, coordinates.latitude, coordinates.longitude)
+            .toSkylightDay(date)
     }
 
     private fun noonUtc() = OffsetTime.of(12, 0, 0, 0, ZoneOffset.UTC)
@@ -50,15 +47,9 @@ class CalculatorSkylight @Inject constructor() : Skylight {
             )
         is EpochMilliSkylightDay.AlwaysDaytime -> SkylightDay.AlwaysDaytime(date)
         is EpochMilliSkylightDay.AlwaysLight ->
-            SkylightDay.AlwaysLight(
-                sunrise.asEpochMilliToUtcDateTime(),
-                sunset.asEpochMilliToUtcDateTime()
-            )
+            SkylightDay.AlwaysLight(sunrise.asEpochMilliToUtcDateTime(), sunset.asEpochMilliToUtcDateTime())
         is EpochMilliSkylightDay.NeverDaytime ->
-            SkylightDay.NeverDaytime(
-                dawn.asEpochMilliToUtcDateTime(),
-                dusk.asEpochMilliToUtcDateTime()
-            )
+            SkylightDay.NeverDaytime(dawn.asEpochMilliToUtcDateTime(), dusk.asEpochMilliToUtcDateTime())
         is EpochMilliSkylightDay.NeverLight -> SkylightDay.NeverLight(date)
     }
 
