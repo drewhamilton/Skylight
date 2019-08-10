@@ -1,7 +1,6 @@
 package drewhamilton.skylight.backport
 
 import org.threeten.bp.LocalDate
-import org.threeten.bp.OffsetTime
 import org.threeten.bp.ZonedDateTime
 
 /**
@@ -26,14 +25,15 @@ fun Skylight.isLight(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean
         is SkylightDay.NeverLight -> false
         is SkylightDay.NeverDaytime ->
             isLight(
-                skylightDay.dawn.withOffsetSameInstant(dateTime.offset),
-                skylightDay.dusk.withOffsetSameInstant(dateTime.offset),
-                dateTime.toOffsetDateTime().toOffsetTime())
+                skylightDay.dawn.withZoneSameInstant(dateTime.zone),
+                skylightDay.dusk.withZoneSameInstant(dateTime.zone),
+                dateTime
+            )
         is SkylightDay.Typical ->
             isLight(
-                skylightDay.dawn.withOffsetSameInstant(dateTime.offset),
-                skylightDay.dusk.withOffsetSameInstant(dateTime.offset),
-                dateTime.toOffsetDateTime().toOffsetTime()
+                skylightDay.dawn.withZoneSameInstant(dateTime.zone),
+                skylightDay.dusk.withZoneSameInstant(dateTime.zone),
+                dateTime
             )
     }
 }
@@ -45,4 +45,5 @@ fun Skylight.isLight(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean
 fun Skylight.isDark(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean =
     !isLight(coordinates, dateTime)
 
-private fun isLight(dawn: OffsetTime, dusk: OffsetTime, time: OffsetTime) = dawn.isBefore(time) && dusk.isAfter(time)
+private fun isLight(dawn: ZonedDateTime, dusk: ZonedDateTime, time: ZonedDateTime) =
+    dawn.isBefore(time) && dusk.isAfter(time)

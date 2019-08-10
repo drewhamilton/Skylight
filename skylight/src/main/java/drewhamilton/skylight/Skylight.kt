@@ -1,7 +1,6 @@
 package drewhamilton.skylight
 
 import java.time.LocalDate
-import java.time.OffsetTime
 import java.time.ZonedDateTime
 
 /**
@@ -26,14 +25,14 @@ fun Skylight.isLight(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean
         is SkylightDay.AlwaysLight -> true
         is SkylightDay.NeverLight -> false
         is SkylightDay.NeverDaytime -> isLight(
-            skylightDay.dawn.withOffsetSameInstant(dateTime.offset),
-            skylightDay.dusk.withOffsetSameInstant(dateTime.offset),
-            dateTime.toOffsetDateTime().toOffsetTime()
+            skylightDay.dawn.withZoneSameInstant(dateTime.zone),
+            skylightDay.dusk.withZoneSameInstant(dateTime.zone),
+            dateTime
         )
         is SkylightDay.Typical -> isLight(
-            skylightDay.dawn.withOffsetSameInstant(dateTime.offset),
-            skylightDay.dusk.withOffsetSameInstant(dateTime.offset),
-            dateTime.toOffsetDateTime().toOffsetTime()
+            skylightDay.dawn.withZoneSameInstant(dateTime.zone),
+            skylightDay.dusk.withZoneSameInstant(dateTime.zone),
+            dateTime
         )
     }
 }
@@ -45,4 +44,5 @@ fun Skylight.isLight(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean
 fun Skylight.isDark(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean = !isLight(coordinates, dateTime)
 
 @Suppress("NewApi")
-private fun isLight(dawn: OffsetTime, dusk: OffsetTime, time: OffsetTime) = dawn.isBefore(time) && dusk.isAfter(time)
+private fun isLight(dawn: ZonedDateTime, dusk: ZonedDateTime, time: ZonedDateTime) =
+    dawn.isBefore(time) && dusk.isAfter(time)
