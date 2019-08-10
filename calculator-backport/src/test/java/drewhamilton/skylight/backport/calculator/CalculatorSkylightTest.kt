@@ -9,7 +9,6 @@ import org.junit.Test
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
-import org.threeten.bp.OffsetTime
 import org.threeten.bp.ZoneId
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.ZonedDateTime
@@ -19,41 +18,37 @@ class CalculatorSkylightTest {
     private val skylight = CalculatorSkylight()
 
     //region Amsterdam
-    @Test
-    fun `Amsterdam on January 6, 2019 is typical`() {
+    @Test fun `Amsterdam on January 6, 2019 is typical`() {
         val result = skylight.getSkylightDay(AMSTERDAM, JANUARY_6_2019)
         assertTrue(result is SkylightDay.Typical)
         result as SkylightDay.Typical
-        assertEquals(1546758590702.asEpochMilliToExpectedOffsetTime(), result.dawn)
-        assertEquals(1546761159554.asEpochMilliToExpectedOffsetTime(), result.sunrise)
-        assertEquals(1546789298271.asEpochMilliToExpectedOffsetTime(), result.sunset)
-        assertEquals(1546791867123.asEpochMilliToExpectedOffsetTime(), result.dusk)
+        assertEquals(1546758590702.asEpochMilliToExpectedZonedDateTime(), result.dawn)
+        assertEquals(1546761159554.asEpochMilliToExpectedZonedDateTime(), result.sunrise)
+        assertEquals(1546789298271.asEpochMilliToExpectedZonedDateTime(), result.sunset)
+        assertEquals(1546791867123.asEpochMilliToExpectedZonedDateTime(), result.dusk)
     }
     //endregion
 
     //region Svalbard
-    @Test
-    fun `Svalbard on January 6, 2019 is never light`() {
+    @Test fun `Svalbard on January 6, 2019 is never light`() {
         val result = skylight.getSkylightDay(SVALBARD, JANUARY_6_2019)
         assertEquals(SkylightDay.NeverLight(JANUARY_6_2019), result)
     }
     //endregion
 
     //region Indianapolis
-    @Test
-    fun `Indianapolis on July 20, 2019 is typical`() {
+    @Test fun `Indianapolis on July 20, 2019 is typical`() {
         val result = skylight.getSkylightDay(INDIANAPOLIS, JULY_20_2019)
 
         assertTrue(result is SkylightDay.Typical)
         result as SkylightDay.Typical
-        assertEquals(OffsetTime.of(10, 2, 24, 108_000_000, ZoneOffset.UTC), result.dawn)
-        assertEquals(OffsetTime.of(10, 35, 14, 739_000_000, ZoneOffset.UTC), result.sunrise)
-        assertEquals(OffsetTime.of(1, 8, 52, 914_000_000, ZoneOffset.UTC), result.sunset)
-        assertEquals(OffsetTime.of(1, 41, 43, 544_000_000, ZoneOffset.UTC), result.dusk)
+        assertEquals(ZonedDateTime.of(2019, 7, 20, 10, 2, 24, 108_000_000, ZoneOffset.UTC), result.dawn)
+        assertEquals(ZonedDateTime.of(2019, 7, 20, 10, 35, 14, 739_000_000, ZoneOffset.UTC), result.sunrise)
+        assertEquals(ZonedDateTime.of(2019, 7, 21, 1, 8, 52, 914_000_000, ZoneOffset.UTC), result.sunset)
+        assertEquals(ZonedDateTime.of(2019, 7, 21, 1, 41, 43, 544_000_000, ZoneOffset.UTC), result.dusk)
     }
 
-    @Test
-    fun `Indianapolis on July 20, 2019 is light at noon`() {
+    @Test fun `Indianapolis on July 20, 2019 is light at noon`() {
         assertTrue(
             "Expected it to be light in Indianapolis at noon.",
             skylight.isLight(
@@ -64,8 +59,8 @@ class CalculatorSkylightTest {
     }
     //endregion
 
-    private fun Long.asEpochMilliToExpectedOffsetTime() =
-        OffsetTime.ofInstant(Instant.ofEpochMilli(this), ZoneOffset.UTC)
+    private fun Long.asEpochMilliToExpectedZonedDateTime() =
+        ZonedDateTime.ofInstant(Instant.ofEpochMilli(this), ZoneOffset.UTC)
 
     companion object {
         val AMSTERDAM = Coordinates(52.3680, 4.9036)

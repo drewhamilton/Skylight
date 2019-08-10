@@ -10,6 +10,7 @@ import org.threeten.bp.Instant
 import org.threeten.bp.LocalDate
 import org.threeten.bp.OffsetTime
 import org.threeten.bp.ZoneOffset
+import org.threeten.bp.ZonedDateTime
 import javax.inject.Inject
 
 /**
@@ -34,8 +35,7 @@ class CalculatorSkylight @Inject constructor() : Skylight {
             epochMillis,
             coordinates.latitude,
             coordinates.longitude
-        )
-            .toSkylightDay(date)
+        ).toSkylightDay(date)
     }
 
     private fun noonUtc() = OffsetTime.of(12, 0, 0, 0, ZoneOffset.UTC)
@@ -44,27 +44,24 @@ class CalculatorSkylight @Inject constructor() : Skylight {
     private fun EpochMilliSkylightDay.toSkylightDay(date: LocalDate) = when (this) {
         is EpochMilliSkylightDay.Typical ->
             SkylightDay.Typical(
-                date,
-                dawn.asEpochMilliToUtcOffsetTime(),
-                sunrise.asEpochMilliToUtcOffsetTime(),
-                sunset.asEpochMilliToUtcOffsetTime(),
-                dusk.asEpochMilliToUtcOffsetTime()
+                dawn.asEpochMilliToUtcDateTime(),
+                sunrise.asEpochMilliToUtcDateTime(),
+                sunset.asEpochMilliToUtcDateTime(),
+                dusk.asEpochMilliToUtcDateTime()
             )
         is EpochMilliSkylightDay.AlwaysDaytime -> SkylightDay.AlwaysDaytime(date)
         is EpochMilliSkylightDay.AlwaysLight ->
             SkylightDay.AlwaysLight(
-                date,
-                sunrise.asEpochMilliToUtcOffsetTime(),
-                sunset.asEpochMilliToUtcOffsetTime()
+                sunrise.asEpochMilliToUtcDateTime(),
+                sunset.asEpochMilliToUtcDateTime()
             )
         is EpochMilliSkylightDay.NeverDaytime ->
             SkylightDay.NeverDaytime(
-                date,
-                dawn.asEpochMilliToUtcOffsetTime(),
-                dusk.asEpochMilliToUtcOffsetTime()
+                dawn.asEpochMilliToUtcDateTime(),
+                dusk.asEpochMilliToUtcDateTime()
             )
         is EpochMilliSkylightDay.NeverLight -> SkylightDay.NeverLight(date)
     }
 
-    private fun Long.asEpochMilliToUtcOffsetTime() = OffsetTime.ofInstant(Instant.ofEpochMilli(this), ZoneOffset.UTC)
+    private fun Long.asEpochMilliToUtcDateTime() = ZonedDateTime.ofInstant(Instant.ofEpochMilli(this), ZoneOffset.UTC)
 }
