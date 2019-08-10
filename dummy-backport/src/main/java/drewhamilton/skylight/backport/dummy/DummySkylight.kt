@@ -5,6 +5,7 @@ import drewhamilton.skylight.backport.Skylight
 import drewhamilton.skylight.backport.SkylightDay
 import org.threeten.bp.LocalDate
 import org.threeten.bp.ZonedDateTime
+import org.threeten.bp.temporal.ChronoUnit
 import javax.inject.Inject
 
 /**
@@ -56,10 +57,10 @@ class DummySkylight @Inject constructor(
         }
     }
 
-    private fun LocalDate.daysUntil(date: LocalDate) = this.until(date).days
+    private fun LocalDate.daysUntil(date: LocalDate) = ChronoUnit.DAYS.between(this, date)
 
-    private fun ZonedDateTime.addDays(days: Int): ZonedDateTime {
-        val date = toLocalDate().plusDays(days.toLong())
+    private fun ZonedDateTime.addDays(days: Long): ZonedDateTime {
+        val date = toLocalDate().plusDays(days)
         return ZonedDateTime.of(date, toLocalTime(), this.zone)
     }
 }

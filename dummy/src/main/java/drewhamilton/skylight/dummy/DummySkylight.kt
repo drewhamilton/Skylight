@@ -5,6 +5,7 @@ import drewhamilton.skylight.Skylight
 import drewhamilton.skylight.SkylightDay
 import java.time.LocalDate
 import java.time.ZonedDateTime
+import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 
 /**
@@ -56,10 +57,10 @@ class DummySkylight @Inject constructor(
         }
     }
 
-    private fun LocalDate.daysUntil(date: LocalDate) = this.until(date).days
+    private fun LocalDate.daysUntil(date: LocalDate) = ChronoUnit.DAYS.between(this, date)
 
-    private fun ZonedDateTime.addDays(days: Int): ZonedDateTime {
-        val date = toLocalDate().plusDays(days.toLong())
+    private fun ZonedDateTime.addDays(days: Long): ZonedDateTime {
+        val date = toLocalDate().plusDays(days)
         return ZonedDateTime.of(date, toLocalTime(), this.zone)
     }
 }
