@@ -9,41 +9,29 @@ import org.threeten.bp.ZonedDateTime
 interface Skylight {
 
     /**
-     * @return [SkylightDay] at the given [coordinates] for the given [date].
+     * Get the [SkylightDay] at the given [coordinates] for the given [date].
      */
     fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay
 }
 
 /**
- * @return Whether it is light outside at the given [coordinates] at the given [dateTime], where "light" means after
+ * Determine whether it is light outside at the given [coordinates] at the given [dateTime], where "light" means after
  * dawn and before dusk on the given date.
  */
-fun Skylight.isLight(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean {
-    return when (val skylightDay = getSkylightDay(coordinates, dateTime.toLocalDate())) {
+fun Skylight.isLight(coordinates: Coordinates, dateTime: ZonedDateTime) =
+    when (val skylightDay = getSkylightDay(coordinates, dateTime.toLocalDate())) {
         is SkylightDay.AlwaysDaytime -> true
         is SkylightDay.AlwaysLight -> true
         is SkylightDay.NeverLight -> false
-        is SkylightDay.NeverDaytime ->
-            isLight(
-                skylightDay.dawn.withZoneSameInstant(dateTime.zone),
-                skylightDay.dusk.withZoneSameInstant(dateTime.zone),
-                dateTime
-            )
-        is SkylightDay.Typical ->
-            isLight(
-                skylightDay.dawn.withZoneSameInstant(dateTime.zone),
-                skylightDay.dusk.withZoneSameInstant(dateTime.zone),
-                dateTime
-            )
+        is SkylightDay.NeverDaytime -> isLight(skylightDay.dawn, skylightDay.dusk, dateTime)
+        is SkylightDay.Typical -> isLight(skylightDay.dawn, skylightDay.dusk, dateTime)
     }
-}
 
 /**
- * @return Whether it is dark outside at the given [coordinates] at the given [dateTime], where "dark" means before dawn
- * or after dusk on the given date.
+ * Determine whether it is dark outside at the given [coordinates] at the given [dateTime], where "dark" means before
+ * dawn or after dusk on the given date.
  */
-fun Skylight.isDark(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean =
-    !isLight(coordinates, dateTime)
+fun Skylight.isDark(coordinates: Coordinates, dateTime: ZonedDateTime) = !isLight(coordinates, dateTime)
 
 private fun isLight(dawn: ZonedDateTime, dusk: ZonedDateTime, time: ZonedDateTime) =
     dawn.isBefore(time) && dusk.isAfter(time)
