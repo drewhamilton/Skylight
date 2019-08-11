@@ -13,7 +13,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.threeten.bp.LocalDate
 import org.threeten.bp.Month
-import org.threeten.bp.OffsetTime
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.ZonedDateTime
 
@@ -21,20 +20,20 @@ class SkylightTest {
 
     private val testCoordinates = Coordinates(50.0, 60.0)
     private val testDate = LocalDate.of(2019, Month.MAY, 15)
-    private val testDawn = OffsetTime.of(8, 0, 0, 0, ZoneOffset.UTC)
-    private val testSunrise = OffsetTime.of(10, 0, 0, 0, ZoneOffset.UTC)
-    private val testSunset = OffsetTime.of(14, 0, 0, 0, ZoneOffset.UTC)
-    private val testDusk = OffsetTime.of(16, 0, 0, 0, ZoneOffset.UTC)
+    private val testDawn = ZonedDateTime.of(2019, 5, 15, 8, 0, 0, 0, ZoneOffset.UTC)
+    private val testSunrise = ZonedDateTime.of(2019, 5, 15, 10, 0, 0, 0, ZoneOffset.UTC)
+    private val testSunset = ZonedDateTime.of(2019, 5, 15, 14, 0, 0, 0, ZoneOffset.UTC)
+    private val testDusk = ZonedDateTime.of(2019, 5, 15, 16, 0, 0, 0, ZoneOffset.UTC)
 
     private val beforeDawn = ZonedDateTime.of(testDate, testDawn.minusHours(2).toLocalTime(), ZoneOffset.UTC)
     private val betweenDawnAndDusk = ZonedDateTime.of(testDate, testSunrise.plusHours(2).toLocalTime(), ZoneOffset.UTC)
     private val afterDusk = ZonedDateTime.of(testDate, testDusk.plusHours(2).toLocalTime(), ZoneOffset.UTC)
 
     private val testAlwaysDaytime = SkylightDay.AlwaysDaytime(testDate)
-    private val testAlwaysLight = SkylightDay.AlwaysLight(testDate, testSunrise, testSunset)
+    private val testAlwaysLight = SkylightDay.AlwaysLight(testSunrise, testSunset)
     private val testNeverLight = SkylightDay.NeverLight(testDate)
-    private val testNeverDaytime = SkylightDay.NeverDaytime(testDate, testDawn, testDusk)
-    private val testTypical = SkylightDay.Typical(testDate, testDawn, testSunrise, testSunset, testDusk)
+    private val testNeverDaytime = SkylightDay.NeverDaytime(testDawn, testDusk)
+    private val testTypical = SkylightDay.Typical(testDawn, testSunrise, testSunset, testDusk)
 
     private lateinit var mockSkylight: Skylight
 

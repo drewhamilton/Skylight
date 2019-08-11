@@ -7,6 +7,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.threeten.bp.LocalDate
 import org.threeten.bp.OffsetTime
+import org.threeten.bp.ZonedDateTime
 
 class SunriseSunsetInfoConversionsTest {
 
@@ -49,9 +50,8 @@ class SunriseSunsetInfoConversionsTest {
         val output = input.toSkylightDay(date)
 
         val expected = SkylightDay.AlwaysLight(
-            date,
-            OffsetTime.parse(sunriseTimeString),
-            OffsetTime.parse(sunsetTimeString)
+            ZonedDateTime.parse(sunrise),
+            ZonedDateTime.parse(sunset)
         )
         assertEquals(expected, output)
     }
@@ -67,9 +67,8 @@ class SunriseSunsetInfoConversionsTest {
         val output = input.toSkylightDay(date)
 
         val expected = SkylightDay.NeverDaytime(
-            date,
-            OffsetTime.parse(dawnTimeString),
-            OffsetTime.parse(duskTimeString)
+            ZonedDateTime.parse(dawn),
+            ZonedDateTime.parse(dusk)
         )
         assertEquals(expected, output)
     }
@@ -89,11 +88,10 @@ class SunriseSunsetInfoConversionsTest {
         val output = input.toSkylightDay(date)
 
         val expected = SkylightDay.Typical(
-            date,
-            OffsetTime.parse(dawnTimeString),
-            OffsetTime.parse(sunriseTimeString),
-            OffsetTime.parse(sunsetTimeString),
-            OffsetTime.parse(duskTimeString)
+            ZonedDateTime.parse(dawn),
+            ZonedDateTime.parse(sunrise),
+            ZonedDateTime.parse(sunset),
+            ZonedDateTime.parse(dusk)
         )
         assertEquals(expected, output)
     }

@@ -47,27 +47,20 @@ internal fun SunriseSunsetInfo.toSkylightDay(date: LocalDate): SkylightDay {
             SkylightDay.AlwaysDaytime(date)
         civil_twilight_begin == ApiConstants.DATE_TIME_NONE ->
             SkylightDay.AlwaysLight(
-                date,
-                sunrise.asDateTimeToOffsetTime(),
-                sunset.asDateTimeToOffsetTime()
+                sunrise.toZonedDateTime(),
+                sunset.toZonedDateTime()
             )
         sunrise == ApiConstants.DATE_TIME_NONE ->
             SkylightDay.NeverDaytime(
-                date,
-                civil_twilight_begin.asDateTimeToOffsetTime(),
-                civil_twilight_end.asDateTimeToOffsetTime()
+                civil_twilight_begin.toZonedDateTime(),
+                civil_twilight_end.toZonedDateTime()
             )
         else ->
             SkylightDay.Typical(
-                date,
-                civil_twilight_begin.asDateTimeToOffsetTime(),
-                sunrise.asDateTimeToOffsetTime(),
-                sunset.asDateTimeToOffsetTime(),
-                civil_twilight_end.asDateTimeToOffsetTime()
+                civil_twilight_begin.toZonedDateTime(),
+                sunrise.toZonedDateTime(),
+                sunset.toZonedDateTime(),
+                civil_twilight_end.toZonedDateTime()
             )
     }
 }
-
-private fun String.asDateTimeToOffsetTime() = toZonedDateTime()
-    .toOffsetDateTime()
-    .toOffsetTime()

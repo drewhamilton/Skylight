@@ -8,6 +8,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.OffsetTime
 import java.time.ZoneOffset
+import java.time.ZonedDateTime
 import javax.inject.Inject
 
 /**
@@ -39,27 +40,18 @@ class CalculatorSkylight @Inject constructor() : Skylight {
     private fun EpochMilliSkylightDay.toSkylightDay(date: LocalDate) = when (this) {
         is EpochMilliSkylightDay.Typical ->
             SkylightDay.Typical(
-                date,
-                dawn.asEpochMilliToUtcOffsetTime(),
-                sunrise.asEpochMilliToUtcOffsetTime(),
-                sunset.asEpochMilliToUtcOffsetTime(),
-                dusk.asEpochMilliToUtcOffsetTime()
+                dawn.asEpochMilliToUtcDateTime(),
+                sunrise.asEpochMilliToUtcDateTime(),
+                sunset.asEpochMilliToUtcDateTime(),
+                dusk.asEpochMilliToUtcDateTime()
             )
         is EpochMilliSkylightDay.AlwaysDaytime -> SkylightDay.AlwaysDaytime(date)
         is EpochMilliSkylightDay.AlwaysLight ->
-            SkylightDay.AlwaysLight(
-                date,
-                sunrise.asEpochMilliToUtcOffsetTime(),
-                sunset.asEpochMilliToUtcOffsetTime()
-            )
+            SkylightDay.AlwaysLight(sunrise.asEpochMilliToUtcDateTime(), sunset.asEpochMilliToUtcDateTime())
         is EpochMilliSkylightDay.NeverDaytime ->
-            SkylightDay.NeverDaytime(
-                date,
-                dawn.asEpochMilliToUtcOffsetTime(),
-                dusk.asEpochMilliToUtcOffsetTime()
-            )
+            SkylightDay.NeverDaytime(dawn.asEpochMilliToUtcDateTime(), dusk.asEpochMilliToUtcDateTime())
         is EpochMilliSkylightDay.NeverLight -> SkylightDay.NeverLight(date)
     }
 
-    private fun Long.asEpochMilliToUtcOffsetTime() = OffsetTime.ofInstant(Instant.ofEpochMilli(this), ZoneOffset.UTC)
+    private fun Long.asEpochMilliToUtcDateTime() = ZonedDateTime.ofInstant(Instant.ofEpochMilli(this), ZoneOffset.UTC)
 }

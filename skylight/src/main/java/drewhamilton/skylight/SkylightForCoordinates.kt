@@ -6,9 +6,9 @@ import javax.inject.Inject
 
 /**
  * A convenient [Skylight] wrapper for a single location.
- * TODO: Determine if @Inject internal constructor works with Dagger in another module
- * TODO: Investigate assisted injection
  */
+// TODO: Determine if @Inject internal constructor works with Dagger in another module
+// TODO: Investigate assisted injection
 class SkylightForCoordinates @Inject internal constructor(
     internal val skylight: Skylight,
     val coordinates: Coordinates
