@@ -34,6 +34,6 @@ ext {
   compatibleVersion = '0.9.1'
   failIfIncompatible = false
 
-  rxJavaVersion = '2.2.8'
-  daggerVersion = '2.22.1'
+  rxJavaVersion = '2.2.11'
+  daggerVersion = '2.24'
 }
