@@ -46,6 +46,23 @@ implementation "drewhamilton.skylight.backport:skylight-backport-rx:$version"
 **Note:** It is not recommended and in some cases impossible to use both Skylight and backported Skylight in a single
 app or library.
 
+## Usage
+Determine and dawn, sunrise, sunset, and dusk for a given location and date, and process it simply and intuitively.
+```kotlin
+val amsterdam = Coordinates(52.3680, 4.9036)
+val tomorrow = LocalDate.now().plusDays(1)
+val skylight: Skylight = CalculatorSkylight()
+
+val message = when (val skylightDay = skylight.getSkylightDay(amsterdam, tomorrow)) {
+    is SkylightDay.AlwaysDaytime -> "The sun will be up all day in Amsterdam tomorrow."
+    is SkylightDay.Typical,
+    is SkylightDay.AlwaysLight -> "The sun will rise in Amsterdam tomorrow."
+    is SkylightDay.NeverDaytime,
+    is SkylightDay.NeverLight -> "The sun will not rise in Amsterdam tomorrow."
+}
+display(message)
+```
+
 If you are using Skylight on Android, also see [Skylight Android](https://github.com/drewhamilton/SkylightAndroid) for a
 few added features.
 

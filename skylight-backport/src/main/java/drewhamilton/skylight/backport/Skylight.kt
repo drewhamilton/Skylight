@@ -20,7 +20,7 @@ interface Skylight {
  */
 fun Skylight.isLight(coordinates: Coordinates, dateTime: ZonedDateTime) =
     when (val skylightDay = getSkylightDay(coordinates, dateTime.toLocalDate())) {
-        is SkylightDay.AlwaysDaytime -> true
+        is SkylightDay.AlwaysDaytime,
         is SkylightDay.AlwaysLight -> true
         is SkylightDay.NeverLight -> false
         is SkylightDay.NeverDaytime -> isLight(skylightDay.dawn, skylightDay.dusk, dateTime)
