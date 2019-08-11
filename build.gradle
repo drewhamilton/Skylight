@@ -30,8 +30,8 @@ task clean(type: Delete) {
 }
 
 ext {
-  libraryVersion = '0.9.2'
-  compatibleVersion = '0.9.1'
+  libraryVersion = '0.10.0'
+  compatibleVersion = '0.9.2'
   failIfIncompatible = false
 
   rxJavaVersion = '2.2.11'
