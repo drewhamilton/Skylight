@@ -43,25 +43,15 @@ class SsoSkylight @Inject constructor(
 internal fun SunriseSunsetInfo.toSkylightDay(date: LocalDate): SkylightDay {
     return when {
         civil_twilight_begin == ApiConstants.DATE_TIME_NONE && sunrise == ApiConstants.DATE_TIME_NONE ->
-            SkylightDay.NeverLight(date)
+            SkylightDay.NeverLight { this.date = date }
         civil_twilight_begin == ApiConstants.DATE_TIME_ALWAYS_DAY && sunrise == ApiConstants.DATE_TIME_ALWAYS_DAY ->
-            SkylightDay.AlwaysDaytime(date)
-        civil_twilight_begin == ApiConstants.DATE_TIME_NONE ->
-            SkylightDay.AlwaysLight(
-                sunrise.toZonedDateTime(),
-                sunset.toZonedDateTime()
-            )
-        sunrise == ApiConstants.DATE_TIME_NONE ->
-            SkylightDay.NeverDaytime(
-                civil_twilight_begin.toZonedDateTime(),
-                civil_twilight_end.toZonedDateTime()
-            )
-        else ->
-            SkylightDay.Typical(
-                civil_twilight_begin.toZonedDateTime(),
-                sunrise.toZonedDateTime(),
-                sunset.toZonedDateTime(),
-                civil_twilight_end.toZonedDateTime()
-            )
+            SkylightDay.AlwaysDaytime { this.date = date }
+        else -> SkylightDay.Typical {
+            this.date = date
+            this.dawn = civil_twilight_begin.toZonedDateTime()
+            this.sunrise = this@toSkylightDay.sunrise.toZonedDateTime()
+            this.sunset = this@toSkylightDay.sunset.toZonedDateTime()
+            this.dusk = civil_twilight_end.toZonedDateTime()
+        }
     }
 }
