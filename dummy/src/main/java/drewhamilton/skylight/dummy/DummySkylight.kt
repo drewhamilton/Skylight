@@ -27,33 +27,20 @@ class DummySkylight @Inject constructor(
      */
     fun getSkylightDay(date: LocalDate) = dummySkylightDay.copy(date)
 
-    private fun SkylightDay.copy(date: LocalDate): SkylightDay {
-        return when (this) {
+    private fun SkylightDay.copy(newDate: LocalDate): SkylightDay {
+        return when (val original = this) {
             is SkylightDay.Typical -> {
-                val daysToAdd = dawn.toLocalDate().daysUntil(date)
-                copy(
-                    dawn = dawn.addDays(daysToAdd),
-                    sunrise = sunrise.addDays(daysToAdd),
-                    sunset = sunset.addDays(daysToAdd),
-                    dusk = dusk.addDays(daysToAdd)
-                )
+                val daysToAdd = this.date.daysUntil(newDate)
+                SkylightDay.Typical {
+                    date = newDate
+                    dawn = original.dawn?.addDays(daysToAdd)
+                    sunrise = original.sunrise?.addDays(daysToAdd)
+                    sunset = original.sunset?.addDays(daysToAdd)
+                    dusk = original.dusk?.addDays(daysToAdd)
+                }
             }
-            is SkylightDay.AlwaysDaytime -> copy(date = date)
-            is SkylightDay.AlwaysLight -> {
-                val daysToAdd = sunrise.toLocalDate().daysUntil(date)
-                copy(
-                    sunrise = sunrise.addDays(daysToAdd),
-                    sunset = sunset.addDays(daysToAdd)
-                )
-            }
-            is SkylightDay.NeverDaytime -> {
-                val daysToAdd = dawn.toLocalDate().daysUntil(date)
-                copy(
-                    dawn = dawn.addDays(daysToAdd),
-                    dusk = dusk.addDays(daysToAdd)
-                )
-            }
-            is SkylightDay.NeverLight -> copy(date = date)
+            is SkylightDay.AlwaysDaytime -> SkylightDay.AlwaysDaytime { date = newDate }
+            is SkylightDay.NeverLight -> SkylightDay.NeverLight { date = newDate }
         }
     }
 
