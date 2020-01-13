@@ -1,5 +1,12 @@
 package drewhamilton.skylight.calculator
 
+import kotlin.math.acos
+import kotlin.math.asin
+import kotlin.math.cos
+import kotlin.math.roundToInt
+import kotlin.math.roundToLong
+import kotlin.math.sin
+
 internal fun calculateSkylightInfo(
     epochMillis: Long,
     latitude: Double,
@@ -19,34 +26,35 @@ internal fun calculateSkylightInfo(
 
     // solar transit in days since 2000
     val arcLongitude = -longitude / 360
-    val n = Math.round(daysSince2000 - CORRECTION_SOLAR_TRANSIT - arcLongitude).toFloat()
+    val n = (daysSince2000 - CORRECTION_SOLAR_TRANSIT - arcLongitude).roundToInt().toFloat()
     val solarTransitJ2000 = n + CORRECTION_SOLAR_TRANSIT + arcLongitude +
-            0.0053 * Math.sin(meanAnomaly.toDouble()) +
-            -0.0069 * Math.sin(2 * solarLongitude)
+            0.0053 * sin(meanAnomaly.toDouble()) +
+            -0.0069 * sin(2 * solarLongitude)
 
     // declination of sun
-    val solarDec = Math.asin(Math.sin(solarLongitude) * Math.sin(OBLIQUITY.toDouble()))
+    val solarDec = asin(sin(solarLongitude) * sin(OBLIQUITY.toDouble()))
 
     val latitudeRadians = latitude * DEGREES_TO_RADIANS
 
     val cosHourAngleTwilight = calculateCosineHourAngle(altitudeRadiansCivilTwilight, latitudeRadians, solarDec)
     val cosHourAngleHorizon = calculateCosineHourAngle(altitudeRadiansHorizon, latitudeRadians, solarDec)
 
+    // TODO: What about days with 1 or 3 events?
     return when {
         isAlwaysNight(cosHourAngleTwilight) -> EpochMilliSkylightDay.NeverLight
         isAlwaysDay(cosHourAngleHorizon) -> EpochMilliSkylightDay.AlwaysDaytime
         else -> {
-            val hourAngleTwilight = (Math.acos(cosHourAngleTwilight) / (2 * Math.PI)).toFloat()
+            val hourAngleTwilight = (acos(cosHourAngleTwilight) / (2 * Math.PI)).toFloat()
             val dawn = calculateMorningEventUnixTime(solarTransitJ2000, hourAngleTwilight)
             val dusk = calculateEveningEventUnixTime(solarTransitJ2000, hourAngleTwilight)
 
-            val hourAngleHorizon = (Math.acos(cosHourAngleHorizon) / (2 * Math.PI)).toFloat()
+            val hourAngleHorizon = (acos(cosHourAngleHorizon) / (2 * Math.PI)).toFloat()
             val sunrise = calculateMorningEventUnixTime(solarTransitJ2000, hourAngleHorizon)
             val sunset = calculateEveningEventUnixTime(solarTransitJ2000, hourAngleHorizon)
 
             when {
-                isAlwaysDay(cosHourAngleTwilight) -> EpochMilliSkylightDay.AlwaysLight(sunrise, sunset)
-                isAlwaysNight(cosHourAngleHorizon) -> EpochMilliSkylightDay.NeverDaytime(dawn, dusk)
+                isAlwaysDay(cosHourAngleTwilight) -> EpochMilliSkylightDay.Typical(null, sunrise, sunset, null)
+                isAlwaysNight(cosHourAngleHorizon) -> EpochMilliSkylightDay.Typical(dawn, null, null, dusk)
                 else -> EpochMilliSkylightDay.Typical(dawn, sunrise, sunset, dusk)
             }
         }
@@ -57,20 +65,20 @@ private fun calculateMeanAnomaly(daysSince2000: Float) = 6.240059968f + daysSinc
 
 private fun calculateTrueAnomaly(meanAnomaly: Float) =
     meanAnomaly +
-            C1 * Math.sin(meanAnomaly.toDouble()) +
-            C2 * Math.sin((2.0 * meanAnomaly)) +
-            C3 * Math.sin((3.0 * meanAnomaly))
+            C1 * sin(meanAnomaly.toDouble()) +
+            C2 * sin((2.0 * meanAnomaly)) +
+            C3 * sin((3.0 * meanAnomaly))
 
 private fun calculateCosineHourAngle(altitudeCorrection: Float, latRad: Double, solarDec: Double) =
-    (Math.sin(altitudeCorrection.toDouble()) - Math.sin(latRad) * Math.sin(solarDec)) /
-            (Math.cos(latRad) * Math.cos(solarDec))
+    (sin(altitudeCorrection.toDouble()) - sin(latRad) * sin(solarDec)) /
+            (cos(latRad) * cos(solarDec))
 
 private fun isAlwaysDay(cosHourAngle: Double) = cosHourAngle <= -1
 
 private fun isAlwaysNight(cosHourAngle: Double) = cosHourAngle >= 1
 
 private fun calculateMorningEventUnixTime(solarTransitJ2000: Double, hourAngle: Float) =
-    Math.round((solarTransitJ2000 - hourAngle) * DAY_IN_MILLIS) + UNIX_NOON_UTC_2000
+    ((solarTransitJ2000 - hourAngle) * DAY_IN_MILLIS).roundToLong() + UNIX_NOON_UTC_2000
 
 private fun calculateEveningEventUnixTime(solarTransitJ2000: Double, hourAngle: Float) =
     calculateMorningEventUnixTime(solarTransitJ2000, -hourAngle)
