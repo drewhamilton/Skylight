@@ -18,14 +18,11 @@ interface Skylight {
  * Determine whether it is light outside at the given [coordinates] at the given [dateTime], where "light" means after
  * dawn and before dusk on the given date.
  */
-@Suppress("NewApi")
 fun Skylight.isLight(coordinates: Coordinates, dateTime: ZonedDateTime) =
     when (val skylightDay = getSkylightDay(coordinates, dateTime.toLocalDate())) {
-        is SkylightDay.AlwaysDaytime,
-        is SkylightDay.AlwaysLight -> true
+        is SkylightDay.AlwaysDaytime -> true
         is SkylightDay.NeverLight -> false
-        is SkylightDay.NeverDaytime -> isLight(skylightDay.dawn, skylightDay.dusk, dateTime)
-        is SkylightDay.Typical -> isLight(skylightDay.dawn, skylightDay.dusk, dateTime)
+        is SkylightDay.Typical -> skylightDay.isLight(dateTime)
     }
 
 /**
@@ -34,5 +31,5 @@ fun Skylight.isLight(coordinates: Coordinates, dateTime: ZonedDateTime) =
  */
 fun Skylight.isDark(coordinates: Coordinates, dateTime: ZonedDateTime) = !isLight(coordinates, dateTime)
 
-private fun isLight(dawn: ZonedDateTime, dusk: ZonedDateTime, time: ZonedDateTime) =
-    dawn.isBefore(time) && dusk.isAfter(time)
+private fun SkylightDay.Typical.isLight(time: ZonedDateTime) = dawn == null ||
+        (dawn.isBefore(time) && (dusk == null || dusk.isAfter(time)))

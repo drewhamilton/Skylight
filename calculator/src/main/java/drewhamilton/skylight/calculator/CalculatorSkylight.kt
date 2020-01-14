@@ -16,9 +16,8 @@ import javax.inject.Inject
  *
  * Values returned are a bit "fuzzy"; that is, you can get different SkylightInfo for the same location on the same day
  * depending on the exact input time. This difference has been noted to range up to almost 1 minute, but has not been
- * tested extensively. Handle the returned calculation accordingly
+ * tested extensively. Handle the returned calculation accordingly.
  */
-@Suppress("NewApi")
 @Reusable
 class CalculatorSkylight @Inject constructor() : Skylight {
 
@@ -34,24 +33,24 @@ class CalculatorSkylight @Inject constructor() : Skylight {
             .toSkylightDay(date)
     }
 
-    private fun noonUtc() = OffsetTime.of(12, 0, 0, 0, ZoneOffset.UTC)
     private fun LocalDate.toNoonUtcEpochMillis() = atTime(noonUtc()).toInstant().toEpochMilli()
+    private fun noonUtc() = OffsetTime.of(12, 0, 0, 0, ZoneOffset.UTC)
 
     private fun EpochMilliSkylightDay.toSkylightDay(date: LocalDate) = when (this) {
-        is EpochMilliSkylightDay.Typical ->
-            SkylightDay.Typical(
-                dawn.asEpochMilliToUtcDateTime(),
-                sunrise.asEpochMilliToUtcDateTime(),
-                sunset.asEpochMilliToUtcDateTime(),
-                dusk.asEpochMilliToUtcDateTime()
-            )
-        is EpochMilliSkylightDay.AlwaysDaytime -> SkylightDay.AlwaysDaytime(date)
-        is EpochMilliSkylightDay.AlwaysLight ->
-            SkylightDay.AlwaysLight(sunrise.asEpochMilliToUtcDateTime(), sunset.asEpochMilliToUtcDateTime())
-        is EpochMilliSkylightDay.NeverDaytime ->
-            SkylightDay.NeverDaytime(dawn.asEpochMilliToUtcDateTime(), dusk.asEpochMilliToUtcDateTime())
-        is EpochMilliSkylightDay.NeverLight -> SkylightDay.NeverLight(date)
+        is EpochMilliSkylightDay.Typical -> SkylightDay.Typical {
+            this.date = date
+            this.dawn = this@toSkylightDay.dawn.asEpochMilliToUtcDateTime()
+            this.sunrise = this@toSkylightDay.sunrise.asEpochMilliToUtcDateTime()
+            this.sunset = this@toSkylightDay.sunset.asEpochMilliToUtcDateTime()
+            this.dusk = this@toSkylightDay.dusk.asEpochMilliToUtcDateTime()
+        }
+        is EpochMilliSkylightDay.AlwaysDaytime -> SkylightDay.AlwaysDaytime { this.date = date }
+        is EpochMilliSkylightDay.NeverLight -> SkylightDay.NeverLight { this.date = date }
     }
 
-    private fun Long.asEpochMilliToUtcDateTime() = ZonedDateTime.ofInstant(Instant.ofEpochMilli(this), ZoneOffset.UTC)
+    private fun Long?.asEpochMilliToUtcDateTime() =
+        if (this == null)
+            null
+        else
+            ZonedDateTime.ofInstant(Instant.ofEpochMilli(this), ZoneOffset.UTC)
 }

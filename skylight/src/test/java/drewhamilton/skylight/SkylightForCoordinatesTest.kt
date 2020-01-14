@@ -64,11 +64,15 @@ class SkylightForCoordinatesTest {
     }
 
     private fun KClass<out SkylightDay>.instantiate(date: LocalDate) = when (this) {
-        SkylightDay.Typical::class -> SkylightDay.Typical(testDateTime, testDateTime, testDateTime, testDateTime)
-        SkylightDay.AlwaysDaytime::class -> SkylightDay.AlwaysDaytime(date)
-        SkylightDay.AlwaysLight::class -> SkylightDay.AlwaysLight(testDateTime, testDateTime)
-        SkylightDay.NeverDaytime::class -> SkylightDay.NeverDaytime(testDateTime, testDateTime)
-        SkylightDay.NeverLight::class -> SkylightDay.NeverLight(date)
+        SkylightDay.Typical::class -> SkylightDay.Typical {
+            this.date = date
+            this.dawn = testDateTime
+            this.sunrise = testDateTime
+            this.sunset = testDateTime
+            this.dusk = testDateTime
+        }
+        SkylightDay.AlwaysDaytime::class -> SkylightDay.AlwaysDaytime { this.date = date }
+        SkylightDay.NeverLight::class -> SkylightDay.NeverLight { this.date = date }
         else -> throw IllegalArgumentException("Unknown ${SkylightDay::class} subtype: $this")
     }
 }
