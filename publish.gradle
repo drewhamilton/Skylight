@@ -5,7 +5,6 @@ ext {
   bintrayRepo = 'Skylight'
 
   publishedGroupId = 'drewhamilton.skylight'
-  publishedBackportGroupId = 'drewhamilton.skylight.backport'
 
   siteUrl = 'https://github.com/drewhamilton/Skylight'
   gitUrl = 'https://github.com/drewhamilton/Skylight'
