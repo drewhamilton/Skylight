@@ -25,26 +25,9 @@ implementation "drewhamilton.skylight:skylight-dummy:$version"
 implementation "drewhamilton.skylight:skylight-rx:$version"
 ```
 
-Using Skylight with Java 6 and 7 (and Android minSdk < 26) requires a backport, as the primary Skylight interface uses
-`java.time` types. To use the backports, which replace `java.time` types with
-[ThreeTenBP](https://www.threeten.org/threetenbp/), add "backport" to the group ID and to the artifact name:
-```groovy
-// The base interface, using the ThreeTenBP library:
-implementation "drewhamilton.skylight.backport:skylight-backport:$version"
-
-// sunrise-sunset.org implementation:
-implementation "drewhamilton.skylight.backport:skylight-backport-sso:$version"
-// Calculator implementation:
-implementation "drewhamilton.skylight.backport:skylight-backport-calculator:$version"
-// Dummy implementation:
-implementation "drewhamilton.skylight.backport:skylight-backport-dummy:$version"
-
-// RxJava extensions:
-implementation "drewhamilton.skylight.backport:skylight-backport-rx:$version"
-```
-
-**Note:** It is not recommended and in some cases impossible to use both Skylight and backported Skylight in a single
-app or library.
+Skylight requires Java 8. Using Skylight on Android requires enabling
+[core library desugaring](https://developer.android.com/studio/preview/features#j8-desugar), available in Android Gradle
+Plugin 4.0.0 and higher.
 
 ## Usage
 Determine and dawn, sunrise, sunset, and dusk for a given location and date, and process it simply and intuitively.
@@ -53,12 +36,11 @@ val amsterdam = Coordinates(52.3680, 4.9036)
 val tomorrow = LocalDate.now().plusDays(1)
 val skylight: Skylight = CalculatorSkylight()
 
-val message = when (val skylightDay = skylight.getSkylightDay(amsterdam, tomorrow)) {
-    is SkylightDay.AlwaysDaytime -> "The sun will be up all day in Amsterdam tomorrow."
-    is SkylightDay.Typical,
-    is SkylightDay.AlwaysLight -> "The sun will rise in Amsterdam tomorrow."
-    is SkylightDay.NeverDaytime,
-    is SkylightDay.NeverLight -> "The sun will not rise in Amsterdam tomorrow."
+val skylightDay = skylight.getSkylightDay(amsterdam, tomorrow)
+val message = when {
+    skylightDay is SkylightDay.AlwaysDaytime -> "The sun will be up all day in Amsterdam tomorrow."
+    skylightDay is SkylightDay.Typical && skylightDay.sunrise != null -> "The sun will rise tomorrow."
+    else -> "The sun will not rise tomorrow."
 }
 display(message)
 ```
