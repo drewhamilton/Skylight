@@ -5,8 +5,6 @@ apply plugin: 'kotlin-kapt'
 ext.artifact = 'skylight-sso'
 apply from: 'publish.gradle'
 
-sourceSets.main.java.srcDirs += '../sso-common/src/main/java'
-
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
@@ -31,8 +29,8 @@ dependencies {
   testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
 }
 
-sourceCompatibility = "1.8"
-targetCompatibility = "1.8"
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
 
 // TODO WORKAROUND: Get this to work in its own file
 //region Compatibility
