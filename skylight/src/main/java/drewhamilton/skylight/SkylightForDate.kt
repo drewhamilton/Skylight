@@ -8,7 +8,6 @@ import javax.inject.Inject
  */
 // TODO: Determine if @Inject internal constructor works with Dagger in another module
 // TODO: Investigate assisted injection
-@Suppress("NewApi")
 class SkylightForDate @Inject internal constructor(
     private val skylight: Skylight,
     val date: LocalDate

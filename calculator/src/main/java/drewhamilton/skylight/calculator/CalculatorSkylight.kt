@@ -18,7 +18,6 @@ import javax.inject.Inject
  * depending on the exact input time. This difference has been noted to range up to almost 1 minute, but has not been
  * tested extensively. Handle the returned calculation accordingly.
  */
-@Suppress("NewApi")
 @Reusable
 class CalculatorSkylight @Inject constructor() : Skylight {
 

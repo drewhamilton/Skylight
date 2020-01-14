@@ -17,7 +17,6 @@ import javax.inject.Inject
  * An implementation of [Skylight] that uses sunrise-sunset.org to determine a [SkylightDay] for the given location
  * and date.
  */
-@Suppress("NewApi")
 class SsoSkylight @Inject constructor(
     private val api: SsoApi
 ) : Skylight {
