@@ -194,7 +194,7 @@ class SkylightTest {
 
     private fun mockSkylight(skylightDay: SkylightDay) {
         mockSkylight = mock {
-            on { getSkylightDay(any(), any<LocalDate>()) } doReturn skylightDay
+            on { getSkylightDay(any(), any(), any()) } doReturn skylightDay
         }
     }
 }
