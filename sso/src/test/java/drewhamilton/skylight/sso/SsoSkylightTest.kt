@@ -14,6 +14,7 @@ import org.junit.Test
 import retrofit2.HttpException
 import java.time.LocalDate
 import java.time.Month
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 class SsoSkylightTest {
@@ -49,8 +50,8 @@ class SsoSkylightTest {
 
         val ssoSkylight = SsoSkylight(mockApi)
         assertEquals(
-            testSunriseSunsetInfo.toSkylightDay(testDate),
-            ssoSkylight.getSkylightDay(testCoordinates, testDate)
+            testSunriseSunsetInfo.toSkylightDay(testDate, ZoneOffset.UTC),
+            ssoSkylight.getSkylightDay(testCoordinates, testDate, ZoneOffset.UTC)
         )
     }
 

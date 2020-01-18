@@ -6,6 +6,7 @@ import drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDate
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
 
 class SunriseSunsetInfoConversionsTest {
@@ -22,7 +23,7 @@ class SunriseSunsetInfoConversionsTest {
             ApiConstants.DATE_TIME_NONE,
             throwaway
         )
-        val output = input.toSkylightDay(testDate)
+        val output = input.toSkylightDay(testDate, ZoneOffset.UTC)
         assertEquals(SkylightDay.NeverLight { date = testDate }, output)
     }
 
@@ -34,7 +35,7 @@ class SunriseSunsetInfoConversionsTest {
             ApiConstants.DATE_TIME_ALWAYS_DAY,
             throwaway
         )
-        val output = input.toSkylightDay(testDate)
+        val output = input.toSkylightDay(testDate, ZoneOffset.UTC)
         assertEquals(SkylightDay.AlwaysDaytime { date = testDate }, output)
     }
 
@@ -46,7 +47,7 @@ class SunriseSunsetInfoConversionsTest {
         val testSunset = dateTimeString(sunsetTimeString)
 
         val input = SunriseSunsetInfo(testSunrise, testSunset, ApiConstants.DATE_TIME_NONE, ApiConstants.DATE_TIME_NONE)
-        val output = input.toSkylightDay(testDate)
+        val output = input.toSkylightDay(testDate, ZoneOffset.UTC)
 
         val expected = SkylightDay.Typical {
             date = testDate
@@ -64,7 +65,7 @@ class SunriseSunsetInfoConversionsTest {
         val testDusk = dateTimeString(duskTimeString)
 
         val input = SunriseSunsetInfo(ApiConstants.DATE_TIME_NONE, ApiConstants.DATE_TIME_NONE, testDawn, testDusk)
-        val output = input.toSkylightDay(testDate)
+        val output = input.toSkylightDay(testDate, ZoneOffset.UTC)
 
         val expected = SkylightDay.Typical {
             date = testDate
@@ -86,7 +87,7 @@ class SunriseSunsetInfoConversionsTest {
         val testDusk = dateTimeString(duskTimeString)
 
         val input = SunriseSunsetInfo(testSunrise, testSunset, testDawn, testDusk)
-        val output = input.toSkylightDay(testDate)
+        val output = input.toSkylightDay(testDate, ZoneOffset.UTC)
 
         val expected = SkylightDay.Typical {
             date = testDate
