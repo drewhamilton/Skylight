@@ -1,4 +1,3 @@
 include ':skylight'
 include ':calculator', ':dummy', ':sso'
-include ':rx'
 include ':app'
