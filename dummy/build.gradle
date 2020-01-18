@@ -10,11 +10,12 @@ ext {
     libraryDescription = 'A dummy implementation of Skylight that always returns the same skylight events.'
 
     compatibility = [
-        ignoreMissingClasses: false,
+        ignoreMissingClasses: true,
         excludedModules: []
     ]
 }
 apply from: '../gradle/publish.gradle'
+apply from: '../gradle/compatibility.gradle'
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -29,45 +30,3 @@ dependencies {
 
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
-
-// TODO WORKAROUND: Get this to work in its own file
-//region Compatibility
-configurations {
-    baseline
-    latest
-}
-
-dependencies {
-    baseline("$publishedGroupId:$artifact:$compatibleVersion") {
-        transitive false
-        force true
-    }
-    latest project(path: ":$project.name")
-}
-
-apply plugin: 'me.champeau.gradle.japicmp'
-//noinspection UnnecessaryQualifiedReference
-task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
-    oldClasspath = configurations.baseline.incoming.artifactView { config ->
-        config.attributes { container ->
-            container.attribute(Attribute.of("artifactType", String.class), "jar")
-        }
-    }.artifacts.artifactFiles
-
-    newClasspath = configurations.latest.incoming.artifactView { config ->
-        config.attributes { container ->
-            container.attribute(Attribute.of("artifactType", String.class), "jar")
-        }
-    }.artifacts.artifactFiles
-
-    onlyBinaryIncompatibleModified true
-    failOnModification failIfIncompatible
-    txtOutputFile = file("$buildDir/reports/japi.txt")
-
-    // TODO WORKAROUND: Can't find dagger.internal.Factory and can't ignore specific missing classes
-    ignoreMissingClasses true
-}
-
-check.dependsOn(japicmp)
-build.dependsOn(check)
-//endregion

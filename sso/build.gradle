@@ -10,11 +10,14 @@ ext {
   libraryDescription = 'A Skylight implementation that uses sunrise-sunset.org to retrieve skylight information.'
 
   compatibility = [
-      ignoreMissingClasses: false,
-      excludedModules: []
+      ignoreMissingClasses: true,
+      excludedModules: [
+          'skylight'
+      ]
   ]
 }
 apply from: '../gradle/publish.gradle'
+apply from: '../gradle/compatibility.gradle'
 
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -42,49 +45,3 @@ dependencies {
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
-
-// TODO WORKAROUND: Get this to work in its own file
-//region Compatibility
-configurations {
-  baseline
-  latest
-}
-
-dependencies {
-  baseline("$publishedGroupId:$artifact:$compatibleVersion") {
-    transitive false
-    force true
-    exclude module: 'skylight'
-  }
-  latest(project(path: ":$project.name")) {
-    exclude module: 'skylight'
-  }
-}
-
-apply plugin: 'me.champeau.gradle.japicmp'
-//noinspection UnnecessaryQualifiedReference
-task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
-
-  oldClasspath = configurations.baseline.incoming.artifactView { config ->
-    config.attributes { container ->
-      container.attribute(Attribute.of("artifactType", String.class), "jar")
-    }
-  }.artifacts.artifactFiles
-
-  newClasspath = configurations.latest.incoming.artifactView { config ->
-    config.attributes { container ->
-      container.attribute(Attribute.of("artifactType", String.class), "jar")
-    }
-  }.artifacts.artifactFiles
-
-  onlyBinaryIncompatibleModified true
-  failOnModification failIfIncompatible
-  txtOutputFile = file("$buildDir/reports/japi.txt")
-
-  // TODO WORKAROUND: Can't find Skylight, not sure why
-  ignoreMissingClasses true
-}
-
-check.dependsOn(japicmp)
-build.dependsOn(check)
-//endregion
