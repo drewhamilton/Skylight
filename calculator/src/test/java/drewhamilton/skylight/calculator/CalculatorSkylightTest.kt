@@ -19,7 +19,7 @@ class CalculatorSkylightTest {
 
     //region Amsterdam
     @Test fun `Amsterdam on January 6, 2019 is typical`() {
-        val result = skylight.getSkylightDay(AMSTERDAM, JANUARY_6_2019)
+        val result = skylight.getSkylightDay(AMSTERDAM, JANUARY_6_2019, ZoneOffset.UTC)
         assertTrue(result is SkylightDay.Typical)
         result as SkylightDay.Typical
         assertEquals(1546758590702.asEpochMilliToExpectedZonedDateTime(), result.dawn)
@@ -38,7 +38,7 @@ class CalculatorSkylightTest {
 
     //region Indianapolis
     @Test fun `Indianapolis on July 20, 2019 is typical`() {
-        val result = skylight.getSkylightDay(INDIANAPOLIS, JULY_20_2019)
+        val result = skylight.getSkylightDay(INDIANAPOLIS, JULY_20_2019, ZoneOffset.UTC)
 
         assertTrue(result is SkylightDay.Typical)
         result as SkylightDay.Typical
