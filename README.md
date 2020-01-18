@@ -11,7 +11,7 @@ before version 1.0.0.
 
 To use Skylight, include any of the following in your Gradle dependencies:
 ```groovy
-// The base interface, using the java.time library:
+// The base interface:
 implementation "drewhamilton.skylight:skylight:$version"
 
 // sunrise-sunset.org implementation:
@@ -20,17 +20,10 @@ implementation "drewhamilton.skylight:skylight-sso:$version"
 implementation "drewhamilton.skylight:skylight-calculator:$version"
 // Dummy implementation:
 implementation "drewhamilton.skylight:skylight-dummy:$version"
-
-// RxJava extensions:
-implementation "drewhamilton.skylight:skylight-rx:$version"
 ```
 
-Skylight requires Java 8. Using Skylight on Android requires enabling
-[core library desugaring](https://developer.android.com/studio/preview/features#j8-desugar), available in Android Gradle
-Plugin 4.0.0 and higher.
-
 ## Usage
-Determine and dawn, sunrise, sunset, and dusk for a given location and date, and process it simply and intuitively.
+Determine dawn, sunrise, sunset, and dusk for a given location and date, and process it simply and intuitively.
 ```kotlin
 val amsterdam = Coordinates(52.3680, 4.9036)
 val tomorrow = LocalDate.now().plusDays(1)
@@ -39,14 +32,18 @@ val skylight: Skylight = CalculatorSkylight()
 val skylightDay = skylight.getSkylightDay(amsterdam, tomorrow)
 val message = when {
     skylightDay is SkylightDay.AlwaysDaytime -> "The sun will be up all day in Amsterdam tomorrow."
-    skylightDay is SkylightDay.Typical && skylightDay.sunrise != null -> "The sun will rise tomorrow."
-    else -> "The sun will not rise tomorrow."
+    skylightDay is SkylightDay.Typical && skylightDay.sunrise != null -> "The sun will rise in Amsterdam tomorrow."
+    else -> "The sun will not rise in Amsterdam tomorrow."
 }
 display(message)
 ```
 
-If you are using Skylight on Android, also see [Skylight Android](https://github.com/drewhamilton/SkylightAndroid) for a
-few added features.
+Skylight requires Java 8.
+
+Using Skylight on Android requires enabling
+[core library desugaring](https://developer.android.com/studio/preview/features#j8-desugar), available with Android
+Gradle Plugin version 4.0.0 and higher. If you are using Skylight on Android, also see
+[Skylight Android](https://github.com/drewhamilton/SkylightAndroid) for a few added features.
 
 ## License
 ```
