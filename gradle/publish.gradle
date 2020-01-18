@@ -1,0 +1,104 @@
+// Applied per published project
+
+ext {
+    bintrayRepo = 'Skylight'
+    bintrayUser = project.hasProperty('personalBintrayUsername') ? personalBintrayUsername : 'x'
+    bintrayKey = project.hasProperty('personalBintrayApiKey') ? personalBintrayApiKey : 'x'
+
+    publishedGroupId = 'drewhamilton.skylight'
+
+    siteUrl = 'https://github.com/drewhamilton/Skylight'
+    gitUrl = 'https://github.com/drewhamilton/Skylight'
+
+    developerId = 'drewhamilton'
+    developerName = 'Drew Hamilton'
+    developerEmail = 'drew.hamilton.0+android@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+group = publishedGroupId
+version = libraryVersion
+def javadocDestinationDir = "$buildDir/docs/javadoc"
+
+apply plugin: 'com.github.dcendents.android-maven'
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            packaging 'jar'
+            groupId publishedGroupId
+            artifactId artifact
+
+            name libraryName
+            description libraryDescription
+            url siteUrl
+
+            licenses {
+                license {
+                    name licenseName
+                    url licenseUrl
+                }
+            }
+            developers {
+                developer {
+                    id developerId
+                    name developerName
+                    email developerEmail
+                }
+            }
+            scm {
+                connection gitUrl
+                developerConnection gitUrl
+                url siteUrl
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    archiveClassifier.set 'sources'
+    from sourceSets.main.allSource
+}
+
+apply plugin: 'org.jetbrains.dokka'
+task dokkaJavadoc(type: dokka.class) {
+    outputFormat = 'javadoc'
+    outputDirectory = javadocDestinationDir
+    inputs.dir 'src/main/java'
+}
+
+task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+    archiveClassifier.set 'javadoc'
+    from javadocDestinationDir
+}
+
+apply plugin: 'com.jfrog.bintray'
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+bintray {
+    user = bintrayUser
+    key = bintrayKey
+
+    configurations = ['archives']
+
+    dryRun = false
+    publish = true
+    override = false
+    pkg {
+        repo = bintrayRepo
+        name = bintrayName
+        desc = libraryDescription
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = allLicenses
+        publicDownloadNumbers = true
+        version {
+            desc = libraryDescription
+        }
+    }
+}
