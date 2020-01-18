@@ -2,8 +2,19 @@ apply plugin: 'java-library'
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-kapt'
 
-ext.artifact = 'skylight-sso'
-apply from: 'publish.gradle'
+ext {
+  artifact = 'skylight-sso'
+  bintrayName = 'Skylight-sso'
+  libraryName = 'Skylight: sunrise-sunset.org'
+
+  libraryDescription = 'A Skylight implementation that uses sunrise-sunset.org to retrieve skylight information.'
+
+  compatibility = [
+      ignoreMissingClasses: false,
+      excludedModules: []
+  ]
+}
+apply from: '../gradle/publish.gradle'
 
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
