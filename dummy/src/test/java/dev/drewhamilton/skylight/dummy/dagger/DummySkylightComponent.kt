@@ -8,10 +8,9 @@ import dev.drewhamilton.skylight.dummy.DummySkylight
 /**
  * A Dagger component providing an instance of [DummySkylight].
  */
-@Component
-interface DummySkylightComponent {
+@Component interface DummySkylightComponent {
 
-    fun skylight(): DummySkylight
+    val skylight: DummySkylight
 
     @Component.Factory interface Factory {
         fun create(@BindsInstance dummySkylightDay: SkylightDay): DummySkylightComponent

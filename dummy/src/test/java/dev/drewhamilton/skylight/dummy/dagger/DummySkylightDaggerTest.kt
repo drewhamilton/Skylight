@@ -5,16 +5,13 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDate
 
-class DummySkylightComponentTest {
+class DummySkylightDaggerTest {
 
     private val testDate = LocalDate.ofEpochDay(4)
     private val testSkylightDay = SkylightDay.NeverLight { date = testDate }
 
-    @Test
-    fun `create returns DummySkylightComponent with dummySkylightDay`() {
-        val dummySkylightComponent = DummySkylightComponent.create(testSkylightDay)
-        val skylight = dummySkylightComponent.skylight()
-
+    @Test fun `Dagger provides DummySkylight instance given DummySkylightDay`() {
+        val skylight = DummySkylightComponent.create(testSkylightDay).skylight
         assertEquals(testSkylightDay, skylight.getSkylightDay(testDate))
     }
 }

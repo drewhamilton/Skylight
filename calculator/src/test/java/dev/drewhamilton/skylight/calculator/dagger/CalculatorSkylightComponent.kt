@@ -3,8 +3,7 @@ package dev.drewhamilton.skylight.calculator.dagger
 import dagger.Component
 import dev.drewhamilton.skylight.calculator.CalculatorSkylight
 
-@Component
-interface CalculatorSkylightComponent {
+@Component interface CalculatorSkylightComponent {
 
     val skylight: CalculatorSkylight
 
