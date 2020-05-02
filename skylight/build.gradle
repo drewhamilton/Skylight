@@ -8,11 +8,6 @@ ext {
     libraryName = 'Skylight'
 
     libraryDescription = 'An interface for determining sunrise, sunset, and related info for a given location.'
-
-    compatibility = [
-        ignoreMissingClasses: false,
-        excludedModules: []
-    ]
 }
 apply from: '../gradle/publish.gradle'
 
