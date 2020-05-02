@@ -2,6 +2,7 @@ package dev.drewhamilton.skylight.sso.network
 
 import okhttp3.Request
 import okhttp3.ResponseBody
+import okio.Timeout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,6 +46,8 @@ class DummyCall<T> private constructor(
     override fun request(): Request {
         throw UnsupportedOperationException()
     }
+
+    override fun timeout(): Timeout = Timeout.NONE
 
     companion object {
         @JvmStatic

@@ -46,8 +46,10 @@ class SsoSkylightComponentTest {
         val skylight = component.skylight()
         skylight.getSkylightDay(testCoordinates, testDate)
 
-        val expectedUrl = "https://api.sunrise-sunset.org/json?lat=${testCoordinates.latitude}&lng=" +
-                "${testCoordinates.longitude}&date=1970-01-26&formatted=0"
+        val expectedUrl = "https://api.sunrise-sunset.org/json?" +
+                "lat=${testCoordinates.latitude}&" +
+                "lng=${testCoordinates.longitude}&" +
+                "date=1970-01-26&formatted=0"
         assertEquals(1, fakeNetworkInterceptor.interceptedRequests)
         assertNotNull(fakeNetworkInterceptor.interceptedRequest)
         assertEquals(expectedUrl, fakeNetworkInterceptor.interceptedRequest?.url().toString())
