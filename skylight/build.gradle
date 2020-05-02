@@ -17,11 +17,11 @@ ext {
 apply from: '../gradle/publish.gradle'
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 
     implementation "javax.inject:javax.inject:1"
 
-    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-inline:2.28.2'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
