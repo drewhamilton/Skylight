@@ -1,7 +1,8 @@
 buildscript {
     ext.kotlin_version = '1.3.72'
     repositories {
-        google()
+        mavenCentral()
+        // TODO: Remove when publishing to Maven Central
         jcenter()
     }
     dependencies {
@@ -18,8 +19,7 @@ apply plugin: 'binary-compatibility-validator'
 
 allprojects {
     repositories {
-        google()
-        jcenter()
+        mavenCentral()
     }
 }
 
