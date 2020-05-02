@@ -3,13 +3,10 @@ apply plugin: 'org.jetbrains.kotlin.jvm'
 apply plugin: 'org.jetbrains.kotlin.kapt'
 
 ext {
-    artifact = 'skylight-calculator'
-    bintrayName = 'Skylight-calculator'
-    libraryName = 'Skylight Calculator'
-
-    libraryDescription = 'An implementation of Skylight that calculates skylight information locally.'
+    artifactName = 'skylight-calculator'
+    publishedDescription = 'An implementation of Skylight that calculates skylight information locally.'
 }
-apply from: '../gradle/publish.gradle'
+apply from: '../publish.gradle'
 
 dependencies {
     api project(':skylight')

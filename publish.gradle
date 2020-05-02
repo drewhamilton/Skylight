@@ -1,0 +1,99 @@
+// Applied per published module
+//  The module must define ext.artifactName and ext.publishedDescription
+
+group = 'dev.drewhamilton.skylight'
+version = rootProject.ext.libraryVersion
+
+task sourcesJar(type: Jar) {
+    archiveClassifier.set 'sources'
+    from sourceSets.main.allSource
+}
+
+apply plugin: 'org.jetbrains.dokka'
+def javadocDestinationDir = "$buildDir/docs/javadoc"
+task dokkaJavadoc(type: dokka.class) {
+    outputFormat = 'javadoc'
+    outputDirectory = javadocDestinationDir
+    inputs.dir 'src/main/java'
+}
+
+task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+    archiveClassifier.set 'javadoc'
+    from javadocDestinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+apply plugin: 'maven-publish'
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId group
+            artifactId artifactName
+            version version
+
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+
+            pom {
+                name = artifactName
+                description = publishedDescription
+
+                url = 'https://github.com/drewhamilton/Skylight'
+                licenses {
+                    license {
+                        name = 'The Apache Software License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'drewhamilton'
+                        name = 'Drew Hamilton'
+                        email = 'drew.hamilton.0+android@gmail.com'
+                    }
+                }
+
+                scm {
+                    connection = 'scm:git:github.com/drewhamilton/Skylight.git'
+                    developerConnection = 'scm:git:ssh://github.com/drewhamilton/Skylight.git'
+                    url = 'https://github.com/drewhamilton/Skylight'
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = 'MavenCentral'
+
+            def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+            def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+
+            def sonatypeIssuesUsername = project.hasProperty('personalSonatypeIssuesUsername')
+                ? personalSonatypeIssuesUsername
+                : 'x'
+            def sonatypeIssuesPassword = project.hasProperty('personalSonatypeIssuesPassword')
+                ? personalSonatypeIssuesPassword
+                : 'x'
+            credentials {
+                username sonatypeIssuesUsername
+                password sonatypeIssuesPassword
+            }
+        }
+    }
+}
+
+apply plugin: 'signing'
+ext.'signing.keyId' = hasProperty('personalGpgKeyId') ? personalGpgKeyId : 'x'
+ext.'signing.password' = hasProperty('personalGpgPassword') ? personalGpgPassword : 'x'
+ext.'signing.secretKeyRingFile' = hasProperty('personalGpgKeyringFile') ? personalGpgKeyringFile : 'x'
+signing {
+    sign publishing.publications
+}

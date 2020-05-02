@@ -3,13 +3,10 @@ apply plugin: 'org.jetbrains.kotlin.jvm'
 apply plugin: 'org.jetbrains.kotlin.kapt'
 
 ext {
-    artifact = 'skylight-dummy'
-    bintrayName = 'Skylight-dummy'
-    libraryName = 'Skylight Dummy'
-
-    libraryDescription = 'A dummy implementation of Skylight that always returns the same skylight events.'
+    artifactName = 'skylight-dummy'
+    publishedDescription = 'A dummy implementation of Skylight that always returns the same skylight events.'
 }
-apply from: '../gradle/publish.gradle'
+apply from: '../publish.gradle'
 
 dependencies {
     api project(':skylight')
