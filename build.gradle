@@ -9,6 +9,7 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.18"
+        classpath 'org.jetbrains.kotlinx:binary-compatibility-validator:0.2.3'
 
         classpath "me.champeau.gradle:japicmp-gradle-plugin:$japicmp_version"
 
@@ -16,6 +17,8 @@ buildscript {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
     }
 }
+
+apply plugin: 'binary-compatibility-validator'
 
 allprojects {
     repositories {

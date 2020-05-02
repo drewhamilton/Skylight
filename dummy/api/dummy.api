@@ -1,0 +1,33 @@
+public final class dev/drewhamilton/skylight/dummy/DummySkylight : dev/drewhamilton/skylight/Skylight {
+	public fun <init> (Ldev/drewhamilton/skylight/SkylightDay;)V
+	public fun getSkylightDay (Ldev/drewhamilton/skylight/Coordinates;Ljava/time/LocalDate;Ljava/time/ZoneId;)Ldev/drewhamilton/skylight/SkylightDay;
+	public final fun getSkylightDay (Ljava/time/LocalDate;Ljava/time/ZoneId;)Ldev/drewhamilton/skylight/SkylightDay;
+	public static synthetic fun getSkylightDay$default (Ldev/drewhamilton/skylight/dummy/DummySkylight;Ljava/time/LocalDate;Ljava/time/ZoneId;ILjava/lang/Object;)Ldev/drewhamilton/skylight/SkylightDay;
+}
+
+public final class dev/drewhamilton/skylight/dummy/DummySkylight_Factory : dagger/internal/Factory {
+	public fun <init> (Ljavax/inject/Provider;)V
+	public static fun create (Ljavax/inject/Provider;)Ldev/drewhamilton/skylight/dummy/DummySkylight_Factory;
+	public fun get ()Ldev/drewhamilton/skylight/dummy/DummySkylight;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Ldev/drewhamilton/skylight/SkylightDay;)Ldev/drewhamilton/skylight/dummy/DummySkylight;
+}
+
+public final class dev/drewhamilton/skylight/dummy/dagger/DaggerDummySkylightComponent : dev/drewhamilton/skylight/dummy/dagger/DummySkylightComponent {
+	public static fun factory ()Ldev/drewhamilton/skylight/dummy/dagger/DummySkylightComponent$Factory;
+	public fun skylight ()Ldev/drewhamilton/skylight/dummy/DummySkylight;
+}
+
+public abstract interface class dev/drewhamilton/skylight/dummy/dagger/DummySkylightComponent {
+	public static final field Companion Ldev/drewhamilton/skylight/dummy/dagger/DummySkylightComponent$Companion;
+	public abstract fun skylight ()Ldev/drewhamilton/skylight/dummy/DummySkylight;
+}
+
+public final class dev/drewhamilton/skylight/dummy/dagger/DummySkylightComponent$Companion {
+	public final fun create (Ldev/drewhamilton/skylight/SkylightDay;)Ldev/drewhamilton/skylight/dummy/dagger/DummySkylightComponent;
+}
+
+public abstract interface class dev/drewhamilton/skylight/dummy/dagger/DummySkylightComponent$Factory {
+	public abstract fun create (Ldev/drewhamilton/skylight/SkylightDay;)Ldev/drewhamilton/skylight/dummy/dagger/DummySkylightComponent;
+}
+

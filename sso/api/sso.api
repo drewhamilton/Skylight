@@ -1,0 +1,116 @@
+public final class dev/drewhamilton/skylight/sso/SsoSkylight : dev/drewhamilton/skylight/Skylight {
+	public fun <init> (Ldev/drewhamilton/skylight/sso/network/SsoApi;)V
+	public fun getSkylightDay (Ldev/drewhamilton/skylight/Coordinates;Ljava/time/LocalDate;Ljava/time/ZoneId;)Ldev/drewhamilton/skylight/SkylightDay;
+}
+
+public final class dev/drewhamilton/skylight/sso/SsoSkylight_Factory : dagger/internal/Factory {
+	public fun <init> (Ljavax/inject/Provider;)V
+	public static fun create (Ljavax/inject/Provider;)Ldev/drewhamilton/skylight/sso/SsoSkylight_Factory;
+	public fun get ()Ldev/drewhamilton/skylight/sso/SsoSkylight;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Ldev/drewhamilton/skylight/sso/network/SsoApi;)Ldev/drewhamilton/skylight/sso/SsoSkylight;
+}
+
+public final class dev/drewhamilton/skylight/sso/dagger/DaggerSsoSkylightComponent : dev/drewhamilton/skylight/sso/dagger/SsoSkylightComponent {
+	public static fun factory ()Ldev/drewhamilton/skylight/sso/dagger/SsoSkylightComponent$Factory;
+	public fun skylight ()Ldev/drewhamilton/skylight/sso/SsoSkylight;
+}
+
+public final class dev/drewhamilton/skylight/sso/dagger/SsoNetworkModule_Moshi$ssoFactory : dagger/internal/Factory {
+	public fun <init> ()V
+	public static fun create ()Ldev/drewhamilton/skylight/sso/dagger/SsoNetworkModule_Moshi$ssoFactory;
+	public fun get ()Lcom/squareup/moshi/Moshi;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun moshi$sso ()Lcom/squareup/moshi/Moshi;
+}
+
+public final class dev/drewhamilton/skylight/sso/dagger/SsoNetworkModule_Retrofit$ssoFactory : dagger/internal/Factory {
+	public fun <init> (Ljavax/inject/Provider;Ljavax/inject/Provider;)V
+	public static fun create (Ljavax/inject/Provider;Ljavax/inject/Provider;)Ldev/drewhamilton/skylight/sso/dagger/SsoNetworkModule_Retrofit$ssoFactory;
+	public synthetic fun get ()Ljava/lang/Object;
+	public fun get ()Lretrofit2/Retrofit;
+	public static fun retrofit$sso (Lcom/squareup/moshi/Moshi;Lokhttp3/OkHttpClient;)Lretrofit2/Retrofit;
+}
+
+public final class dev/drewhamilton/skylight/sso/dagger/SsoNetworkModule_SsoApi$ssoFactory : dagger/internal/Factory {
+	public fun <init> (Ljavax/inject/Provider;)V
+	public static fun create (Ljavax/inject/Provider;)Ldev/drewhamilton/skylight/sso/dagger/SsoNetworkModule_SsoApi$ssoFactory;
+	public fun get ()Ldev/drewhamilton/skylight/sso/network/SsoApi;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun ssoApi$sso (Lretrofit2/Retrofit;)Ldev/drewhamilton/skylight/sso/network/SsoApi;
+}
+
+public abstract interface class dev/drewhamilton/skylight/sso/dagger/SsoSkylightComponent {
+	public static final field Companion Ldev/drewhamilton/skylight/sso/dagger/SsoSkylightComponent$Companion;
+	public abstract fun skylight ()Ldev/drewhamilton/skylight/sso/SsoSkylight;
+}
+
+public final class dev/drewhamilton/skylight/sso/dagger/SsoSkylightComponent$Companion {
+	public final fun create ()Ldev/drewhamilton/skylight/sso/dagger/SsoSkylightComponent;
+	public final fun create (Lokhttp3/OkHttpClient;)Ldev/drewhamilton/skylight/sso/dagger/SsoSkylightComponent;
+	public static synthetic fun create$default (Ldev/drewhamilton/skylight/sso/dagger/SsoSkylightComponent$Companion;Lokhttp3/OkHttpClient;ILjava/lang/Object;)Ldev/drewhamilton/skylight/sso/dagger/SsoSkylightComponent;
+}
+
+public abstract interface class dev/drewhamilton/skylight/sso/dagger/SsoSkylightComponent$Factory {
+	public abstract fun create (Lokhttp3/OkHttpClient;)Ldev/drewhamilton/skylight/sso/dagger/SsoSkylightComponent;
+}
+
+public abstract interface class dev/drewhamilton/skylight/sso/network/SsoApi {
+	public abstract fun getInfo (DDLjava/lang/String;I)Lretrofit2/Call;
+}
+
+public final class dev/drewhamilton/skylight/sso/network/SsoApi$DefaultImpls {
+	public static synthetic fun getInfo$default (Ldev/drewhamilton/skylight/sso/network/SsoApi;DDLjava/lang/String;IILjava/lang/Object;)Lretrofit2/Call;
+}
+
+public abstract interface annotation class dev/drewhamilton/skylight/sso/network/SsoDate : java/lang/annotation/Annotation {
+}
+
+public abstract interface annotation class dev/drewhamilton/skylight/sso/network/SsoDateTime : java/lang/annotation/Annotation {
+}
+
+public final class dev/drewhamilton/skylight/sso/network/request/Params {
+	public fun <init> (DDLjava/lang/String;)V
+	public final fun component1 ()D
+	public final fun component2 ()D
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (DDLjava/lang/String;)Ldev/drewhamilton/skylight/sso/network/request/Params;
+	public static synthetic fun copy$default (Ldev/drewhamilton/skylight/sso/network/request/Params;DDLjava/lang/String;ILjava/lang/Object;)Ldev/drewhamilton/skylight/sso/network/request/Params;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDate ()Ljava/lang/String;
+	public final fun getLat ()D
+	public final fun getLng ()D
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/drewhamilton/skylight/sso/network/response/SsoInfoResponse {
+	public fun <init> (Ldev/drewhamilton/skylight/sso/network/response/SunriseSunsetInfo;Ljava/lang/String;)V
+	public final fun component1 ()Ldev/drewhamilton/skylight/sso/network/response/SunriseSunsetInfo;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ldev/drewhamilton/skylight/sso/network/response/SunriseSunsetInfo;Ljava/lang/String;)Ldev/drewhamilton/skylight/sso/network/response/SsoInfoResponse;
+	public static synthetic fun copy$default (Ldev/drewhamilton/skylight/sso/network/response/SsoInfoResponse;Ldev/drewhamilton/skylight/sso/network/response/SunriseSunsetInfo;Ljava/lang/String;ILjava/lang/Object;)Ldev/drewhamilton/skylight/sso/network/response/SsoInfoResponse;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getResults ()Ldev/drewhamilton/skylight/sso/network/response/SunriseSunsetInfo;
+	public final fun getStatus ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/drewhamilton/skylight/sso/network/response/SunriseSunsetInfo {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ldev/drewhamilton/skylight/sso/network/response/SunriseSunsetInfo;
+	public static synthetic fun copy$default (Ldev/drewhamilton/skylight/sso/network/response/SunriseSunsetInfo;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ldev/drewhamilton/skylight/sso/network/response/SunriseSunsetInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCivil_twilight_begin ()Ljava/lang/String;
+	public final fun getCivil_twilight_end ()Ljava/lang/String;
+	public final fun getSunrise ()Ljava/lang/String;
+	public final fun getSunset ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
