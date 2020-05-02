@@ -28,7 +28,6 @@ buildscript {
     }
     repositories {
         mavenCentral()
-        // TODO: Remove when publishing to Maven Central
         jcenter()
     }
 }
@@ -42,6 +41,7 @@ ext {
 allprojects {
     repositories {
         mavenCentral()
+        jcenter()
     }
 }
 
