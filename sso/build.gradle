@@ -19,16 +19,15 @@ dependencies {
 
   implementation deps.moshi
 
-  def retrofitVersion = '2.6.0'
-  implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-  implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+  implementation deps.retrofit
+  implementation deps.retrofitMoshiConverter
 
   implementation deps.dagger
   kapt deps.daggerCompiler
 
   testImplementation deps.junit
   testImplementation deps.kotlinReflect
-  testImplementation 'com.squareup.okhttp3:mockwebserver:3.14.1'
+  testImplementation deps.okHttpMockWebServer
   testImplementation deps.mockito
   testImplementation deps.mockitoKotlin
 }
