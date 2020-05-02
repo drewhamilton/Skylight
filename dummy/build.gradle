@@ -12,15 +12,15 @@ ext {
 apply from: '../gradle/publish.gradle'
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
-
     api project(':skylight')
 
-    implementation "com.google.dagger:dagger:$versions.dagger"
-    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+    implementation deps.kotlinStdLib
 
-    testImplementation 'junit:junit:4.12'
+    implementation deps.dagger
+    kapt deps.daggerCompiler
+
+    testImplementation deps.junit
 }
 
-sourceCompatibility = "1.8"
-targetCompatibility = "1.8"
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
