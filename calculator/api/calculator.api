@@ -1,0 +1,13 @@
+public final class dev/drewhamilton/skylight/calculator/CalculatorSkylight : dev/drewhamilton/skylight/Skylight {
+	public fun <init> ()V
+	public fun getSkylightDay (Ldev/drewhamilton/skylight/Coordinates;Ljava/time/LocalDate;Ljava/time/ZoneId;)Ldev/drewhamilton/skylight/SkylightDay;
+}
+
+public final class dev/drewhamilton/skylight/calculator/CalculatorSkylight_Factory : dagger/internal/Factory {
+	public fun <init> ()V
+	public static fun create ()Ldev/drewhamilton/skylight/calculator/CalculatorSkylight_Factory;
+	public fun get ()Ldev/drewhamilton/skylight/calculator/CalculatorSkylight;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance ()Ldev/drewhamilton/skylight/calculator/CalculatorSkylight;
+}
+

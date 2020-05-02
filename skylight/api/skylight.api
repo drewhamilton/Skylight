@@ -1,0 +1,124 @@
+public final class dev/drewhamilton/skylight/Coordinates {
+	public fun <init> (DD)V
+	public final fun component1 ()D
+	public final fun component2 ()D
+	public final fun copy (DD)Ldev/drewhamilton/skylight/Coordinates;
+	public static synthetic fun copy$default (Ldev/drewhamilton/skylight/Coordinates;DDILjava/lang/Object;)Ldev/drewhamilton/skylight/Coordinates;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLatitude ()D
+	public final fun getLongitude ()D
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class dev/drewhamilton/skylight/Skylight {
+	public abstract fun getSkylightDay (Ldev/drewhamilton/skylight/Coordinates;Ljava/time/LocalDate;Ljava/time/ZoneId;)Ldev/drewhamilton/skylight/SkylightDay;
+}
+
+public final class dev/drewhamilton/skylight/Skylight$DefaultImpls {
+	public static synthetic fun getSkylightDay$default (Ldev/drewhamilton/skylight/Skylight;Ldev/drewhamilton/skylight/Coordinates;Ljava/time/LocalDate;Ljava/time/ZoneId;ILjava/lang/Object;)Ldev/drewhamilton/skylight/SkylightDay;
+}
+
+public abstract class dev/drewhamilton/skylight/SkylightDay {
+	public static final field Companion Ldev/drewhamilton/skylight/SkylightDay$Companion;
+	public abstract fun getDate ()Ljava/time/LocalDate;
+}
+
+public final class dev/drewhamilton/skylight/SkylightDay$AlwaysDaytime : dev/drewhamilton/skylight/SkylightDay {
+	public synthetic fun <init> (Ljava/time/LocalDate;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDate ()Ljava/time/LocalDate;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/drewhamilton/skylight/SkylightDay$AlwaysDaytime$Builder {
+	public fun <init> ()V
+	public final fun build ()Ldev/drewhamilton/skylight/SkylightDay$AlwaysDaytime;
+	public final fun getDate ()Ljava/time/LocalDate;
+	public final fun setDate (Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay$AlwaysDaytime$Builder;
+	public final synthetic fun setDate (Ljava/time/LocalDate;)V
+}
+
+public final class dev/drewhamilton/skylight/SkylightDay$Companion {
+	public final fun AlwaysDaytime (Lkotlin/jvm/functions/Function1;)Ldev/drewhamilton/skylight/SkylightDay$AlwaysDaytime;
+	public final fun NeverLight (Lkotlin/jvm/functions/Function1;)Ldev/drewhamilton/skylight/SkylightDay$NeverLight;
+	public final fun Typical (Lkotlin/jvm/functions/Function1;)Ldev/drewhamilton/skylight/SkylightDay$Typical;
+}
+
+public final class dev/drewhamilton/skylight/SkylightDay$NeverLight : dev/drewhamilton/skylight/SkylightDay {
+	public synthetic fun <init> (Ljava/time/LocalDate;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDate ()Ljava/time/LocalDate;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/drewhamilton/skylight/SkylightDay$NeverLight$Builder {
+	public fun <init> ()V
+	public final fun build ()Ldev/drewhamilton/skylight/SkylightDay$NeverLight;
+	public final fun getDate ()Ljava/time/LocalDate;
+	public final fun setDate (Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay$NeverLight$Builder;
+	public final synthetic fun setDate (Ljava/time/LocalDate;)V
+}
+
+public final class dev/drewhamilton/skylight/SkylightDay$Typical : dev/drewhamilton/skylight/SkylightDay {
+	public synthetic fun <init> (Ljava/time/LocalDate;Ljava/time/ZonedDateTime;Ljava/time/ZonedDateTime;Ljava/time/ZonedDateTime;Ljava/time/ZonedDateTime;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDate ()Ljava/time/LocalDate;
+	public final fun getDawn ()Ljava/time/ZonedDateTime;
+	public final fun getDusk ()Ljava/time/ZonedDateTime;
+	public final fun getSunrise ()Ljava/time/ZonedDateTime;
+	public final fun getSunset ()Ljava/time/ZonedDateTime;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/drewhamilton/skylight/SkylightDay$Typical$Builder {
+	public fun <init> ()V
+	public final fun build ()Ldev/drewhamilton/skylight/SkylightDay$Typical;
+	public final fun getDate ()Ljava/time/LocalDate;
+	public final fun getDawn ()Ljava/time/ZonedDateTime;
+	public final fun getDusk ()Ljava/time/ZonedDateTime;
+	public final fun getSunrise ()Ljava/time/ZonedDateTime;
+	public final fun getSunset ()Ljava/time/ZonedDateTime;
+	public final fun setDate (Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay$Typical$Builder;
+	public final synthetic fun setDate (Ljava/time/LocalDate;)V
+	public final fun setDawn (Ljava/time/ZonedDateTime;)Ldev/drewhamilton/skylight/SkylightDay$Typical$Builder;
+	public final synthetic fun setDawn (Ljava/time/ZonedDateTime;)V
+	public final fun setDusk (Ljava/time/ZonedDateTime;)Ldev/drewhamilton/skylight/SkylightDay$Typical$Builder;
+	public final synthetic fun setDusk (Ljava/time/ZonedDateTime;)V
+	public final fun setSunrise (Ljava/time/ZonedDateTime;)Ldev/drewhamilton/skylight/SkylightDay$Typical$Builder;
+	public final synthetic fun setSunrise (Ljava/time/ZonedDateTime;)V
+	public final fun setSunset (Ljava/time/ZonedDateTime;)Ldev/drewhamilton/skylight/SkylightDay$Typical$Builder;
+	public final synthetic fun setSunset (Ljava/time/ZonedDateTime;)V
+}
+
+public final class dev/drewhamilton/skylight/SkylightForCoordinates {
+	public final fun getCoordinates ()Ldev/drewhamilton/skylight/Coordinates;
+	public final fun getSkylightDay (Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay;
+	public final fun getZoneId ()Ljava/time/ZoneId;
+}
+
+public final class dev/drewhamilton/skylight/SkylightForCoordinatesKt {
+	public static final fun forCoordinates (Ldev/drewhamilton/skylight/Skylight;Ldev/drewhamilton/skylight/Coordinates;Ljava/time/ZoneId;)Ldev/drewhamilton/skylight/SkylightForCoordinates;
+	public static synthetic fun forCoordinates$default (Ldev/drewhamilton/skylight/Skylight;Ldev/drewhamilton/skylight/Coordinates;Ljava/time/ZoneId;ILjava/lang/Object;)Ldev/drewhamilton/skylight/SkylightForCoordinates;
+}
+
+public final class dev/drewhamilton/skylight/SkylightForDate {
+	public final fun getDate ()Ljava/time/LocalDate;
+	public final fun getSkylightDay (Ldev/drewhamilton/skylight/Coordinates;Ljava/time/ZoneId;)Ldev/drewhamilton/skylight/SkylightDay;
+	public static synthetic fun getSkylightDay$default (Ldev/drewhamilton/skylight/SkylightForDate;Ldev/drewhamilton/skylight/Coordinates;Ljava/time/ZoneId;ILjava/lang/Object;)Ldev/drewhamilton/skylight/SkylightDay;
+}
+
+public final class dev/drewhamilton/skylight/SkylightForDateKt {
+	public static final fun forDate (Ldev/drewhamilton/skylight/Skylight;Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightForDate;
+}
+
+public final class dev/drewhamilton/skylight/SkylightLightness {
+	public static final fun isDark (Ldev/drewhamilton/skylight/Skylight;Ldev/drewhamilton/skylight/Coordinates;Ljava/time/ZonedDateTime;)Z
+	public static final fun isDark (Ldev/drewhamilton/skylight/SkylightForCoordinates;Ljava/time/ZonedDateTime;)Z
+	public static final fun isLight (Ldev/drewhamilton/skylight/Skylight;Ldev/drewhamilton/skylight/Coordinates;Ljava/time/ZonedDateTime;)Z
+	public static final fun isLight (Ldev/drewhamilton/skylight/SkylightForCoordinates;Ljava/time/ZonedDateTime;)Z
+}
+

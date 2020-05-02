@@ -17,7 +17,6 @@ ext {
   ]
 }
 apply from: '../gradle/publish.gradle'
-apply from: '../gradle/compatibility.gradle'
 
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
