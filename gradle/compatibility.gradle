@@ -56,5 +56,5 @@ task japicmp(type: JapicmpTask) {
     ignoreMissingClasses compatibility.ignoreMissingClasses
 }
 
-check.dependsOn(japicmp)
-build.dependsOn(check)
+//check.dependsOn(japicmp)
+//build.dependsOn(check)
