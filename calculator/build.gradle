@@ -14,8 +14,8 @@ dependencies {
     implementation deps.kotlinStdLib
 
     implementation deps.dagger
-    kapt deps.daggerCompiler
 
+    kaptTest deps.daggerCompiler
     testImplementation deps.junit
 }
 
