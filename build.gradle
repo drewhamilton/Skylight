@@ -20,6 +20,10 @@ buildscript {
 
 apply plugin: 'binary-compatibility-validator'
 
+ext {
+    libraryVersion = '0.12.0-SNAPSHOT'
+}
+
 allprojects {
     repositories {
         mavenCentral()
@@ -28,8 +32,4 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-ext {
-    libraryVersion = '0.11.0'
 }
