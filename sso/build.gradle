@@ -12,14 +12,12 @@ ext {
 apply from: '../gradle/publish.gradle'
 
 dependencies {
+  api project(':skylight')
+
   implementation deps.kotlinStdLib
   implementation deps.kotlinReflect
 
-  api project(':skylight')
-
-  def moshiVersion = '1.8.0'
-  implementation "com.squareup.moshi:moshi:$moshiVersion"
-  implementation "com.squareup.moshi:moshi-kotlin:$moshiVersion"
+  implementation deps.moshi
 
   def retrofitVersion = '2.6.0'
   implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
