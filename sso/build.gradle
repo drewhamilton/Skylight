@@ -20,13 +20,13 @@ dependencies {
     implementation deps.retrofitMoshiConverter
 
     implementation deps.dagger
-    kapt deps.daggerCompiler
 
     testImplementation deps.junit
     testImplementation deps.kotlinReflect
     testImplementation deps.okHttpMockWebServer
     testImplementation deps.mockito
     testImplementation deps.mockitoKotlin
+    kaptTest deps.daggerCompiler
 }
 
 sourceCompatibility = '1.8'

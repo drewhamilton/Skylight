@@ -9,12 +9,11 @@ import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNotSame
 import org.junit.Test
 import java.time.LocalDate
 import java.time.Month
 
-class SsoSkylightComponentTest {
+class SsoSkylightDaggerTest {
 
     private var mockWebServer: MockWebServer? = null
 
@@ -23,14 +22,7 @@ class SsoSkylightComponentTest {
         mockWebServer?.shutdown()
     }
 
-    @Test
-    fun `create without OkHttpClient compiles and runs`() {
-        val component = SsoSkylightComponent.create()
-        assertNotSame(component.skylight(), component.skylight())
-    }
-
-    @Test
-    fun `create with custom OkHttpClient sends that OkHttpClient to the Skylight instance`() {
+    @Test fun `Dagger-provided SsoSkylight instance uses given OkHttp instance`() {
         mockWebServer = MockWebServer()
         mockWebServer!!.start()
 
@@ -42,8 +34,7 @@ class SsoSkylightComponentTest {
             .addNetworkInterceptor(fakeNetworkInterceptor)
             .build()
 
-        val component = SsoSkylightComponent.create(testOkHttpClient)
-        val skylight = component.skylight()
+        val skylight = SsoSkylightComponent.create(testOkHttpClient).skylight
         skylight.getSkylightDay(testCoordinates, testDate)
 
         val expectedUrl = "https://api.sunrise-sunset.org/json?" +
@@ -56,7 +47,6 @@ class SsoSkylightComponentTest {
     }
 
     private class FakeInterceptor : Interceptor {
-
         var interceptedRequests = 0
         var interceptedRequest: Request? = null
 

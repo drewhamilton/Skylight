@@ -1,5 +1,8 @@
 package dev.drewhamilton.skylight.sso
 
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import dagger.Reusable
 import dev.drewhamilton.skylight.Coordinates
 import dev.drewhamilton.skylight.Skylight
 import dev.drewhamilton.skylight.SkylightDay
@@ -9,7 +12,10 @@ import dev.drewhamilton.skylight.sso.network.request.Params
 import dev.drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
 import dev.drewhamilton.skylight.sso.network.toSsoDateString
 import dev.drewhamilton.skylight.sso.network.toZonedDateTime
+import okhttp3.OkHttpClient
 import retrofit2.HttpException
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.time.LocalDate
 import java.time.ZoneId
 import javax.inject.Inject
@@ -18,9 +24,14 @@ import javax.inject.Inject
  * An implementation of [Skylight] that uses sunrise-sunset.org to determine a [SkylightDay] for the given location
  * and date.
  */
-class SsoSkylight @Inject constructor(
+@Reusable
+class SsoSkylight internal constructor(
     private val api: SsoApi
 ) : Skylight {
+
+    @Inject constructor(
+        okHttpClient: OkHttpClient
+    ) : this(instantiateRetrofit(okHttpClient).create(SsoApi::class.java))
 
     override fun getSkylightDay(coordinates: Coordinates, date: LocalDate, zoneId: ZoneId): SkylightDay {
         val params = Params(coordinates.latitude, coordinates.longitude, date.toSsoDateString())
@@ -36,6 +47,18 @@ class SsoSkylight @Inject constructor(
             return responseBody.results
         else
             throw HttpException(response)
+    }
+
+    private companion object {
+        private fun instantiateRetrofit(okHttpClient: OkHttpClient) = Retrofit.Builder()
+            .baseUrl(ApiConstants.BASE_URL)
+            .addConverterFactory(MoshiConverterFactory.create(instantiateMoshi()))
+            .client(okHttpClient)
+            .build()
+
+        private fun instantiateMoshi() = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
     }
 }
 
