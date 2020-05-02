@@ -13,4 +13,4 @@ package dev.drewhamilton.skylight.sso.network
     AnnotationTarget.TYPE,
     AnnotationTarget.VALUE_PARAMETER
 )
-annotation class SsoDateTime
+internal annotation class SsoDateTime
