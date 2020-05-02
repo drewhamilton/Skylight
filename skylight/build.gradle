@@ -3,13 +3,10 @@ apply plugin: 'org.jetbrains.kotlin.jvm'
 apply plugin: 'org.jetbrains.kotlin.kapt'
 
 ext {
-    artifact = 'skylight'
-    bintrayName = 'Skylight'
-    libraryName = 'Skylight'
-
-    libraryDescription = 'An interface for determining sunrise, sunset, and related info for a given location.'
+    artifactName = 'skylight'
+    publishedDescription = 'An interface for determining sunrise, sunset, and related info for a given location.'
 }
-apply from: '../gradle/publish.gradle'
+apply from: '../publish.gradle'
 
 dependencies {
     implementation deps.javaxInject

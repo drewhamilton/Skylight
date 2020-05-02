@@ -3,33 +3,30 @@ apply plugin: 'org.jetbrains.kotlin.jvm'
 apply plugin: 'org.jetbrains.kotlin.kapt'
 
 ext {
-  artifact = 'skylight-sso'
-  bintrayName = 'Skylight-sso'
-  libraryName = 'Skylight: sunrise-sunset.org'
-
-  libraryDescription = 'A Skylight implementation that uses sunrise-sunset.org to retrieve skylight information.'
+    artifactName = 'skylight-sso'
+    publishedDescription = 'A Skylight implementation that uses sunrise-sunset.org to retrieve skylight information.'
 }
-apply from: '../gradle/publish.gradle'
+apply from: '../publish.gradle'
 
 dependencies {
-  api project(':skylight')
+    api project(':skylight')
 
-  implementation deps.kotlinStdLib
-  implementation deps.kotlinReflect
+    implementation deps.kotlinStdLib
+    implementation deps.kotlinReflect
 
-  implementation deps.moshi
+    implementation deps.moshi
 
-  implementation deps.retrofit
-  implementation deps.retrofitMoshiConverter
+    implementation deps.retrofit
+    implementation deps.retrofitMoshiConverter
 
-  implementation deps.dagger
-  kapt deps.daggerCompiler
+    implementation deps.dagger
+    kapt deps.daggerCompiler
 
-  testImplementation deps.junit
-  testImplementation deps.kotlinReflect
-  testImplementation deps.okHttpMockWebServer
-  testImplementation deps.mockito
-  testImplementation deps.mockitoKotlin
+    testImplementation deps.junit
+    testImplementation deps.kotlinReflect
+    testImplementation deps.okHttpMockWebServer
+    testImplementation deps.mockito
+    testImplementation deps.mockitoKotlin
 }
 
 sourceCompatibility = '1.8'

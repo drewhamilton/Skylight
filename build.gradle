@@ -22,13 +22,11 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
         classpath 'org.jetbrains.dokka:dokka-gradle-plugin:0.10.1'
         classpath 'org.jetbrains.kotlinx:binary-compatibility-validator:0.2.3'
-
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
     }
     repositories {
         mavenCentral()
-        jcenter()
+        maven { url = 'https://kotlin.bintray.com/kotlinx' }
+        maven { url = 'https://dl.bintray.com/kotlin/dokka' }
     }
 }
 
@@ -41,7 +39,7 @@ ext {
 allprojects {
     repositories {
         mavenCentral()
-        jcenter()
+        maven { url = 'https://dl.bintray.com/kotlin/dokka' }
     }
 }
 
