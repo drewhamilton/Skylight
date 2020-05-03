@@ -66,15 +66,15 @@ class SsoSkylight internal constructor(
 internal fun SunriseSunsetInfo.toSkylightDay(date: LocalDate, zoneId: ZoneId): SkylightDay {
     return when {
         civil_twilight_begin == ApiConstants.DATE_TIME_NONE && sunrise == ApiConstants.DATE_TIME_NONE ->
-            SkylightDay.NeverLight { this.date = date }
+            SkylightDay.NeverLight(date = date)
         civil_twilight_begin == ApiConstants.DATE_TIME_ALWAYS_DAY && sunrise == ApiConstants.DATE_TIME_ALWAYS_DAY ->
-            SkylightDay.AlwaysDaytime { this.date = date }
-        else -> SkylightDay.Typical {
-            this.date = date
-            this.dawn = civil_twilight_begin.toZonedDateTime()?.withZoneSameInstant(zoneId)
-            this.sunrise = this@toSkylightDay.sunrise.toZonedDateTime()?.withZoneSameInstant(zoneId)
-            this.sunset = this@toSkylightDay.sunset.toZonedDateTime()?.withZoneSameInstant(zoneId)
-            this.dusk = civil_twilight_end.toZonedDateTime()?.withZoneSameInstant(zoneId)
-        }
+            SkylightDay.AlwaysDaytime(date = date)
+        else -> SkylightDay.Typical(
+            date = date,
+            dawn = civil_twilight_begin.toZonedDateTime()?.withZoneSameInstant(zoneId),
+            sunrise = sunrise.toZonedDateTime()?.withZoneSameInstant(zoneId),
+            sunset = sunset.toZonedDateTime()?.withZoneSameInstant(zoneId),
+            dusk = civil_twilight_end.toZonedDateTime()?.withZoneSameInstant(zoneId)
+        )
     }
 }

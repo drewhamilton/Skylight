@@ -32,15 +32,15 @@ class CalculatorSkylight @Inject constructor() : Skylight {
     private fun noonToday(zoneId: ZoneId) = OffsetTime.of(12, 0, 0, 0, zoneId.rules.getOffset(Instant.now()))
 
     private fun EpochMilliSkylightDay.toSkylightDay(date: LocalDate, zoneId: ZoneId) = when (this) {
-        is EpochMilliSkylightDay.Typical -> SkylightDay.Typical {
-            this.date = date
-            this.dawn = this@toSkylightDay.dawn.asEpochMilliToDateTime(zoneId)
-            this.sunrise = this@toSkylightDay.sunrise.asEpochMilliToDateTime(zoneId)
-            this.sunset = this@toSkylightDay.sunset.asEpochMilliToDateTime(zoneId)
-            this.dusk = this@toSkylightDay.dusk.asEpochMilliToDateTime(zoneId)
-        }
-        is EpochMilliSkylightDay.AlwaysDaytime -> SkylightDay.AlwaysDaytime { this.date = date }
-        is EpochMilliSkylightDay.NeverLight -> SkylightDay.NeverLight { this.date = date }
+        is EpochMilliSkylightDay.Typical -> SkylightDay.Typical(
+            date = date,
+            dawn = dawn.asEpochMilliToDateTime(zoneId),
+            sunrise = sunrise.asEpochMilliToDateTime(zoneId),
+            sunset = sunset.asEpochMilliToDateTime(zoneId),
+            dusk = dusk.asEpochMilliToDateTime(zoneId)
+        )
+        is EpochMilliSkylightDay.AlwaysDaytime -> SkylightDay.AlwaysDaytime(date = date)
+        is EpochMilliSkylightDay.NeverLight -> SkylightDay.NeverLight(date = date)
     }
 
     private fun Long?.asEpochMilliToDateTime(zoneId: ZoneId) =

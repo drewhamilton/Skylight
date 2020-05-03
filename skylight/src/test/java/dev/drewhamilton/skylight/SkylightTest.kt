@@ -24,29 +24,25 @@ class SkylightTest {
     private val betweenDawnAndDusk = ZonedDateTime.of(testDate, testSunrise.plusHours(2).toLocalTime(), ZoneOffset.UTC)
     private val afterDusk = ZonedDateTime.of(testDate, testDusk.plusHours(2).toLocalTime(), ZoneOffset.UTC)
 
-    private val testAlwaysDaytime = SkylightDay.AlwaysDaytime { date = testDate }
-    private val testAlwaysLight = SkylightDay.Typical {
-        date = testDate
-        dawn = null
-        sunrise = testSunrise
+    private val testAlwaysDaytime = SkylightDay.AlwaysDaytime(date = testDate)
+    private val testAlwaysLight = SkylightDay.Typical(
+        date = testDate,
+        sunrise = testSunrise,
         sunset = testSunset
-        dusk = null
-    }
-    private val testNeverLight = SkylightDay.NeverLight { date = testDate }
-    private val testNeverDaytime = SkylightDay.Typical {
-        date = testDate
-        dawn = testDawn
-        sunrise = null
-        sunset = null
+    )
+    private val testNeverLight = SkylightDay.NeverLight(date = testDate)
+    private val testNeverDaytime = SkylightDay.Typical(
+        date = testDate,
+        dawn = testDawn,
         dusk = testDusk
-    }
-    private val testTypical = SkylightDay.Typical {
-        date = testDate
-        dawn = testDawn
-        sunrise = testSunrise
-        sunset = testSunset
+    )
+    private val testTypical = SkylightDay.Typical (
+        date = testDate,
+        dawn = testDawn,
+        sunrise = testSunrise,
+        sunset = testSunset,
         dusk = testDusk
-    }
+    )
 
     private lateinit var mockSkylight: Skylight
 

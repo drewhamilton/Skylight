@@ -32,7 +32,7 @@ class CalculatorSkylightTest {
     //region Svalbard
     @Test fun `Svalbard on January 6, 2019 is never light`() {
         val result = skylight.getSkylightDay(SVALBARD, JANUARY_6_2019)
-        assertEquals(SkylightDay.NeverLight { date = JANUARY_6_2019 }, result)
+        assertEquals(SkylightDay.NeverLight(date = JANUARY_6_2019), result)
     }
     //endregion
 

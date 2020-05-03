@@ -12,13 +12,13 @@ import java.time.ZonedDateTime
 
 class DummySkylightTest {
 
-    private val testSkylightDay = SkylightDay.Typical {
-        date = LocalDate.of(1970, 1, 1)
-        dawn = ZonedDateTime.of(1970, 1, 1, 8, 0, 0, 0, ZoneOffset.UTC)
-        sunrise = ZonedDateTime.of(1970, 1, 1, 9, 0, 0, 0, ZoneOffset.UTC)
-        sunset = ZonedDateTime.of(1970, 1, 1, 10, 0, 0, 0, ZoneOffset.UTC)
+    private val testSkylightDay = SkylightDay.Typical(
+        date = LocalDate.of(1970, 1, 1),
+        dawn = ZonedDateTime.of(1970, 1, 1, 8, 0, 0, 0, ZoneOffset.UTC),
+        sunrise = ZonedDateTime.of(1970, 1, 1, 9, 0, 0, 0, ZoneOffset.UTC),
+        sunset = ZonedDateTime.of(1970, 1, 1, 10, 0, 0, 0, ZoneOffset.UTC),
         dusk = ZonedDateTime.of(1970, 1, 1, 11, 0, 0, 0, ZoneOffset.UTC)
-    }
+    )
 
     private lateinit var dummySkylight: DummySkylight
 

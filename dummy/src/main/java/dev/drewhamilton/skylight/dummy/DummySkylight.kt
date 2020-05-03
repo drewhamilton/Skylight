@@ -33,16 +33,16 @@ class DummySkylight @Inject constructor(
     private fun SkylightDay.copy(newDate: LocalDate, zoneId: ZoneId) = when (val original = this) {
         is SkylightDay.Typical -> {
             val daysToAdd = this.date.daysUntil(newDate)
-            SkylightDay.Typical {
-                date = newDate
-                dawn = original.dawn?.addDays(daysToAdd)?.withZoneSameInstant(zoneId)
-                sunrise = original.sunrise?.addDays(daysToAdd)?.withZoneSameInstant(zoneId)
-                sunset = original.sunset?.addDays(daysToAdd)?.withZoneSameInstant(zoneId)
+            SkylightDay.Typical(
+                date = newDate,
+                dawn = original.dawn?.addDays(daysToAdd)?.withZoneSameInstant(zoneId),
+                sunrise = original.sunrise?.addDays(daysToAdd)?.withZoneSameInstant(zoneId),
+                sunset = original.sunset?.addDays(daysToAdd)?.withZoneSameInstant(zoneId),
                 dusk = original.dusk?.addDays(daysToAdd)?.withZoneSameInstant(zoneId)
-            }
+            )
         }
-        is SkylightDay.AlwaysDaytime -> SkylightDay.AlwaysDaytime { date = newDate }
-        is SkylightDay.NeverLight -> SkylightDay.NeverLight { date = newDate }
+        is SkylightDay.AlwaysDaytime -> SkylightDay.AlwaysDaytime(date = newDate)
+        is SkylightDay.NeverLight -> SkylightDay.NeverLight(date = newDate)
     }
 
     private fun LocalDate.daysUntil(date: LocalDate) = ChronoUnit.DAYS.between(this, date)
