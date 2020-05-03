@@ -84,7 +84,7 @@ class SkylightDayTest {
             sunset = ZonedDateTime.parse("2020-01-13T18:00:00+02:00")
             dusk = ZonedDateTime.parse("2020-01-13T20:00:00+02:00")
         }
-        val expected = "SkylightDay.Typical(" +
+        val expected = "Typical(" +
                 "date=${day.date}, dawn=${day.dawn}, sunrise=${day.sunrise}, sunset=${day.sunset}, dusk=${day.dusk}" +
                 ")"
         assertEquals(expected, day.toString())
@@ -131,7 +131,7 @@ class SkylightDayTest {
         val day = SkylightDay.AlwaysDaytime {
             date = LocalDate.parse("2020-01-13")
         }
-        val expected = "SkylightDay.AlwaysDaytime(date=${day.date})"
+        val expected = "AlwaysDaytime(date=${day.date})"
         assertEquals(expected, day.toString())
     }
     //endregion
@@ -176,7 +176,7 @@ class SkylightDayTest {
         val day = SkylightDay.NeverLight {
             date = LocalDate.parse("2020-01-13")
         }
-        val expected = "SkylightDay.NeverLight(date=${day.date})"
+        val expected = "NeverLight(date=${day.date})"
         assertEquals(expected, day.toString())
     }
     //endregion
