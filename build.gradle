@@ -22,6 +22,8 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
         classpath 'org.jetbrains.dokka:dokka-gradle-plugin:0.10.1'
         classpath 'org.jetbrains.kotlinx:binary-compatibility-validator:0.2.3'
+
+        classpath 'dev.drewhamilton.extracare:extracare-gradle-plugin:0.2.2'
     }
     repositories {
         mavenCentral()

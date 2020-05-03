@@ -1,5 +1,6 @@
 package dev.drewhamilton.skylight
 
+import dev.drewhamilton.extracare.DataApi
 import java.time.LocalDate
 import java.time.ZonedDateTime
 import java.util.Objects
@@ -27,22 +28,13 @@ sealed class SkylightDay {
      * It should never be the case that all 4 event values are null. In those cases where a day does not have any of
      * these events, either [AlwaysDaytime] or [NeverLight] should be used.
      */
-    class Typical private constructor(
+    @DataApi class Typical private constructor(
         override val date: LocalDate,
         val dawn: ZonedDateTime?,
         val sunrise: ZonedDateTime?,
         val sunset: ZonedDateTime?,
         val dusk: ZonedDateTime?
     ) : SkylightDay() {
-        override fun toString() =
-            "SkylightDay.Typical(date=$date, dawn=$dawn, sunrise=$sunrise, sunset=$sunset, dusk=$dusk)"
-        override fun equals(other: Any?) = other is Typical &&
-                date == other.date &&
-                dawn == other.dawn &&
-                sunrise == other.sunrise &&
-                sunset == other.sunset &&
-                dusk == other.dusk
-        override fun hashCode() = Objects.hash(date, dawn, sunrise, sunset, dusk)
 
         class Builder {
             @set:JvmSynthetic
@@ -79,11 +71,10 @@ sealed class SkylightDay {
     /**
      * Represents a day wherein the sun never goes below the horizon.
      */
-    class AlwaysDaytime private constructor(
+    @Suppress("EqualsOrHashCode") // Equals is generated
+    @DataApi class AlwaysDaytime private constructor(
         override val date: LocalDate
     ) : SkylightDay() {
-        override fun toString() = "SkylightDay.AlwaysDaytime(date=$date)"
-        override fun equals(other: Any?) = other is AlwaysDaytime && date == other.date
         // Constant "1" ensures hash code is unique from NeverLight:
         override fun hashCode() = Objects.hash(1, date)
 
@@ -103,11 +94,10 @@ sealed class SkylightDay {
     /**
      * Represents a day that is always dark, i.e. the sun never goes above civil twilight.
      */
-    class NeverLight private constructor(
+    @Suppress("EqualsOrHashCode") // Equals is generated
+    @DataApi class NeverLight private constructor(
         override val date: LocalDate
     ) : SkylightDay() {
-        override fun toString() = "SkylightDay.NeverLight(date=$date)"
-        override fun equals(other: Any?) = other is NeverLight && date == other.date
         // Constant "2" ensures hash code is unique from AlwaysDaytime:
         override fun hashCode() = Objects.hash(2, date)
 
