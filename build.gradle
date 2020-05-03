@@ -24,15 +24,24 @@ buildscript {
         classpath 'org.jetbrains.kotlinx:binary-compatibility-validator:0.2.3'
 
         classpath 'dev.drewhamilton.extracare:extracare-gradle-plugin:0.2.2'
+
+        classpath 'com.android.tools.build:gradle:3.6.3'
     }
     repositories {
         mavenCentral()
         maven { url = 'https://kotlin.bintray.com/kotlinx' }
         maven { url = 'https://dl.bintray.com/kotlin/dokka' }
+
+        // Android:
+        google()
+        maven { url = 'https://jetbrains.bintray.com/trove4j' }
     }
 }
 
 apply plugin: 'binary-compatibility-validator'
+apiValidation {
+    ignoredProjects += ['nothing']
+}
 
 ext {
     libraryVersion = '0.12.0-SNAPSHOT'
@@ -42,6 +51,10 @@ allprojects {
     repositories {
         mavenCentral()
         maven { url = 'https://dl.bintray.com/kotlin/dokka' }
+
+        // Android:
+        google()
+        maven { url = 'https://jetbrains.bintray.com/trove4j' }
     }
 }
 
