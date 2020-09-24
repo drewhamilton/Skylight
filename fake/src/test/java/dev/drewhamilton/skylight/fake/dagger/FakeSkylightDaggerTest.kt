@@ -1,17 +1,17 @@
-package dev.drewhamilton.skylight.dummy.dagger
+package dev.drewhamilton.skylight.fake.dagger
 
 import dev.drewhamilton.skylight.SkylightDay
+import java.time.LocalDate
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.time.LocalDate
 
-class DummySkylightDaggerTest {
+class FakeSkylightDaggerTest {
 
     private val testDate = LocalDate.ofEpochDay(4)
     private val testSkylightDay = SkylightDay.NeverLight (date = testDate)
 
     @Test fun `Dagger provides DummySkylight instance given DummySkylightDay`() {
-        val skylight = DummySkylightComponent.create(testSkylightDay).skylight
+        val skylight = FakeSkylightComponent.create(testSkylightDay).skylight
         assertEquals(testSkylightDay, skylight.getSkylightDay(testDate))
     }
 }

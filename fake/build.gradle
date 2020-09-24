@@ -3,8 +3,8 @@ apply plugin: 'org.jetbrains.kotlin.jvm'
 apply plugin: 'org.jetbrains.kotlin.kapt'
 
 ext {
-    artifactName = 'skylight-dummy'
-    publishedDescription = 'A dummy implementation of Skylight that always returns the same skylight events.'
+    artifactName = 'skylight-fake'
+    publishedDescription = 'A fake implementation of Skylight that always returns the same skylight events.'
 }
 apply from: '../publish.gradle'
 

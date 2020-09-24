@@ -1,0 +1,6 @@
+public final class dev/drewhamilton/skylight/fake/FakeSkylight : dev/drewhamilton/skylight/Skylight {
+	public fun <init> (Ldev/drewhamilton/skylight/SkylightDay;)V
+	public fun getSkylightDay (Ldev/drewhamilton/skylight/Coordinates;Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay;
+	public final fun getSkylightDay (Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay;
+}
+
