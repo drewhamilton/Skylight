@@ -6,9 +6,7 @@ import dev.drewhamilton.skylight.Skylight
 import dev.drewhamilton.skylight.SkylightDay
 import java.time.Instant
 import java.time.LocalDate
-import java.time.OffsetTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
+import java.time.ZoneOffset
 import javax.inject.Inject
 
 /**
@@ -18,34 +16,27 @@ import javax.inject.Inject
 class CalculatorSkylight @Inject constructor() : Skylight {
 
     /**
-     * Calculates the [SkylightDay] based on the given [coordinates] and [date]. Events in the returned [SkylightDay]
-     * are in the given [zoneId].
+     * Calculates the [SkylightDay] based on the given [coordinates] and [date].
      */
-    override fun getSkylightDay(coordinates: Coordinates, date: LocalDate, zoneId: ZoneId): SkylightDay {
-        val epochMillis = date.toNoonUtcEpochMillis(zoneId)
+    override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay {
+        val epochMillis = date.toNoonUtcEpochMillis()
         return calculateSkylightInfo(epochMillis, coordinates.latitude, coordinates.longitude)
-            .toSkylightDay(date, zoneId)
+            .toSkylightDay(date)
     }
 
-    private fun LocalDate.toNoonUtcEpochMillis(zoneId: ZoneId) = atTime(noonToday(zoneId)).toInstant().toEpochMilli()
+    private fun LocalDate.toNoonUtcEpochMillis() = atTime(12, 0).toInstant(ZoneOffset.UTC).toEpochMilli()
 
-    private fun noonToday(zoneId: ZoneId) = OffsetTime.of(12, 0, 0, 0, zoneId.rules.getOffset(Instant.now()))
-
-    private fun EpochMilliSkylightDay.toSkylightDay(date: LocalDate, zoneId: ZoneId) = when (this) {
+    private fun EpochMilliSkylightDay.toSkylightDay(date: LocalDate) = when (this) {
         is EpochMilliSkylightDay.Typical -> SkylightDay.Typical(
             date = date,
-            dawn = dawn.asEpochMilliToDateTime(zoneId),
-            sunrise = sunrise.asEpochMilliToDateTime(zoneId),
-            sunset = sunset.asEpochMilliToDateTime(zoneId),
-            dusk = dusk.asEpochMilliToDateTime(zoneId)
+            dawn = dawn.asEpochMilliToDateTime(),
+            sunrise = sunrise.asEpochMilliToDateTime(),
+            sunset = sunset.asEpochMilliToDateTime(),
+            dusk = dusk.asEpochMilliToDateTime()
         )
         is EpochMilliSkylightDay.AlwaysDaytime -> SkylightDay.AlwaysDaytime(date = date)
         is EpochMilliSkylightDay.NeverLight -> SkylightDay.NeverLight(date = date)
     }
 
-    private fun Long?.asEpochMilliToDateTime(zoneId: ZoneId) =
-        if (this == null)
-            null
-        else
-            ZonedDateTime.ofInstant(Instant.ofEpochMilli(this), zoneId)
+    private fun Long?.asEpochMilliToDateTime(): Instant? = if (this == null) null else Instant.ofEpochMilli(this)
 }

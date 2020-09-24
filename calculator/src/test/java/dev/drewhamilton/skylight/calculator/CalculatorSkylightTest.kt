@@ -3,15 +3,15 @@ package dev.drewhamilton.skylight.calculator
 import dev.drewhamilton.skylight.Coordinates
 import dev.drewhamilton.skylight.SkylightDay
 import dev.drewhamilton.skylight.isLight
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 class CalculatorSkylightTest {
 
@@ -19,13 +19,13 @@ class CalculatorSkylightTest {
 
     //region Amsterdam
     @Test fun `Amsterdam on January 6, 2019 is typical`() {
-        val result = skylight.getSkylightDay(AMSTERDAM, JANUARY_6_2019, ZoneOffset.UTC)
+        val result = skylight.getSkylightDay(AMSTERDAM, JANUARY_6_2019)
         assertTrue(result is SkylightDay.Typical)
         result as SkylightDay.Typical
-        assertEquals(1546758590702.asEpochMilliToExpectedZonedDateTime(), result.dawn)
-        assertEquals(1546761159554.asEpochMilliToExpectedZonedDateTime(), result.sunrise)
-        assertEquals(1546789298271.asEpochMilliToExpectedZonedDateTime(), result.sunset)
-        assertEquals(1546791867123.asEpochMilliToExpectedZonedDateTime(), result.dusk)
+        assertEquals(Instant.ofEpochMilli(1546758590702), result.dawn)
+        assertEquals(Instant.ofEpochMilli(1546761159554), result.sunrise)
+        assertEquals(Instant.ofEpochMilli(1546789298271), result.sunset)
+        assertEquals(Instant.ofEpochMilli(1546791867123), result.dusk)
     }
     //endregion
 
@@ -38,14 +38,14 @@ class CalculatorSkylightTest {
 
     //region Indianapolis
     @Test fun `Indianapolis on July 20, 2019 is typical`() {
-        val result = skylight.getSkylightDay(INDIANAPOLIS, JULY_20_2019, ZoneOffset.UTC)
+        val result = skylight.getSkylightDay(INDIANAPOLIS, JULY_20_2019)
 
         assertTrue(result is SkylightDay.Typical)
         result as SkylightDay.Typical
-        assertEquals(ZonedDateTime.of(2019, 7, 20, 10, 2, 24, 108_000_000, ZoneOffset.UTC), result.dawn)
-        assertEquals(ZonedDateTime.of(2019, 7, 20, 10, 35, 14, 739_000_000, ZoneOffset.UTC), result.sunrise)
-        assertEquals(ZonedDateTime.of(2019, 7, 21, 1, 8, 52, 914_000_000, ZoneOffset.UTC), result.sunset)
-        assertEquals(ZonedDateTime.of(2019, 7, 21, 1, 41, 43, 544_000_000, ZoneOffset.UTC), result.dusk)
+        assertEquals(ZonedDateTime.of(2019, 7, 20, 10, 2, 24, 108_000_000, ZoneOffset.UTC).toInstant(), result.dawn)
+        assertEquals(ZonedDateTime.of(2019, 7, 20, 10, 35, 14, 739_000_000, ZoneOffset.UTC).toInstant(), result.sunrise)
+        assertEquals(ZonedDateTime.of(2019, 7, 21, 1, 8, 52, 914_000_000, ZoneOffset.UTC).toInstant(), result.sunset)
+        assertEquals(ZonedDateTime.of(2019, 7, 21, 1, 41, 43, 544_000_000, ZoneOffset.UTC).toInstant(), result.dusk)
     }
 
     @Test fun `Indianapolis on July 20, 2019 is light at noon`() {
