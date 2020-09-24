@@ -1,0 +1,5 @@
+public final class dev/drewhamilton/skylight/sso/SsoSkylight : dev/drewhamilton/skylight/Skylight {
+	public fun <init> (Lokhttp3/OkHttpClient;)V
+	public fun getSkylightDay (Ldev/drewhamilton/skylight/Coordinates;Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay;
+}
+

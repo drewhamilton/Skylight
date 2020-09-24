@@ -12,13 +12,12 @@ import dev.drewhamilton.skylight.sso.network.request.Params
 import dev.drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
 import dev.drewhamilton.skylight.sso.network.toSsoDateString
 import dev.drewhamilton.skylight.sso.network.toZonedDateTime
+import java.time.LocalDate
+import javax.inject.Inject
 import okhttp3.OkHttpClient
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.time.LocalDate
-import java.time.ZoneId
-import javax.inject.Inject
 
 /**
  * An implementation of [Skylight] that uses sunrise-sunset.org to determine a [SkylightDay] for the given location
@@ -33,9 +32,9 @@ class SsoSkylight internal constructor(
         okHttpClient: OkHttpClient
     ) : this(instantiateRetrofit(okHttpClient).create(SsoApi::class.java))
 
-    override fun getSkylightDay(coordinates: Coordinates, date: LocalDate, zoneId: ZoneId): SkylightDay {
+    override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay {
         val params = Params(coordinates.latitude, coordinates.longitude, date.toSsoDateString())
-        return getInfoResults(params).toSkylightDay(date, zoneId)
+        return getInfoResults(params).toSkylightDay(date)
     }
 
     private fun getInfoResults(params: Params): SunriseSunsetInfo {
@@ -63,7 +62,7 @@ class SsoSkylight internal constructor(
 }
 
 // TODO: Make this private and test it via the public method
-internal fun SunriseSunsetInfo.toSkylightDay(date: LocalDate, zoneId: ZoneId): SkylightDay {
+internal fun SunriseSunsetInfo.toSkylightDay(date: LocalDate): SkylightDay {
     return when {
         civil_twilight_begin == ApiConstants.DATE_TIME_NONE && sunrise == ApiConstants.DATE_TIME_NONE ->
             SkylightDay.NeverLight(date = date)
@@ -71,10 +70,10 @@ internal fun SunriseSunsetInfo.toSkylightDay(date: LocalDate, zoneId: ZoneId): S
             SkylightDay.AlwaysDaytime(date = date)
         else -> SkylightDay.Typical(
             date = date,
-            dawn = civil_twilight_begin.toZonedDateTime()?.withZoneSameInstant(zoneId),
-            sunrise = sunrise.toZonedDateTime()?.withZoneSameInstant(zoneId),
-            sunset = sunset.toZonedDateTime()?.withZoneSameInstant(zoneId),
-            dusk = civil_twilight_end.toZonedDateTime()?.withZoneSameInstant(zoneId)
+            dawn = civil_twilight_begin.toZonedDateTime()?.toInstant(),
+            sunrise = sunrise.toZonedDateTime()?.toInstant(),
+            sunset = sunset.toZonedDateTime()?.toInstant(),
+            dusk = civil_twilight_end.toZonedDateTime()?.toInstant()
         )
     }
 }

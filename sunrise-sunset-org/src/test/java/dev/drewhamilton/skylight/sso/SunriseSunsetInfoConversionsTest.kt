@@ -3,11 +3,10 @@ package dev.drewhamilton.skylight.sso
 import dev.drewhamilton.skylight.SkylightDay
 import dev.drewhamilton.skylight.sso.network.ApiConstants
 import dev.drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
+import java.time.LocalDate
+import java.time.ZonedDateTime
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.time.LocalDate
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
 
 class SunriseSunsetInfoConversionsTest {
 
@@ -22,7 +21,7 @@ class SunriseSunsetInfoConversionsTest {
             ApiConstants.DATE_TIME_NONE,
             throwaway
         )
-        val output = input.toSkylightDay(testDate, ZoneOffset.UTC)
+        val output = input.toSkylightDay(testDate)
         assertEquals(SkylightDay.NeverLight(date = testDate), output)
     }
 
@@ -33,7 +32,7 @@ class SunriseSunsetInfoConversionsTest {
             ApiConstants.DATE_TIME_ALWAYS_DAY,
             throwaway
         )
-        val output = input.toSkylightDay(testDate, ZoneOffset.UTC)
+        val output = input.toSkylightDay(testDate)
         assertEquals(SkylightDay.AlwaysDaytime(date = testDate), output)
     }
 
@@ -44,12 +43,12 @@ class SunriseSunsetInfoConversionsTest {
         val testSunset = dateTimeString(sunsetTimeString)
 
         val input = SunriseSunsetInfo(testSunrise, testSunset, ApiConstants.DATE_TIME_NONE, ApiConstants.DATE_TIME_NONE)
-        val output = input.toSkylightDay(testDate, ZoneOffset.UTC)
+        val output = input.toSkylightDay(testDate)
 
         val expected = SkylightDay.Typical(
             date = testDate,
-            sunrise = ZonedDateTime.parse(testSunrise),
-            sunset = ZonedDateTime.parse(testSunset)
+            sunrise = ZonedDateTime.parse(testSunrise).toInstant(),
+            sunset = ZonedDateTime.parse(testSunset).toInstant()
         )
         assertEquals(expected, output)
     }
@@ -61,12 +60,12 @@ class SunriseSunsetInfoConversionsTest {
         val testDusk = dateTimeString(duskTimeString)
 
         val input = SunriseSunsetInfo(ApiConstants.DATE_TIME_NONE, ApiConstants.DATE_TIME_NONE, testDawn, testDusk)
-        val output = input.toSkylightDay(testDate, ZoneOffset.UTC)
+        val output = input.toSkylightDay(testDate)
 
         val expected = SkylightDay.Typical(
             date = testDate,
-            dawn = ZonedDateTime.parse(testDawn),
-            dusk = ZonedDateTime.parse(testDusk)
+            dawn = ZonedDateTime.parse(testDawn).toInstant(),
+            dusk = ZonedDateTime.parse(testDusk).toInstant()
         )
         assertEquals(expected, output)
     }
@@ -82,14 +81,14 @@ class SunriseSunsetInfoConversionsTest {
         val testDusk = dateTimeString(duskTimeString)
 
         val input = SunriseSunsetInfo(testSunrise, testSunset, testDawn, testDusk)
-        val output = input.toSkylightDay(testDate, ZoneOffset.UTC)
+        val output = input.toSkylightDay(testDate)
 
         val expected = SkylightDay.Typical(
             date = testDate,
-            dawn = ZonedDateTime.parse(testDawn),
-            sunrise = ZonedDateTime.parse(testSunrise),
-            sunset = ZonedDateTime.parse(testSunset),
-            dusk = ZonedDateTime.parse(testDusk)
+            dawn = ZonedDateTime.parse(testDawn).toInstant(),
+            sunrise = ZonedDateTime.parse(testSunrise).toInstant(),
+            sunset = ZonedDateTime.parse(testSunset).toInstant(),
+            dusk = ZonedDateTime.parse(testDusk).toInstant()
         )
         assertEquals(expected, output)
     }

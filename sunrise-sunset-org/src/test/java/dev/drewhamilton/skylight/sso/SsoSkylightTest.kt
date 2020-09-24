@@ -8,14 +8,13 @@ import dev.drewhamilton.skylight.sso.network.SsoApi
 import dev.drewhamilton.skylight.sso.network.request.Params
 import dev.drewhamilton.skylight.sso.network.response.SsoInfoResponse
 import dev.drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
+import java.time.LocalDate
+import java.time.Month
+import java.time.format.DateTimeFormatter
 import okhttp3.ResponseBody
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import retrofit2.HttpException
-import java.time.LocalDate
-import java.time.Month
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
 
 class SsoSkylightTest {
 
@@ -45,8 +44,8 @@ class SsoSkylightTest {
 
         val ssoSkylight = SsoSkylight(mockApi)
         assertEquals(
-            testSunriseSunsetInfo.toSkylightDay(testDate, ZoneOffset.UTC),
-            ssoSkylight.getSkylightDay(testCoordinates, testDate, ZoneOffset.UTC)
+            testSunriseSunsetInfo.toSkylightDay(testDate),
+            ssoSkylight.getSkylightDay(testCoordinates, testDate)
         )
     }
 

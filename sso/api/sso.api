@@ -1,6 +1,0 @@
-public final class dev/drewhamilton/skylight/sso/SsoSkylight : dev/drewhamilton/skylight/Skylight {
-	public static final field Companion Ldev/drewhamilton/skylight/sso/SsoSkylight$Companion;
-	public fun <init> (Lokhttp3/OkHttpClient;)V
-	public fun getSkylightDay (Ldev/drewhamilton/skylight/Coordinates;Ljava/time/LocalDate;Ljava/time/ZoneId;)Ldev/drewhamilton/skylight/SkylightDay;
-}
-
