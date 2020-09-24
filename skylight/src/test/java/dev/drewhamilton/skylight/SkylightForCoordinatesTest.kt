@@ -5,14 +5,14 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
 import java.time.LocalDate
 import java.time.Month
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import kotlin.reflect.KClass
+import org.junit.Assert.assertEquals
+import org.junit.Before
+import org.junit.Test
 
 class SkylightForCoordinatesTest {
 
