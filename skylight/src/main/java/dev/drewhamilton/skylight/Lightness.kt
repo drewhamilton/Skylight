@@ -1,6 +1,7 @@
 @file:JvmName("SkylightLightness")
 package dev.drewhamilton.skylight
 
+import java.time.Instant
 import java.time.ZonedDateTime
 
 //region Skylight
@@ -12,7 +13,7 @@ fun Skylight.isLight(coordinates: Coordinates, dateTime: ZonedDateTime) =
     when (val skylightDay = getSkylightDay(coordinates, dateTime.toLocalDate())) {
         is SkylightDay.AlwaysDaytime -> true
         is SkylightDay.NeverLight -> false
-        is SkylightDay.Typical -> skylightDay.isLightAt(dateTime)
+        is SkylightDay.Typical -> skylightDay.isLightAt(dateTime.toInstant())
     }
 
 /**
@@ -38,5 +39,5 @@ fun SkylightForCoordinates.isLight(dateTime: ZonedDateTime) = skylight.isLight(c
 fun SkylightForCoordinates.isDark(dateTime: ZonedDateTime) = skylight.isDark(coordinates, dateTime)
 //endregion
 
-private fun SkylightDay.Typical.isLightAt(time: ZonedDateTime) =
-    dawn == null || (dawn.isBefore(time) && (dusk == null || dusk.isAfter(time)))
+private fun SkylightDay.Typical.isLightAt(instant: Instant) =
+    dawn == null || (dawn.isBefore(instant) && (dusk == null || dusk.isAfter(instant)))

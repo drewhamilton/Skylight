@@ -1,8 +1,5 @@
 package dev.drewhamilton.skylight
 
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -27,170 +24,144 @@ class SkylightTest {
     private val testAlwaysDaytime = SkylightDay.AlwaysDaytime(date = testDate)
     private val testAlwaysLight = SkylightDay.Typical(
         date = testDate,
-        sunrise = testSunrise,
-        sunset = testSunset
+        sunrise = testSunrise.toInstant(),
+        sunset = testSunset.toInstant()
     )
     private val testNeverLight = SkylightDay.NeverLight(date = testDate)
     private val testNeverDaytime = SkylightDay.Typical(
         date = testDate,
-        dawn = testDawn,
-        dusk = testDusk
+        dawn = testDawn.toInstant(),
+        dusk = testDusk.toInstant()
     )
     private val testTypical = SkylightDay.Typical (
         date = testDate,
-        dawn = testDawn,
-        sunrise = testSunrise,
-        sunset = testSunset,
-        dusk = testDusk
+        dawn = testDawn.toInstant(),
+        sunrise = testSunrise.toInstant(),
+        sunset = testSunset.toInstant(),
+        dusk = testDusk.toInstant()
     )
 
-    private lateinit var mockSkylight: Skylight
-
     //region isLight
-    @Test
-    fun `isLight with AlwaysDaytime returns true`() {
-        mockSkylight(testAlwaysDaytime)
+    @Test fun `isLight with AlwaysDaytime returns true`() {
+        val skylight = FakeSkylight(testAlwaysDaytime)
 
-        assertTrue(mockSkylight.isLight(testCoordinates, beforeDawn))
-        assertTrue(mockSkylight.isLight(testCoordinates, betweenDawnAndDusk))
-        assertTrue(mockSkylight.isLight(testCoordinates, afterDusk))
+        assertTrue(skylight.isLight(testCoordinates, beforeDawn))
+        assertTrue(skylight.isLight(testCoordinates, betweenDawnAndDusk))
+        assertTrue(skylight.isLight(testCoordinates, afterDusk))
     }
 
-    @Test
-    fun `isLight with AlwaysLight returns true`() {
-        mockSkylight(testAlwaysLight)
+    @Test fun `isLight with AlwaysLight returns true`() {
+        val skylight = FakeSkylight(testAlwaysLight)
 
-        assertTrue(mockSkylight.isLight(testCoordinates, beforeDawn))
-        assertTrue(mockSkylight.isLight(testCoordinates, betweenDawnAndDusk))
-        assertTrue(mockSkylight.isLight(testCoordinates, afterDusk))
+        assertTrue(skylight.isLight(testCoordinates, beforeDawn))
+        assertTrue(skylight.isLight(testCoordinates, betweenDawnAndDusk))
+        assertTrue(skylight.isLight(testCoordinates, afterDusk))
     }
 
-    @Test
-    fun `isLight with NeverLight returns false`() {
-        mockSkylight(testNeverLight)
+    @Test fun `isLight with NeverLight returns false`() {
+        val skylight = FakeSkylight(testNeverLight)
 
-        assertFalse(mockSkylight.isLight(testCoordinates, beforeDawn))
-        assertFalse(mockSkylight.isLight(testCoordinates, betweenDawnAndDusk))
-        assertFalse(mockSkylight.isLight(testCoordinates, afterDusk))
+        assertFalse(skylight.isLight(testCoordinates, beforeDawn))
+        assertFalse(skylight.isLight(testCoordinates, betweenDawnAndDusk))
+        assertFalse(skylight.isLight(testCoordinates, afterDusk))
     }
 
-    @Test
-    fun `isLight with NeverDaytime returns false before dawn`() {
-        mockSkylight(testNeverDaytime)
+    @Test fun `isLight with NeverDaytime returns false before dawn`() {
+        val skylight = FakeSkylight(testNeverDaytime)
 
-        assertFalse(mockSkylight.isLight(testCoordinates, beforeDawn))
+        assertFalse(skylight.isLight(testCoordinates, beforeDawn))
     }
 
-    @Test
-    fun `isLight with NeverDaytime returns true between dawn and dusk`() {
-        mockSkylight(testNeverDaytime)
+    @Test fun `isLight with NeverDaytime returns true between dawn and dusk`() {
+        val skylight = FakeSkylight(testNeverDaytime)
 
-        assertTrue(mockSkylight.isLight(testCoordinates, betweenDawnAndDusk))
+        assertTrue(skylight.isLight(testCoordinates, betweenDawnAndDusk))
     }
 
-    @Test
-    fun `isLight with NeverDaytime returns false after dusk`() {
-        mockSkylight(testNeverDaytime)
+    @Test fun `isLight with NeverDaytime returns false after dusk`() {
+        val skylight = FakeSkylight(testNeverDaytime)
 
-        assertFalse(mockSkylight.isLight(testCoordinates, afterDusk))
+        assertFalse(skylight.isLight(testCoordinates, afterDusk))
     }
 
-    @Test
-    fun `isLight with Typical returns false before dawn`() {
-        mockSkylight(testTypical)
+    @Test fun `isLight with Typical returns false before dawn`() {
+        val skylight = FakeSkylight(testTypical)
 
-        assertFalse(mockSkylight.isLight(testCoordinates, beforeDawn))
+        assertFalse(skylight.isLight(testCoordinates, beforeDawn))
     }
 
-    @Test
-    fun `isLight with Typical returns true between dawn and dusk`() {
-        mockSkylight(testTypical)
+    @Test fun `isLight with Typical returns true between dawn and dusk`() {
+        val skylight = FakeSkylight(testTypical)
 
-        assertTrue(mockSkylight.isLight(testCoordinates, betweenDawnAndDusk))
+        assertTrue(skylight.isLight(testCoordinates, betweenDawnAndDusk))
     }
 
-    @Test
-    fun `isLight with Typical returns false after dusk`() {
-        mockSkylight(testTypical)
+    @Test fun `isLight with Typical returns false after dusk`() {
+        val skylight = FakeSkylight(testTypical)
 
-        assertFalse(mockSkylight.isLight(testCoordinates, afterDusk))
+        assertFalse(skylight.isLight(testCoordinates, afterDusk))
     }
     //endregion
 
     //region isDark
-    @Test
-    fun `isDark with AlwaysDaytime returns false`() {
-        mockSkylight(testAlwaysDaytime)
+    @Test fun `isDark with AlwaysDaytime returns false`() {
+        val skylight = FakeSkylight(testAlwaysDaytime)
 
-        assertFalse(mockSkylight.isDark(testCoordinates, beforeDawn))
-        assertFalse(mockSkylight.isDark(testCoordinates, betweenDawnAndDusk))
-        assertFalse(mockSkylight.isDark(testCoordinates, afterDusk))
+        assertFalse(skylight.isDark(testCoordinates, beforeDawn))
+        assertFalse(skylight.isDark(testCoordinates, betweenDawnAndDusk))
+        assertFalse(skylight.isDark(testCoordinates, afterDusk))
     }
 
-    @Test
-    fun `isDark with AlwaysLight returns false`() {
-        mockSkylight(testAlwaysLight)
+    @Test fun `isDark with AlwaysLight returns false`() {
+        val skylight = FakeSkylight(testAlwaysLight)
 
-        assertFalse(mockSkylight.isDark(testCoordinates, beforeDawn))
-        assertFalse(mockSkylight.isDark(testCoordinates, betweenDawnAndDusk))
-        assertFalse(mockSkylight.isDark(testCoordinates, afterDusk))
+        assertFalse(skylight.isDark(testCoordinates, beforeDawn))
+        assertFalse(skylight.isDark(testCoordinates, betweenDawnAndDusk))
+        assertFalse(skylight.isDark(testCoordinates, afterDusk))
     }
 
-    @Test
-    fun `isDark with NeverLight returns true`() {
-        mockSkylight(testNeverLight)
+    @Test fun `isDark with NeverLight returns true`() {
+        val skylight = FakeSkylight(testNeverLight)
 
-        assertTrue(mockSkylight.isDark(testCoordinates, beforeDawn))
-        assertTrue(mockSkylight.isDark(testCoordinates, betweenDawnAndDusk))
-        assertTrue(mockSkylight.isDark(testCoordinates, afterDusk))
+        assertTrue(skylight.isDark(testCoordinates, beforeDawn))
+        assertTrue(skylight.isDark(testCoordinates, betweenDawnAndDusk))
+        assertTrue(skylight.isDark(testCoordinates, afterDusk))
     }
 
-    @Test
-    fun `isDark with NeverDaytime returns true before dawn`() {
-        mockSkylight(testNeverDaytime)
+    @Test fun `isDark with NeverDaytime returns true before dawn`() {
+        val skylight = FakeSkylight(testNeverDaytime)
 
-        assertTrue(mockSkylight.isDark(testCoordinates, beforeDawn))
+        assertTrue(skylight.isDark(testCoordinates, beforeDawn))
     }
 
-    @Test
-    fun `isDark with NeverDaytime returns false between dawn and dusk`() {
-        mockSkylight(testNeverDaytime)
+    @Test fun `isDark with NeverDaytime returns false between dawn and dusk`() {
+        val skylight = FakeSkylight(testNeverDaytime)
 
-        assertFalse(mockSkylight.isDark(testCoordinates, betweenDawnAndDusk))
+        assertFalse(skylight.isDark(testCoordinates, betweenDawnAndDusk))
     }
 
-    @Test
-    fun `isDark with NeverDaytime returns true after dusk`() {
-        mockSkylight(testNeverDaytime)
+    @Test fun `isDark with NeverDaytime returns true after dusk`() {
+        val skylight = FakeSkylight(testNeverDaytime)
 
-        assertTrue(mockSkylight.isDark(testCoordinates, afterDusk))
+        assertTrue(skylight.isDark(testCoordinates, afterDusk))
     }
 
-    @Test
-    fun `isDark with Typical returns true before dawn`() {
-        mockSkylight(testTypical)
+    @Test fun `isDark with Typical returns true before dawn`() {
+        val skylight = FakeSkylight(testTypical)
 
-        assertTrue(mockSkylight.isDark(testCoordinates, beforeDawn))
+        assertTrue(skylight.isDark(testCoordinates, beforeDawn))
     }
 
-    @Test
-    fun `isDark with Typical returns false between dawn and dusk`() {
-        mockSkylight(testTypical)
+    @Test fun `isDark with Typical returns false between dawn and dusk`() {
+        val skylight = FakeSkylight(testTypical)
 
-        assertFalse(mockSkylight.isDark(testCoordinates, betweenDawnAndDusk))
+        assertFalse(skylight.isDark(testCoordinates, betweenDawnAndDusk))
     }
 
-    @Test
-    fun `isDark with Typical returns true after dusk`() {
-        mockSkylight(testTypical)
+    @Test fun `isDark with Typical returns true after dusk`() {
+        val skylight = FakeSkylight(testTypical)
 
-        assertTrue(mockSkylight.isDark(testCoordinates, afterDusk))
+        assertTrue(skylight.isDark(testCoordinates, afterDusk))
     }
     //endregion
-
-    private fun mockSkylight(skylightDay: SkylightDay) {
-        mockSkylight = mock {
-            on { getSkylightDay(any(), any(), any()) } doReturn skylightDay
-        }
-    }
 }

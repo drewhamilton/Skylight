@@ -1,8 +1,8 @@
 package dev.drewhamilton.skylight
 
 import dev.drewhamilton.extracare.DataApi
+import java.time.Instant
 import java.time.LocalDate
-import java.time.ZonedDateTime
 import java.util.Objects
 
 /**
@@ -30,10 +30,10 @@ sealed class SkylightDay {
      */
     @DataApi class Typical(
         override val date: LocalDate,
-        val dawn: ZonedDateTime? = null,
-        val sunrise: ZonedDateTime? = null,
-        val sunset: ZonedDateTime? = null,
-        val dusk: ZonedDateTime? = null
+        val dawn: Instant? = null,
+        val sunrise: Instant? = null,
+        val sunset: Instant? = null,
+        val dusk: Instant? = null
     ) : SkylightDay() {
 
         init {

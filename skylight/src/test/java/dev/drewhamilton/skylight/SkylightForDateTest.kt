@@ -21,8 +21,7 @@ class SkylightForDateTest {
         skylightForDate = mockSkylight.forDate(testDate)
     }
 
-    @Test
-    fun `getSkylightDay passes coordinates and date to Skylight`() {
+    @Test fun `getSkylightDay passes coordinates and date to Skylight`() {
         val testCoordinates = Coordinates(98.76, 54.321)
         skylightForDate.getSkylightDay(testCoordinates)
 
