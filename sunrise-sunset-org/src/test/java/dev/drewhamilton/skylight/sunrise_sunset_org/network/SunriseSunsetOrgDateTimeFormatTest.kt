@@ -1,12 +1,12 @@
-package dev.drewhamilton.skylight.sso.network
+package dev.drewhamilton.skylight.sunrise_sunset_org.network
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.format.DateTimeParseException
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
-class SsoDateTimeFormatTest {
+class SunriseSunsetOrgDateTimeFormatTest {
 
     // 1999 Dec. 31 11:59:59.000pm UTC:
     private val testDateTime = ZonedDateTime.of(1999, 12, 31, 23, 59, 59, 0, ZoneOffset.UTC)

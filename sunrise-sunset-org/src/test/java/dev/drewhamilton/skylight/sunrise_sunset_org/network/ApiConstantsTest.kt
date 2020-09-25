@@ -1,5 +1,6 @@
-package dev.drewhamilton.skylight.sso.network
+package dev.drewhamilton.skylight.sunrise_sunset_org.network
 
+import dev.drewhamilton.skylight.sunrise_sunset_org.network.ApiConstants
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

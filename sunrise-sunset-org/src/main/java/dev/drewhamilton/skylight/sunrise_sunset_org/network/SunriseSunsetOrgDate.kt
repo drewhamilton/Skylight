@@ -1,4 +1,4 @@
-package dev.drewhamilton.skylight.sso.network
+package dev.drewhamilton.skylight.sunrise_sunset_org.network
 
 /**
  * Indicates a String in the sunrise-sunset.org API's date format, e.g. "2019-05-21"
@@ -12,4 +12,4 @@ package dev.drewhamilton.skylight.sso.network
     AnnotationTarget.TYPE,
     AnnotationTarget.VALUE_PARAMETER
 )
-internal annotation class SsoDate
+internal annotation class SunriseSunsetOrgDate

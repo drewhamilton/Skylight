@@ -1,6 +1,8 @@
-package dev.drewhamilton.skylight.sso.dagger
+package dev.drewhamilton.skylight.sunrise_sunset_org.dagger
 
 import dev.drewhamilton.skylight.Coordinates
+import java.time.LocalDate
+import java.time.Month
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -10,10 +12,8 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test
-import java.time.LocalDate
-import java.time.Month
 
-class SsoSkylightDaggerTest {
+class SunriseSunsetOrgSkylightDaggerTest {
 
     private var mockWebServer: MockWebServer? = null
 
@@ -22,7 +22,7 @@ class SsoSkylightDaggerTest {
         mockWebServer?.shutdown()
     }
 
-    @Test fun `Dagger-provided SsoSkylight instance uses given OkHttp instance`() {
+    @Test fun `Dagger-provided SunriseSunsetOrgSkylight instance uses given OkHttp instance`() {
         mockWebServer = MockWebServer()
         mockWebServer!!.start()
 
@@ -34,7 +34,7 @@ class SsoSkylightDaggerTest {
             .addNetworkInterceptor(fakeNetworkInterceptor)
             .build()
 
-        val skylight = SsoSkylightComponent.create(testOkHttpClient).skylight
+        val skylight = SunriseSunsetOrgSkylightComponent.create(testOkHttpClient).skylight
         skylight.getSkylightDay(testCoordinates, testDate)
 
         val expectedUrl = "https://api.sunrise-sunset.org/json?" +

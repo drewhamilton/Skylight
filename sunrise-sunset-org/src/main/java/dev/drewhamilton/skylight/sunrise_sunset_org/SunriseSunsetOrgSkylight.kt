@@ -1,4 +1,4 @@
-package dev.drewhamilton.skylight.sso
+package dev.drewhamilton.skylight.sunrise_sunset_org
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -6,12 +6,12 @@ import dagger.Reusable
 import dev.drewhamilton.skylight.Coordinates
 import dev.drewhamilton.skylight.Skylight
 import dev.drewhamilton.skylight.SkylightDay
-import dev.drewhamilton.skylight.sso.network.ApiConstants
-import dev.drewhamilton.skylight.sso.network.SsoApi
-import dev.drewhamilton.skylight.sso.network.request.Params
-import dev.drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
-import dev.drewhamilton.skylight.sso.network.toSsoDateString
-import dev.drewhamilton.skylight.sso.network.toZonedDateTime
+import dev.drewhamilton.skylight.sunrise_sunset_org.network.ApiConstants
+import dev.drewhamilton.skylight.sunrise_sunset_org.network.SunriseSunsetOrgApi
+import dev.drewhamilton.skylight.sunrise_sunset_org.network.request.Params
+import dev.drewhamilton.skylight.sunrise_sunset_org.network.response.SunriseSunsetInfo
+import dev.drewhamilton.skylight.sunrise_sunset_org.network.toSunriseSunsetOrgDateString
+import dev.drewhamilton.skylight.sunrise_sunset_org.network.toZonedDateTime
 import java.time.LocalDate
 import javax.inject.Inject
 import okhttp3.OkHttpClient
@@ -24,16 +24,16 @@ import retrofit2.converter.moshi.MoshiConverterFactory
  * and date.
  */
 @Reusable
-class SsoSkylight internal constructor(
-    private val api: SsoApi
+class SunriseSunsetOrgSkylight internal constructor(
+    private val api: SunriseSunsetOrgApi
 ) : Skylight {
 
     @Inject constructor(
         okHttpClient: OkHttpClient
-    ) : this(instantiateRetrofit(okHttpClient).create(SsoApi::class.java))
+    ) : this(instantiateRetrofit(okHttpClient).create(SunriseSunsetOrgApi::class.java))
 
     override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay {
-        val params = Params(coordinates.latitude, coordinates.longitude, date.toSsoDateString())
+        val params = Params(coordinates.latitude, coordinates.longitude, date.toSunriseSunsetOrgDateString())
         return getInfoResults(params).toSkylightDay(date)
     }
 

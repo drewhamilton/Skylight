@@ -1,4 +1,4 @@
-package dev.drewhamilton.skylight.sso.network
+package dev.drewhamilton.skylight.sunrise_sunset_org.network
 
 import okhttp3.Request
 import okhttp3.ResponseBody

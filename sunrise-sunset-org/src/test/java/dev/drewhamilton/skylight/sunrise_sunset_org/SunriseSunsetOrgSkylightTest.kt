@@ -1,13 +1,13 @@
-package dev.drewhamilton.skylight.sso
+package dev.drewhamilton.skylight.sunrise_sunset_org
 
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import dev.drewhamilton.skylight.Coordinates
-import dev.drewhamilton.skylight.sso.network.DummyCall
-import dev.drewhamilton.skylight.sso.network.SsoApi
-import dev.drewhamilton.skylight.sso.network.request.Params
-import dev.drewhamilton.skylight.sso.network.response.SsoInfoResponse
-import dev.drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
+import dev.drewhamilton.skylight.sunrise_sunset_org.network.DummyCall
+import dev.drewhamilton.skylight.sunrise_sunset_org.network.SunriseSunsetOrgApi
+import dev.drewhamilton.skylight.sunrise_sunset_org.network.request.Params
+import dev.drewhamilton.skylight.sunrise_sunset_org.network.response.SunriseSunsetInfo
+import dev.drewhamilton.skylight.sunrise_sunset_org.network.response.SunriseSunsetOrgInfoResponse
 import java.time.LocalDate
 import java.time.Month
 import java.time.format.DateTimeFormatter
@@ -16,7 +16,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import retrofit2.HttpException
 
-class SsoSkylightTest {
+class SunriseSunsetOrgSkylightTest {
 
     private val testDawn = "1999-08-21T08:30:40+00:00"
     private val testSunrise = "1999-08-21T09:30:40+00:00"
@@ -32,20 +32,20 @@ class SsoSkylightTest {
 
     private val testSunriseSunsetInfo = SunriseSunsetInfo(testSunrise, testSunset, this.testDawn, this.testDusk)
 
-    private lateinit var mockApi: SsoApi
+    private lateinit var mockApi: SunriseSunsetOrgApi
 
     @Test
     fun `getInfo emits API result`() {
         mockApi = mock {
             on {
                 getInfo(testParams.lat, testParams.lng, testDateString, 0)
-            } doReturn DummyCall.success(SsoInfoResponse(testSunriseSunsetInfo, "Dummy status"))
+            } doReturn DummyCall.success(SunriseSunsetOrgInfoResponse(testSunriseSunsetInfo, "Dummy status"))
         }
 
-        val ssoSkylight = SsoSkylight(mockApi)
+        val sunriseSunsetOrgSkylight = SunriseSunsetOrgSkylight(mockApi)
         assertEquals(
             testSunriseSunsetInfo.toSkylightDay(testDate),
-            ssoSkylight.getSkylightDay(testCoordinates, testDate)
+            sunriseSunsetOrgSkylight.getSkylightDay(testCoordinates, testDate)
         )
     }
 
@@ -57,7 +57,7 @@ class SsoSkylightTest {
             } doReturn DummyCall.error(401, ResponseBody.create(null, "Content"))
         }
 
-        val ssoSkylight = SsoSkylight(mockApi)
-        ssoSkylight.getSkylightDay(testCoordinates, testDate)
+        val sunriseSunsetOrgSkylight = SunriseSunsetOrgSkylight(mockApi)
+        sunriseSunsetOrgSkylight.getSkylightDay(testCoordinates, testDate)
     }
 }

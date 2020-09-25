@@ -1,8 +1,8 @@
-package dev.drewhamilton.skylight.sso
+package dev.drewhamilton.skylight.sunrise_sunset_org
 
 import dev.drewhamilton.skylight.SkylightDay
-import dev.drewhamilton.skylight.sso.network.ApiConstants
-import dev.drewhamilton.skylight.sso.network.response.SunriseSunsetInfo
+import dev.drewhamilton.skylight.sunrise_sunset_org.network.ApiConstants
+import dev.drewhamilton.skylight.sunrise_sunset_org.network.response.SunriseSunsetInfo
 import java.time.LocalDate
 import java.time.ZonedDateTime
 import org.junit.Assert.assertEquals

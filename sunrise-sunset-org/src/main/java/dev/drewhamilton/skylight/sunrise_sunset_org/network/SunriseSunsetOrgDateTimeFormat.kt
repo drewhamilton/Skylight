@@ -1,4 +1,4 @@
-package dev.drewhamilton.skylight.sso.network
+package dev.drewhamilton.skylight.sunrise_sunset_org.network
 
 import java.time.ZonedDateTime
 import java.time.chrono.IsoChronology
@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
 import java.time.format.ResolverStyle
 
-internal fun @receiver:SsoDateTime String.toZonedDateTime() =
+internal fun @receiver:SunriseSunsetOrgDateTime String.toZonedDateTime() =
     if (this == ApiConstants.DATE_TIME_NONE || this == ApiConstants.DATE_TIME_ALWAYS_DAY)
         null
     else

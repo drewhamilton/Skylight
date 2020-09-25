@@ -3,7 +3,7 @@ apply plugin: 'org.jetbrains.kotlin.jvm'
 apply plugin: 'org.jetbrains.kotlin.kapt'
 
 ext {
-    artifactName = 'skylight-sso'
+    artifactName = 'skylight-sunrise-sunset-org'
     publishedDescription = 'A Skylight implementation that uses sunrise-sunset.org to retrieve skylight information.'
 }
 apply from: '../publish.gradle'
