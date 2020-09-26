@@ -1,7 +1,6 @@
 package dev.drewhamilton.skylight
 
 import java.time.LocalDate
-import java.time.ZoneId
 
 /**
  * A convenient [skylight] wrapper for a single [date].
@@ -15,8 +14,7 @@ class SkylightForDate internal constructor(
      */
     fun getSkylightDay(
         coordinates: Coordinates,
-        zoneId: ZoneId = ZoneId.systemDefault()
-    ) = skylight.getSkylightDay(coordinates, date, zoneId)
+    ) = skylight.getSkylightDay(coordinates, date)
 }
 
 /**

@@ -1,7 +1,0 @@
-public final class dev/drewhamilton/skylight/dummy/DummySkylight : dev/drewhamilton/skylight/Skylight {
-	public fun <init> (Ldev/drewhamilton/skylight/SkylightDay;)V
-	public fun getSkylightDay (Ldev/drewhamilton/skylight/Coordinates;Ljava/time/LocalDate;Ljava/time/ZoneId;)Ldev/drewhamilton/skylight/SkylightDay;
-	public final fun getSkylightDay (Ljava/time/LocalDate;Ljava/time/ZoneId;)Ldev/drewhamilton/skylight/SkylightDay;
-	public static synthetic fun getSkylightDay$default (Ldev/drewhamilton/skylight/dummy/DummySkylight;Ljava/time/LocalDate;Ljava/time/ZoneId;ILjava/lang/Object;)Ldev/drewhamilton/skylight/SkylightDay;
-}
-

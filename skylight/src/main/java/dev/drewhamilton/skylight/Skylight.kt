@@ -1,7 +1,6 @@
 package dev.drewhamilton.skylight
 
 import java.time.LocalDate
-import java.time.ZoneId
 
 /**
  * An interface capable of providing a [SkylightDay] for any given location and date.
@@ -14,7 +13,6 @@ interface Skylight {
      */
     fun getSkylightDay(
         coordinates: Coordinates,
-        date: LocalDate,
-        zoneId: ZoneId = ZoneId.systemDefault()
+        date: LocalDate
     ): SkylightDay
 }

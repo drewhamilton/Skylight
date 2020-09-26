@@ -1,26 +1,23 @@
 package dev.drewhamilton.skylight
 
 import java.time.LocalDate
-import java.time.ZoneId
 
 /**
- * A convenient [skylight] wrapper for a single set of [coordinates] and [zoneId].
+ * A convenient [skylight] wrapper for a single set of [coordinates].
  */
 class SkylightForCoordinates internal constructor(
     internal val skylight: Skylight,
-    val coordinates: Coordinates,
-    val zoneId: ZoneId = ZoneId.systemDefault()
+    val coordinates: Coordinates
 ) {
     /**
-     * Get a [SkylightDay] for the given [date] at this object's [coordinates] and [zoneId].
+     * Get a [SkylightDay] for the given [date] at this object's [coordinates].
      */
-    fun getSkylightDay(date: LocalDate) = skylight.getSkylightDay(coordinates, date, zoneId)
+    fun getSkylightDay(date: LocalDate) = skylight.getSkylightDay(coordinates, date)
 }
 
 /**
- * Create a [SkylightForCoordinates] wrapping the receiver [Skylight] with the given [coordinates] and [zoneId].
+ * Create a [SkylightForCoordinates] wrapping the receiver [Skylight] with the given [coordinates].
  */
 fun Skylight.forCoordinates(
     coordinates: Coordinates,
-    zoneId: ZoneId = ZoneId.systemDefault()
-) = SkylightForCoordinates(this, coordinates, zoneId)
+) = SkylightForCoordinates(this, coordinates)

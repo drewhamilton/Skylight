@@ -5,14 +5,14 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
 import java.time.LocalDate
 import java.time.Month
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import kotlin.reflect.KClass
+import org.junit.Assert.assertEquals
+import org.junit.Before
+import org.junit.Test
 
 class SkylightForCoordinatesTest {
 
@@ -28,8 +28,7 @@ class SkylightForCoordinatesTest {
         skylightForCoordinates = mockSkylight.forCoordinates(testCoordinates)
     }
 
-    @Test
-    fun `getSkylightDay passes coordinates and date to Skylight`() {
+    @Test fun `getSkylightDay passes coordinates and date to Skylight`() {
         val testDate = LocalDate.of(2019, Month.MAY, 20)
         skylightForCoordinates.getSkylightDay(testDate)
 
@@ -37,12 +36,11 @@ class SkylightForCoordinatesTest {
         verifyNoMoreInteractions(mockSkylight)
     }
 
-    @Test
-    fun `isLight forwards to Skylight isLight`() {
+    @Test fun `isLight forwards to Skylight isLight`() {
         val testDate = LocalDate.of(2019, Month.MAY, 20)
         val testCoordinates = Coordinates(1.23, 45.6)
         for (kClass in SkylightDay::class.sealedSubclasses) {
-            whenever(mockSkylight.getSkylightDay(any(), any(), any())).thenReturn(kClass.instantiate(testDate))
+            whenever(mockSkylight.getSkylightDay(any(), any())).thenReturn(kClass.instantiate(testDate))
             assertEquals(
                 mockSkylight.isLight(testCoordinates, testDateTime),
                 skylightForCoordinates.isLight(testDateTime)
@@ -50,12 +48,11 @@ class SkylightForCoordinatesTest {
         }
     }
 
-    @Test
-    fun `isDark forwards to Skylight isDark`() {
+    @Test fun `isDark forwards to Skylight isDark`() {
         val testDate = LocalDate.of(2019, Month.MAY, 20)
         val testCoordinates = Coordinates(12.3, 4.56)
         for (kClass in SkylightDay::class.sealedSubclasses) {
-            whenever(mockSkylight.getSkylightDay(any(), any(), any())).thenReturn(kClass.instantiate(testDate))
+            whenever(mockSkylight.getSkylightDay(any(), any())).thenReturn(kClass.instantiate(testDate))
             assertEquals(
                 mockSkylight.isDark(testCoordinates, testDateTime),
                 skylightForCoordinates.isDark(testDateTime)
@@ -64,15 +61,15 @@ class SkylightForCoordinatesTest {
     }
 
     private fun KClass<out SkylightDay>.instantiate(date: LocalDate) = when (this) {
-        SkylightDay.Typical::class -> SkylightDay.Typical {
-            this.date = date
-            this.dawn = testDateTime
-            this.sunrise = testDateTime
-            this.sunset = testDateTime
-            this.dusk = testDateTime
-        }
-        SkylightDay.AlwaysDaytime::class -> SkylightDay.AlwaysDaytime { this.date = date }
-        SkylightDay.NeverLight::class -> SkylightDay.NeverLight { this.date = date }
+        SkylightDay.Typical::class -> SkylightDay.Typical(
+            date = date,
+            dawn = testDateTime.toInstant(),
+            sunrise = testDateTime.toInstant(),
+            sunset = testDateTime.toInstant(),
+            dusk = testDateTime.toInstant()
+        )
+        SkylightDay.AlwaysDaytime::class -> SkylightDay.AlwaysDaytime(date = date)
+        SkylightDay.NeverLight::class -> SkylightDay.NeverLight(date = date)
         else -> throw IllegalArgumentException("Unknown ${SkylightDay::class} subtype: $this")
     }
 }

@@ -1,5 +1,5 @@
 public final class dev/drewhamilton/skylight/calculator/CalculatorSkylight : dev/drewhamilton/skylight/Skylight {
 	public fun <init> ()V
-	public fun getSkylightDay (Ldev/drewhamilton/skylight/Coordinates;Ljava/time/LocalDate;Ljava/time/ZoneId;)Ldev/drewhamilton/skylight/SkylightDay;
+	public fun getSkylightDay (Ldev/drewhamilton/skylight/Coordinates;Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay;
 }
 

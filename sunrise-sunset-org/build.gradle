@@ -1,0 +1,29 @@
+apply plugin: 'java-library'
+apply plugin: 'org.jetbrains.kotlin.jvm'
+apply plugin: 'org.jetbrains.kotlin.kapt'
+
+ext {
+    artifactName = 'skylight-sunrise-sunset-org'
+    publishedDescription = 'A Skylight implementation that uses sunrise-sunset.org to retrieve skylight information.'
+}
+apply from: '../publish.gradle'
+
+dependencies {
+    api project(':skylight')
+
+    implementation deps.kotlinReflect
+
+    implementation deps.moshi
+
+    implementation deps.retrofit
+    implementation deps.retrofitMoshiConverter
+
+    testImplementation deps.junit
+    testImplementation deps.kotlinReflect
+    testImplementation deps.okHttpMockWebServer
+    testImplementation deps.mockito
+    testImplementation deps.mockitoKotlin
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
