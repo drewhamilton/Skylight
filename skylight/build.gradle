@@ -9,8 +9,6 @@ ext {
 apply from: '../publish.gradle'
 
 dependencies {
-    implementation deps.kotlinStdLib
-
     testImplementation deps.kotlinReflect
     testImplementation deps.junit
     testImplementation deps.mockito

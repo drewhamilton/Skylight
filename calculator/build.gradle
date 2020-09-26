@@ -11,10 +11,6 @@ apply from: '../publish.gradle'
 dependencies {
     api project(':skylight')
 
-    implementation deps.dagger
-    implementation deps.kotlinStdLib
-
-    kaptTest deps.daggerCompiler
     testImplementation deps.junit
 }
 

@@ -7,13 +7,12 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
 import java.time.temporal.ChronoUnit
-import javax.inject.Inject
 
 /**
  * A [Skylight] implementation that ignores the coordinates parameter, and instead returns a copy of a specific
  * [SkylightDay] for the given date parameter.
  */
-class FakeSkylight @Inject constructor(
+class FakeSkylight(
     private val dummySkylightDay: SkylightDay
 ) : Skylight {
 

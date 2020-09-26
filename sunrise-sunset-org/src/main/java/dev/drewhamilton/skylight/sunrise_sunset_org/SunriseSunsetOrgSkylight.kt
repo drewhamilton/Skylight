@@ -2,7 +2,6 @@ package dev.drewhamilton.skylight.sunrise_sunset_org
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import dagger.Reusable
 import dev.drewhamilton.skylight.Coordinates
 import dev.drewhamilton.skylight.Skylight
 import dev.drewhamilton.skylight.SkylightDay
@@ -13,7 +12,6 @@ import dev.drewhamilton.skylight.sunrise_sunset_org.network.response.SunriseSuns
 import dev.drewhamilton.skylight.sunrise_sunset_org.network.toSunriseSunsetOrgDateString
 import dev.drewhamilton.skylight.sunrise_sunset_org.network.toZonedDateTime
 import java.time.LocalDate
-import javax.inject.Inject
 import okhttp3.OkHttpClient
 import retrofit2.HttpException
 import retrofit2.Retrofit
@@ -23,12 +21,11 @@ import retrofit2.converter.moshi.MoshiConverterFactory
  * An implementation of [Skylight] that uses sunrise-sunset.org to determine a [SkylightDay] for the given location
  * and date.
  */
-@Reusable
 class SunriseSunsetOrgSkylight internal constructor(
     private val api: SunriseSunsetOrgApi
 ) : Skylight {
 
-    @Inject constructor(
+    constructor(
         okHttpClient: OkHttpClient
     ) : this(instantiateRetrofit(okHttpClient).create(SunriseSunsetOrgApi::class.java))
 

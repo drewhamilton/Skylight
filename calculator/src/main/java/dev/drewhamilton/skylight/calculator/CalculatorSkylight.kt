@@ -1,19 +1,16 @@
 package dev.drewhamilton.skylight.calculator
 
-import dagger.Reusable
 import dev.drewhamilton.skylight.Coordinates
 import dev.drewhamilton.skylight.Skylight
 import dev.drewhamilton.skylight.SkylightDay
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
-import javax.inject.Inject
 
 /**
  * Adapted from AndroidX's (internal) TwilightCalculator class.
  */
-@Reusable
-class CalculatorSkylight @Inject constructor() : Skylight {
+class CalculatorSkylight : Skylight {
 
     /**
      * Calculates the [SkylightDay] based on the given [coordinates] and [date].

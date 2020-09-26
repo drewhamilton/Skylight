@@ -11,12 +11,7 @@ apply from: '../publish.gradle'
 dependencies {
     api project(':skylight')
 
-    implementation deps.javaxInject
-    implementation deps.kotlinStdLib
-
     testImplementation deps.junit
-    testImplementation deps.dagger
-    kaptTest deps.daggerCompiler
 }
 
 sourceCompatibility = '1.8'
