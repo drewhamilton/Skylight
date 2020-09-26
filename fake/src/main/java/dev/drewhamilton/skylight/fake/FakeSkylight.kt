@@ -13,7 +13,7 @@ import java.time.temporal.ChronoUnit
  * [SkylightDay] for the given date parameter.
  */
 class FakeSkylight(
-    private val dummySkylightDay: SkylightDay
+    private val skylightDay: SkylightDay
 ) : Skylight {
 
     /**
@@ -25,7 +25,7 @@ class FakeSkylight(
     /**
      * Get a copy of the [SkylightDay] originally passed to the constructor for the given [date].
      */
-    fun getSkylightDay(date: LocalDate): SkylightDay = dummySkylightDay.copy(date)
+    fun getSkylightDay(date: LocalDate): SkylightDay = skylightDay.copy(date)
 
     private fun SkylightDay.copy(newDate: LocalDate) = when (val original = this) {
         is SkylightDay.Typical -> {
