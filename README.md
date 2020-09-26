@@ -1,25 +1,28 @@
 # Skylight
 ![](https://github.com/drewhamilton/Skylight/workflows/CI/badge.svg?branch=master)
 
-Skylight is a Kotlin interface for providing sunrise, sunset, and similar details for a given location and date.
+Skylight is a Kotlin/JVM interface for determining sunrise, sunset, and similar details for a given
+location and date.
 
 ## Download
-[![Download](https://api.bintray.com/packages/drewhamilton/Skylight/Skylight/images/download.svg)](https://bintray.com/drewhamilton/Skylight)
+Skylight is available as a snapshot on Maven Central's snapshots repository. The current snapshot is
+version 0.12.0-SNAPSHOT. The package name and some APIs have changed since the most recent JCenter
+publication (0.11.0).
 
-Skylight is available in JCenter. It is still in pre-release development, and the API may undergo breaking changes
-before version 1.0.0.
+Skylight is still in pre-release development, and the API may undergo breaking changes before
+version 1.0.0.
 
 To use Skylight, include any of the following in your Gradle dependencies:
 ```groovy
 // The base interface:
-implementation "drewhamilton.skylight:skylight:$version"
+implementation "dev.drewhamilton.skylight:skylight:$version"
 
 // sunrise-sunset.org implementation:
-implementation "drewhamilton.skylight:skylight-sso:$version"
+implementation "dev.drewhamilton.skylight:skylight-sunrise-sunset-org:$version"
 // Calculator implementation:
-implementation "drewhamilton.skylight:skylight-calculator:$version"
-// Dummy implementation:
-implementation "drewhamilton.skylight:skylight-dummy:$version"
+implementation "dev.drewhamilton.skylight:skylight-calculator:$version"
+// Fake implementation:
+implementation "dev.drewhamilton.skylight:skylight-fake:$version"
 ```
 
 ## Usage
@@ -41,9 +44,10 @@ display(message)
 Skylight requires Java 8.
 
 Using Skylight on Android requires enabling
-[core library desugaring](https://developer.android.com/studio/preview/features#j8-desugar), available with Android
-Gradle Plugin version 4.0.0 and higher. If you are using Skylight on Android, also see
-[Skylight Android](https://github.com/drewhamilton/SkylightAndroid) for a few added features.
+[core library desugaring](https://developer.android.com/studio/preview/features#j8-desugar),
+available with Android Gradle Plugin version 4.0.0 and higher. If you are using Skylight on Android,
+also see [Skylight Android](https://github.com/drewhamilton/SkylightAndroid) for a few added
+features.
 
 ## License
 ```
