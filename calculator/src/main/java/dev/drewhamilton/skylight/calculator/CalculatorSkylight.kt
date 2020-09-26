@@ -19,24 +19,24 @@ class CalculatorSkylight @Inject constructor() : Skylight {
      * Calculates the [SkylightDay] based on the given [coordinates] and [date].
      */
     override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay {
-        val epochMillis = date.toNoonUtcEpochMillis()
-        return calculateSkylightInfo(epochMillis, coordinates.latitude, coordinates.longitude)
+        val epochMilli = date.toNoonUtcEpochMilli()
+        return calculateSkylightInfo(epochMilli, coordinates.latitude, coordinates.longitude)
             .toSkylightDay(date)
     }
 
-    private fun LocalDate.toNoonUtcEpochMillis() = atTime(12, 0).toInstant(ZoneOffset.UTC).toEpochMilli()
+    private fun LocalDate.toNoonUtcEpochMilli() = atTime(12, 0).toInstant(ZoneOffset.UTC).toEpochMilli()
 
     private fun EpochMilliSkylightDay.toSkylightDay(date: LocalDate) = when (this) {
         is EpochMilliSkylightDay.Typical -> SkylightDay.Typical(
             date = date,
-            dawn = dawn.asEpochMilliToDateTime(),
-            sunrise = sunrise.asEpochMilliToDateTime(),
-            sunset = sunset.asEpochMilliToDateTime(),
-            dusk = dusk.asEpochMilliToDateTime()
+            dawn = dawn.asEpochMilliToInstant(),
+            sunrise = sunrise.asEpochMilliToInstant(),
+            sunset = sunset.asEpochMilliToInstant(),
+            dusk = dusk.asEpochMilliToInstant()
         )
         is EpochMilliSkylightDay.AlwaysDaytime -> SkylightDay.AlwaysDaytime(date = date)
         is EpochMilliSkylightDay.NeverLight -> SkylightDay.NeverLight(date = date)
     }
 
-    private fun Long?.asEpochMilliToDateTime(): Instant? = if (this == null) null else Instant.ofEpochMilli(this)
+    private fun Long?.asEpochMilliToInstant(): Instant? = if (this == null) null else Instant.ofEpochMilli(this)
 }
