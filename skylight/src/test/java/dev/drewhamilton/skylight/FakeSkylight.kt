@@ -2,7 +2,7 @@ package dev.drewhamilton.skylight
 
 import java.time.LocalDate
 
-// TODO: Use DummySkylight if/when possible
+// TODO: Use production FakeSkylight if/when possible
 class FakeSkylight(
     var skylightDay: SkylightDay
 ) : Skylight {
