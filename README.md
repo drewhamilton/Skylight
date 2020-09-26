@@ -5,14 +5,11 @@ Skylight is a Kotlin/JVM interface for determining sunrise, sunset, and similar 
 location and date.
 
 ## Download
-Skylight is available as a snapshot on Maven Central's snapshots repository. The current snapshot is
-version 0.12.0-SNAPSHOT. The package name and some APIs have changed since the most recent JCenter
-publication (0.11.0).
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/dev.drewhamilton.skylight/skylight/badge.svg)](https://maven-badges.herokuapp.com/maven-central/dev.drewhamilton.skylight/skylight)
 
-Skylight is still in pre-release development, and the API may undergo breaking changes before
-version 1.0.0.
+Skylight is available on Maven Central. To use Skylight, include any of the following in your Gradle
+dependencies:
 
-To use Skylight, include any of the following in your Gradle dependencies:
 ```groovy
 // The base interface:
 implementation "dev.drewhamilton.skylight:skylight:$version"
@@ -26,7 +23,12 @@ implementation "dev.drewhamilton.skylight:skylight-fake:$version"
 ```
 
 ## Usage
-Determine dawn, sunrise, sunset, and dusk for a given location and date, and process it simply and intuitively.
+Skylight is still in pre-release development, and the API may undergo breaking changes before
+version 1.0.0.
+
+Determine dawn, sunrise, sunset, and dusk for a given location and date, and process it simply and
+intuitively.
+
 ```kotlin
 val amsterdam = Coordinates(52.3680, 4.9036)
 val tomorrow = LocalDate.now().plusDays(1)
@@ -34,9 +36,12 @@ val skylight: Skylight = CalculatorSkylight()
 
 val skylightDay = skylight.getSkylightDay(amsterdam, tomorrow)
 val message = when {
-    skylightDay is SkylightDay.AlwaysDaytime -> "The sun will be up all day in Amsterdam tomorrow."
-    skylightDay is SkylightDay.Typical && skylightDay.sunrise != null -> "The sun will rise in Amsterdam tomorrow."
-    else -> "The sun will not rise in Amsterdam tomorrow."
+    skylightDay is SkylightDay.AlwaysDaytime ->
+        "The sun will be up all day in Amsterdam tomorrow."
+    skylightDay is SkylightDay.Typical && skylightDay.sunrise != null ->
+        "The sun will rise in Amsterdam tomorrow."
+    else ->
+        "The sun will not rise in Amsterdam tomorrow."
 }
 display(message)
 ```

@@ -38,10 +38,6 @@ apiValidation {
     ignoredProjects += ['nothing']
 }
 
-ext {
-    libraryVersion = '0.12.0-SNAPSHOT'
-}
-
 allprojects {
     repositories {
         mavenCentral()

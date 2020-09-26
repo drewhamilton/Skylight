@@ -3,7 +3,7 @@ apply plugin: 'org.jetbrains.kotlin.jvm'
 apply plugin: 'dev.drewhamilton.extracare'
 
 ext {
-    artifactName = 'skylight'
+    artifactName = rootProject.POM_ARTIFACT_ID
     publishedDescription = 'An interface for determining sunrise, sunset, and related info for a given location.'
 }
 apply from: '../publish.gradle'

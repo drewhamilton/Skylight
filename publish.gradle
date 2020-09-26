@@ -1,8 +1,8 @@
 // Applied per published module
 //  The module must define ext.artifactName and ext.publishedDescription
 
-group = 'dev.drewhamilton.skylight'
-version = rootProject.ext.libraryVersion
+group = rootProject.GROUP
+version = rootProject.VERSION_NAME
 
 task sourcesJar(type: Jar) {
     archiveClassifier.set 'sources'
