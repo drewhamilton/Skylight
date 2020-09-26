@@ -84,8 +84,8 @@ publishing {
             def sonatypeIssuesUsername = findProperty('personalSonatypeIssuesUsername')
             def sonatypeIssuesPassword = findProperty('personalSonatypeIssuesPassword')
             credentials {
-                username sonatypeIssuesUsername
-                password sonatypeIssuesPassword
+                username = sonatypeIssuesUsername
+                password = sonatypeIssuesPassword
             }
         }
     }
