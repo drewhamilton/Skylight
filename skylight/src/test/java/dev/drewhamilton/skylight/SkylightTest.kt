@@ -177,12 +177,22 @@ class SkylightTest {
         assertTrue(skylight.isDaytime(testCoordinates, afterDusk))
     }
 
-    @Test fun `isDaytime with AlwaysLight returns true`() {
+    @Test fun `isDaytime with AlwaysLight returns false before sunrise`() {
         val skylight = FakeSkylight(testAlwaysLight)
 
-        assertTrue(skylight.isDaytime(testCoordinates, beforeDawn))
+        assertFalse(skylight.isDaytime(testCoordinates, beforeSunrise))
+    }
+
+    @Test fun `isDaytime with AlwaysLight returns true between sunrise and sunset`() {
+        val skylight = FakeSkylight(testAlwaysLight)
+
         assertTrue(skylight.isDaytime(testCoordinates, betweenSunriseAndSunset))
-        assertTrue(skylight.isDaytime(testCoordinates, afterDusk))
+    }
+
+    @Test fun `isDaytime with AlwaysLight returns false after sunset`() {
+        val skylight = FakeSkylight(testAlwaysLight)
+
+        assertFalse(skylight.isDaytime(testCoordinates, afterDusk))
     }
 
     @Test fun `isDaytime with NeverLight returns false`() {
@@ -193,22 +203,12 @@ class SkylightTest {
         assertFalse(skylight.isDaytime(testCoordinates, afterDusk))
     }
 
-    @Test fun `isDaytime with NeverDaytime returns false before dawn`() {
+    @Test fun `isDaytime with NeverDaytime returns false`() {
         val skylight = FakeSkylight(testNeverDaytime)
 
-        assertFalse(skylight.isDaytime(testCoordinates, beforeDawn))
-    }
-
-    @Test fun `isDaytime with NeverDaytime returns false between dawn and dusk`() {
-        val skylight = FakeSkylight(testNeverDaytime)
-
+        assertFalse(skylight.isDaytime(testCoordinates, beforeSunrise))
         assertFalse(skylight.isDaytime(testCoordinates, betweenSunriseAndSunset))
-    }
-
-    @Test fun `isDaytime with NeverDaytime returns false after dusk`() {
-        val skylight = FakeSkylight(testNeverDaytime)
-
-        assertFalse(skylight.isDaytime(testCoordinates, afterDusk))
+        assertFalse(skylight.isDaytime(testCoordinates, afterSunset))
     }
 
     @Test fun `isDaytime with Typical returns false before sunrise`() {

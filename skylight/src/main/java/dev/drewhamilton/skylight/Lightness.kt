@@ -54,4 +54,4 @@ private fun SkylightDay.Typical.isLightAt(instant: Instant) =
     dawn == null || (dawn.isBefore(instant) && (dusk == null || dusk.isAfter(instant)))
 
 private fun SkylightDay.Typical.isDaytimeAt(instant: Instant) =
-    sunrise == null || (sunrise.isBefore(instant) && (sunset == null || sunset.isAfter(instant)))
+    sunrise != null && (sunrise.isBefore(instant) && (sunset == null || sunset.isAfter(instant)))
