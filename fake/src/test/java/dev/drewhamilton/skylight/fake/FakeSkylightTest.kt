@@ -2,17 +2,17 @@ package dev.drewhamilton.skylight.fake
 
 import dev.drewhamilton.skylight.Coordinates
 import dev.drewhamilton.skylight.SkylightDay
-import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
-import java.time.temporal.ChronoUnit
-import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class FakeSkylightTest {
 
-    private val testSkylightDay = SkylightDay.Typical(
+    private val expectedTypicalSkylightDay = SkylightDay.Typical(
         date = LocalDate.of(1970, 1, 1),
         dawn = ZonedDateTime.of(1970, 1, 1, 8, 0, 0, 0, ZoneOffset.UTC).toInstant(),
         sunrise = ZonedDateTime.of(1970, 1, 1, 9, 0, 0, 0, ZoneOffset.UTC).toInstant(),
@@ -20,35 +20,50 @@ class FakeSkylightTest {
         dusk = ZonedDateTime.of(1970, 1, 1, 11, 0, 0, 0, ZoneOffset.UTC).toInstant()
     )
 
-    private val fakeSkylight: FakeSkylight = FakeSkylight(testSkylightDay)
+    private val testZone = ZoneOffset.UTC
+    private val testDawn = LocalTime.of(8, 0)
+    private val testSunrise = LocalTime.of(9, 0)
+    private val testSunset = LocalTime.of(10, 0)
+    private val testDusk = LocalTime.of(11, 0)
 
-    @Test fun `getSkylightInfo(Coordinates, LocalDate) returns copy of dummySkylightDay with changed date`() {
+    private val testDate = LocalDate.of(1970, 1, 1)
+
+    private val typicalFakeSkylight: FakeSkylight =
+        FakeSkylight.Typical(testZone, testDawn, testSunrise, testSunset, testDusk)
+
+    @Test fun `Typical getSkylightInfo(Coordinates, LocalDate) returns times on given date`() {
         val testDate = LocalDate.of(2020, 9, 24)
-        val result = fakeSkylight.getSkylightDay(Coordinates(0.0, 0.0), testDate)
-        Assert.assertTrue(result is SkylightDay.Typical)
+        val result = typicalFakeSkylight.getSkylightDay(Coordinates(0.0, 0.0), testDate)
+        assertTrue(result is SkylightDay.Typical)
         result as SkylightDay.Typical
-        Assert.assertEquals(testSkylightDay.dawn!!.onDateSameTime(testDate), result.dawn)
-        Assert.assertEquals(testSkylightDay.sunrise!!.onDateSameTime(testDate), result.sunrise)
-        Assert.assertEquals(testSkylightDay.sunset!!.onDateSameTime(testDate), result.sunset)
-        Assert.assertEquals(testSkylightDay.dusk!!.onDateSameTime(testDate), result.dusk)
+        assertEquals(ZonedDateTime.of(testDate, testDawn, testZone).toInstant(), result.dawn)
+        assertEquals(ZonedDateTime.of(testDate, testSunrise, testZone).toInstant(), result.sunrise)
+        assertEquals(ZonedDateTime.of(testDate, testSunset, testZone).toInstant(), result.sunset)
+        assertEquals(ZonedDateTime.of(testDate, testDusk, testZone).toInstant(), result.dusk)
     }
 
-    @Test fun `getSkylightInfo(LocalDate) returns copy of dummySkylightDay with changed date`() {
+    @Test fun `Typical getSkylightInfo(LocalDate) returns times on given date`() {
         val testDate = LocalDate.ofEpochDay(6343)
-        val result = fakeSkylight.getSkylightDay(testDate)
-        Assert.assertTrue(result is SkylightDay.Typical)
+        val result = typicalFakeSkylight.getSkylightDay(testDate)
+        assertTrue(result is SkylightDay.Typical)
         result as SkylightDay.Typical
-        Assert.assertEquals(testSkylightDay.dawn!!.onDateSameTime(testDate), result.dawn)
-        Assert.assertEquals(testSkylightDay.sunrise!!.onDateSameTime(testDate), result.sunrise)
-        Assert.assertEquals(testSkylightDay.sunset!!.onDateSameTime(testDate), result.sunset)
-        Assert.assertEquals(testSkylightDay.dusk!!.onDateSameTime(testDate), result.dusk)
+        assertEquals(ZonedDateTime.of(testDate, testDawn, testZone).toInstant(), result.dawn)
+        assertEquals(ZonedDateTime.of(testDate, testSunrise, testZone).toInstant(), result.sunrise)
+        assertEquals(ZonedDateTime.of(testDate, testSunset, testZone).toInstant(), result.sunset)
+        assertEquals(ZonedDateTime.of(testDate, testDusk, testZone).toInstant(), result.dusk)
     }
 
-    private fun Instant.onDateSameTime(date: LocalDate): Instant {
-        val dateTime = atOffset(ZoneOffset.UTC)
-        val differenceInDays = dateTime.toLocalDate().daysUntil(date)
-        return dateTime.plusDays(differenceInDays).toInstant()
-    }
+    @Test fun `Atypical getSkylightInfo returns instance corresponding to type`() {
+        val testDate = LocalDate.ofEpochDay(98252)
 
-    private fun LocalDate.daysUntil(date: LocalDate) = ChronoUnit.DAYS.between(this, date)
+        val alwaysDaytimeSkylight = FakeSkylight.Atypical(FakeSkylight.Atypical.Type.AlwaysDaytime)
+        val result1 = alwaysDaytimeSkylight.getSkylightDay(testDate)
+        assertTrue(result1 is SkylightDay.AlwaysDaytime)
+        assertEquals(testDate, result1.date)
+
+        val neverLightSkylight = FakeSkylight.Atypical(FakeSkylight.Atypical.Type.NeverLight)
+        val result2 = neverLightSkylight.getSkylightDay(testDate)
+        assertTrue(result2 is SkylightDay.NeverLight)
+        assertEquals(testDate, result2.date)
+    }
 }

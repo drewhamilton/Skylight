@@ -5,46 +5,89 @@ import dev.drewhamilton.skylight.Skylight
 import dev.drewhamilton.skylight.SkylightDay
 import java.time.Instant
 import java.time.LocalDate
-import java.time.ZoneOffset
-import java.time.temporal.ChronoUnit
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 /**
- * A [Skylight] implementation that ignores the coordinates parameter, and instead returns a copy of a specific
- * [SkylightDay] for the given date parameter.
+ * [Skylight] implementations that ignore the coordinates parameter and return predefined event times for the given
+ * date.
  */
-class FakeSkylight(
-    private val skylightDay: SkylightDay
-) : Skylight {
+sealed class FakeSkylight : Skylight {
 
     /**
-     * Get a copy of the [SkylightDay] originally passed to the constructor for the given [date]. [coordinates] are
-     * always ignored.
+     * Get a predefined [SkylightDay] for the given [date]. [coordinates] are always ignored.
      */
-    override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay = getSkylightDay(date)
+    final override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay = getSkylightDay(date)
 
     /**
-     * Get a copy of the [SkylightDay] originally passed to the constructor for the given [date].
+     * Get a predefined [SkylightDay] for the given [date].
      */
-    fun getSkylightDay(date: LocalDate): SkylightDay = skylightDay.copy(date)
+    abstract fun getSkylightDay(date: LocalDate): SkylightDay
 
-    private fun SkylightDay.copy(newDate: LocalDate) = when (val original = this) {
-        is SkylightDay.Typical -> {
-            val daysToAdd = date.daysUntil(newDate)
-            SkylightDay.Typical(
-                date = newDate,
-                dawn = original.dawn?.addDays(daysToAdd),
-                sunrise = original.sunrise?.addDays(daysToAdd),
-                sunset = original.sunset?.addDays(daysToAdd),
-                dusk = original.dusk?.addDays(daysToAdd)
-            )
+    /**
+     * A [FakeSkylight] that always returns an instance of [SkylightDay.Typical]. Like [SkylightDay.Typical], at least
+     * one of [dawn], [sunrise], [sunset], or [dusk] must be non-null.
+     *
+     * @param zone The time zone used to convert the event times to Instants.
+     * @param dawn The time at which the dawn Instant will be calculated in the given time zone for each date.
+     * @param sunrise The time at which the sunrise Instant will be calculated in the given time zone for each date.
+     * @param sunset The time at which the sunset Instant will be calculated in the given time zone for each date.
+     * @param dusk The time at which the dusk Instant will be calculated in the given time zone for each date.
+     */
+    class Typical(
+        private val zone: ZoneId,
+        private val dawn: LocalTime?,
+        private val sunrise: LocalTime?,
+        private val sunset: LocalTime?,
+        private val dusk: LocalTime?,
+    ) : FakeSkylight() {
+        init {
+            require(dawn != null || sunrise != null || sunset != null || dusk != null) {
+                "At least one of dawn, sunrise, sunset, or dusk must be non-null"
+            }
         }
-        is SkylightDay.AlwaysDaytime -> SkylightDay.AlwaysDaytime(date = newDate)
-        is SkylightDay.NeverLight -> SkylightDay.NeverLight(date = newDate)
+
+        /**
+         * Get a [SkylightDay.Typical] for the given [date], with each event [Instant] calculated from the times and
+         * time zone passed to this [FakeSkylight]'s constructor.
+         */
+        override fun getSkylightDay(date: LocalDate): SkylightDay = SkylightDay.Typical(
+            date = date,
+            dawn = dawn?.toInstant(date),
+            sunrise = sunrise?.toInstant(date),
+            sunset = sunset?.toInstant(date),
+            dusk = dusk?.toInstant(date)
+        )
+
+        private fun LocalTime.toInstant(date: LocalDate): Instant = ZonedDateTime.of(date, this, zone).toInstant()
     }
 
-    private fun LocalDate.daysUntil(date: LocalDate) = ChronoUnit.DAYS.between(this, date)
+    /**
+     * A [FakeSkylight] that always returns an instance of either [SkylightDay.AlwaysDaytime] or
+     * [SkylightDay.NeverLight].
+     *
+     * @param type The type of atypical SkylightDay to return.
+     */
+    class Atypical(
+        private val type: Type
+    ) : FakeSkylight() {
 
-    private fun Instant.addDays(days: Long): Instant {
-        return atOffset(ZoneOffset.UTC).plusDays(days).toInstant()
+        /**
+         * Return an instance of either [SkylightDay.AlwaysDaytime] or [SkylightDay.NeverLight] for the given [date].
+         * The type of [SkylightDay] returned corresponds to the [Type] passed to this [FakeSkylight]'s constructor.
+         */
+        override fun getSkylightDay(date: LocalDate): SkylightDay = when (type) {
+            Type.AlwaysDaytime -> SkylightDay.AlwaysDaytime(date)
+            Type.NeverLight -> SkylightDay.NeverLight(date)
+        }
+
+        /**
+         * The type of atypical [SkylightDay], corresponding to the non-[SkylightDay.Typical] subclasses of
+         * [SkylightDay].
+         */
+        enum class Type {
+            AlwaysDaytime, NeverLight
+        }
     }
 }
