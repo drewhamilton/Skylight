@@ -10,8 +10,8 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 
 /**
- * [Skylight] implementations that ignores the coordinates parameter, and instead returns predefined event times for
- * the given date.
+ * [Skylight] implementations that ignore the coordinates parameter and return predefined event times for the given
+ * date.
  */
 sealed class FakeSkylight : Skylight {
 
