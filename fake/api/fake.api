@@ -1,6 +1,22 @@
-public final class dev/drewhamilton/skylight/fake/FakeSkylight : dev/drewhamilton/skylight/Skylight {
-	public fun <init> (Ldev/drewhamilton/skylight/SkylightDay;)V
-	public fun getSkylightDay (Ldev/drewhamilton/skylight/Coordinates;Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay;
-	public final fun getSkylightDay (Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay;
+public abstract class dev/drewhamilton/skylight/fake/FakeSkylight : dev/drewhamilton/skylight/Skylight {
+	public final fun getSkylightDay (Ldev/drewhamilton/skylight/Coordinates;Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay;
+	public abstract fun getSkylightDay (Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay;
+}
+
+public final class dev/drewhamilton/skylight/fake/FakeSkylight$Atypical : dev/drewhamilton/skylight/fake/FakeSkylight {
+	public fun <init> (Ldev/drewhamilton/skylight/fake/FakeSkylight$Atypical$Type;)V
+	public fun getSkylightDay (Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay;
+}
+
+public final class dev/drewhamilton/skylight/fake/FakeSkylight$Atypical$Type : java/lang/Enum {
+	public static final field AlwaysDaytime Ldev/drewhamilton/skylight/fake/FakeSkylight$Atypical$Type;
+	public static final field NeverLight Ldev/drewhamilton/skylight/fake/FakeSkylight$Atypical$Type;
+	public static fun valueOf (Ljava/lang/String;)Ldev/drewhamilton/skylight/fake/FakeSkylight$Atypical$Type;
+	public static fun values ()[Ldev/drewhamilton/skylight/fake/FakeSkylight$Atypical$Type;
+}
+
+public final class dev/drewhamilton/skylight/fake/FakeSkylight$Typical : dev/drewhamilton/skylight/fake/FakeSkylight {
+	public fun <init> (Ljava/time/ZoneId;Ljava/time/LocalTime;Ljava/time/LocalTime;Ljava/time/LocalTime;Ljava/time/LocalTime;)V
+	public fun getSkylightDay (Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay;
 }
 
