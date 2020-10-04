@@ -1,7 +1,7 @@
 # Changelog
 
 ## 0.12.0
-_2020-09-26_
+_2020-10-04_
 
 Initial potentially-stable release after a lot of API changes in previous versions. Move publication
 from JCenter to Maven Central.
