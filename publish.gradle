@@ -60,7 +60,7 @@ publishing {
                     developer {
                         id = 'drewhamilton'
                         name = 'Drew Hamilton'
-                        email = 'drew.hamilton.0+android@gmail.com'
+                        email = 'software@drewhamilton.dev'
                     }
                 }
 
