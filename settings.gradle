@@ -1,3 +1,6 @@
+rootProject.name = "Skylight"
+
 include ':skylight'
 include ':calculator', ':fake', ':sunrise-sunset-org'
-include ':nothing'
+
+enableFeaturePreview("VERSION_CATALOGS")

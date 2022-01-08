@@ -1,6 +1,6 @@
 package dev.drewhamilton.skylight
 
-import dev.drewhamilton.extracare.DataApi
+import dev.drewhamilton.poko.Poko
 import java.time.Instant
 import java.time.LocalDate
 import java.util.Objects
@@ -28,7 +28,7 @@ sealed class SkylightDay {
      * It should never be the case that all 4 event values are null. In those cases where a day does not have any of
      * these events, either [AlwaysDaytime] or [NeverLight] should be used.
      */
-    @DataApi class Typical(
+    @Poko class Typical(
         override val date: LocalDate,
         val dawn: Instant? = null,
         val sunrise: Instant? = null,
@@ -47,7 +47,7 @@ sealed class SkylightDay {
      * Represents a day wherein the sun never goes below the horizon.
      */
     @Suppress("EqualsOrHashCode") // Equals is generated
-    @DataApi class AlwaysDaytime(
+    @Poko class AlwaysDaytime(
         override val date: LocalDate
     ) : SkylightDay() {
         // Constant "1" ensures hash code is unique from NeverLight:
@@ -58,7 +58,7 @@ sealed class SkylightDay {
      * Represents a day that is always dark, i.e. the sun never goes above civil twilight.
      */
     @Suppress("EqualsOrHashCode") // Equals is generated
-    @DataApi class NeverLight(
+    @Poko class NeverLight(
         override val date: LocalDate
     ) : SkylightDay() {
         // Constant "2" ensures hash code is unique from AlwaysDaytime:
