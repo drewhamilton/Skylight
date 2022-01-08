@@ -1,0 +1,29 @@
+[versions]
+
+kotlin = "1.4.10"
+retrofit = "2.9.0"
+
+[libraries]
+
+android-gradle = "com.android.tools.build:gradle:7.0.4"
+
+dokka = "org.jetbrains.dokka:dokka-gradle-plugin:1.4.32"
+
+junit = "junit:junit:4.13"
+
+kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+
+kotlinx-binaryCompatibilityValidator = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version = "0.8.0" }
+
+mockito = "org.mockito:mockito-inline:2.28.2"
+mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+
+moshi = "com.squareup.moshi:moshi-kotlin:1.10.0"
+
+okHttp-mockWebServer = "com.squareup.okhttp3:mockwebserver:3.14.9"
+
+poko = "dev.drewhamilton.extracare:extracare-gradle-plugin:0.3.0"
+
+retrofit-core = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }

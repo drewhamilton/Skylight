@@ -11,7 +11,7 @@ apply from: '../publish.gradle'
 dependencies {
     api project(':skylight')
 
-    testImplementation deps.junit
+    testImplementation(libs.junit)
 }
 
 sourceCompatibility = '1.8'
