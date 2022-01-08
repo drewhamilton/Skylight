@@ -1,6 +1,6 @@
 [versions]
 
-kotlin = "1.4.10"
+kotlin = "1.6.10"
 retrofit = "2.9.0"
 
 [libraries]
@@ -23,7 +23,7 @@ moshi = "com.squareup.moshi:moshi-kotlin:1.10.0"
 
 okHttp-mockWebServer = "com.squareup.okhttp3:mockwebserver:3.14.9"
 
-poko = "dev.drewhamilton.extracare:extracare-gradle-plugin:0.3.0"
+poko = "dev.drewhamilton.poko:poko-gradle-plugin:0.9.0"
 
 retrofit-core = "com.squareup.retrofit2:retrofit:$versions.retrofit"
 retrofit-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
