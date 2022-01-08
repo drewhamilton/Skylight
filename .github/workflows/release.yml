@@ -2,8 +2,8 @@ name: Release
 
 on:
   push:
-    branches: master
-    tags: '*'
+    branches: [master]
+    tags: ['*']
 
 jobs:
   release:
@@ -17,7 +17,7 @@ jobs:
       - name: Install JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: 11
       - name: Assemble for release
         run: ./gradlew clean assemble --stacktrace
       - name: Publish
