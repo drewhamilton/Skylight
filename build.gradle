@@ -5,28 +5,17 @@ buildscript {
         classpath(libs.kotlinx.binaryCompatibilityValidator)
 
         classpath(libs.poko)
-
-        classpath(libs.android.gradle)
     }
     repositories {
         mavenCentral()
-
-        // Android:
-        google()
     }
 }
 
 apply plugin: 'binary-compatibility-validator'
-apiValidation {
-    ignoredProjects += ['nothing']
-}
 
 allprojects {
     repositories {
         mavenCentral()
-
-        // Android:
-        google()
     }
 }
 
