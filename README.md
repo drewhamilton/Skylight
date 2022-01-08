@@ -1,5 +1,5 @@
 # Skylight
-![](https://github.com/drewhamilton/Skylight/workflows/CI/badge.svg?branch=master)
+[![](https://github.com/drewhamilton/Skylight/workflows/CI/badge.svg?branch=main)](https://github.com/drewhamilton/Skylight/actions?query=workflow%3ACI+branch%3Amain)
 
 Skylight is a Kotlin/JVM interface for determining sunrise, sunset, and similar details for a given
 location and date.
