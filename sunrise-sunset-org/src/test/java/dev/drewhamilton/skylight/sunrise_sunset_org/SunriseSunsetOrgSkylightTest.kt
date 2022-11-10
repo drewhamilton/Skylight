@@ -1,13 +1,10 @@
 package dev.drewhamilton.skylight.sunrise_sunset_org
 
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
 import dev.drewhamilton.skylight.Coordinates
-import dev.drewhamilton.skylight.sunrise_sunset_org.network.DummyCall
-import dev.drewhamilton.skylight.sunrise_sunset_org.network.SunriseSunsetOrgApi
 import dev.drewhamilton.skylight.sunrise_sunset_org.network.request.Params
 import dev.drewhamilton.skylight.sunrise_sunset_org.network.response.SunriseSunsetInfo
 import dev.drewhamilton.skylight.sunrise_sunset_org.network.response.SunriseSunsetOrgInfoResponse
+import dev.drewhamilton.skylight.sunrise_sunset_org.test.TestSunriseSunsetOrgApi
 import java.time.LocalDate
 import java.time.Month
 import java.time.format.DateTimeFormatter
@@ -15,6 +12,8 @@ import okhttp3.ResponseBody
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import retrofit2.HttpException
+import retrofit2.Response
+import retrofit2.mock.Calls
 
 class SunriseSunsetOrgSkylightTest {
 
@@ -32,17 +31,13 @@ class SunriseSunsetOrgSkylightTest {
 
     private val testSunriseSunsetInfo = SunriseSunsetInfo(testSunrise, testSunset, this.testDawn, this.testDusk)
 
-    private lateinit var mockApi: SunriseSunsetOrgApi
-
     @Test
     fun `getInfo emits API result`() {
-        mockApi = mock {
-            on {
-                getInfo(testParams.lat, testParams.lng, testDateString, 0)
-            } doReturn DummyCall.success(SunriseSunsetOrgInfoResponse(testSunriseSunsetInfo, "Dummy status"))
-        }
+        val api = TestSunriseSunsetOrgApi(
+            testParams to Calls.response(SunriseSunsetOrgInfoResponse(testSunriseSunsetInfo, "Dummy status"))
+        )
+        val sunriseSunsetOrgSkylight = SunriseSunsetOrgSkylight(api)
 
-        val sunriseSunsetOrgSkylight = SunriseSunsetOrgSkylight(mockApi)
         assertEquals(
             testSunriseSunsetInfo.toSkylightDay(testDate),
             sunriseSunsetOrgSkylight.getSkylightDay(testCoordinates, testDate)
@@ -51,13 +46,11 @@ class SunriseSunsetOrgSkylightTest {
 
     @Test(expected = HttpException::class)
     fun `getInfo throws HttpException when API result is an error`() {
-        mockApi = mock {
-            on {
-                getInfo(testParams.lat, testParams.lng, testDateString, 0)
-            } doReturn DummyCall.error(401, ResponseBody.create(null, "Content"))
-        }
+        val api = TestSunriseSunsetOrgApi(
+            testParams to Calls.response(Response.error(401, ResponseBody.create(null, "Content")))
+        )
+        val sunriseSunsetOrgSkylight = SunriseSunsetOrgSkylight(api)
 
-        val sunriseSunsetOrgSkylight = SunriseSunsetOrgSkylight(mockApi)
         sunriseSunsetOrgSkylight.getSkylightDay(testCoordinates, testDate)
     }
 }
