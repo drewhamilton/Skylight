@@ -3,16 +3,14 @@ public abstract class dev/drewhamilton/skylight/fake/FakeSkylight : dev/drewhami
 	public abstract fun getSkylightDay (Ljava/time/LocalDate;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
-public final class dev/drewhamilton/skylight/fake/FakeSkylight$Atypical : dev/drewhamilton/skylight/fake/FakeSkylight {
-	public fun <init> (Ldev/drewhamilton/skylight/fake/FakeSkylight$Atypical$Type;)V
+public final class dev/drewhamilton/skylight/fake/FakeSkylight$AlwaysDaytime : dev/drewhamilton/skylight/fake/FakeSkylight {
+	public fun <init> ()V
 	public fun getSkylightDay (Ljava/time/LocalDate;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
-public final class dev/drewhamilton/skylight/fake/FakeSkylight$Atypical$Type : java/lang/Enum {
-	public static final field AlwaysDaytime Ldev/drewhamilton/skylight/fake/FakeSkylight$Atypical$Type;
-	public static final field NeverLight Ldev/drewhamilton/skylight/fake/FakeSkylight$Atypical$Type;
-	public static fun valueOf (Ljava/lang/String;)Ldev/drewhamilton/skylight/fake/FakeSkylight$Atypical$Type;
-	public static fun values ()[Ldev/drewhamilton/skylight/fake/FakeSkylight$Atypical$Type;
+public final class dev/drewhamilton/skylight/fake/FakeSkylight$NeverLight : dev/drewhamilton/skylight/fake/FakeSkylight {
+	public fun <init> ()V
+	public fun getSkylightDay (Ljava/time/LocalDate;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class dev/drewhamilton/skylight/fake/FakeSkylight$Typical : dev/drewhamilton/skylight/fake/FakeSkylight {

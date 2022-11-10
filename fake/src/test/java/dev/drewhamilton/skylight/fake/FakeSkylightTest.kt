@@ -46,17 +46,21 @@ class FakeSkylightTest {
         assertEquals(ZonedDateTime.of(testDate, testDusk, testZone).toInstant(), result.dusk)
     }
 
-    @Test fun `Atypical getSkylightInfo returns instance corresponding to type`() = runTest {
+    @Test fun `AlwaysDaytime getSkylightInfo returns AlwaysDaytime`() = runTest {
         val testDate = LocalDate.ofEpochDay(98252)
 
-        val alwaysDaytimeSkylight = FakeSkylight.Atypical(FakeSkylight.Atypical.Type.AlwaysDaytime)
-        val result1 = alwaysDaytimeSkylight.getSkylightDay(testDate)
-        assertTrue(result1 is SkylightDay.AlwaysDaytime)
-        assertEquals(testDate, result1.date)
+        val alwaysDaytimeSkylight = FakeSkylight.AlwaysDaytime()
+        val result = alwaysDaytimeSkylight.getSkylightDay(testDate)
+        assertTrue(result is SkylightDay.AlwaysDaytime)
+        assertEquals(testDate, result.date)
+    }
 
-        val neverLightSkylight = FakeSkylight.Atypical(FakeSkylight.Atypical.Type.NeverLight)
-        val result2 = neverLightSkylight.getSkylightDay(testDate)
-        assertTrue(result2 is SkylightDay.NeverLight)
-        assertEquals(testDate, result2.date)
+    @Test fun `NeverLight getSkylightInfo returns NeverLight`() = runTest {
+        val testDate = LocalDate.ofEpochDay(99252)
+
+        val neverLightSkylight = FakeSkylight.NeverLight()
+        val result = neverLightSkylight.getSkylightDay(testDate)
+        assertTrue(result is SkylightDay.NeverLight)
+        assertEquals(testDate, result.date)
     }
 }
