@@ -64,30 +64,26 @@ sealed class FakeSkylight : Skylight {
     }
 
     /**
-     * A [FakeSkylight] that always returns an instance of either [SkylightDay.AlwaysDaytime] or
-     * [SkylightDay.NeverLight].
-     *
-     * @param type The type of atypical SkylightDay to return.
+     * A [FakeSkylight] that always returns an instance of [SkylightDay.AlwaysDaytime].
      */
-    class Atypical(
-        private val type: Type
-    ) : FakeSkylight() {
+    @Suppress("CanSealedSubClassBeObject") // Leave as a class for future compatibility
+    class AlwaysDaytime : FakeSkylight() {
 
         /**
-         * Return an instance of either [SkylightDay.AlwaysDaytime] or [SkylightDay.NeverLight] for the given [date].
-         * The type of [SkylightDay] returned corresponds to the [Type] passed to this [FakeSkylight]'s constructor.
+         * Return an instance of [SkylightDay.AlwaysDaytime] for the given [date].
          */
-        override suspend fun getSkylightDay(date: LocalDate): SkylightDay = when (type) {
-            Type.AlwaysDaytime -> SkylightDay.AlwaysDaytime(date)
-            Type.NeverLight -> SkylightDay.NeverLight(date)
-        }
+        override suspend fun getSkylightDay(date: LocalDate): SkylightDay = SkylightDay.AlwaysDaytime(date)
+    }
+
+    /**
+     * A [FakeSkylight] that always returns an instance of [SkylightDay.NeverLight].
+     */
+    @Suppress("CanSealedSubClassBeObject") // Leave as a class for future compatibility
+    class NeverLight : FakeSkylight() {
 
         /**
-         * The type of atypical [SkylightDay], corresponding to the non-[SkylightDay.Typical] subclasses of
-         * [SkylightDay].
+         * Return an instance of [SkylightDay.NeverLight] for the given [date].
          */
-        enum class Type {
-            AlwaysDaytime, NeverLight
-        }
+        override suspend fun getSkylightDay(date: LocalDate): SkylightDay = SkylightDay.NeverLight(date)
     }
 }
