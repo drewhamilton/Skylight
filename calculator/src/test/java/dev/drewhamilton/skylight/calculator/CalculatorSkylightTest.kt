@@ -9,16 +9,19 @@ import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class CalculatorSkylightTest {
 
     private val skylight = CalculatorSkylight()
 
     //region Amsterdam
-    @Test fun `Amsterdam on January 6, 2019 is typical`() {
+    @Test fun `Amsterdam on January 6, 2019 is typical`() = runTest {
         val result = skylight.getSkylightDay(AMSTERDAM, JANUARY_6_2019)
         assertTrue(result is SkylightDay.Typical)
         result as SkylightDay.Typical
@@ -30,14 +33,14 @@ class CalculatorSkylightTest {
     //endregion
 
     //region Svalbard
-    @Test fun `Svalbard on January 6, 2019 is never light`() {
+    @Test fun `Svalbard on January 6, 2019 is never light`() = runTest {
         val result = skylight.getSkylightDay(SVALBARD, JANUARY_6_2019)
         assertEquals(SkylightDay.NeverLight(date = JANUARY_6_2019), result)
     }
     //endregion
 
     //region Indianapolis
-    @Test fun `Indianapolis on July 20, 2019 is typical`() {
+    @Test fun `Indianapolis on July 20, 2019 is typical`() = runTest {
         val result = skylight.getSkylightDay(INDIANAPOLIS, JULY_20_2019)
 
         assertTrue(result is SkylightDay.Typical)
@@ -48,7 +51,7 @@ class CalculatorSkylightTest {
         assertEquals(ZonedDateTime.of(2019, 7, 21, 1, 41, 43, 544_000_000, ZoneOffset.UTC).toInstant(), result.dusk)
     }
 
-    @Test fun `Indianapolis on July 20, 2019 is light at noon`() {
+    @Test fun `Indianapolis on July 20, 2019 is light at noon`() = runTest {
         assertTrue(
             "Expected it to be light in Indianapolis at noon.",
             skylight.isLight(
@@ -58,9 +61,6 @@ class CalculatorSkylightTest {
         )
     }
     //endregion
-
-    private fun Long.asEpochMilliToExpectedZonedDateTime() =
-        ZonedDateTime.ofInstant(Instant.ofEpochMilli(this), ZoneOffset.UTC)
 
     companion object {
         val AMSTERDAM = Coordinates(52.3680, 4.9036)

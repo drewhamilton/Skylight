@@ -10,18 +10,15 @@ apply from: '../publish.gradle'
 
 dependencies {
     api project(':skylight')
-
-    implementation(libs.kotlin.reflect)
+    api(libs.okhttp.core)
 
     implementation(libs.moshi)
-
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.moshi)
 
     testImplementation(libs.junit)
-    testImplementation(libs.kotlin.reflect)
-    testImplementation(libs.okHttp.mockWebServer)
-    testImplementation(libs.retrofit.mock)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.okhttp.mockWebServer)
 }
 
 sourceCompatibility = '1.8'

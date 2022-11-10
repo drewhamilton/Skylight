@@ -9,7 +9,7 @@ import java.time.ZonedDateTime
  * Determine whether it is light outside at the given [coordinates] at the given [dateTime], where "light" means after
  * dawn and before dusk on the given date.
  */
-fun Skylight.isLight(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean =
+suspend fun Skylight.isLight(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean =
     when (val skylightDay = getSkylightDay(coordinates, dateTime.toLocalDate())) {
         is SkylightDay.AlwaysDaytime -> true
         is SkylightDay.NeverLight -> false
@@ -20,13 +20,14 @@ fun Skylight.isLight(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean
  * Determine whether it is dark outside at the given [coordinates] at the given [dateTime], where "dark" means before
  * dawn or after dusk on the given date.
  */
-fun Skylight.isDark(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean = !isLight(coordinates, dateTime)
+suspend fun Skylight.isDark(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean =
+    !isLight(coordinates, dateTime)
 
 /**
  * Determine whether it is daytime at the given [coordinates] at the given [dateTime], where "daytime" means after
  * sunrise and before sunset on the given date.
  */
-fun Skylight.isDaytime(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean =
+suspend fun Skylight.isDaytime(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean =
     when (val skylightDay = getSkylightDay(coordinates, dateTime.toLocalDate())) {
         is SkylightDay.AlwaysDaytime -> true
         is SkylightDay.NeverLight -> false
@@ -40,14 +41,16 @@ fun Skylight.isDaytime(coordinates: Coordinates, dateTime: ZonedDateTime): Boole
  * @return Whether it is light outside at the [SkylightForCoordinates]'s coordinates at the given date-time, where
  * "light" means after dawn and before dusk on the given date.
  */
-fun SkylightForCoordinates.isLight(dateTime: ZonedDateTime) = skylight.isLight(coordinates, dateTime)
+suspend fun SkylightForCoordinates.isLight(dateTime: ZonedDateTime): Boolean =
+    skylight.isLight(coordinates, dateTime)
 
 /**
  * @param dateTime The date-time at which to check for darkness.
  * @return Whether it is dark outside at the [SkylightForCoordinates]'s coordinates at the given date-time, where "dark"
  * means before dawn or after dusk on the given date.
  */
-fun SkylightForCoordinates.isDark(dateTime: ZonedDateTime) = skylight.isDark(coordinates, dateTime)
+suspend fun SkylightForCoordinates.isDark(dateTime: ZonedDateTime): Boolean =
+    skylight.isDark(coordinates, dateTime)
 //endregion
 
 private fun SkylightDay.Typical.isLightAt(instant: Instant) =

@@ -1,11 +1,11 @@
 public abstract class dev/drewhamilton/skylight/fake/FakeSkylight : dev/drewhamilton/skylight/Skylight {
-	public final fun getSkylightDay (Ldev/drewhamilton/skylight/Coordinates;Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay;
-	public abstract fun getSkylightDay (Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay;
+	public final fun getSkylightDay (Ldev/drewhamilton/skylight/Coordinates;Ljava/time/LocalDate;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getSkylightDay (Ljava/time/LocalDate;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class dev/drewhamilton/skylight/fake/FakeSkylight$Atypical : dev/drewhamilton/skylight/fake/FakeSkylight {
 	public fun <init> (Ldev/drewhamilton/skylight/fake/FakeSkylight$Atypical$Type;)V
-	public fun getSkylightDay (Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay;
+	public fun getSkylightDay (Ljava/time/LocalDate;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class dev/drewhamilton/skylight/fake/FakeSkylight$Atypical$Type : java/lang/Enum {
@@ -17,6 +17,6 @@ public final class dev/drewhamilton/skylight/fake/FakeSkylight$Atypical$Type : j
 
 public final class dev/drewhamilton/skylight/fake/FakeSkylight$Typical : dev/drewhamilton/skylight/fake/FakeSkylight {
 	public fun <init> (Ljava/time/ZoneId;Ljava/time/LocalTime;Ljava/time/LocalTime;Ljava/time/LocalTime;Ljava/time/LocalTime;)V
-	public fun getSkylightDay (Ljava/time/LocalDate;)Ldev/drewhamilton/skylight/SkylightDay;
+	public fun getSkylightDay (Ljava/time/LocalDate;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 

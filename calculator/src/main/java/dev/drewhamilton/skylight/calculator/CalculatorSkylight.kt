@@ -6,19 +6,29 @@ import dev.drewhamilton.skylight.SkylightDay
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
+import kotlinx.coroutines.withContext
 
 /**
- * Adapted from AndroidX's (internal) TwilightCalculator class.
+ * Calculates [SkylightDay]s locally. Adapted from AndroidX's internal TwilightCalculator class.
+ *
+ * @param coroutineContext Calculations are run in this context. Uses [EmptyCoroutineContext] by default because
+ * calculations are fast.
  */
-class CalculatorSkylight : Skylight {
+class CalculatorSkylight(
+    private val coroutineContext: CoroutineContext = EmptyCoroutineContext,
+) : Skylight {
 
     /**
      * Calculates the [SkylightDay] based on the given [coordinates] and [date].
      */
-    override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay {
-        val epochMilli = date.toNoonUtcEpochMilli()
-        return calculateSkylightInfo(epochMilli, coordinates.latitude, coordinates.longitude)
-            .toSkylightDay(date)
+    override suspend fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay {
+        return withContext(coroutineContext) {
+            val epochMilli = date.toNoonUtcEpochMilli()
+            calculateSkylightInfo(epochMilli, coordinates.latitude, coordinates.longitude)
+                .toSkylightDay(date)
+        }
     }
 
     private fun LocalDate.toNoonUtcEpochMilli() = atTime(12, 0).toInstant(ZoneOffset.UTC).toEpochMilli()
