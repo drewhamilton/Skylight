@@ -67,10 +67,10 @@ public final class dev/drewhamilton/skylight/SkylightForDateKt {
 }
 
 public final class dev/drewhamilton/skylight/SkylightLightness {
-	public static final fun isDark (Ldev/drewhamilton/skylight/Skylight;Ldev/drewhamilton/skylight/Coordinates;Ljava/time/ZonedDateTime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun isDark (Ldev/drewhamilton/skylight/SkylightForCoordinates;Ljava/time/ZonedDateTime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun isDaytime (Ldev/drewhamilton/skylight/Skylight;Ldev/drewhamilton/skylight/Coordinates;Ljava/time/ZonedDateTime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun isLight (Ldev/drewhamilton/skylight/Skylight;Ldev/drewhamilton/skylight/Coordinates;Ljava/time/ZonedDateTime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun isLight (Ldev/drewhamilton/skylight/SkylightForCoordinates;Ljava/time/ZonedDateTime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun isDark (Ldev/drewhamilton/skylight/Skylight;Ldev/drewhamilton/skylight/Coordinates;Ljava/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun isDark (Ldev/drewhamilton/skylight/SkylightForCoordinates;Ljava/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun isDaytime (Ldev/drewhamilton/skylight/Skylight;Ldev/drewhamilton/skylight/Coordinates;Ljava/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun isLight (Ldev/drewhamilton/skylight/Skylight;Ldev/drewhamilton/skylight/Coordinates;Ljava/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun isLight (Ldev/drewhamilton/skylight/SkylightForCoordinates;Ljava/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
