@@ -56,7 +56,7 @@ class CalculatorSkylightTest {
             "Expected it to be light in Indianapolis at noon.",
             skylight.isLight(
                 INDIANAPOLIS,
-                ZonedDateTime.of(JULY_20_2019, LocalTime.NOON, ZoneId.of("America/New_York"))
+                ZonedDateTime.of(JULY_20_2019, LocalTime.NOON, ZoneId.of("America/New_York")).toInstant()
             )
         )
     }
