@@ -3,11 +3,14 @@ package dev.drewhamilton.skylight
 import dev.drewhamilton.skylight.test.TestSkylight
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class SkylightForCoordinatesTest {
 
     private val testCoordinates = Coordinates(98.7, 6.54)
@@ -23,17 +26,17 @@ class SkylightForCoordinatesTest {
     )
     private val skylightForCoordinates = skylight.forCoordinates(testCoordinates)
 
-    @Test fun `getSkylightDay returns SkylightDay from Skylight`() {
+    @Test fun `getSkylightDay returns SkylightDay from Skylight`() = runTest {
         val result = skylightForCoordinates.getSkylightDay(testDate1)
         assertEquals(SkylightDay.AlwaysDaytime(testDate1), result)
     }
 
-    @Test fun `isLight returns result based on Skylight`() {
+    @Test fun `isLight returns result based on Skylight`() = runTest {
         assertTrue(skylightForCoordinates.isLight(testDateTime1))
         assertFalse(skylightForCoordinates.isLight(testDateTime2))
     }
 
-    @Test fun `isDark returns result based on Skylight`() {
+    @Test fun `isDark returns result based on Skylight`() = runTest {
         assertFalse(skylightForCoordinates.isDark(testDateTime1))
         assertTrue(skylightForCoordinates.isDark(testDateTime2))
     }

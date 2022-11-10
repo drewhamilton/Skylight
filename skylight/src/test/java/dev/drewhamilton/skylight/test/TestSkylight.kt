@@ -11,7 +11,7 @@ class TestSkylight(
 
     constructor(vararg pairs: Pair<Pair<Coordinates, LocalDate>, SkylightDay>) : this(mapOf(*pairs))
 
-    override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay {
+    override suspend fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay {
         val result = skylightDays[coordinates to date]
         return requireNotNull(result) { "No SkylightDay found for {$coordinates, $date}" }
     }

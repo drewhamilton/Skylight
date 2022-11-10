@@ -8,10 +8,9 @@ import java.time.LocalDate
 interface Skylight {
 
     /**
-     * Get the [SkylightDay] at the given [coordinates] for the given [date]. Any events in the resulting [SkylightDay]
-     * will be provided in the [zoneId] time zone.
+     * Get the [SkylightDay] at the given [coordinates] for the given [date].
      */
-    fun getSkylightDay(
+    suspend fun getSkylightDay(
         coordinates: Coordinates,
         date: LocalDate
     ): SkylightDay

@@ -12,7 +12,7 @@ class SkylightForCoordinates internal constructor(
     /**
      * Get a [SkylightDay] for the given [date] at this object's [coordinates].
      */
-    fun getSkylightDay(date: LocalDate) = skylight.getSkylightDay(coordinates, date)
+    suspend fun getSkylightDay(date: LocalDate) = skylight.getSkylightDay(coordinates, date)
 }
 
 /**

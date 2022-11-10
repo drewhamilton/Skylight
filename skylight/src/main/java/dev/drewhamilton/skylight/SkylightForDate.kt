@@ -10,9 +10,9 @@ class SkylightForDate internal constructor(
     val date: LocalDate
 ) {
     /**
-     * Get a [SkylightDay] for the given [coordinates] and [zoneId] on this object's [date].
+     * Get a [SkylightDay] for the given [coordinates] on this object's [date].
      */
-    fun getSkylightDay(
+    suspend fun getSkylightDay(
         coordinates: Coordinates,
     ) = skylight.getSkylightDay(coordinates, date)
 }
