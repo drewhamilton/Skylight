@@ -12,6 +12,7 @@ import dev.drewhamilton.skylight.sunrise_sunset_org.network.response.SunriseSuns
 import dev.drewhamilton.skylight.sunrise_sunset_org.network.toSunriseSunsetOrgDateString
 import dev.drewhamilton.skylight.sunrise_sunset_org.network.toZonedDateTime
 import java.time.LocalDate
+import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import retrofit2.HttpException
 import retrofit2.Retrofit
@@ -25,19 +26,22 @@ class SunriseSunsetOrgSkylight internal constructor(
     private val api: SunriseSunsetOrgApi
 ) : Skylight {
 
+    internal constructor(
+        retrofit: Retrofit,
+    ) : this(retrofit.create(SunriseSunsetOrgApi::class.java))
+
     constructor(
         okHttpClient: OkHttpClient
-    ) : this(instantiateRetrofit(okHttpClient).create(SunriseSunsetOrgApi::class.java))
+    ) : this(instantiateRetrofit(okHttpClient))
 
-    override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay {
+    override suspend fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay {
         val params = Params(coordinates.latitude, coordinates.longitude, date.toSunriseSunsetOrgDateString())
         return getInfoResults(params).toSkylightDay(date)
     }
 
-    private fun getInfoResults(params: Params): SunriseSunsetInfo {
-        val call = api.getInfo(params.lat, params.lng, params.date)
+    private suspend fun getInfoResults(params: Params): SunriseSunsetInfo {
+        val response = api.getInfo(params.lat, params.lng, params.date)
 
-        val response = call.execute()
         val responseBody = response.body()
         if (response.isSuccessful && responseBody != null)
             return responseBody.results
@@ -45,14 +49,17 @@ class SunriseSunsetOrgSkylight internal constructor(
             throw HttpException(response)
     }
 
-    private companion object {
-        private fun instantiateRetrofit(okHttpClient: OkHttpClient) = Retrofit.Builder()
-            .baseUrl(ApiConstants.BASE_URL)
+    internal companion object {
+        internal fun instantiateRetrofit(
+            okHttpClient: OkHttpClient,
+            baseUrl: HttpUrl = ApiConstants.BASE_URL,
+        ) = Retrofit.Builder()
+            .baseUrl(baseUrl)
             .addConverterFactory(MoshiConverterFactory.create(instantiateMoshi()))
             .client(okHttpClient)
             .build()
 
-        private fun instantiateMoshi() = Moshi.Builder()
+        internal fun instantiateMoshi(): Moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
     }
