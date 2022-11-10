@@ -1,31 +1,23 @@
 package dev.drewhamilton.skylight
 
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
-import org.junit.Before
-import org.junit.Test
+import dev.drewhamilton.skylight.test.TestSkylight
 import java.time.LocalDate
-import java.time.Month
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 class SkylightForDateTest {
 
-    private lateinit var mockSkylight: Skylight
-    private val testDate = LocalDate.of(2019, Month.MAY, 20)
+    private val testCoordinates = Coordinates(98.7, 6.54)
 
-    private lateinit var skylightForDate: SkylightForDate
+    private val testDate = LocalDate.of(2019, 5, 20)
 
-    @Before
-    fun setUp() {
-        mockSkylight = mock()
-        skylightForDate = mockSkylight.forDate(testDate)
-    }
+    private val skylight = TestSkylight(
+        testCoordinates to testDate to SkylightDay.AlwaysDaytime(testDate),
+    )
+    private val skylightForDate = skylight.forDate(testDate)
 
-    @Test fun `getSkylightDay passes coordinates and date to Skylight`() {
-        val testCoordinates = Coordinates(98.76, 54.321)
-        skylightForDate.getSkylightDay(testCoordinates)
-
-        verify(mockSkylight).getSkylightDay(testCoordinates, testDate)
-        verifyNoMoreInteractions(mockSkylight)
+    @Test fun `getSkylightDay returns SkylightDay from Skylight`() {
+        val result = skylightForDate.getSkylightDay(testCoordinates)
+        assertEquals(SkylightDay.AlwaysDaytime(testDate), result)
     }
 }
