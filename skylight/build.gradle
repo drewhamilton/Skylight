@@ -9,10 +9,7 @@ ext {
 apply from: '../publish.gradle'
 
 dependencies {
-    testImplementation(libs.kotlin.reflect)
     testImplementation(libs.junit)
-    testImplementation(libs.mockito)
-    testImplementation(libs.mockitoKotlin)
 }
 
 sourceCompatibility = '1.8'
