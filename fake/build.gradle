@@ -12,6 +12,7 @@ dependencies {
     api project(':skylight')
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
 }
 
 sourceCompatibility = '1.8'

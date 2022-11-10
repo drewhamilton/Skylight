@@ -6,19 +6,14 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class FakeSkylightTest {
-
-    private val expectedTypicalSkylightDay = SkylightDay.Typical(
-        date = LocalDate.of(1970, 1, 1),
-        dawn = ZonedDateTime.of(1970, 1, 1, 8, 0, 0, 0, ZoneOffset.UTC).toInstant(),
-        sunrise = ZonedDateTime.of(1970, 1, 1, 9, 0, 0, 0, ZoneOffset.UTC).toInstant(),
-        sunset = ZonedDateTime.of(1970, 1, 1, 10, 0, 0, 0, ZoneOffset.UTC).toInstant(),
-        dusk = ZonedDateTime.of(1970, 1, 1, 11, 0, 0, 0, ZoneOffset.UTC).toInstant()
-    )
 
     private val testZone = ZoneOffset.UTC
     private val testDawn = LocalTime.of(8, 0)
@@ -26,12 +21,10 @@ class FakeSkylightTest {
     private val testSunset = LocalTime.of(10, 0)
     private val testDusk = LocalTime.of(11, 0)
 
-    private val testDate = LocalDate.of(1970, 1, 1)
-
     private val typicalFakeSkylight: FakeSkylight =
         FakeSkylight.Typical(testZone, testDawn, testSunrise, testSunset, testDusk)
 
-    @Test fun `Typical getSkylightInfo(Coordinates, LocalDate) returns times on given date`() {
+    @Test fun `Typical getSkylightInfo(Coordinates, LocalDate) returns times on given date`() = runTest {
         val testDate = LocalDate.of(2020, 9, 24)
         val result = typicalFakeSkylight.getSkylightDay(Coordinates(0.0, 0.0), testDate)
         assertTrue(result is SkylightDay.Typical)
@@ -42,7 +35,7 @@ class FakeSkylightTest {
         assertEquals(ZonedDateTime.of(testDate, testDusk, testZone).toInstant(), result.dusk)
     }
 
-    @Test fun `Typical getSkylightInfo(LocalDate) returns times on given date`() {
+    @Test fun `Typical getSkylightInfo(LocalDate) returns times on given date`() = runTest {
         val testDate = LocalDate.ofEpochDay(6343)
         val result = typicalFakeSkylight.getSkylightDay(testDate)
         assertTrue(result is SkylightDay.Typical)
@@ -53,7 +46,7 @@ class FakeSkylightTest {
         assertEquals(ZonedDateTime.of(testDate, testDusk, testZone).toInstant(), result.dusk)
     }
 
-    @Test fun `Atypical getSkylightInfo returns instance corresponding to type`() {
+    @Test fun `Atypical getSkylightInfo returns instance corresponding to type`() = runTest {
         val testDate = LocalDate.ofEpochDay(98252)
 
         val alwaysDaytimeSkylight = FakeSkylight.Atypical(FakeSkylight.Atypical.Type.AlwaysDaytime)

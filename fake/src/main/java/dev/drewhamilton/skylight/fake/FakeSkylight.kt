@@ -18,12 +18,12 @@ sealed class FakeSkylight : Skylight {
     /**
      * Get a predefined [SkylightDay] for the given [date]. [coordinates] are always ignored.
      */
-    final override fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay = getSkylightDay(date)
+    final override suspend fun getSkylightDay(coordinates: Coordinates, date: LocalDate): SkylightDay = getSkylightDay(date)
 
     /**
      * Get a predefined [SkylightDay] for the given [date].
      */
-    abstract fun getSkylightDay(date: LocalDate): SkylightDay
+    abstract suspend fun getSkylightDay(date: LocalDate): SkylightDay
 
     /**
      * A [FakeSkylight] that always returns an instance of [SkylightDay.Typical]. Like [SkylightDay.Typical], at least
@@ -52,7 +52,7 @@ sealed class FakeSkylight : Skylight {
          * Get a [SkylightDay.Typical] for the given [date], with each event [Instant] calculated from the times and
          * time zone passed to this [FakeSkylight]'s constructor.
          */
-        override fun getSkylightDay(date: LocalDate): SkylightDay = SkylightDay.Typical(
+        override suspend fun getSkylightDay(date: LocalDate): SkylightDay = SkylightDay.Typical(
             date = date,
             dawn = dawn?.toInstant(date),
             sunrise = sunrise?.toInstant(date),
@@ -77,7 +77,7 @@ sealed class FakeSkylight : Skylight {
          * Return an instance of either [SkylightDay.AlwaysDaytime] or [SkylightDay.NeverLight] for the given [date].
          * The type of [SkylightDay] returned corresponds to the [Type] passed to this [FakeSkylight]'s constructor.
          */
-        override fun getSkylightDay(date: LocalDate): SkylightDay = when (type) {
+        override suspend fun getSkylightDay(date: LocalDate): SkylightDay = when (type) {
             Type.AlwaysDaytime -> SkylightDay.AlwaysDaytime(date)
             Type.NeverLight -> SkylightDay.NeverLight(date)
         }
