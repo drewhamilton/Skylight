@@ -63,133 +63,133 @@ class SkylightTest {
 
     //region isLight
     @Test fun `isLight with AlwaysDaytime returns true`() = runTest {
-        assertTrue(skylight.isLight(testCoordinates, beforeDawn.withDate(alwaysDaytimeDate)))
-        assertTrue(skylight.isLight(testCoordinates, betweenSunriseAndSunset.withDate(alwaysDaytimeDate)))
-        assertTrue(skylight.isLight(testCoordinates, afterDusk.withDate(alwaysDaytimeDate)))
+        assertTrue(skylight.isLight(testCoordinates, beforeDawn.withDate(alwaysDaytimeDate).toInstant()))
+        assertTrue(skylight.isLight(testCoordinates, betweenSunriseAndSunset.withDate(alwaysDaytimeDate).toInstant()))
+        assertTrue(skylight.isLight(testCoordinates, afterDusk.withDate(alwaysDaytimeDate).toInstant()))
     }
 
     @Test fun `isLight with AlwaysLight returns true`() = runTest {
-        assertTrue(skylight.isLight(testCoordinates, beforeDawn.withDate(alwaysLightDate)))
-        assertTrue(skylight.isLight(testCoordinates, betweenSunriseAndSunset.withDate(alwaysLightDate)))
-        assertTrue(skylight.isLight(testCoordinates, afterDusk.withDate(alwaysLightDate)))
+        assertTrue(skylight.isLight(testCoordinates, beforeDawn.withDate(alwaysLightDate).toInstant()))
+        assertTrue(skylight.isLight(testCoordinates, betweenSunriseAndSunset.withDate(alwaysLightDate).toInstant()))
+        assertTrue(skylight.isLight(testCoordinates, afterDusk.withDate(alwaysLightDate).toInstant()))
     }
 
     @Test fun `isLight with NeverLight returns false`() = runTest {
-        assertFalse(skylight.isLight(testCoordinates, beforeDawn.withDate(neverLightDate)))
-        assertFalse(skylight.isLight(testCoordinates, betweenSunriseAndSunset.withDate(neverLightDate)))
-        assertFalse(skylight.isLight(testCoordinates, afterDusk.withDate(neverLightDate)))
+        assertFalse(skylight.isLight(testCoordinates, beforeDawn.withDate(neverLightDate).toInstant()))
+        assertFalse(skylight.isLight(testCoordinates, betweenSunriseAndSunset.withDate(neverLightDate).toInstant()))
+        assertFalse(skylight.isLight(testCoordinates, afterDusk.withDate(neverLightDate).toInstant()))
     }
 
     @Test fun `isLight with NeverDaytime returns false before dawn`() = runTest {
-        assertFalse(skylight.isLight(testCoordinates, beforeDawn.withDate(neverDaytimeDate)))
+        assertFalse(skylight.isLight(testCoordinates, beforeDawn.withDate(neverDaytimeDate).toInstant()))
     }
 
     @Test fun `isLight with NeverDaytime returns true between dawn and dusk`() = runTest {
-        assertTrue(skylight.isLight(testCoordinates, betweenSunriseAndSunset.withDate(neverDaytimeDate)))
+        assertTrue(skylight.isLight(testCoordinates, betweenSunriseAndSunset.withDate(neverDaytimeDate).toInstant()))
     }
 
     @Test fun `isLight with NeverDaytime returns false after dusk`() = runTest {
-        assertFalse(skylight.isLight(testCoordinates, afterDusk.withDate(neverDaytimeDate)))
+        assertFalse(skylight.isLight(testCoordinates, afterDusk.withDate(neverDaytimeDate).toInstant()))
     }
 
     @Test fun `isLight with Typical returns false before dawn`() = runTest {
-        assertFalse(skylight.isLight(testCoordinates, beforeDawn.withDate(typicalDate)))
+        assertFalse(skylight.isLight(testCoordinates, beforeDawn.withDate(typicalDate).toInstant()))
     }
 
     @Test fun `isLight with Typical returns true between dawn and dusk`() = runTest {
-        assertTrue(skylight.isLight(testCoordinates, betweenSunriseAndSunset.withDate(typicalDate)))
+        assertTrue(skylight.isLight(testCoordinates, betweenSunriseAndSunset.withDate(typicalDate).toInstant()))
     }
 
     @Test fun `isLight with Typical returns false after dusk`() = runTest {
-        assertFalse(skylight.isLight(testCoordinates, afterDusk.withDate(typicalDate)))
+        assertFalse(skylight.isLight(testCoordinates, afterDusk.withDate(typicalDate).toInstant()))
     }
     //endregion
 
     //region isDark
     @Test fun `isDark with AlwaysDaytime returns false`() = runTest {
-        assertFalse(skylight.isDark(testCoordinates, beforeDawn.withDate(alwaysDaytimeDate)))
-        assertFalse(skylight.isDark(testCoordinates, betweenSunriseAndSunset.withDate(alwaysDaytimeDate)))
-        assertFalse(skylight.isDark(testCoordinates, afterDusk.withDate(alwaysDaytimeDate)))
+        assertFalse(skylight.isDark(testCoordinates, beforeDawn.withDate(alwaysDaytimeDate).toInstant()))
+        assertFalse(skylight.isDark(testCoordinates, betweenSunriseAndSunset.withDate(alwaysDaytimeDate).toInstant()))
+        assertFalse(skylight.isDark(testCoordinates, afterDusk.withDate(alwaysDaytimeDate).toInstant()))
     }
 
     @Test fun `isDark with AlwaysLight returns false`() = runTest {
-        assertFalse(skylight.isDark(testCoordinates, beforeDawn.withDate(alwaysLightDate)))
-        assertFalse(skylight.isDark(testCoordinates, betweenSunriseAndSunset.withDate(alwaysLightDate)))
-        assertFalse(skylight.isDark(testCoordinates, afterDusk.withDate(alwaysLightDate)))
+        assertFalse(skylight.isDark(testCoordinates, beforeDawn.withDate(alwaysLightDate).toInstant()))
+        assertFalse(skylight.isDark(testCoordinates, betweenSunriseAndSunset.withDate(alwaysLightDate).toInstant()))
+        assertFalse(skylight.isDark(testCoordinates, afterDusk.withDate(alwaysLightDate).toInstant()))
     }
 
     @Test fun `isDark with NeverLight returns true`() = runTest {
-        assertTrue(skylight.isDark(testCoordinates, beforeDawn.withDate(neverLightDate)))
-        assertTrue(skylight.isDark(testCoordinates, betweenSunriseAndSunset.withDate(neverLightDate)))
-        assertTrue(skylight.isDark(testCoordinates, afterDusk.withDate(neverLightDate)))
+        assertTrue(skylight.isDark(testCoordinates, beforeDawn.withDate(neverLightDate).toInstant()))
+        assertTrue(skylight.isDark(testCoordinates, betweenSunriseAndSunset.withDate(neverLightDate).toInstant()))
+        assertTrue(skylight.isDark(testCoordinates, afterDusk.withDate(neverLightDate).toInstant()))
     }
 
     @Test fun `isDark with NeverDaytime returns true before dawn`() = runTest {
-        assertTrue(skylight.isDark(testCoordinates, beforeDawn.withDate(neverDaytimeDate)))
+        assertTrue(skylight.isDark(testCoordinates, beforeDawn.withDate(neverDaytimeDate).toInstant()))
     }
 
     @Test fun `isDark with NeverDaytime returns false between dawn and dusk`() = runTest {
-        assertFalse(skylight.isDark(testCoordinates, betweenSunriseAndSunset.withDate(neverDaytimeDate)))
+        assertFalse(skylight.isDark(testCoordinates, betweenSunriseAndSunset.withDate(neverDaytimeDate).toInstant()))
     }
 
     @Test fun `isDark with NeverDaytime returns true after dusk`() = runTest {
-        assertTrue(skylight.isDark(testCoordinates, afterDusk.withDate(neverDaytimeDate)))
+        assertTrue(skylight.isDark(testCoordinates, afterDusk.withDate(neverDaytimeDate).toInstant()))
     }
 
     @Test fun `isDark with Typical returns true before dawn`() = runTest {
-        assertTrue(skylight.isDark(testCoordinates, beforeDawn.withDate(typicalDate)))
+        assertTrue(skylight.isDark(testCoordinates, beforeDawn.withDate(typicalDate).toInstant()))
     }
 
     @Test fun `isDark with Typical returns false between dawn and dusk`() = runTest {
-        assertFalse(skylight.isDark(testCoordinates, betweenSunriseAndSunset.withDate(typicalDate)))
+        assertFalse(skylight.isDark(testCoordinates, betweenSunriseAndSunset.withDate(typicalDate).toInstant()))
     }
 
     @Test fun `isDark with Typical returns true after dusk`() = runTest {
-        assertTrue(skylight.isDark(testCoordinates, afterDusk.withDate(typicalDate)))
+        assertTrue(skylight.isDark(testCoordinates, afterDusk.withDate(typicalDate).toInstant()))
     }
     //endregion
 
     //region isDaytime
     @Test fun `isDaytime with AlwaysDaytime returns true`() = runTest {
-        assertTrue(skylight.isDaytime(testCoordinates, beforeDawn.withDate(alwaysDaytimeDate)))
-        assertTrue(skylight.isDaytime(testCoordinates, betweenSunriseAndSunset.withDate(alwaysDaytimeDate)))
-        assertTrue(skylight.isDaytime(testCoordinates, afterDusk.withDate(alwaysDaytimeDate)))
+        assertTrue(skylight.isDaytime(testCoordinates, beforeDawn.withDate(alwaysDaytimeDate).toInstant()))
+        assertTrue(skylight.isDaytime(testCoordinates, betweenSunriseAndSunset.withDate(alwaysDaytimeDate).toInstant()))
+        assertTrue(skylight.isDaytime(testCoordinates, afterDusk.withDate(alwaysDaytimeDate).toInstant()))
     }
 
     @Test fun `isDaytime with AlwaysLight returns false before sunrise`() = runTest {
-        assertFalse(skylight.isDaytime(testCoordinates, beforeSunrise.withDate(alwaysLightDate)))
+        assertFalse(skylight.isDaytime(testCoordinates, beforeSunrise.withDate(alwaysLightDate).toInstant()))
     }
 
     @Test fun `isDaytime with AlwaysLight returns true between sunrise and sunset`() = runTest {
-        assertTrue(skylight.isDaytime(testCoordinates, betweenSunriseAndSunset.withDate(alwaysLightDate)))
+        assertTrue(skylight.isDaytime(testCoordinates, betweenSunriseAndSunset.withDate(alwaysLightDate).toInstant()))
     }
 
     @Test fun `isDaytime with AlwaysLight returns false after sunset`() = runTest {
-        assertFalse(skylight.isDaytime(testCoordinates, afterDusk.withDate(alwaysLightDate)))
+        assertFalse(skylight.isDaytime(testCoordinates, afterDusk.withDate(alwaysLightDate).toInstant()))
     }
 
     @Test fun `isDaytime with NeverLight returns false`() = runTest {
-        assertFalse(skylight.isDaytime(testCoordinates, beforeDawn.withDate(neverLightDate)))
-        assertFalse(skylight.isDaytime(testCoordinates, betweenSunriseAndSunset.withDate(neverLightDate)))
-        assertFalse(skylight.isDaytime(testCoordinates, afterDusk.withDate(neverLightDate)))
+        assertFalse(skylight.isDaytime(testCoordinates, beforeDawn.withDate(neverLightDate).toInstant()))
+        assertFalse(skylight.isDaytime(testCoordinates, betweenSunriseAndSunset.withDate(neverLightDate).toInstant()))
+        assertFalse(skylight.isDaytime(testCoordinates, afterDusk.withDate(neverLightDate).toInstant()))
     }
 
     @Test fun `isDaytime with NeverDaytime returns false`() = runTest {
-        assertFalse(skylight.isDaytime(testCoordinates, beforeSunrise.withDate(neverDaytimeDate)))
-        assertFalse(skylight.isDaytime(testCoordinates, betweenSunriseAndSunset.withDate(neverDaytimeDate)))
-        assertFalse(skylight.isDaytime(testCoordinates, afterSunset.withDate(neverDaytimeDate)))
+        assertFalse(skylight.isDaytime(testCoordinates, beforeSunrise.withDate(neverDaytimeDate).toInstant()))
+        assertFalse(skylight.isDaytime(testCoordinates, betweenSunriseAndSunset.withDate(neverDaytimeDate).toInstant()))
+        assertFalse(skylight.isDaytime(testCoordinates, afterSunset.withDate(neverDaytimeDate).toInstant()))
     }
 
     @Test fun `isDaytime with Typical returns false before sunrise`() = runTest {
-        assertFalse(skylight.isDaytime(testCoordinates, beforeSunrise.withDate(typicalDate)))
+        assertFalse(skylight.isDaytime(testCoordinates, beforeSunrise.withDate(typicalDate).toInstant()))
     }
 
     @Test fun `isDaytime with Typical returns true between sunrise and sunset`() = runTest {
-        assertTrue(skylight.isDaytime(testCoordinates, betweenSunriseAndSunset.withDate(typicalDate)))
+        assertTrue(skylight.isDaytime(testCoordinates, betweenSunriseAndSunset.withDate(typicalDate).toInstant()))
     }
 
     @Test fun `isDaytime with Typical returns false after sunset`() = runTest {
-        assertFalse(skylight.isDaytime(testCoordinates, afterSunset.withDate(typicalDate)))
+        assertFalse(skylight.isDaytime(testCoordinates, afterSunset.withDate(typicalDate).toInstant()))
     }
     //endregion
 

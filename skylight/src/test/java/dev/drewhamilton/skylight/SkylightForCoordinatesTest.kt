@@ -32,12 +32,12 @@ class SkylightForCoordinatesTest {
     }
 
     @Test fun `isLight returns result based on Skylight`() = runTest {
-        assertTrue(skylightForCoordinates.isLight(testDateTime1))
-        assertFalse(skylightForCoordinates.isLight(testDateTime2))
+        assertTrue(skylightForCoordinates.isLight(testDateTime1.toInstant()))
+        assertFalse(skylightForCoordinates.isLight(testDateTime2.toInstant()))
     }
 
     @Test fun `isDark returns result based on Skylight`() = runTest {
-        assertFalse(skylightForCoordinates.isDark(testDateTime1))
-        assertTrue(skylightForCoordinates.isDark(testDateTime2))
+        assertFalse(skylightForCoordinates.isDark(testDateTime1.toInstant()))
+        assertTrue(skylightForCoordinates.isDark(testDateTime2.toInstant()))
     }
 }

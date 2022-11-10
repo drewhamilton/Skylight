@@ -2,55 +2,57 @@
 package dev.drewhamilton.skylight
 
 import java.time.Instant
-import java.time.ZonedDateTime
+import java.time.ZoneOffset
 
 //region Skylight
 /**
- * Determine whether it is light outside at the given [coordinates] at the given [dateTime], where "light" means after
- * dawn and before dusk on the given date.
+ * Determine whether it is light outside at the given [coordinates] at the given [instant], where "light" means after
+ * dawn and before dusk.
+ *
+ * To determine whether an instant is after sunrise and before sunset, see [isDaytime].
  */
-suspend fun Skylight.isLight(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean =
-    when (val skylightDay = getSkylightDay(coordinates, dateTime.toLocalDate())) {
+suspend fun Skylight.isLight(coordinates: Coordinates, instant: Instant): Boolean =
+    when (val skylightDay = getSkylightDay(coordinates, instant.atOffset(ZoneOffset.UTC).toLocalDate())) {
         is SkylightDay.AlwaysDaytime -> true
         is SkylightDay.NeverLight -> false
-        is SkylightDay.Typical -> skylightDay.isLightAt(dateTime.toInstant())
+        is SkylightDay.Typical -> skylightDay.isLightAt(instant)
     }
 
 /**
- * Determine whether it is dark outside at the given [coordinates] at the given [dateTime], where "dark" means before
- * dawn or after dusk on the given date.
+ * Determine whether it is dark outside at the given [coordinates] at the given [instant], where "dark" means before
+ * dawn or after dusk.
+ *
+ * To determine an instant's relationship to sunrise and sunset, see [isDaytime].
  */
-suspend fun Skylight.isDark(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean =
-    !isLight(coordinates, dateTime)
+suspend fun Skylight.isDark(coordinates: Coordinates, instant: Instant): Boolean =
+    !isLight(coordinates, instant)
 
 /**
- * Determine whether it is daytime at the given [coordinates] at the given [dateTime], where "daytime" means after
- * sunrise and before sunset on the given date.
+ * Determine whether it is daytime at the given [coordinates] at the given [instant], where "daytime" means after
+ * sunrise and before sunset.
+ *
+ * To determine an instant's relationship to dawn and dusk, see [isLight] and [isDark].
  */
-suspend fun Skylight.isDaytime(coordinates: Coordinates, dateTime: ZonedDateTime): Boolean =
-    when (val skylightDay = getSkylightDay(coordinates, dateTime.toLocalDate())) {
+suspend fun Skylight.isDaytime(coordinates: Coordinates, instant: Instant): Boolean =
+    when (val skylightDay = getSkylightDay(coordinates, instant.atOffset(ZoneOffset.UTC).toLocalDate())) {
         is SkylightDay.AlwaysDaytime -> true
         is SkylightDay.NeverLight -> false
-        is SkylightDay.Typical -> skylightDay.isDaytimeAt(dateTime.toInstant())
+        is SkylightDay.Typical -> skylightDay.isDaytimeAt(instant)
     }
 //endregion
 
 //region SkylightForCoordinates
 /**
- * @param dateTime The date-time at which to check for lightness.
- * @return Whether it is light outside at the [SkylightForCoordinates]'s coordinates at the given date-time, where
- * "light" means after dawn and before dusk on the given date.
+ * Determine whether it is light outside at the given [instant], where "light" means after dawn and before dusk.
  */
-suspend fun SkylightForCoordinates.isLight(dateTime: ZonedDateTime): Boolean =
-    skylight.isLight(coordinates, dateTime)
+suspend fun SkylightForCoordinates.isLight(instant: Instant): Boolean =
+    skylight.isLight(coordinates, instant)
 
 /**
- * @param dateTime The date-time at which to check for darkness.
- * @return Whether it is dark outside at the [SkylightForCoordinates]'s coordinates at the given date-time, where "dark"
- * means before dawn or after dusk on the given date.
+ * Determine whether it is dark outside at the given [instant], where "dark" means before dawn or after dusk.
  */
-suspend fun SkylightForCoordinates.isDark(dateTime: ZonedDateTime): Boolean =
-    skylight.isDark(coordinates, dateTime)
+suspend fun SkylightForCoordinates.isDark(instant: Instant): Boolean =
+    skylight.isDark(coordinates, instant)
 //endregion
 
 private fun SkylightDay.Typical.isLightAt(instant: Instant) =
