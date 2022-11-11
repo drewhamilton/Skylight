@@ -15,7 +15,7 @@ suspend fun Skylight.isLight(coordinates: Coordinates, instant: Instant): Boolea
     when (val skylightDay = getSkylightDay(coordinates, instant.atOffset(ZoneOffset.UTC).toLocalDate())) {
         is SkylightDay.AlwaysDaytime -> true
         is SkylightDay.NeverLight -> false
-        is SkylightDay.Typical -> skylightDay.isLightAt(instant)
+        is SkylightDay.Eventful -> skylightDay.isLightAt(instant)
     }
 
 /**
@@ -37,7 +37,7 @@ suspend fun Skylight.isDaytime(coordinates: Coordinates, instant: Instant): Bool
     when (val skylightDay = getSkylightDay(coordinates, instant.atOffset(ZoneOffset.UTC).toLocalDate())) {
         is SkylightDay.AlwaysDaytime -> true
         is SkylightDay.NeverLight -> false
-        is SkylightDay.Typical -> skylightDay.isDaytimeAt(instant)
+        is SkylightDay.Eventful -> skylightDay.isDaytimeAt(instant)
     }
 //endregion
 
@@ -55,8 +55,8 @@ suspend fun SkylightForCoordinates.isDark(instant: Instant): Boolean =
     skylight.isDark(coordinates, instant)
 //endregion
 
-private fun SkylightDay.Typical.isLightAt(instant: Instant) =
+private fun SkylightDay.Eventful.isLightAt(instant: Instant) =
     dawn == null || (dawn.isBefore(instant) && (dusk == null || dusk.isAfter(instant)))
 
-private fun SkylightDay.Typical.isDaytimeAt(instant: Instant) =
+private fun SkylightDay.Eventful.isDaytimeAt(instant: Instant) =
     sunrise != null && (sunrise.isBefore(instant) && (sunset == null || sunset.isAfter(instant)))

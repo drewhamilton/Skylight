@@ -26,7 +26,7 @@ sealed class FakeSkylight : Skylight {
     abstract suspend fun getSkylightDay(date: LocalDate): SkylightDay
 
     /**
-     * A [FakeSkylight] that always returns an instance of [SkylightDay.Typical]. Like [SkylightDay.Typical], at least
+     * A [FakeSkylight] that always returns an instance of [SkylightDay.Eventful]. Like [SkylightDay.Eventful], at least
      * one of [dawn], [sunrise], [sunset], or [dusk] must be non-null.
      *
      * @param zone The time zone used to convert the event times to Instants.
@@ -35,7 +35,7 @@ sealed class FakeSkylight : Skylight {
      * @param sunset The time at which the sunset Instant will be calculated in the given time zone for each date.
      * @param dusk The time at which the dusk Instant will be calculated in the given time zone for each date.
      */
-    class Typical(
+    class Eventful(
         private val zone: ZoneId,
         private val dawn: LocalTime?,
         private val sunrise: LocalTime?,
@@ -49,10 +49,10 @@ sealed class FakeSkylight : Skylight {
         }
 
         /**
-         * Get a [SkylightDay.Typical] for the given [date], with each event [Instant] calculated from the times and
+         * Get a [SkylightDay.Eventful] for the given [date], with each event [Instant] calculated from the times and
          * time zone passed to this [FakeSkylight]'s constructor.
          */
-        override suspend fun getSkylightDay(date: LocalDate): SkylightDay = SkylightDay.Typical(
+        override suspend fun getSkylightDay(date: LocalDate): SkylightDay = SkylightDay.Eventful(
             date = date,
             dawn = dawn?.toInstant(date),
             sunrise = sunrise?.toInstant(date),

@@ -34,7 +34,7 @@ class CalculatorSkylight(
     private fun LocalDate.toNoonUtcEpochMilli() = atTime(12, 0).toInstant(ZoneOffset.UTC).toEpochMilli()
 
     private fun EpochMilliSkylightDay.toSkylightDay(date: LocalDate) = when (this) {
-        is EpochMilliSkylightDay.Typical -> SkylightDay.Typical(
+        is EpochMilliSkylightDay.Eventful -> SkylightDay.Eventful(
             date = date,
             dawn = dawn.asEpochMilliToInstant(),
             sunrise = sunrise.asEpochMilliToInstant(),

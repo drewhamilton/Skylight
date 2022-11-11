@@ -72,7 +72,7 @@ internal fun SunriseSunsetInfo.toSkylightDay(date: LocalDate): SkylightDay {
             SkylightDay.NeverLight(date = date)
         civil_twilight_begin == ApiConstants.DATE_TIME_ALWAYS_DAY && sunrise == ApiConstants.DATE_TIME_ALWAYS_DAY ->
             SkylightDay.AlwaysDaytime(date = date)
-        else -> SkylightDay.Typical(
+        else -> SkylightDay.Eventful(
             date = date,
             dawn = civil_twilight_begin.toZonedDateTime()?.toInstant(),
             sunrise = sunrise.toZonedDateTime()?.toInstant(),

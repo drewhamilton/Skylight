@@ -53,9 +53,9 @@ internal fun calculateSkylightInfo(
             val sunset = calculateEveningEventUnixTime(solarTransitJ2000, hourAngleHorizon)
 
             when {
-                isAlwaysDay(cosHourAngleTwilight) -> EpochMilliSkylightDay.Typical(null, sunrise, sunset, null)
-                isAlwaysNight(cosHourAngleHorizon) -> EpochMilliSkylightDay.Typical(dawn, null, null, dusk)
-                else -> EpochMilliSkylightDay.Typical(dawn, sunrise, sunset, dusk)
+                isAlwaysDay(cosHourAngleTwilight) -> EpochMilliSkylightDay.Eventful(null, sunrise, sunset, null)
+                isAlwaysNight(cosHourAngleHorizon) -> EpochMilliSkylightDay.Eventful(dawn, null, null, dusk)
+                else -> EpochMilliSkylightDay.Eventful(dawn, sunrise, sunset, dusk)
             }
         }
     }

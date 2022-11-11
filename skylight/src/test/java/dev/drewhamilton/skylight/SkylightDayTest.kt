@@ -1,26 +1,26 @@
 package dev.drewhamilton.skylight
 
+import java.time.LocalDate
+import java.time.ZonedDateTime
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
-import java.time.LocalDate
-import java.time.ZonedDateTime
 
 class SkylightDayTest {
 
-    //region SkylightDay.Typical
+    //region SkylightDay.Eventful
     @Test(expected = IllegalArgumentException::class)
-    fun `Typical initializer without any events throws exception`() {
-        SkylightDay.Typical(date = LocalDate.parse("2020-01-13"))
+    fun `Eventful initializer without any events throws exception`() {
+        SkylightDay.Eventful(date = LocalDate.parse("2020-01-13"))
     }
 
-    @Test fun `Typical with same values are equals`() {
-        val day1 = SkylightDay.Typical(
+    @Test fun `Eventful with same values are equals`() {
+        val day1 = SkylightDay.Eventful(
             date = LocalDate.parse("2020-01-13"),
             dawn = ZonedDateTime.parse("2020-01-13T07:00:00+02:00").toInstant(),
             dusk = ZonedDateTime.parse("2020-01-13T20:00:00+02:00").toInstant()
         )
-        val day2 = SkylightDay.Typical(
+        val day2 = SkylightDay.Eventful(
             date = LocalDate.parse("2020-01-13"),
             dawn = ZonedDateTime.parse("2020-01-13T07:00:00+02:00").toInstant(),
             dusk = ZonedDateTime.parse("2020-01-13T20:00:00+02:00").toInstant()
@@ -29,13 +29,13 @@ class SkylightDayTest {
         assertEquals(day1.hashCode(), day2.hashCode())
     }
 
-    @Test fun `Typical with different values are not equals`() {
-        val day1 = SkylightDay.Typical(
+    @Test fun `Eventful with different values are not equals`() {
+        val day1 = SkylightDay.Eventful(
             date = LocalDate.parse("2020-01-13"),
             sunrise = ZonedDateTime.parse("2020-01-13T07:00:00+02:00").toInstant(),
             sunset = ZonedDateTime.parse("2020-01-13T20:00:00+02:00").toInstant()
         )
-        val day2 = SkylightDay.Typical(
+        val day2 = SkylightDay.Eventful(
             date = LocalDate.parse("2020-01-13"),
             dawn = ZonedDateTime.parse("2020-01-13T07:00:00+02:00").toInstant(),
             dusk = ZonedDateTime.parse("2020-01-13T20:00:00+02:00").toInstant()
@@ -44,15 +44,15 @@ class SkylightDayTest {
         assertNotEquals(day1.hashCode(), day2.hashCode())
     }
 
-    @Test fun `Typical toString returns value string`() {
-        val day = SkylightDay.Typical(
+    @Test fun `Eventful toString returns value string`() {
+        val day = SkylightDay.Eventful(
             date = LocalDate.parse("2020-01-13"),
             dawn = ZonedDateTime.parse("2020-01-13T07:00:00+02:00").toInstant(),
             sunrise = ZonedDateTime.parse("2020-01-13T09:00:00+02:00").toInstant(),
             sunset = ZonedDateTime.parse("2020-01-13T18:00:00+02:00").toInstant(),
             dusk = ZonedDateTime.parse("2020-01-13T20:00:00+02:00").toInstant()
         )
-        val expected = "Typical(" +
+        val expected = "Eventful(" +
                 "date=${day.date}, dawn=${day.dawn}, sunrise=${day.sunrise}, sunset=${day.sunset}, dusk=${day.dusk}" +
                 ")"
         assertEquals(expected, day.toString())
