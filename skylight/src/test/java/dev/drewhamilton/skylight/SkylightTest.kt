@@ -15,7 +15,7 @@ import org.junit.Test
 class SkylightTest {
 
     private val testCoordinates = Coordinates(50.0, 60.0)
-    private val typicalDate = LocalDate.of(2019, Month.MAY, 15)
+    private val eventfulDate = LocalDate.of(2019, Month.MAY, 15)
     private val alwaysDaytimeDate = LocalDate.of(2019, Month.JUNE, 15)
     private val alwaysLightDate = LocalDate.of(2019, Month.JULY, 15)
     private val neverLightDate = LocalDate.of(2019, Month.AUGUST, 15)
@@ -26,27 +26,27 @@ class SkylightTest {
     private val testSunset = ZonedDateTime.of(2019, 5, 15, 14, 0, 0, 0, ZoneOffset.UTC)
     private val testDusk = ZonedDateTime.of(2019, 5, 15, 16, 0, 0, 0, ZoneOffset.UTC)
 
-    private val beforeDawn = ZonedDateTime.of(typicalDate, testDawn.minusHours(2).toLocalTime(), ZoneOffset.UTC)
+    private val beforeDawn = ZonedDateTime.of(eventfulDate, testDawn.minusHours(2).toLocalTime(), ZoneOffset.UTC)
     private val betweenSunriseAndSunset =
-        ZonedDateTime.of(typicalDate, testSunrise.plusHours(2).toLocalTime(), ZoneOffset.UTC)
-    private val afterDusk = ZonedDateTime.of(typicalDate, testDusk.plusHours(2).toLocalTime(), ZoneOffset.UTC)
-    private val beforeSunrise = ZonedDateTime.of(typicalDate, testSunrise.minusHours(1).toLocalTime(), ZoneOffset.UTC)
-    private val afterSunset = ZonedDateTime.of(typicalDate, testSunset.plusHours(1).toLocalTime(), ZoneOffset.UTC)
+        ZonedDateTime.of(eventfulDate, testSunrise.plusHours(2).toLocalTime(), ZoneOffset.UTC)
+    private val afterDusk = ZonedDateTime.of(eventfulDate, testDusk.plusHours(2).toLocalTime(), ZoneOffset.UTC)
+    private val beforeSunrise = ZonedDateTime.of(eventfulDate, testSunrise.minusHours(1).toLocalTime(), ZoneOffset.UTC)
+    private val afterSunset = ZonedDateTime.of(eventfulDate, testSunset.plusHours(1).toLocalTime(), ZoneOffset.UTC)
 
     private val testAlwaysDaytime = SkylightDay.AlwaysDaytime(date = alwaysDaytimeDate)
-    private val testAlwaysLight = SkylightDay.Typical(
+    private val testAlwaysLight = SkylightDay.Eventful(
         date = alwaysLightDate,
         sunrise = testSunrise.withDate(alwaysLightDate).toInstant(),
         sunset = testSunset.withDate(alwaysLightDate).toInstant()
     )
     private val testNeverLight = SkylightDay.NeverLight(date = neverLightDate)
-    private val testNeverDaytime = SkylightDay.Typical(
+    private val testNeverDaytime = SkylightDay.Eventful(
         date = neverDaytimeDate,
         dawn = testDawn.withDate(neverDaytimeDate).toInstant(),
         dusk = testDusk.withDate(neverDaytimeDate).toInstant()
     )
-    private val testTypical = SkylightDay.Typical (
-        date = typicalDate,
+    private val testEventful = SkylightDay.Eventful (
+        date = eventfulDate,
         dawn = testDawn.toInstant(),
         sunrise = testSunrise.toInstant(),
         sunset = testSunset.toInstant(),
@@ -58,7 +58,7 @@ class SkylightTest {
         testCoordinates to alwaysLightDate to testAlwaysLight,
         testCoordinates to neverLightDate to testNeverLight,
         testCoordinates to neverDaytimeDate to testNeverDaytime,
-        testCoordinates to typicalDate to testTypical,
+        testCoordinates to eventfulDate to testEventful,
     )
 
     //region isLight
@@ -92,16 +92,16 @@ class SkylightTest {
         assertFalse(skylight.isLight(testCoordinates, afterDusk.withDate(neverDaytimeDate).toInstant()))
     }
 
-    @Test fun `isLight with Typical returns false before dawn`() = runTest {
-        assertFalse(skylight.isLight(testCoordinates, beforeDawn.withDate(typicalDate).toInstant()))
+    @Test fun `isLight with Eventful returns false before dawn`() = runTest {
+        assertFalse(skylight.isLight(testCoordinates, beforeDawn.withDate(eventfulDate).toInstant()))
     }
 
-    @Test fun `isLight with Typical returns true between dawn and dusk`() = runTest {
-        assertTrue(skylight.isLight(testCoordinates, betweenSunriseAndSunset.withDate(typicalDate).toInstant()))
+    @Test fun `isLight with Eventful returns true between dawn and dusk`() = runTest {
+        assertTrue(skylight.isLight(testCoordinates, betweenSunriseAndSunset.withDate(eventfulDate).toInstant()))
     }
 
-    @Test fun `isLight with Typical returns false after dusk`() = runTest {
-        assertFalse(skylight.isLight(testCoordinates, afterDusk.withDate(typicalDate).toInstant()))
+    @Test fun `isLight with Eventful returns false after dusk`() = runTest {
+        assertFalse(skylight.isLight(testCoordinates, afterDusk.withDate(eventfulDate).toInstant()))
     }
     //endregion
 
@@ -136,16 +136,16 @@ class SkylightTest {
         assertTrue(skylight.isDark(testCoordinates, afterDusk.withDate(neverDaytimeDate).toInstant()))
     }
 
-    @Test fun `isDark with Typical returns true before dawn`() = runTest {
-        assertTrue(skylight.isDark(testCoordinates, beforeDawn.withDate(typicalDate).toInstant()))
+    @Test fun `isDark with Eventful returns true before dawn`() = runTest {
+        assertTrue(skylight.isDark(testCoordinates, beforeDawn.withDate(eventfulDate).toInstant()))
     }
 
-    @Test fun `isDark with Typical returns false between dawn and dusk`() = runTest {
-        assertFalse(skylight.isDark(testCoordinates, betweenSunriseAndSunset.withDate(typicalDate).toInstant()))
+    @Test fun `isDark with Eventful returns false between dawn and dusk`() = runTest {
+        assertFalse(skylight.isDark(testCoordinates, betweenSunriseAndSunset.withDate(eventfulDate).toInstant()))
     }
 
-    @Test fun `isDark with Typical returns true after dusk`() = runTest {
-        assertTrue(skylight.isDark(testCoordinates, afterDusk.withDate(typicalDate).toInstant()))
+    @Test fun `isDark with Eventful returns true after dusk`() = runTest {
+        assertTrue(skylight.isDark(testCoordinates, afterDusk.withDate(eventfulDate).toInstant()))
     }
     //endregion
 
@@ -180,16 +180,16 @@ class SkylightTest {
         assertFalse(skylight.isDaytime(testCoordinates, afterSunset.withDate(neverDaytimeDate).toInstant()))
     }
 
-    @Test fun `isDaytime with Typical returns false before sunrise`() = runTest {
-        assertFalse(skylight.isDaytime(testCoordinates, beforeSunrise.withDate(typicalDate).toInstant()))
+    @Test fun `isDaytime with Eventful returns false before sunrise`() = runTest {
+        assertFalse(skylight.isDaytime(testCoordinates, beforeSunrise.withDate(eventfulDate).toInstant()))
     }
 
-    @Test fun `isDaytime with Typical returns true between sunrise and sunset`() = runTest {
-        assertTrue(skylight.isDaytime(testCoordinates, betweenSunriseAndSunset.withDate(typicalDate).toInstant()))
+    @Test fun `isDaytime with Eventful returns true between sunrise and sunset`() = runTest {
+        assertTrue(skylight.isDaytime(testCoordinates, betweenSunriseAndSunset.withDate(eventfulDate).toInstant()))
     }
 
-    @Test fun `isDaytime with Typical returns false after sunset`() = runTest {
-        assertFalse(skylight.isDaytime(testCoordinates, afterSunset.withDate(typicalDate).toInstant()))
+    @Test fun `isDaytime with Eventful returns false after sunset`() = runTest {
+        assertFalse(skylight.isDaytime(testCoordinates, afterSunset.withDate(eventfulDate).toInstant()))
     }
     //endregion
 

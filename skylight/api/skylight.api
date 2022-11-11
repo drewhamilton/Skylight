@@ -27,15 +27,7 @@ public final class dev/drewhamilton/skylight/SkylightDay$AlwaysDaytime : dev/dre
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class dev/drewhamilton/skylight/SkylightDay$NeverLight : dev/drewhamilton/skylight/SkylightDay {
-	public fun <init> (Ljava/time/LocalDate;)V
-	public fun equals (Ljava/lang/Object;)Z
-	public fun getDate ()Ljava/time/LocalDate;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class dev/drewhamilton/skylight/SkylightDay$Typical : dev/drewhamilton/skylight/SkylightDay {
+public final class dev/drewhamilton/skylight/SkylightDay$Eventful : dev/drewhamilton/skylight/SkylightDay {
 	public fun <init> (Ljava/time/LocalDate;Ljava/time/Instant;Ljava/time/Instant;Ljava/time/Instant;Ljava/time/Instant;)V
 	public synthetic fun <init> (Ljava/time/LocalDate;Ljava/time/Instant;Ljava/time/Instant;Ljava/time/Instant;Ljava/time/Instant;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun equals (Ljava/lang/Object;)Z
@@ -44,6 +36,14 @@ public final class dev/drewhamilton/skylight/SkylightDay$Typical : dev/drewhamil
 	public final fun getDusk ()Ljava/time/Instant;
 	public final fun getSunrise ()Ljava/time/Instant;
 	public final fun getSunset ()Ljava/time/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/drewhamilton/skylight/SkylightDay$NeverLight : dev/drewhamilton/skylight/SkylightDay {
+	public fun <init> (Ljava/time/LocalDate;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDate ()Ljava/time/LocalDate;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }

@@ -21,25 +21,25 @@ class FakeSkylightTest {
     private val testSunset = LocalTime.of(10, 0)
     private val testDusk = LocalTime.of(11, 0)
 
-    private val typicalFakeSkylight: FakeSkylight =
-        FakeSkylight.Typical(testZone, testDawn, testSunrise, testSunset, testDusk)
+    private val eventfulFakeSkylight: FakeSkylight =
+        FakeSkylight.Eventful(testZone, testDawn, testSunrise, testSunset, testDusk)
 
-    @Test fun `Typical getSkylightInfo(Coordinates, LocalDate) returns times on given date`() = runTest {
+    @Test fun `Eventful getSkylightInfo(Coordinates, LocalDate) returns times on given date`() = runTest {
         val testDate = LocalDate.of(2020, 9, 24)
-        val result = typicalFakeSkylight.getSkylightDay(Coordinates(0.0, 0.0), testDate)
-        assertTrue(result is SkylightDay.Typical)
-        result as SkylightDay.Typical
+        val result = eventfulFakeSkylight.getSkylightDay(Coordinates(0.0, 0.0), testDate)
+        assertTrue(result is SkylightDay.Eventful)
+        result as SkylightDay.Eventful
         assertEquals(ZonedDateTime.of(testDate, testDawn, testZone).toInstant(), result.dawn)
         assertEquals(ZonedDateTime.of(testDate, testSunrise, testZone).toInstant(), result.sunrise)
         assertEquals(ZonedDateTime.of(testDate, testSunset, testZone).toInstant(), result.sunset)
         assertEquals(ZonedDateTime.of(testDate, testDusk, testZone).toInstant(), result.dusk)
     }
 
-    @Test fun `Typical getSkylightInfo(LocalDate) returns times on given date`() = runTest {
+    @Test fun `Eventful getSkylightInfo(LocalDate) returns times on given date`() = runTest {
         val testDate = LocalDate.ofEpochDay(6343)
-        val result = typicalFakeSkylight.getSkylightDay(testDate)
-        assertTrue(result is SkylightDay.Typical)
-        result as SkylightDay.Typical
+        val result = eventfulFakeSkylight.getSkylightDay(testDate)
+        assertTrue(result is SkylightDay.Eventful)
+        result as SkylightDay.Eventful
         assertEquals(ZonedDateTime.of(testDate, testDawn, testZone).toInstant(), result.dawn)
         assertEquals(ZonedDateTime.of(testDate, testSunrise, testZone).toInstant(), result.sunrise)
         assertEquals(ZonedDateTime.of(testDate, testSunset, testZone).toInstant(), result.sunset)

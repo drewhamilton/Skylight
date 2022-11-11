@@ -16,19 +16,20 @@ sealed class SkylightDay {
     abstract val date: LocalDate
 
     /**
-     * Represents a normal day, where [dawn] and [dusk] represent start and end of civil twilight, respectively, and
-     * [sunrise] and [sunset] represent the times the sun crosses the horizon.
+     * Represents a day with at least one "Skylight event"; that is, at least one of [dawn], [sunrise], [sunset], or
+     * [dusk]. [dawn] and [dusk] represent the start and end of civil twilight, respectively, and [sunrise] and [sunset]
+     * represent the times the sun crosses the horizon.
      *
-     * A null value for [dawn], [sunrise], [sunset], or [dusk] indicates that that event does not occur on that [date].
-     * Different null values have different implications. For example, if only [dawn] and [dusk] are null, the day is
-     * always light, but the sun does cross the horizon. If only [sunrise] and [sunset] are null, the sun never crosses
-     * above the horizon, but the day does change from dark to light and back. Rarely, 1 or 3 of the values may be null,
-     * if the date is a transition day from one sunrise/sunset pattern to another.
+     * A null value for any of [dawn], [sunrise], [sunset], or [dusk] indicates that that event does not occur on
+     * [date]. Different null values have different implications. For example, if only [dawn] and [dusk] are null, the
+     * day is always light, but the sun does cross the horizon. If only [sunrise] and [sunset] are null, the sun never
+     * crosses above the horizon, but the day does change from dark to light and back. Rarely, 1 or 3 of the values may
+     * be null, if the date is a transition day from one sunrise/sunset pattern to another.
      *
-     * It should never be the case that all 4 event values are null. In those cases where a day does not have any of
-     * these events, either [AlwaysDaytime] or [NeverLight] should be used.
+     * It can never be the case that all 4 event values are null. In those cases where a day does not have any of these
+     * events, either [AlwaysDaytime] or [NeverLight] should be used.
      */
-    @Poko class Typical(
+    @Poko class Eventful(
         override val date: LocalDate,
         val dawn: Instant? = null,
         val sunrise: Instant? = null,
@@ -55,7 +56,7 @@ sealed class SkylightDay {
     }
 
     /**
-     * Represents a day that is always dark, i.e. the sun never goes above civil twilight.
+     * Represents a day that is always dark, i.e. the sun never goes above the point that marks civil twilight.
      */
     @Suppress("EqualsOrHashCode") // Equals is generated
     @Poko class NeverLight(

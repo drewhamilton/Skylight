@@ -21,10 +21,10 @@ class CalculatorSkylightTest {
     private val skylight = CalculatorSkylight()
 
     //region Amsterdam
-    @Test fun `Amsterdam on January 6, 2019 is typical`() = runTest {
+    @Test fun `Amsterdam on January 6, 2019 is eventful`() = runTest {
         val result = skylight.getSkylightDay(AMSTERDAM, JANUARY_6_2019)
-        assertTrue(result is SkylightDay.Typical)
-        result as SkylightDay.Typical
+        assertTrue(result is SkylightDay.Eventful)
+        result as SkylightDay.Eventful
         assertEquals(Instant.ofEpochMilli(1546758590702), result.dawn)
         assertEquals(Instant.ofEpochMilli(1546761159554), result.sunrise)
         assertEquals(Instant.ofEpochMilli(1546789298271), result.sunset)
@@ -40,11 +40,11 @@ class CalculatorSkylightTest {
     //endregion
 
     //region Indianapolis
-    @Test fun `Indianapolis on July 20, 2019 is typical`() = runTest {
+    @Test fun `Indianapolis on July 20, 2019 is eventful`() = runTest {
         val result = skylight.getSkylightDay(INDIANAPOLIS, JULY_20_2019)
 
-        assertTrue(result is SkylightDay.Typical)
-        result as SkylightDay.Typical
+        assertTrue(result is SkylightDay.Eventful)
+        result as SkylightDay.Eventful
         assertEquals(ZonedDateTime.of(2019, 7, 20, 10, 2, 24, 108_000_000, ZoneOffset.UTC).toInstant(), result.dawn)
         assertEquals(ZonedDateTime.of(2019, 7, 20, 10, 35, 14, 739_000_000, ZoneOffset.UTC).toInstant(), result.sunrise)
         assertEquals(ZonedDateTime.of(2019, 7, 21, 1, 8, 52, 914_000_000, ZoneOffset.UTC).toInstant(), result.sunset)

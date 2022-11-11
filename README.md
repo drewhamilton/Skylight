@@ -38,7 +38,7 @@ val skylightDay = skylight.getSkylightDay(amsterdam, tomorrow)
 val message = when {
     skylightDay is SkylightDay.AlwaysDaytime ->
         "The sun will be up all day in Amsterdam tomorrow."
-    skylightDay is SkylightDay.Typical && skylightDay.sunrise != null ->
+    skylightDay is SkylightDay.Eventful && skylightDay.sunrise != null ->
         "The sun will rise in Amsterdam tomorrow."
     else ->
         "The sun will not rise in Amsterdam tomorrow."

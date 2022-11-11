@@ -8,13 +8,13 @@ public final class dev/drewhamilton/skylight/fake/FakeSkylight$AlwaysDaytime : d
 	public fun getSkylightDay (Ljava/time/LocalDate;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
-public final class dev/drewhamilton/skylight/fake/FakeSkylight$NeverLight : dev/drewhamilton/skylight/fake/FakeSkylight {
-	public fun <init> ()V
+public final class dev/drewhamilton/skylight/fake/FakeSkylight$Eventful : dev/drewhamilton/skylight/fake/FakeSkylight {
+	public fun <init> (Ljava/time/ZoneId;Ljava/time/LocalTime;Ljava/time/LocalTime;Ljava/time/LocalTime;Ljava/time/LocalTime;)V
 	public fun getSkylightDay (Ljava/time/LocalDate;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
-public final class dev/drewhamilton/skylight/fake/FakeSkylight$Typical : dev/drewhamilton/skylight/fake/FakeSkylight {
-	public fun <init> (Ljava/time/ZoneId;Ljava/time/LocalTime;Ljava/time/LocalTime;Ljava/time/LocalTime;Ljava/time/LocalTime;)V
+public final class dev/drewhamilton/skylight/fake/FakeSkylight$NeverLight : dev/drewhamilton/skylight/fake/FakeSkylight {
+	public fun <init> ()V
 	public fun getSkylightDay (Ljava/time/LocalDate;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
