@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.13.0
+_2022-11-11_
+
+Updates the main `Skylight.getSkylightDay` API to a `suspend` function, allowing implementation
+classes to implement structured concurrency and callers to not worry about threading.
+
 ## 0.12.0
 _2020-10-04_
 

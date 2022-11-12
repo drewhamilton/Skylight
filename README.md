@@ -23,9 +23,6 @@ implementation "dev.drewhamilton.skylight:skylight-fake:$version"
 ```
 
 ## Usage
-Skylight is still in pre-release development, and the API may undergo breaking changes before
-version 1.0.0.
-
 Determine dawn, sunrise, sunset, and dusk for a given location and date, and process it simply and
 intuitively.
 
@@ -53,6 +50,9 @@ Using Skylight on Android requires enabling
 available with Android Gradle Plugin version 4.0.0 and higher. If you are using Skylight on Android,
 also see [Skylight Android](https://github.com/drewhamilton/SkylightAndroid) for a few added
 features.
+
+Skylight is still in pre-release development, and the API may undergo breaking changes before
+version 1.0.0.
 
 ## License
 ```
