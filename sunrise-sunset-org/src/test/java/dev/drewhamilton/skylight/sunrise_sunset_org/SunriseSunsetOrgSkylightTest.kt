@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.OkHttpClient
-import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.assertEquals
@@ -56,7 +56,7 @@ class SunriseSunsetOrgSkylightTest {
     @Test(expected = HttpException::class)
     fun `getInfo throws HttpException when API result is an error`() = runTest {
         val api = TestSunriseSunsetOrgApi(
-            testParams to Response.error(401, ResponseBody.create(null, "Content"))
+            testParams to Response.error(401, "Content".toResponseBody(null))
         )
         val sunriseSunsetOrgSkylight = SunriseSunsetOrgSkylight(api)
 
@@ -73,7 +73,7 @@ class SunriseSunsetOrgSkylightTest {
     @Test fun `retrofit with mock web server succeeds`() = runTest {
         val server = MockWebServer().apply {
             dispatcher = Dispatcher { request ->
-                val path = request.path
+                val path = request.path!!
                 when (path.substring(0, path.indexOf("?"))) {
                     "/json" -> successResponse.toMockResponse()
                     else -> MockResponse().setResponseCode(404)
