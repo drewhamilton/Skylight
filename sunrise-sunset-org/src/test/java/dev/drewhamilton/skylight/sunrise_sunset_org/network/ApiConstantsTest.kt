@@ -1,13 +1,13 @@
 package dev.drewhamilton.skylight.sunrise_sunset_org.network
 
-import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class ApiConstantsTest {
 
     @Test fun `BASE_URL points to sunrise-sunset_org API`() {
-        assertEquals(HttpUrl.get("https://api.sunrise-sunset.org/"), ApiConstants.BASE_URL)
+        assertEquals("https://api.sunrise-sunset.org/".toHttpUrl(), ApiConstants.BASE_URL)
     }
 
     @Test fun `DATE_TIME_NONE is 1 Jan 1970 at midnight`() {
