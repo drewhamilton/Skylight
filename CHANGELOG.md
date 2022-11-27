@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.13.1
+_2022-11-27_
+
+Updates `skylight-sunrise-sunset-org`'s transitive okhttp dependency to 4.9.3, because the previous
+version had a security vulnerability.
+
 ## 0.13.0
 _2022-11-11_
 
