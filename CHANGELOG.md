@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.13.2
+_2022-12-29_
+
+Fixes a crash in `CalculatorSkylight` in cases where a `SkylightDay` would have a dawn and dusk but
+no sunrise or sunset, as in Svalbard on November 13, 2022.
+
 ## 0.13.1
 _2022-11-27_
 

@@ -47,9 +47,7 @@ Skylight requires Java 8.
 
 Using Skylight on Android requires enabling
 [core library desugaring](https://developer.android.com/studio/preview/features#j8-desugar),
-available with Android Gradle Plugin version 4.0.0 and higher. If you are using Skylight on Android,
-also see [Skylight Android](https://github.com/drewhamilton/SkylightAndroid) for a few added
-features.
+available with Android Gradle Plugin version 4.0.0 and higher.
 
 Skylight is still in pre-release development, and the API may undergo breaking changes before
 version 1.0.0.
