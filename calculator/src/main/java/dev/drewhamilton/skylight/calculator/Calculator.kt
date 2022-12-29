@@ -7,6 +7,7 @@ import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 import kotlin.math.sin
 
+// Adapted from TwilightCalculator: https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:appcompat/appcompat/src/main/java/androidx/appcompat/app/TwilightCalculator.java
 internal fun calculateSkylightInfo(
     epochMillis: Long,
     latitude: Double,
@@ -44,19 +45,29 @@ internal fun calculateSkylightInfo(
         isAlwaysNight(cosHourAngleTwilight) -> EpochMilliSkylightDay.NeverLight
         isAlwaysDay(cosHourAngleHorizon) -> EpochMilliSkylightDay.AlwaysDaytime
         else -> {
-            val hourAngleTwilight = (acos(cosHourAngleTwilight) / (2 * Math.PI)).toFloat()
-            val dawn = calculateMorningEventUnixTime(solarTransitJ2000, hourAngleTwilight)
-            val dusk = calculateEveningEventUnixTime(solarTransitJ2000, hourAngleTwilight)
-
-            val hourAngleHorizon = (acos(cosHourAngleHorizon) / (2 * Math.PI)).toFloat()
-            val sunrise = calculateMorningEventUnixTime(solarTransitJ2000, hourAngleHorizon)
-            val sunset = calculateEveningEventUnixTime(solarTransitJ2000, hourAngleHorizon)
-
-            when {
-                isAlwaysDay(cosHourAngleTwilight) -> EpochMilliSkylightDay.Eventful(null, sunrise, sunset, null)
-                isAlwaysNight(cosHourAngleHorizon) -> EpochMilliSkylightDay.Eventful(dawn, null, null, dusk)
-                else -> EpochMilliSkylightDay.Eventful(dawn, sunrise, sunset, dusk)
+            val dawn: Long?
+            val dusk: Long?
+            if (isAlwaysDay(cosHourAngleTwilight)) {
+                dawn = null
+                dusk = null
+            } else {
+                val hourAngleTwilight = (acos(cosHourAngleTwilight) / (2 * Math.PI)).toFloat()
+                dawn = calculateMorningEventUnixTime(solarTransitJ2000, hourAngleTwilight)
+                dusk = calculateEveningEventUnixTime(solarTransitJ2000, hourAngleTwilight)
             }
+
+            val sunrise: Long?
+            val sunset: Long?
+            if (isAlwaysNight(cosHourAngleHorizon)) {
+                sunrise = null
+                sunset = null
+            } else {
+                val hourAngleHorizon = (acos(cosHourAngleHorizon) / (2 * Math.PI)).toFloat()
+                sunrise = calculateMorningEventUnixTime(solarTransitJ2000, hourAngleHorizon)
+                sunset = calculateEveningEventUnixTime(solarTransitJ2000, hourAngleHorizon)
+            }
+
+            EpochMilliSkylightDay.Eventful(dawn, sunrise, sunset, dusk)
         }
     }
 }
