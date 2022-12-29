@@ -6,6 +6,8 @@ import dev.drewhamilton.skylight.isLight
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.Month
+import java.time.YearMonth
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
@@ -36,6 +38,30 @@ class CalculatorSkylightTest {
     @Test fun `Svalbard on January 6, 2019 is never light`() = runTest {
         val result = skylight.getSkylightDay(SVALBARD, JANUARY_6_2019)
         assertEquals(SkylightDay.NeverLight(date = JANUARY_6_2019), result)
+    }
+
+    @Test fun `Svalbard on November 13, 2022`() = runTest {
+        val date = LocalDate.of(2022, Month.NOVEMBER, 13)
+        val result = skylight.getSkylightDay(SVALBARD, date)
+        assertEquals(
+            SkylightDay.Eventful(
+                date = date,
+                dawn = Instant.parse("2022-11-13T09:40:03.476Z"),
+                dusk = Instant.parse("2022-11-13T11:03:26.045Z"),
+            ),
+            result,
+        )
+    }
+
+    @Test fun `Svalbard every day in 2022`() = runTest {
+        val year = 2022
+        Month.values().forEach { month ->
+            val yearMonth = YearMonth.of(year, month)
+            for (day in 1..yearMonth.lengthOfMonth()) {
+                val date = LocalDate.of(year, month, day)
+                skylight.getSkylightDay(SVALBARD, date)
+            }
+        }
     }
     //endregion
 
